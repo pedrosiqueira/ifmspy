@@ -489,10 +489,15 @@ b = 5
 maior = a if a > b else b
 print(maior)</code></pre>
     <p>Neste caso, o operador ternário <code>a if a > b else b</code> verifica se <code>a</code> é maior que <code>b</code>. Se for verdadeiro, resulta no valor de <code>a</code>; caso contrário, resulta no valor de <code>b</code>. Isto é equivalente a escrever:</p>
-    <pre><code class="python">if a > b:
+    <pre><code class="python">a = 10
+b = 5
+
+if a > b:
     maior = a
 else:
-    maior = b</code></pre>
+    maior = b
+
+print(maior)</code></pre>
     <p>Considere também este exemplo:</p>
     <pre><code class="python">nota = float(input("Qual é a tua nota? "))
 print("Aprovado!" if nota >= 6 else "Reprovado!")</code></pre>
@@ -501,6 +506,30 @@ print("Aprovado!" if nota >= 6 else "Reprovado!")</code></pre>
     <h3>Valores Verdadeiros e Falsos em Python</h3>
     <p>Enquanto os valores booleanos <code>True</code> e <code>False</code> correspondem diretamente aos números 1 e 0, respectivamente, o Python oferece uma abordagem flexível para considerar outros valores como verdadeiros ou falsos em contextos condicionais. Isso acontece quando esses valores são avaliados de forma isolada dentro de estruturas como <code>if</code> ou <code>while</code>, sem o uso de operadores relacionais, ou quando são passados como argumentos para a função <code>bool()</code>.</p>
     <p>Considere o exemplo abaixo, em que a variável <code>var</code> é avaliada isoladamente no contexto do <code>if</code>:</p>
+    <pre><code class="python">var = -1
+if var:
+    print(var, "é verdadeiro")
+else:
+    print(var, "é falso")
+
+var = 0
+if var:
+    print(var, "é verdadeiro")
+else:
+    print(var, "é falso")
+
+var = 3
+if var:
+    print(var, "é verdadeiro")
+else:
+    print(var, "é falso")
+
+var = "0"
+if var:
+    print(var, "é verdadeiro")
+else:
+    print(var, "é verdadeiro")</code></pre>
+    <p>Veja o código equivalente usando operador ternário:</p>
     <pre><code class="python">var = -1
 print(var, "é", "verdadeiro" if var else "falso")
 
@@ -514,19 +543,21 @@ var = "0"
 print(var, "é", "verdadeiro" if var else "falso")</code></pre>
     <p>Quando avaliados isoladamente em um contexto condicional, os seguintes valores são considerados falsos:</p>
     <ul>
-        <li>As constantes <code>None</code> e <code>False</code></li>
-        <li>O número zero</li>
-        <li>Objetos cujo comprimento é zero, como uma string vazia <code>""</code></li>
+        <li>As constantes <code>None</code> e <code>False</code>,</li>
+        <li>O número zero,</li>
+        <li>Objetos cujo comprimento é zero, como uma string vazia <code>""</code>,</li>
+        <li>Objetos cujo método <code>__bool__</code> retorna <code>False</code>.</li>
     </ul>
     <p>Para todos os outros valores, a avaliação resulta em <code>True</code>, inclusive para a string <code>"False"</code>. Apesar de seu conteúdo ser "False", ela não está vazia, portanto, é considerada <code>True</code>.</p>
+    <p>(Observação: Ao mencionar termos ou conceitos do Python, como "objetos", que ainda não foram discutidos, você pode simplesmente ignorar. Foque no entendimento das informações já explicadas até o momento.)</p>
 
     <h3>Erros</h3>
     <p>Um <b>erro de sintaxe</b> ocorre quando o código que você escreve não segue a gramática definida pela linguagem de programação. Esses erros são detectados durante a análise do código, antes de ser executado. Eles geralmente resultam em mensagens de erro que indicam a linha e o local onde a violação ocorreu. Erros de sintaxe incluem coisas como escrever palavras-chave erradas, omitir parênteses de fechamento, usar operadores de forma incorreta e outros problemas que violam as regras da linguagem.</p>
     <p>Quantos erros de sintaxe você consegue encontrar a seguir?</p>
     <pre>nota1 = float(input("qual tua nota? ))
-    if nota2 >= 6
-    print("aprovado"
-    else:
+if nota2 >= 6
+print("aprovado"
+else:
     print(reprovado)</pre>
     <p>Erros de sintaxe também podem ser chamados de <b>erros em tempo de compilação</b> ou simplesmente <b>erros de compilação</b>, porque eles são detectados pelo compilador antes da execução do programa, impedindo o programa de ser executado, mesmo que apenas algumas instruções estejam erradas.</p>
     <p>Um <b>erro em tempo de execução</b> ou simplesmente <b>erro de execução</b> ocorre quando o programa está em execução e encontra uma situação imprevista que impede seu funcionamento normal. Isso pode ser causado por vários motivos, como entradas inválidas, tentativas de acesso a variáveis inexistentes, divisões por zero, entre outros. Esses erros são frequentemente chamados de <b>exceções</b> e interrompem a execução do programa a partir de onde ocorreram, geralmente exibindo uma mensagem de erro para o usuário.</p>
@@ -543,15 +574,16 @@ quadrado = numero * 2
 print("O quadrado do número é", quadrado)</code></pre>
 
     <h2>Exercícios</h2>
+    <p>Observação: procure resolver apenas com o que ensinei até o momento. (Evite usar operadores lógicos como <code>and</code> e <code>or</code>).</p>
     <ol class="excs">
         <li>Dado um inteiro, ele é par ou ímpar?</li>
-        <li>Dados dois números, o primeiro é o dobro do segundo?</li>
-        <li>Dados dois inteiros, algum deles é ímpar?</li>
-        <li>Dados dois inteiros, ambos são pares?</li>
-        <li>Dados três inteiros, a soma deles é ímpar?</li>
+        <li>Dados dois números, o primeiro é o dobro do segundo? Responda com SIM ou NÃO.</li>
+        <li>Dados dois inteiros, algum deles é ímpar? Responda com SIM ou NÃO.</li>
+        <li>Dados dois inteiros, ambos são pares? Responda com SIM ou NÃO.</li>
+        <li>Dados três inteiros, a soma deles é ímpar? Responda com SIM ou NÃO.</li>
         <li>Dados dois números, qual o maior deles e a diferença absoluta entre eles? (a diferença absoluta é o maior menos o menor).</li>
         <li>Dados três números, qual o maior?</li>
-        <li>Dados três números representando os lados de um triângulo, ele é equilátero, isósceles ou escaleno? (como seria esse exercício sem o else?)</li>
+        <li>Dados três números representando os lados de um triângulo, ele é equilátero, isósceles ou escaleno? (como seria esse exercício sem o else nem o elif?)</li>
         <li>Em certa região, o preço pelo fornecimento de energia elétrica depende do consumo em kWh, conforme a seguinte tabela:
             <table class="custom">
                 <tr>
@@ -567,8 +599,11 @@ print("O quadrado do número é", quadrado)</code></pre>
                     <td>0,65</td>
                 </tr>
             </table>
+            <p>Dado o consumo de uma residência em kWh, qual o preço da energia a ser pago?</p>
         </li>
-        <li>Determinar as raízes ou zero de uma função do 2º grau consiste em determinar os pontos de intersecção da parábola com o eixo das abscissas no plano cartesiano. Dada a função $f(x) = ax^2 + bx + c$, podemos determinar sua raiz considerando $f(x) = 0$, dessa forma obtemos a equação do 2º grau $ax^2 + bx + c = 0$, que pode ser resolvida pelo método resolutivo de Bháskara. Neste, as raízes são $x_1=-b+\sqrt{\Delta}/2a$ e $x_2=-b-\sqrt{\Delta}/2a$, onde $\Delta = b² - 4ac$. Dados os valores das constantes $a$, $b$ e $c$, quais as raízes da equação? Caso $a=0$, escrever "Não é equação de segundo grau". Caso $\Delta &lt; 0$, escrever "Não existe raiz". Caso $\Delta=0$, escrever a raiz e a mensagem "Raiz única". Caso $\Delta \gt 0$, escrever as duas raízes.</li>
+        <li>Determinar as raízes ou zero de uma função do 2º grau consiste em determinar os pontos de intersecção da parábola com o eixo das abscissas no plano cartesiano. Seja a função $f(x) = ax^2 + bx + c$, podemos determinar sua raiz considerando $f(x) = 0$, dessa forma obtemos a equação do 2º grau $ax^2 + bx + c = 0$, que pode ser resolvida pela fórmula de Bháskara. Nesta, as raízes são $$x_1=\dfrac{-b+\sqrt{\Delta}}{2a}$$ e $$x_2=\dfrac{-b-\sqrt{\Delta}}{2a}$$, onde $\Delta = b² - 4ac$.
+            <p>Dados os valores das constantes $a$, $b$ e $c$, quais as raízes da equação? Caso $a=0$, escrever "Não é equação de segundo grau". Caso $\Delta &lt; 0$, escrever "Não existe raiz". Caso $\Delta=0$, escrever a raiz e a mensagem "Raiz única". Caso $\Delta \gt 0$, escrever as duas raízes.</p>
+        </li>
         <li>Dado o código de determinado produto, qual a sua classificação? Utilize a seguinte tabela de referência:
             <table class="custom">
                 <thead>
@@ -605,7 +640,7 @@ print("O quadrado do número é", quadrado)</code></pre>
                 </tbody>
             </table>
         </li>
-        <li>Dado o preço da etiqueta de um produto e o código da condição de pagamento, qual o valor a ser pago pelo produto? Utilize a seguinte tabela de referência:
+        <li>Dado o preço da etiqueta de um produto e o código da condição de pagamento, qual o valor total a ser pago pelo produto, e, se for o caso, o valor de cada parcela? Utilize a seguinte tabela de referência:
             <table class="custom">
                 <thead>
                     <tr>
@@ -663,7 +698,8 @@ print("O quadrado do número é", quadrado)</code></pre>
 <!--
 Substituir:
  < → &lt; 
-`(\w+)`→
+`(\w+)`→<code>$1</code>
+`(\w+)(\(\))`→<code>$1</code>
 -->
 
 
