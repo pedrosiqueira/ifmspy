@@ -38,6 +38,8 @@
             border-collapse: collapse;
             margin-left: auto;
             margin-right: auto;
+            padding-left: 5px;
+            padding-right: 5px;
             text-align: center;
         }
 
@@ -86,7 +88,7 @@
 
 <div id="resto-da-divisao">
     <h1>Resto da divisão</h1>
-    <q>O resto é consequência</q>
+    <q>O resto é consequência.</q>
     <p>No Python, o operador <code>%</code> realiza a operação de resto da divisão, que algumas pessoas também chamam de módulo. Já o operador <code>//</code> realiza o “piso” da divisão entre dois números, isto é, resulta no maior inteiro menor ou igual ao resultado da divisão. Essa operação é equivalente à divisão inteira quando são usados números positivos:</p>
     <p>
         <img id='dividendo-divisor' alt='dividendo e divisor'>
@@ -133,7 +135,7 @@ print(dividendo, '=', divisor, '*', cociente, '+', resto)
     <h3>Dia juliano para dia da semana</h3>
     <p>Para saber o dia da semana a partir de um dia juliano, usamos a seguinte fórmula, começando do domingo como dia zero, sendo <code>%</code> o resto da divisão:</p>
     <p>$W1 = (J + 1) \% 7$</p>
-    <table border="1">
+    <table class="custom">
         <tr>
             <th>W1</th>
             <th>0</th>
@@ -158,7 +160,7 @@ print(dividendo, '=', divisor, '*', cociente, '+', resto)
     <p>Mas se o horário for depois da meia-noite UT (e antes do meio-dia UT), então já está no próximo dia da semana.</p>
     <p>Já considerando a segunda-feira como dia 1 e domingo como dia 7, usamos a seguinte fórmula:</p>
     <p>$W0 = J \% 7 + 1$</p>
-    <table border="1">
+    <table class="custom">
         <tr>
             <th>W0</th>
             <th>1</th>
