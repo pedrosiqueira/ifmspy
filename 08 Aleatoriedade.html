@@ -138,7 +138,7 @@ sorteado = primeiro + diferenca * int(random.random() * quantidade)</code></pre>
 
     <p>Caso você necessite de geração de números verdadeiramente não determinística, o módulo <code>secrets</code> está disponível para esse propósito, seguindo um padrão de uso semelhante ao módulo <code>random</code>.</p>
 
-    <p>Se não informar a semente, o Python utiliza o horário atual como semente. Para informar a semente:</p>
+    <p>Se não informar a semente, o Python utiliza o horário atual como semente. Assim, a cada execução é usada uma semente diferente. Para informar a semente:</p>
     <pre><code class="python">import random
         
 random.seed(2)
@@ -160,7 +160,7 @@ print(random.random())</code></pre>
         <li>Dados dois inteiros $m$ e $n$, gerar três inteiros aleatórios múltiplos de $m$ entre $0$ e $n$.</li>
         <li>Gerar dois inteiros aleatórios cuja soma esteja entre [0 e 100).</li>
         <li>Gerar uma letra aleatória entre 'a' e 'z'.</li>
-        <li>Gerar uma senha aleatória de 8 dígitos com letras maiúsculas, minúsculas e inteiros.</li>
+        <li>Gerar uma senha aleatória de 8 caracteres com letras maiúsculas, minúsculas e dígitos.</li>
         <li>Gerar três decimais aleatórios entre [-100 e 100], com até duas casas decimais.</li>
         <li>Ler um número inteiro e escrever um valor aleatório com base nesse número: uma letra maiúscula se o usuário inseriu 1, uma letra minúscula se o usuário inseriu 2 e um dígito se o usuário inseriu qualquer valor que não seja 1 ou 2.</li>
 

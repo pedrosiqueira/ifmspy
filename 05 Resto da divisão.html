@@ -115,6 +115,25 @@ print(dividendo, '=', divisor, '*', cociente, '+', resto)
     <p>Operação de piso da divisão no Python:</p>
     <pre><code class="python">result = -5 // 2  # Result: -3</code></pre>
 
+    <p>Com o operador de resto da divisão, podemos saber se um número é múltiplo ou divisor de outro número. Por exemplo, para saber se uma variável é par ou ímpar, verificamos se seu resto é 0 ou 1, respectivamente:</p>
+    <pre><code class="python">par = 10
+impar = 15
+
+resto1 = par % 2
+resto2 = impar % 2
+
+print(resto1, resto2)</code></pre>
+
+    <p>Ao realizar divisões inteiras sucessivas por 10, obtendo o resto a cada divisão, conseguimos decompor um número em seus algarismos:</p>
+    <pre><code class="python">num = 123
+unidade = num % 10
+num = num // 10
+dezena = num % 10
+num = num // 10
+centena = num % 10
+
+print(centena, dezena, unidade)</code></pre>
+
     <h2>Dia juliano</h2>
     <p>O dia juliano é a contagem contínua de dias desde o início do período juliano e é usado principalmente por astrônomos e em software para calcular facilmente os dias decorridos entre dois eventos.</p>
     <p>O período juliano começou no dia juliano 0, que no calendário gregoriano proléptico, começou ao meio-dia de 24 de novembro de 4714 a.C.</p>

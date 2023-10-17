@@ -114,14 +114,27 @@
     <p>No Modo de Arquivo, várias linhas de código Python podem ser agrupadas em um arquivo de código fonte com a extensão <code>.py</code>. Nesse caso, o interpretador Python funciona como um compilador, gerando bytecode do seu código fonte. Para usar o Modo de Arquivo, você precisará criar e escrever o código Python em um editor de texto e, em seguida, executá-lo usando um terminal.</p>
 
     <h2>Ambiente de desenvolvimento integrado</h2>
-    <p>Para facilitar o desenvolvimento de programas em Python, usaremos o Visual Studio Code (vscode). Trata-se de um Ambiente de Desenvolvimento Integrado (IDE) que integra recursos para escrever, depurar, compilar e gerenciar dependências de código em um único lugar. Siga o link <a href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a> para instalar o vscode.</p>
-    <p>Já com o Python instalado, abra o vscode, tecle <kbd>Ctrl + Shift + X</kbd> para abrir a aba de extensões, procure e instale pelo pacote de extensões "donjayamanne.python-extension-pack".</p>
-    <p>Feito isso, tecle <kbd>Ctrl + K</kbd>, <kbd>Ctrl + O</kbd> para abrir uma pasta pelo vscode onde deixaremos todos os códigos do curso. Crie-a, se necessário. Eu chamarei esta pasta de <code>ifms-algoritmos-python</code>.</p>
-    <p>Organizaremos a pasta do nosso curso por aulas. Criaremos uma pasta para cada aula, onde colocaremos os códigos desenvolvidos naquela aula. Como já estamos na segunda aula, crie a pasta <code>aula02</code> dentro da pasta do nosso curso. Agora, crie o arquivo <code>hello-world.py</code> dentro da pasta <code>aula02</code>, digite o comando <code>print('hello, world!')</code> no arquivo e tecle <kbd>F5</kbd> para executá-lo. Parabéns, esse é seu primeiro programa em Python!</p>
+    <p>Para facilitar o desenvolvimento de programas em Python, usaremos o Visual Studio Code (vscode). Trata-se de um Ambiente de Desenvolvimento Integrado (IDE) que integra recursos para escrever, depurar, compilar e gerenciar dependências de código em um único lugar. Você pode baixar o VSCode <a href="https://code.visualstudio.com/download">aqui</a>.
+    <p>Já com o Python instalado, abra o vscode e acesse a aba de extensões (atalho <kbd>Ctrl + Shift + X</kbd>). Em seguida, instale as seguintes extensões:</p>
+    <ul>
+        <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python">ms-python.python</a></li>
+        <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter">ms-python.black-formatter</a></li>
+        <li><a href="https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode">VisualStudioExptTeam.vscodeintellicode</a></li>
+        <li><a href="https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.intellicode-api-usage-examples">VisualStudioExptTeam.intellicode-api-usage-examples</a></li>
+        <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-python.isort">ms-python.isort</a></li>
+    </ul>
+    <h2>Criando nosso projeto</h2>
+    <p>É muito importante mantermos organizado nosso ambiente de trabalho. Como programadores, separamos nossos códigos em projetos, que são pastas que agrupam nossos arquivos de código.</p>
+    <p>Crie uma pasta para armazenar todos os nossos códigos relacionados à nossa matéria. Eu chamarei esta pasta de <code>ifms-algoritmos-python</code>.</p>
+    <p>Pelo vscode, acesse a aba de explorador de pastas (atalho <kbd>Ctrl + Shift + X</kbd>) e abra a pasta recém criada (atalho <kbd>Ctrl + K Ctrl + O</kbd>).</p>
+    <p>Organizaremos a pasta da nossa matéria por capítulos. Criaremos uma pasta para cada capítulo, onde colocaremos os códigos desenvolvidos naquele capítulo.</p>
+    <p>Como já estamos no segundo capítulo, crie a pasta <code>cap02</code> dentro da pasta da nossa matéria. Você pode fazer isso no vscode clicando com o botão direito no espaço vazio da aba de explorador e selecionando "New folder...".</p>
+    <p>Agora, crie o arquivo <code>hello-world.py</code> dentro da pasta <code>cap02</code>. Você pode fazer isso no vscode clicando com o botão direito em cima da pasta e selecionando "New file...". Observe que todos os arquivos de código-fonte em Python devem terminar com a extensão <code>.py</code>.</p>
+    <p>Digite o comando <code>print('hello, world!')</code> dentro do arquivo recém-criado e tecle <kbd>F5</kbd> para executá-lo. Parabéns, esse é seu primeiro programa em Python!</p>
 
-    <h3>Debugging</h3>
+    <h2>Debugging</h2>
     <p>Errar faz parte do processo de aprendizagem, especialmente na programação. No entanto, às vezes é difícil encontrar a fonte de um erro no código. É aí que entra a arte de <b>debugging</b>. Debugging, ou depuração de código, é o processo de identificar, isolar e corrigir erros em um programa de computador. Quando um programa apresenta comportamentos inesperados, é necessário depurar o código para encontrar e resolver o problema. Isso envolve pausar a execução do programa, observar variáveis e valores em diferentes pontos do código e identificar onde ocorrem os erros. O debugging também é útil para entender o funcionamento do programa, permitindo que você o execute passo a passo, no seu próprio ritmo.</p>
-    <p>Veja se você consegue entender o que esse código está fazendo:</p>
+    <p>Crie o arquivo <code>factorials.py</code> dentro da pasta <code>cap02</code>, e adicione o seguinte código no arquivo:</p>
     <pre><code class="python">def calculate_sum_of_factorials(argument1, argument2):
     factorial1 = calculate_factorial(argument1)
     factorial2 = calculate_factorial(argument2)
@@ -142,7 +155,7 @@ b = 10
 sum_of_factorials = calculate_sum_of_factorials(a, b)
 print("The sum of factorials of the entered integers is", sum_of_factorials)
 </code></pre>
-    <p>Agora, antes de executá-lo de uma vez, experimente colocar um <b>breakpoint</b> na linha 16.</p>
+    <p>Veja se você consegue entender o que esse código está fazendo. Agora, antes de executá-lo de uma vez, experimente colocar um <b>breakpoint</b> na linha 16.</p>
     <p>Dentre as opções de depuração no vscode, você pode continuar a execução até o próximo breakpoint (<kbd>F5</kbd>), avançar (<kbd>F10</kbd>), entrar (<kbd>F11</kbd>), sair (<kbd>Shift + F11</kbd>).</p>
     <p>Na aba de depuração, você pode ver os valores das variáveis atuais, definir observadores (watch) de variáveis ou expressões, consultar a pilha de chamadas de funções e os breakpoints.</p>
     <p>Na aba "Debug Console", você pode escrever linhas de códigos que são executadas no contexto do programa atual, com acesso às suas variáveis e funções.</p>
