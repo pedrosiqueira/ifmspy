@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-    <script defer>hljs.configure({ cssSelector: "code", languages: ["console"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+    <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx" crossorigin="anonymous"></script>
@@ -266,14 +266,7 @@ print(i)</code></pre>
     </table> -->
 
     <h2>Laços aninhados</h2>
-    <p>Seja estruturas de seleção ou de repetição, podemos colocá-las umas dentro das outras. Veja este exemplo de um <code>for</code> dentro de outro <code>for</code>. Qual a saída?</p>
-    <pre><code class="python">print("Início")
-for externo in range(1, 4):
-    print(">", end=" ")
-    for interno in range(1, 6):
-        print(externo, interno, sep="", end=" ")
-    print()  # Adiciona uma quebra de linha após a conclusão de cada linha interna
-print("Fim")</code></pre>
+    <p>Seja estruturas de seleção ou de repetição, podemos colocá-las umas dentro das outras. Veja este exemplo de um <code>for</code> dentro de outro <code>for</code>.</p>
 
     <p>Veja esse exemplo de <code>if-else</code> dentro de <code>for</code>. Qual a saída?</p>
     <pre><code class="python">i = 12
@@ -285,6 +278,48 @@ for j in range(1, i + 1):
         print(" B", end="")
     else:
         print(" C", end="")</code></pre>
+
+    <p>Vamos examinar um exemplo de laço <code>for</code> simples:</p>
+    <pre><code>i = 1
+print("(", end=" ")
+for j in range(0, 5):
+    print(j, end=" ")
+print(")")</code></pre>
+
+    <p>A linha 4 é executada 5 vezes. Agora, vamos colocar esse laço dentro de outro laço:</p>
+
+    <pre><code>for i in range(0, 3):
+    print("(", end=" ")
+    for j in range(0, 5):
+        print(j, end=" ")
+    print(")")</code></pre>
+
+    <p>Neste novo código, devido ao laço da linha 1, as linhas 2 a 5 são executadas 3 vezes. A linha 4, que já era executada 5 vezes no laço interno, agora é executada um total de 3 * 5 = 15 vezes!</p>
+
+    <p>O laço interno repete a mesma quantidade de vezes a cada ciclo do laço externo. Mas poderíamos alterar esse comportamento:</p>
+
+    <pre><code>for i in range(0, 3):
+    print("(", end=" ")
+    for j in range(i, 5):
+        print(j, end=" ")
+    print(")")</code></pre>
+
+    <p>Qual a saída do seguinte código?</p>
+    <pre><code class="python">print("Início")
+for externo in range(1, 4):
+    print(">", end=" ")
+    for interno in range(1, 6):
+        print(externo, interno, sep="", end=" ")
+    print()  # Adiciona uma quebra de linha após a conclusão de cada linha interna
+print("Fim")</code></pre>
+
+<p>Qual a saída do seguinte código?</p>
+<pre><code>for i in range(0, 3):
+    for j in range(0, 4):
+        for k in range(0, 2):
+            print("3", end="")
+        print("2", end="")
+    print("1", end="")</code></pre>
 
     <h2>Exercícios</h2>
     <ol class="excs">
@@ -306,14 +341,14 @@ for ano in range(1, t + 1):
         <li>Dados dois números inteiros, multiplicá-los usando somas repetidas. Não pode usar o operador de multiplicação "*". Sugestão: usar um laço e o operador de soma (+).</li>
         <li>Qual a tabuada dos número de 1 a 10?</li>
         <li>Dado um natural, quais seus divisores? Por exemplo, os divisores de 90 são 1, 2, 3, 5, 6, 9, 10, 15, 18, 30, 45, 90.</li>
-        <li>Programa de caixa de loja. Ler uma sequência de triplas que correspondem às informações dos produtos comprados: quantidade, preço unitário, nome do produto. Escrever, em uma linha para cada produto, seu nome e o preço total. Escrever na última linha o preço total da compra.</li>
+        <li>Programa de caixa de loja. Ler uma sequência de triplas que correspondem às informações dos produtos comprados: quantidade, preço unitário, nome do produto. A sequência termina quando for lida uma tripla de zeros. Escrever, em uma linha para cada produto, seu nome e o preço total. Escrever na última linha o preço total da compra.</li>
         <li>Dada uma sequência de duplas de números, representando valores e seus respectivos pesos, seguida por uma dupla de zeros, qual a média ponderada desconsiderando a dupla de zeros?</li>
         <li>Dada uma sequência de inteiros seguida por um múltiplo de 11, 13 ou 17, qual o menor número?</li>
         <li>Dado um inteiro $n$ e um dígito $d$, quantas vezes $d$ ocorre em $n$? Por exemplo, o dígito $2$ ocorre $3$ vezes em $762021192$.</li>
         <li>Dado um inteiro, qual o seu reverso? Exemplo de entrada→saída: 5837→7385.</li>
         <li>Dado um natural no sistema decimal, qual seu equivalente no sistema binário? Para realizar a conversão do sistema decimal para binário, realiza-se a divisão sucessiva por 2. O resultado da conversão será dado pelo último quociente (MSB) e o agrupamento dos restos das divisões.</li>
         <li>Dado um natural menor que 10000, qual sua forma por extenso? Por exemplo, dado o número 9243, sua forma por extenso é "nove mil duzentos e quarenta e três".</li>
-        <li>Decompor um número em fatores primos ou, fatorá-lo, é escrever este número como uma multiplicação de números primos. Os fatores são termos da multiplicação que, neste caso, são números primos. A fatorização é uma técnica usada em muitos algoritmos de criptografia sem os quais a internet não existiria da forma como a conhecemos. A fatoração de um número natural qualquer se dá pela seguinte forma: Divida o número pelo seu menor divisor primo. O quociente será o novo número. Continue dividindo o número pelo seu menor divisor primo até chegar em 1. A multiplicação de todos os divisores dará o valor do número original. Exemplo, os fatores primos de $180$ são $2\cdot 2\cdot 3\cdot 3\cdot 5 = 180$:
+        <li>Decompor um número em fatores primos ou, fatorá-lo, é escrever este número como uma multiplicação de números primos. Os fatores são termos da multiplicação que, neste caso, são números primos. A fatoração é uma técnica usada em muitos algoritmos de criptografia sem os quais a internet não existiria da forma como a conhecemos. A fatoração de um número natural qualquer se dá pela seguinte forma: Divida o número pelo seu menor divisor primo. O quociente será o novo número. Continue dividindo o número pelo seu menor divisor primo até chegar em 1. A multiplicação de todos os divisores dará o valor do número original. Exemplo, os fatores primos de $180$ são $2\cdot 2\cdot 3\cdot 3\cdot 5 = 180$:
             <table style="border-spacing: 0; text-align: center;">
                 <tr>
                     <td>180</td>
@@ -342,7 +377,7 @@ for ano in range(1, t + 1):
             </table>
             <p>Dado um natural $n$, quais seus fatores primos?</p>
         </li>
-        <li>Dado um natural, qual seu fatorial? (sugestão: use long ao invés de int)</li>
+        <li>Dado um natural, qual seu fatorial?</li>
         <li>Sejam dois naturais $n\geq p$, podemos calcular seu número binomial como $\binom n p = \dfrac {n!} {p!(n-p)!}$. Dados dois naturais $n\geq p$, qual seu número binomial?</li>
 
     </ol>
