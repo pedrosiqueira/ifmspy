@@ -41,8 +41,6 @@ function pseudocode(hljs) {
     'bool',
     'float',
     'int',
-    'max',
-    'min',
     'pow',
     'print'
   ];

@@ -12,15 +12,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="pseudocode.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
     <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx" crossorigin="anonymous"></script>
+    <!-- retire o atributo output para, ao copiar uma fórmula, copiar tanto no formato html quanto no formato mathml, entretanto, a fórmula sai duplicada -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false},],output:'html'});"></script>
 
     <style>
         img {
@@ -167,7 +167,7 @@ else:
             <td>
                 <pre><code>i = 1
 while i &lt;= 10:
-    print(i, end=' ')
+    print(f"{i} ", end='')
     if i % 4 == 0:
         print("pula")
         continue
@@ -178,7 +178,7 @@ print("fim!")</code></pre>
             <td>
                 <pre><code>
 for i in range(1, 11):
-    print(i, end=' ')
+    print(f"{i} ", end='')
     if i % 4 == 0:
         print("pula")
         continue
@@ -196,8 +196,8 @@ print("fim!")</code></pre>
 
     <h3>Exercícios</h3>
     <ol class="excs">
-        <li>Dada uma sequência de 10 inteiros, qual a soma dos múltiplos de 3? Entretanto, múltiplos de 6 não devem ser contabilizados na soma. Utilize <code>continue</code>.</li>
-        <li>Dada uma sequência de inteiros, que termina com 10 números ou com um múltiplo de 6. Qual a soma dos múltiplos de 3? O múltiplo de 6 não deve ser contabilizado na soma. Utilize <code>break</code>.</li>
+        <li>Dada uma sequência de 10 inteiros, qual a soma dos múltiplos de 3 e a soma dos múltiplos de 2? Entretanto, múltiplos de 6 não devem ser contabilizados na soma. Utilize <code>continue</code>.</li>
+        <li>Dada uma sequência de inteiros, que termina com 10 números ou com um múltiplo de 6. Qual a soma dos múltiplos de 3 e a soma dos múltiplos de 2? O múltiplo de 6 deve ser contabilizado na soma. Utilize <code>break</code>.</li>
         <li>Gerar uma senha numéria aleatória entre 0 e 9999. Dar dez chances para o usuário acertar a senha, informando se o chute é maior ou menor que a senha. Quando o usuário acertar a senha ou chutar dez vezes, escrever a quantidade de tentativas e se ele acertou ou não a senha. Utilize <code>break</code>.</li>
         <li>Dado um horário entre 00:01 e 23:59, quais são os horários de minuto em minuto até as 00:00 no formato HH:MM?</li>
         <li>Dado um número $n$, quais os primos menores que $n$?</li>
@@ -236,6 +236,6 @@ Substituir:
  < → &lt; 
 <=→&lt;=
 \s+$→
-`(.+?)`→<code>$1</code>
-\*\*(.+?)\*\*→<b>$1</b>
+`(\w+)`→<code>$1</code>
+`(\w+)(\(\))`→<code>$1</code>
 -->
