@@ -274,13 +274,13 @@ if !masculino: ... </code></pre>
             </tr>
         </tbody>
     </table>
-    
+
     <p>Suponha que um professor queira recompensar seus alunos que tenham bom desempenho e tenham perdido poucas aulas. Além disso, a recompensa exige que os alunos ingressem em três organizações escolares ou participem de duas atividades esportivas. A avaliação poderia ficar assim:</p>
     <pre><code class="python">if nota > 9 and faltas &lt;= 3 and (atividades >= 3 or esportes >=  2):
     ...</code></pre>
 
     <p>Para tornar o código mais legível, você pode envolver a condição do <code>if</code> entre parênteses e acrescentar quebras de linhas entre os operadores:</p>
-    <pre><code class="python">if (nota > 9 and faltas <= 3
+    <pre><code class="python">if (nota > 9 and faltas &lt;= 3
     and (atividades >= 3 or esportes >= 2)):
     ...</code></pre>
 
@@ -376,12 +376,3 @@ if !masculino: ... </code></pre>
 
     </ol>
 </div>
-
-<!--
-Substituir:
-<=→&lt;=
- < → &lt; 
-\s+$→
-`(\w+)`→<code>$1</code>
-`(\w+)(\(\))`→<code>$1</code>
--->
