@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById('4-1-4-exception-hierarchy').src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA3wAAAHCCAIAAAA7KVxZAAA4yElEQVR4nO3d/39U1b3v8U/uwx+PTPrTOQIGenseEyyF86jWitY+TmsVmMRH1YJ2AA8HCiQkSG5VMHw5wA0Yvn87RL7km8mhlQxISvXRMAQo7b0iBFG8RKhkTtt8EfHHTMIfMPeHBcvt7C+Zb2smCa/nT8nMnr3X2rP2zHvW3muvvFgsJgAAAIBJ/yPXBQAAAMDoR+gEAACAcYROAAAAGEfoBAAAgHGETgAAABhH6AQAAIBxhE4AAAAYR+gEAACAcYROAAAAGEfoBAAAgHGETgAAABhH6AQAAIBxhE4AAAAYR+gEAACAcYROAAAAGEfoBAAAgHGETgAAABhH6AQAAIBxhE4AAAAYR+gEAACAcYROAAAAGEfoBAAAgHH35boAwD3qrQO1y5ctzXUpgMyo2X/olfLSXJcCwLBGTycAAACMo6cTyCX6hzDS0WcPIEH0dAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInMMKcv9CR56mwcFJ9Y3NPb1+uS5qEnt4+70pZhY615rq82bBx0+a8vLyiomdzXRAAyAxCJzDaRCJdJYsXfnvihPrG5lyXBQCAOwidwEjV3dMbc1LX0OT3F4pIyeKFJ0+dznUxk/PBhxcdK2UVfGlWrouZMUVFz+bl5W3ctDnXBQEA4widwGizZNGC9tOnA4FiEfnNf/1XrouDFK1ftyYWi508+YdcFwQAMoPQCYxCEycUvDBrtoiEQkdG1sWdAIDRitAJjE4PPTRJ/XHzy1u5LQkAAELoBO5N0YGB+sbm0qXl1lHhpUvLPcYe1Tc2z5kzz7qw9yjyk6dOq/HXJsbUh461qtXu3ltjf1aVs3RpuXeRioqe9R5rlXgV1J7Ul2bWNzYXFk5Sr5ozZ559R+l1hsNtIrJh/VrrjlXLDDl6/eSp0yvfWJVC8ULHWq1v5e69NXSHA8iGIa/ZB2BCzf5DIlKz/1CyL/zgw4vq4HUbSKTUNTSpxfqj0bin2sLtHp8JgUBx3Jqvdl5TV4jalZSW2dffH42WlJa5rb8t3G4vbXdPr3o2kYFEStXGavWSq53X7BX3+wutBfMoUjA4174nk62CWrhqY3V3T28wONdxR1mXd1uzdUlVwUCg2F73lIvn9kK/vzBuNyYu5ZYM4F5DTycwCvX09u3cvlVEqjZW5/t81qdOnjpdHJghIsHg3Jajx/VnwdXOayrlhMNtW7Zs1ctHBwZWVVaGw22BQLFOM909vWrhutqD1dVb4rZetrS8rvagiNQ1NOnkd7Xz2oqVlSJSHJiRkTH1FRXL1CD9LZu/Hvr9dcU3faPi1iKp8vRHo6oKodCR1atWZ6oKq1etvnLlE70V645a+cYqvZje7SrNV22s1o/UHjrgXfHowIAu3q49+3Tx2sLtKu8WB2a49eBWV2+pqz2o0qd6lcrokUjXqspK7+0CQLoyHGIBJMZQT2d3T6/u4wwG59q7IVXKCQSK7U/FLN2HcaHEcXO79uxTT1m7J/Xyjj1njt2QsZR6OmOxWMvR4+pVOuSpbry4bkVdJPvK9VPW/J1CFdR2/f5Cv7/QvqM8CmAPnZpbT6fjbo8rSdz7pYsXV9O44jl2Qg+Jnk4ACSJ0ArmRfuj04PcX6hxm1d3Tq/rq7MlDudp5LS5/qOWDwbn2hfujURWY9ML90ahKNo5bV1TMiltAh04PjslMx6n+aFRnUGve0kVyfLkuj86pqVVBRz23HRu3lbjHEw+dap97FM+xvrp4bjtBvWTXnn2Oz3ojdAJIEKfXgVEoEuk60Xrcfgp44oSCHdu3xtzvrz5mzP3qj8HB29bHr1z5xL5wvs8Xi8XWr1tTNHO6euTCxUuRSJeIvDj7BbeyqXs5nTt7JtHKeFq9epWIRCJd1dVbNqxbKyJ1DU0TJxToBU61n1VFev755xzX8PT0GSIyZsyY9Kvg9xe67Vj1krrag9GBgQSr5ujd4yfUH888/ZTjAvk+X2nZMhF557eH7c+67YSHH35ERL669WU6ZQMAb4ROYKRyPL3eH43WNTQFg3PD4TaPa/tE5PyFjvrGZuvw57y8vG9PnBC32ANjx4lIJNJVurR8yMB040aXiASDc+MuJLUaN26siIRCRxzX5nF6ff26NfblJ04oUGeHd+7YFol0BYNzlyxaYF3g1q1bIuL3F06dMtmxPK/9enksFtuxfWv6VVDRzZG+g9W165+7LZOIr27dEpFAoNgarONMmlQoIpFIV+dn162Pe+yEMT6fiAwODqZTNgDwRugERpV8n2/JogUtLe+ok7Mlixeev9ARt0zoWGth4aQf/+jxksULd+7Y5r3CX7zw3J3TzbUHv5Wfv3HT5vrGZrf0qbrKQqEjee7UMCYR6eu7mWZllSWLFujB9cuWL497tuvG5yLyk5869wtmtgpj3HPq+HFj1R83b6bVm/jllzdF5MEC18QpIt/9+hat39iWRyYGgCwgdAKj0/p1a1QUe+/3v7c+vntvzZxfzlZnkOsamuKuQbRfWzlxQsG7x1v1bYA2rF9bsnjht/Lz1f0d487gJ9VVNnj79tALJenzz2+kuYacVyGD4q6R8MjEAJAFhE5g1FJXK16/dk0/cv5Cx+uvVsjd+2suWbTA7RpEq6lTJre0vNMWbtfjppXXX60oDsyYM2eevrW4ujLSPlzG0ZNPTMtINXfvrVG3WBeRksUL07zPeU6qYIi+QhcAhgNCJzBq3X///SKiA5nc7fX0+wu3bdvieM3iX9x7CotmTleXP8ZisbqGJh1AQ6Ej5WV3JtFRF4AOpjdWJimdn11XMbot3H7ntp2Wm4yKyLhx40Xki75Ek2g6VfB4lZ6MVJ/7Tk0i1dFv4vhx49LZFgBkFqETGLVu374td+/OqKhzxz9/7nm3UTIfX/44kTUvWbRABVB1L55wuE2dZ1dDWNwGCZmg7gxftbG6aOb0qk13bsNunXbygbFjVQndekB3763Jy8vTI67SqYLjGH9Fn/cvKBif7GqthqyO3B0L5TFsCABygtAJjFqXL3XIN4ePqK44t8sWOz+7vmH92rhH1AzgbtOsqzsWyd3LB594/DGVcfWdfezqG5ut84Cno76xORQ6EggUV1QsE5HgS7PUtacb1q3VkVHf+ejM2XP2NUQHBmoP7heRSNedUJhOFSKRLvuwLeVE63ERWbGy0jHu376d6IWkujq/O/Ge4wK6RvNenp/gOgEgOwidwOikApmIPPX0M/rBRx+bJiJ1tQft/WQ9vX2rKiut3aIiMnXK5I6LF0Rkw7q1cfffUTouXVZ/qLPG+T7fijdWiUjJ4oWOy5+/0FGyeKHc7bFLR09vn1rVKxUVOsmtXrNGRCKRrn379qtH8n0+PZDfXqS3mw6rMVWP/OBRvXw6Vdj85pv2LlJ91elzzz8f95TP55NvXnfrLd/nUxc2vP5qhWPAraxcrWo0f/7LCa4TALIkkYvlAWScoWkwY7FYy9HjegaauJmEunt6VawMBIrjJn5Uj7eF29UL9YQ3+hH55kTk/dGovqxzxcpK61b0UHfrzODdPb16efswnRSmwVR1jNt0zGmWyP5oVN9TyToruppsyXElyVZBFSYYnOv3FzpOUi8u8/3oFdrnCnKbBtOteHrudbFNjOQ4O2hSC3hgRiIACSJ0ArlhdBpMnaXsE6x7vFxFJXtC0mN0HKmB8NZN9EejOvU6lspeqUSmwbRuUU+Abk/eOmJa41p3T68OZEOWP4Uq6NB2tfOa475ym3+yPxq1F0zFZY/Q6V08+xTqhE4AwwGn14HRJhAormto+uDDizu2b7VfQfjkE9O6e3pVaFPURO390aiazVJloLOnv+7gLJo5vavrRl1DU1zQ2bVnX1u4vfbQgbit5Pt8tYcOtIXbdVeiokuVfh13bt8qIlWbqu0T8+T7fK9UVIhIONy2e2+NenDihIKWlnfiqlBSWtZy9Li9/OlUYeqUyZc+umTdvSWlZW3hdsfplNSGVME8Yr3jq+zFi3sfAWC4yYvd7dgAkE1vHahdvmxpzf5Dr5SX5rosSFfp0vK62oMlpWW1hw7kuizZRksGkCB6OgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYNx9uS4AAIx4tYcO3IPj1gEgKfR0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjLsv1wUA7mnLly1dvmxprksBAIBx9HQCAADAuLxYLJbrMgCAKevW/+83N1Ud/917s174ea7LAgD3NEIngFGr49Llx6f9UESeeWbGu+8e8/nG5LpEAHDv4vQ6gFFr165d6o8zZ9p/805LbgsDAPc4ejoBjE6tJ96f/YvnrI/09n1R8OD4XJUHAO5x9HQCGIUGBgZXvv5q3IO7d+/JSWEAAELoBDAq/eadlu7uv8c9+J97d3dcupyT8gAAOL0OYLTp++LmhIIHHZ+a/eIv3z0WynJ5AABCTyeA0cfjNPrxd4+2nng/m4UBACj0dAIYVfRtktx8+9v/89NPP+X2SQCQZfR0AhhV1q9b571Ad/ffD9bWZ6cwAACNnk4Ao0fz4XcW/vvLiSzJ7ZMAIMvo6QQwSgwMDG783+sTXLiqaqPJsgAA4hE6AYwSB2vr7bdJcvN2Yz23TwKAbOL0OoDRwOM2SW6eeWbG6dOnDJUHABCHnk4Ao0EKp8vPnGl/60CticIAAOzo6QQw4p0+e27GMz9L4YXcPgkAsoaeTgAj3s7t21N7YXf333fu2p3ZwgAAHNHTCWBkGxgY/PxGl9uzu3btOv7u0ab/+u2kQr/jAvff/w+Tv/uQsdIBAO64L9cFAIC0+Hxjpj32qNuzY8aMEZFJhX6PZQAAWcDpdQAAABhH6AQAAIBxhE4AAAAYR+gEAACAcYROAAAAGEfoBAAAgHGETgAAABhH6AQAAIBxhE4AAAAYR+gEAACAcYROAAAAGEfoBAAAgHGETgAAABhH6AQAAIBxhE4AAAAYR+gEAACAcYROAAAAGEfoBAAAgHGETgAAABhH6AQAAIBxhE4AAAAYR+gEAACAcYROAAAAGEfoBAAAgHGETgAAABhH6AQAAIBxhE4AAAAYR+gEAACAcYROAAAAGEfoBAAAgHGETgAAABhH6AQAAIBxhE4AAAAYR+gEAACAcYROAAAAGEfoBAAAgHH35boAcNBx6XKuiwCMEoODgyJyoyuS64IAo8TYsQ8UPDg+16XAiJQXi8VyXQbEy8vLy3URAABwULP/0CvlpbkuBUYkejqHr18tWpLrIgAj3v/9P3/+61//e/aLvxwzZkyuywKMbF/09Z05057rUmAEI3QOX40NdbkuAjDiLVpc8te//vfrr78+7bFHc10WYGR760AtoRPpYCARAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAzItlQs3+Q7muB+DlV4uWZKSpJy7XNQaGqYsdH3EkAlqWj4jcoqcTAAAAxt2XwXXV7D/0SnlpBlcIpK/j0uXHp/0wV1uP0dEC3LVoccnbjfU52TRHIoahHB4RuUJPJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMG/GhMzowUN/YPGfOvDyLjZs2h4615rpow1RPb19ewpLdjRs3bc7LyysqetZQ4UeH8xc6Etm9u/fWqMV2763JQqlKl5bn5eWVLi3PwrayTLf5uB2u34j6xuYcFQ33FqMfvyMXXxz3jvtyXYC0nDx1ujgww/74hvVrReRwc/Ga//iPJ5+YlvVyAemqb2x+/dUKEdm1Z99rv16e6+IAAJCuEdzTWd/YrBJnSWlZW7g9dtfVzmu79uwTkXC47cc/evzkqdPZLFVR0bOqqzWbG03NBx9ejA0l+NKsTG1uBO2ZnOv87HrJ4oUiEgzOJXGOIPdyI7+X656CLH/85hzNA8pIDZ09vX3qW7lqY3XtoQNFM6frp6ZOmfzar5df7bwWCBSLyKv/q6Knty9nBb3HrF+3JhaLnTz5h1wXZATr6e1bVVkpIoFA8ZatW3JdHAAwiy+Oe8dIDZ2/O/GeiPj9hevXrXFcYOqUyVu3bRORSKTr8OHfZrVwQBpWr1odDreJyNZt2yZOKMh1cQAAyIyRek3n5UsdIjLv5fkey0ydMrlqY/WXX958YOzYbJULSMvuvTWh0BERaTl6fOqUybkuDgAAGTNSezoHBgYSWWz9ujW1hw4sWbRARKIDA4WFk7wvK4kODKhhg+cvdOgH40bHly4ttw8q1M+qPqoN69dal49b+OSp02qwnlJYOKm+sdnxGgA1oFgXuL6xWVUhLy9vzpx5ccU4eeq0LqdaZyK7aEihY60eY6jVFnUd7YMQk9oz97jQsVY9eMj7cq4hm1DKrV3zbmyORVr5xqpEWrW1APWNzaqRW1uFY9NV9dVtJnSs1bGCyRbbUdxxFzrWav0E2L23Jq5ehg7/IWvt/eyQV9E5LpDUZ06ydUeykvr41eLaWFHRs95fB0m1yaRaSILNw3v0euKfLckeuciBIa9lTkTN/kMiUrP/UEbWlohgcK6IlJSWJfWqqo3VIuL3F/ZHo44L1DU0iUgwOFf9qy8MtSspLbOuxGMPWwvZH42WlJa5LWkdDqWohas2VvdHo6rKcao2VlurFicYnGuvaXdPr3o2kSvZ41Z+tfOafXdZ96daMhAoTnbPmHOx4yMR+dWiJVnYlpWqo+NTH3x4UT3bcvS4fvBq5zX9rnmsNvEmlGxrV6stKS3r7ul1bGxu71eyrVppC7d7tI1AoLi7p9e6vKqOKoO1tetDoLun1/FoVTWy73DrG1HX0GR93HrcOVbN7y+0HgseFUnn8B+y1t7Pqr2h94+d4wK67gk2gwTrrvxq0RIRudjxkVuRTFCFyeYWPRj9+I15trFgcG7cMeW9vFubTKqFJNg87F8cqRUv2SM353JyROTWSO3pfOrpZ0SkrvZgUoPTn/rZUyISiXRduHjJcYFzZ8/olUcHBlZVVobDbYFAsW7c3T296vCoqz1YXf31IA+9Q+2f47WHDujFypaW19UeFJG6hib9SXG189qKlZUiUhyY4VadsqXlodAR/dV4tfOaOto3rF8bOta6e2/NhvVrV6ysVJ8p/dGoWmEodOTd4ycS3z9uKiqW+f2FIrJl89edIj29fTu3bxWRqk3V+T6f22sT3DP3ONXY1N9Xrnzi8XM88SaUVGu3Wr1q9ZUrn+jGZm3zK99YZS+5LtKuPft0kdrC7aqJFgdm2HtZ9M3OgsG5cclbbSscbtuyZatjsUPHWtU90eKKUV5WHg63+f2FuuT90eiuPfvqag+uXrXabX96q67eUld7UH2HqXWqb/pIpEu/X2L+8HerdYLPpibBZsABblpSH7/WNqaPAvXGhUJH7AdCOm0ykRaSTvNI7bNFSfDIRQ7EMiH7PZ390ag6DuXuz5oEX6ia/oqVlfan9G9QtTbVRkXE/utQ3ZJJnH6tevQu6BU6/tJy/NmqfqupmsZtS+8BtcVde/bFrVC/1q2aif/UjsViLUePq1fpjxjdMWZdzO0HayyBfhdDRkRPp/oMtTZpxxcm24QSb+2xu2+oWoO9zetNxzUbj2PBus64FaqCBQLFjkeu7tqxPqt79XSlrDvBrTco9s0u1aR6OtXbEfcS666wd7Rk9vBPsNZuz6bT0+n3FybVDBLZXIyeTsMfvx7vjn7K2p5Ta5OptRDv5uH4xZHCZ0vKR26u3IM9nSM1dMZs575LSsusv9Xc6HZsX1K1SH0Yq596juc6+6NRdfwk/q2jM2Lc15v9tdYF9HHl+CpdF8eQp79r4z5Q9KeeB8ePBn0890ej+kPQ8RwooTOWTOhU76P6BHdLabGUmlDirT1maWz2D2vryuPOF3u0T2uZre97d0+vOrjcNqSvNHC8WsD+wiH3jI6kSYVOj+aqNmf/pZfZwz/mWeshn00ndCbVDBLcXIzQafLj1/FYs4p741Juk6m1kGRDZ2qfLSkfublyD4bOkXp6XUSmTpl88uQf9G+XutqDJYsXfis/X11l7Dg2QkSe/tlT6g/7eWd1tvGnT/3M+uCVK5/YV5Lv88VisfXr1ljvD+rtwsVLkUiXiLw4+wW3ZV6YNVsXI84zTz9lf/D++++3vjDO+HHj1B+Dt28nWEhvq1evEpFIpKu6esuGdWtFpK6hiXv6pEkPHtrzn/smTij4t/l3bshgv89XCk0o2dYuIn5/odsYJrXyutqD0bvD+PRqHduniOT7fKVly0Tknd8e1g9OnFCwY/vWmPu9r8eMudOwBwfjm24k0lW1sTruhXrPPPbDRx1X+INHf+D4+JCef/45x8cffvgREfnq1pcJrifNw9+x1gk+m5qkmgGyYMiP31PtZ1Ubc2u0T0+fISJjxoxR/6bZJk23kNQ+W7RMHbnIuBEcOpUlixbEYrGWo8d1+oxEukoWL/zxjx53HME9dcpkdSrz48sfWR/v/Ox6KHTE7y+cOeNp9cgDY8eptZUuLU//4/XGjS4RCQbnelz+OG7cWBEJhY7EbS4QKHbMdjp0On7X6m/umzedDzCP8zuOdz+dOKFA7eSdO7ZFIl3B4Fx1WwCk7NatW3N+OVtE6hqa1A+YJ5+Ypn6sb1i/tvOz69aFU2hCibd2TX0oO3rooUnqj2vXP1d/fHXrlri3T2XSpEIRiUS64qqjnL/QUd/YbB2ampeX9+2JE9zWJk5fJ2rP+P2FbjeZ+u7dkifFY4VjfD4RGRwcTHBV6Rz+ituXaCLPpiCpZoAUZPzj99atW+LZaF/79fJYLLZj+51LpdNsk6ZbSDqfLRk8cpFxIz50KsGXZqn0GYvF6hqaVF+9Sp9z5syLG5ahByFZHz/7x3MiMu/l+foI/MULz905+1B78Fv5+Rs3ba5vbE45faqfVqHQkTx3eh75vr6b1tc+WDBEb6LOl6YtWbRAX9KwbDnTM6ZL9XGuWFlp/f5QXRoisn//fuvCqTWhBFu7Nsb9G2j8uDv3u9U/Y7788qYM1T514Lv55Td+/Kj7+/z4R4+XLF64c8c2jzVYOX6dqD3zk58694ikzONrNVnpHP7i+SU65LOpSaoZIDu8P367bnwuyRwFabZJ0y0knc+WDB65yLhREjqtlixaoObUUhe02Yfs6bMJZ86e0w/WHtwv3zwNN3FCwbvHW/UtITasX6tO36vbfSU7pXtSP60ydULcqM8/v5HrIowGweBc3fegTJxQoAeBWq8SSa0JJdjas8B6rnz33po5v5ytzu7VNTTFXRzmcd3bd77zz05rNtJv4fG1mqw0D3/HWif4LEal9D9+R9NXUtx1OBk8cpFxozB0aq/9erk6HxEKHbF+eef7fGocg75U5fyFjkiky+8vjLtGc+qUyS0t77SF2/WADOX1VyuKAzPsfage1JU0Cd6Z8sknpqVRb4N2761R9/gVkZLFC7nRbpr8/kLH2dXnz39Z/fGbw19frpRaE0q8tZum++PPX+hQXbzqZrdLFi1I83pEfZnasDU6Dn/kVmY/fkdTm8zauT6kb0SGTjVFkMdMG5ru5on7XfjIDx4VkVDoiLoW5Nwfz4mIuirZrmjmdHU1TCwWq2to0gE0FDpSXpbolBvqCtHBkXzpfedn11VWaAu337lvnMudFJGgqk3VjlcsWTs7dZ96yk0oqdbusf6bX95Sf+izWuPGjReRL/q8vvz+cvfQ0yPb3vv970XE7y/ctm2L4/Vkf0myF0ftmT//6ZzbAvYBSVk2PA9/nWDskmoGyIIhP34TORit0myTpltIap8tGP5GZOj86tatUOjIhvVrh/yp53aJ9MwZT6vj9tJHl+Xu8Dc91NfDkkULVABVoz3C4bYEz7OrS57dRgmMCOrWxFUbq4tmTq/adCcSpTbNIIY0f/7Lqom+te/Oj5yUm1BSrd3xdg2K/uVWUDBe/fHA2LEiEg63eRyJ9lE+6rzez5973u3w/Pjyx941iqNG1EUiXW7FiLvkK/tycvj7fD4RuX3b+Syq2/09lKSaAbJgyI/fIQ/G3Xtr8vLy9ODaNNuk6RaS2mcLhr8RGTr1UM0he9r0B+u4u5c2K/k+37yX54vIidbjJ0+dVoMBrQ2387PrajZYt1ClR3s4dqLYP+ifePwx9cXvMUVQfWNznudcyTlU39gcCh0JBIorKpaJSPClWXemRFq3NqnPLLevQMSZOKFgxRurRCQcblONMOUmNGRrt4pEutziyInW4yKyYmWlDov6TMLvTrzn+JLowIC6flQVQFF9JG6XlHV+dj3ZyXUcr1u1Un2rWTNMDv/xDz4oItevXXN81nrlhl1SzcCKA9yERD5+vY8CfSRGuu4kwjTbZGotJPHmkdpnC4a/ERk6p06ZrM5xO87Lp3V+dn3zm2+KSCBQbL98TU0SGA63qZ6kuMkAp06Z3HHxgohsWBd/5xql49Jl9UfcGQTVu2D/oM/3+VSGKFm80O3eMSWLF8rdX3jDSk9vnyrbKxUV+nNk9Zo1IhKJdO3bt9/rxXe57Rm4eXH2C+pb4XBzk6TXhLxbe5zNb75p/yGhryd77vnn9YP5Pp86El9/tcLxG6iycrUaLaSvUhWRRx+bJrYB9UpPb9+qyko9M1OC8n2+O3PzOO2Z+sZmjzPvmTWsDn9/4SRxORtT39hcV3vQez8n3gwUDnBDEvz49T4K3m46rI5EdbGNZKJNJtVCkm0eqX22YARI5CLiIeVkRiI9y4iabdk6N8MHH160Dv1xnOMrdneOBMU+AYx19jzrXEdqQmf1uH2CQf2U44wIeiy8dSbZ7p5e/aq4y7od5zrT3KYF0qtVz7oNDU58HjZVDI/K6lV5zEjkvWfMGf4zEnn4eu6Du9NyJNuENO/WHrv7Lu/as8/vLwwEivVsQHpKZXGZycOxSHp+ZMcWqGdwjZuUTz2uDz3rZCQeTSsWi/VHo6qC1rnXv54M2mkOwNhQMxJ5jLFwWyCzh/+QtR5yn6j96fcX6orrfbJrzz5VC8cZiYLBuck2g0QOcGYkMvrxq48Ca5PWE4A5riSFNplaC/FuHm4tOdnPlpSP3Fy5B2ckGsGhM2ZJXW6CwbluiTNmOQzcmqC+ZNuRGnsb95L+aFQfD5r1Q0HP02Vn/0QwGjoToSYXFZf5uPVnnP6w8PgW9N4z5ozo0GnNDaqxJduEtCFbu1ptfzR6tfOaY7N3W7l3kRynOdZ7wG159bf1q8s7YMViMbdiqy85xx2e8dCZ2cN/yFoPuU/c9rPalkfoLCkt896fdokc4IROox+/av32d0GvzfELK9k2mVoL8W4ebi052c8WQufwNyJPr2vBl2bFYrG6hib9S05RvR1t4faWlnc8LjHWYynskwEqRTOnd3XdqGtoimv3u/bsawu31x46YL9mJd/na2l5R/fZ2J+tPXSgLdweV+C6hqYPPrwYd7/GYWLn9q3iMs463+d7paJCRMLhtt17a7zX471n4Cjf51ODBiKRrrebDksaTWjI1i53L8OaOmXypY8u6d5BESkpLWsLt7ut3LFI6hjsj0Ydb8z05BPTunt6rZuIW159P5093W5/rRu3YjvO72LIcDv8n3xi2tXOa7r/SYZ6K62S3Z8c4CYk+/E7cUKBehes31klpWUtR4+7fWGl3CaTaiGpNY8UPlsw3GUkuuaqpzNNVzvvXF9i//2HUWMY9nTmBK0diTDaFURP5ygw3DoLRzR6Ou8tajJAt2GYwGhCawcA5Na9Gzp7evvUDRfswzCBUYbWDgDIuXs0dJ6/0FFeVh6JdK1YWTnMJ/gC0kRrBwAMB/flugBZlZeXZ/03ECheu3Z1rgoDGEVrBwAMK/dW6LSqa2h6cfYLXN+GewGtHQCQc/dW6IzdHckIjHq0dqSg9tCB2kMHcl0KDF+0EKTjHr2mEwAAANlE6AQAAIBxhE4AAAAYR+gEAACAcYROAAAAGEfoBAAAgHGETgAAABhH6AQAAIBxhE4AAAAYR+gEAACAcYROAAAAGEfoBAAAgHH3ZXBd7//+xKdXPsngCoH0DQ4O5nDrixaX5HDrwLDyp3N/zNWmORIxDOXwiMiVTIbOM2faM7g2YBR4u7E+10UAwJEIDAt5sVgs/bX0fXHz1q2v0l8PYMj99//D5O8+lM0tdly6nM3NASPFQ5MKfb4xWdscR2IGffr/rpYvXfLa62+8+OLsXJdl9MjyEZFbmQmdAABgdJs+faY6pdnb90XBg+NzXRyMPAwkAgAAQ3jrQK2+iK6qamNuC4MRip5OAADgpe+Lmz/513/t7v67fuRix0fTHns0h0XCSERPJwAA8FJf32BNnCKyft26XBUGIxc9nQAAwFXHpcuPT/uh/fGa/YdeKS/NfnkwctHTCQAAXNXXO99wavfO7QMDubwRMkYcQicAAHDWeuJ9t7ucdnf/feeu3VkuD0Y0Tq8DAAAHAwODL774kvfML9eu/yXLd0HGyEVPJwAAcPCbd1qGnGtw9+492SkMRgF6OgEAQLy+L25OKHgwkSWP/+69WS/83HR5MArQ0wkAAOIl3oVZe/AAI4qQCHo6AQDAN7jdJskNt09CIujpBAAA37Br166klt+9c3vfFzcNFQajBqETAAB8rfXE+8ffPZrUS7q7/15f32CoPBg1OL0OAADuGBgY/P73vx836WWCmJAd3ujpBAAAdxysrU8tcUryJ+Vxr6GnEwAA3NFx6bLbU21tbW9uqvqPdRuKi4vdlnloUqHPN8ZM0TDi3ZfrAgAAgOHC4/z4x59cEZF//KcHOIeO1HB6HQAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYByhEwAAAMYROgEAAGAcoRMAAADGEToBAABgHKETAAAAxhE6AQAAYNx9uS4AAGAEaz3x/sm2P+S6FMiGL/r6ROT935/49MonuS4Lsqqo+NlZL/w8/fUQOgEAqfvqq6/ebqzPdSmQPWfOtOe6CMi27z/8SEbWQ+gEAKTrP9ZtKC4uznUpAGRYW1vbm5uqMrU2QicAIF3/+E8PTHvs0VyXAkCGffzJlQyujYFEAAAAMI7QCQAAAOMInQAAADCO0AkAAADjCJ0AAAAwjtAJAAAA4widAAAAMI7QCQAAAOMInQAAADCO0AkAAADjCJ0AAAAwjtAJAAAA4widAAAAMI7QCQAAAOMInQAAADCO0AkAMKW+sTnvrqKiZxN8VehYq37Vxk2bjZbQqPrG5tKl5bouhYWT6hubOz+7nvIK1dpKl5ZnsJAZ19Pbl5ew0LHWXJc3SzZu2pzUUTAqEToBANkQDredv9CRyJJ/OvdH04Ux7eSp04WFk0oWL6yrPagfjES6ShYv/Jep31v5xqoclg3IFUInAMA4v79QRM798dyQS/b09lmDWk4UFT2bTidr6FhrcWBGJNIVCBTXNTTF7rraea1qY7WI7Nyxbc6cedGBARNbHz4++PBibCjBl2blupiZNGreO0MInQAA40rLlonIO7897Ja0tDNnz4lIMDg3ECjORsky7fyFjjm/nC0iK1ZWnjz5hyWLFuinpk6ZvH7dmg8+vCgiodCR6uotuSoksm/9ujWxWOzkyT/kuiC5ROgEABj39M+eEpFIpOvCxUveS547e0ZEnnr6mWwUy4DNb74pIsHg3B3btzou8OQT09rC7SKyc8e2e+eKRkAInQCALJg6ZbLqufzTOa8z7J2fXQ+FjojIi7NfyFLJMip0rDUcbhORLVu9ejGLZk4vKS0TkcPNTVkqGTAMEDoBANnwwqzZIrJzxzaPM+xn/3hORFasrMz3+bzXdvLU6ZVvrIobGN7T2+fxkvrG5jlz5umXlC4tj+to1E+p4Lhh/VrrwonU8b0Tv1PlnzihwHvJf5s/X0TC4TY9mD2FrcfVaPfeGu89cPLUaTWGesidphbT2w0day0snGTuakV9v4Lde2vsz6o62ndCXHWKip6tb2z22Eri1Vd3CdCVrW9sVtXPy8ubM2eevX86kfduyNHriTfpuOKFjrUm3gyGPArMGvIiXwAA3NTsPyQiNfsPOT5b19Ckv2u6e3rV39axNXHUeKO2cHssFlM9o1Ubq+OW6Y9GVTehI/XaOFc7r7ldIVpSWtYfjarFPL4rS0rLhtwV/dHokBW0V3bXnn2Jb11VXJXZcSf4/YVXO685li2pnaYGPKntqr8V+9thp9/oRAYSxW1RROLKr5qQ31+o3ybv6gSDc7t7etOsvlq4amN1d09vMDjX4x1R3NZsXVJVMBAottc95eIl1QwSPArieB/gyaKnEwCQDRMnFKgvSHXVpt3JU6cjkS6/v7Bo5nS3lUQHBsqWlqvh7bv27NPflG3hdhUOigMz4rq7ogMDqyorw+G2QKBYf3939/SqEFBXe1AP6NFfjfa8W3vowJAV1JerPvbDR4feHSI/+elTIvLVrS9T2Hp19Za62oMqdqhlVDiLRLpWVVbat6V3Wl1Dk37J1c5rK1ZWqp128tRpx0KGjrVuWL82keqkqaJimUrhWzZ/3Zna09u3c/tWEanaVG3t/LZWR9WlPxpVb2godGT1qtVxK0+5+qtXrb5y5RO9FWuzsd73Kp2Wk0KT1hJvBokfBWYll1EBALBIvKczFou1HD2u/nXsjVMJQPf8OfZ07tqzT63BsRdN9/pY+7p0GewdYG5rc+tk9RZX2SG5dX15bF1VUIWzlqPH3QoQ1zemH3fc7Y5dibqnUxVmxcpKx9c6Sq2nM2ZpHjrk6Z5dx+rY16+fsu6cFKqv97PfX2hvNh4F8Hjv3N7uFJp0Cs0ghaNAoacTADAizZzxtPrjrO2GndGBgfff+73cHefuKDow8PqrFSJS19D05BPT7Ats27ZFfRMfPvxb/WCk64aIBINz7ddZ/mrhfBGp2lg9ODiYdGVcqAIk4oGxY0Xkb3/7a7KbiES6qjZW2+9wuWTRArX1Gze69IPRgQHVWVjX0DR1ymT72pYsWhAIFEciXe8ePxH31J//dC4cbms5enzH9q2Or/X24x89nufC8drQ4EuzVJzauX1rdGAgdKxV9f+tXv11n6KuTtXGansbUHURy/wC6VQ/Eumq2lRtbzZ6K785fDjxveEotSb9dfESbgZZPgrcEDoBAFmS7/Op7szag/vjnjrVfjYS6QoG53qEGx0LnnnaOZjm+3z6hqBxT1258onj8rFYbP26NR4n9JP1ne/8c1LLRyJdQy9k8/zzzzk+/vDDj4jllL2IXLh4SW3C44YAaoyX/bIHt1hjjsqXkUhXdfWWDevWikhdQ5M1J6l2Iu574OnpM0RkzJgx6t90qu/3F7rVXb2krvbgkPed9ZZOk5ZkmoGStaPADaETAJA9P33qzg07466iU11T3rfn/OrWLREJBIo9xoZPmlSo1q9HhT8wdpx6pHRpeZoRIRHJ9lwm3jNqfYlbNB/j84mItctKdXcFg3M9bggwbtxYEQmFjtj3j1usSYTH6fX169Y4vmTihAJ1Injnjm3qR4j17voicuvWLfHcA6/9enksFtM3SU2n+iq6OXrooUnqj2vXP3dbJhGpNWklqWaQ5aPADaETAJA9RTOnq5j18eWP9YN66kvv23N++eVNEXmwwOtuRN+9mwZufnmnm+cXLzyntlhXe/Bb+fkbN22ub2w28b17//33SzI9l7dv35bke0bFMwzZqe6uUOiI25nuvLy84sAMtXBf303raz1ijTn65LWILFu+PO7Zrhufy90xWIlIp/pj3HPq+HFj1R83b8b3JiYltSatJNUMsnYUeCN0AgCyyj4lppr6MpHbcyZucPC2+mPihIJ3j7fqG99sWL+2ZPHCb+Xnqzsaug1bTsGYMferP+J6pNyo/DT5e99LekPJ7KWkLtQbvH3b+m8KgTizPv/8RpprSKf6w41u0kpSzSBrR4E3QicAIKv0lJin2s+qR9TldOrMe6boCCgiU6dMbml5py3crgfqKq+/WlEcmDFnzjzve6on6InHH1N/XProciLL//lP5+TueU9z1NWNidxnNBaLOY5lybLde2vULdZFpGTxwjTfmhFXfQ/WJp2C7BwF3gidAICsmjplsupxUddxqqkvvW/PqYwbN15Evujz+mr8y92+sfHj4sNc0czp6oK/WCxW19Ckv3pDoSPlZQlNOOQt3+dT9VIjhb2dv9ChTsR7jNbPCBVqB3N3GV9SOj+7rkZzt4Xb79y2c8s3prBPpA1YpVN9j1fd/PKW+kOf+05Nmk06BaaPAm+ETgBAtqkBQ3W1B3t6+9Ttk9Q5d2/qHkPhcJtHl4waODLkxYhLFi1QX73qHj3hcFtGzjA+98IvRGTnjm1Ddhqpu+14j9bPCDUMxXGQ0DCk7gxftbG6aOb0qk137ltunadxyDawe29NXl6evpt6OtV3HOut6PP+BQXjk12tVQabdAoMHQUeCJ0AgGzTN4g5c/acun1SIh1+epjR706857hAdGBArW3ey/PVI52fXVdzXrtNMK3vARl3wZyI3L6d9G0Lgy/NUoNg7JPiWJ08dVoNnPq3f/93t2VS2LqjJx5/THUZ2u9DqdU3NrvdOzOb6hubQ6EjgUBxRcUyEQm+NEv1HG9Yt1ZHRt0G1HXAcXQD0J3N6VQ/Euk6f6HD8SUnWo+L+1XIib93KTTpFKRzFGQWoRMAkG16SsySxQuHvD2nlu/zqbOBr79a4ZgGKitXq3PW8+e/rB6ZOmVyx8ULIrJh3VrH8T0dl+5cf2k9T+rz+UTk+rVrSVZLRGTrtm0iEgodsU6TaHX+QocaLr1iZaXjFQXpbN0u3+db8cYqESlZvNBxD5y/0FGyeKHc7XXLlZ7ePlWMVyoqdJJbvWaNiEQiXfv23bmxa77Pd2e2JKfqvN10WDWAR37wqF4+nepvfvNNexepvur0ueefj3sq2fcuhSadgtSOAhMInQCAHPjpUz/Tf3vfntPqtV8vV71fP/7R47v31uhAcPLU6Tlz5qnuw5ajx613PXylokJEIpGuf5n6PettYqIDA7v31sz55WwRWbGy0pp6H31smoiEw20pdP5NnTJZTee4c8e2oqJnrbNmqw6nH//ocREJBueuXevcG5rO1h0tWbRA7bR/mfo9607r6e3bvbdGlaektCzujphZpq7djAviU6dMVplsw/q1OpNVVCxT3cnqDVUP9vT2rXxjlboedMXKSutN3VOufjA4929/++vcOfP0Seee3r6Nmzarrezas88+8CiF9y6FJp2CFI4CIxIZzwUAgKOk5l636o9G9X3RrdNea27TWPdHo3pCaru4accVPSrFUUlpWVwB+qNRfXMZLamZxL236D2ru8fWHecit3JbwHunrVhZGbe820ThidBzrydCFVVPgG6fGbw/GlUtwVqY7p5e+y7SK7Q3p2Srr3fj1c5rju+j2zvo8d557NJkm3RqzSDZo0Bh7nUAwIiX7/Opy9SSvT1nvs9Xe+hAW7hdzaip+P2FdQ1N/dGo4wnropnTu7pu1DU0xX2179qzry3cXnvoQFwB8n2+lpZ36hqaUpguyGOLqpBXO6+5zceTqa07rtO+00SkrqHpgw8v6vl7cqLzs+t3plN3mug83+dTvXThcNvuvTXqwYkTCtQusu7ektKylqPH7e+mpFH9qVMmX/rokv7tpLbSFm53ewdTe+9SaNIpSPYoMCEvFouZ3gYAYLR660Dt8mVLa/YfeqW8NNdlATKjdGl5Xe3BktKy2kMHcl2WHMvsAU5PJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjLsv1wUAAAAYRmoPHWDcugn0dAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDhCJwAAAIwjdAIAAMA4QicAAACMI3QCAADAOEInAAAAjCN0AgAAwDjmXgcApOvTK5+8daA216UAkGGfXvkkg2sjdAIA0vV2Y7001ue6FACGNUInACB1P3jk4Zr9h3JdCgAG/eCRhzOynrxYLJaRFQEAAABuGEgEAAAA4widAAAAMI7QCQAAAOMInQAAADCO0AkAAADjCJ0AAAAwjtAJAAAA4widAAAAMI7QCQAAAOMInQAAADCO0AkAAADjCJ0AAAAwjtAJAAAA4widAAAAMI7QCQAAAOMInQAAADCO0AkAAADjCJ0AAAAwjtAJAAAA4widAAAAMI7QCQAAAOMInQAAADDu/wO4ik4mTM7hJwAAAABJRU5ErkJggg=='
+        }, false);
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx" crossorigin="anonymous"></script>
+    <!-- retire o atributo output para, ao copiar uma fórmula, copiar tanto no formato html quanto no formato mathml, entretanto, a fórmula sai duplicada -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false},],output:'html'});"></script>
+
+    <style>
+        img {
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        table.custom,
+        table.custom>thead>tr>th,
+        table.custom>tbody>tr>td,
+        table.custom>tbody>tr>th {
+            /* tabela centralizada e com bordas */
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+        }
+
+        table pre {
+            /* Remove a margem interna de tags pre dentro de tabelas */
+            margin: 0;
+            padding: 0;
+        }
+
+        table.align-left th,
+        table.align-left td {
+            /* alinha à esquerda as células da tabela */
+            text-align: left;
+        }
+
+        ol.excs {
+            /* lista de exercícios */
+            padding-inline-start: 0em;
+            counter-reset: excs;
+            list-style: none;
+        }
+
+        ol.excs>li::before {
+            /* lista de exercícios */
+            counter-increment: excs;
+            content: counters(excs, ".") ". ";
+        }
+
+        ol.excs>li {
+            /* Change this to adjust the line color and thickness */
+            border-left: 2px solid #000;
+            /* Optional: Add padding to create some space between the bar and content */
+            padding-left: 10px;
+
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+        }
+
+        ol.section {
+            counter-reset: section;
+            list-style-type: none;
+        }
+
+        ol.section li::before {
+            counter-increment: section;
+            content: counters(section, ".") ". ";
+        }
+
+        td.hljs-ln-numbers {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            color: #ccc;
+            border-right: 1px solid #999;
+            padding-right: 5px;
+        }
+
+        td.hljs-ln-code {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            padding-left: 10px;
+        }
+    </style>
+</head>
+
+<div id="4-expecting-the-unexpected">
+    <h1>Esperando o Inesperado</h1>
+    <p>A fragilidade do programa decorre da incapacidade de sempre calcular resultados válidos, como ao dividir por zero ou acessar elementos de lista inexistentes. No passado, os desenvolvedores tinham que verificar rigorosamente os parâmetros de cada função e usar valores de retorno especiais para indicar erros. Muitos simplesmente ignoram essas verificações, deixando os programas quebrarem em caso de situações inesperadas. A programação orientada a objetos introduz uma solução mais eficiente: <b>exceções</b>. Esses objetos de erro especiais só precisam ser tratados quando necessário, simplificando o gerenciamento de erros e melhorando a estabilidade do programa.</p>
+
+    <div id="4-1-raising-exceptions">
+        <h2>Lançando Exceções</h2>
+        <p>Uma exceção é um objeto. Há muitas classes de exceções padrão do Python, e também podemos declarar nossas próprias. Toda exceção herda da classe <code>BaseException</code>.</p>
+        <p>Talvez você já tenha se deparado com uma exceção ocorrida em seu programa, que o fez encerrar, caso você não a tenha tratado. Veja alguns exemplos de exceções:</p>
+        <pre><code>>>> print "hello world"
+File "&lt;stdin>", line 1
+SyntaxError: invalid syntax
+
+>>> x = 5 / 0
+Traceback (most recent call last):
+File "&lt;stdin>", line 1, in &lt;module>
+ZeroDivisionError: int division or modulo by zero
+
+>>> lst = [1,2,3]
+>>> print(lst[3])
+Traceback (most recent call last):
+File "&lt;stdin>", line 1, in &lt;module>
+IndexError: list index out of range
+
+>>> lst + 2
+Traceback (most recent call last):
+File "&lt;stdin>", line 1, in &lt;module>
+TypeError: can only concatenate list (not "int") to list
+
+>>> lst.add
+Traceback (most recent call last):
+File "&lt;stdin>", line 1, in &lt;module>
+AttributeError: 'list' object has no attribute 'add'
+
+>>> print(this_is_not_a_var)
+Traceback (most recent call last):
+File "&lt;stdin>", line 1, in &lt;module>
+NameError: name 'this_is_not_a_var' is not defined</code></pre>
+
+        <p>No Python, todas as exceções incorporadas geralmente terminam com o termo <code>Error</code>. As palavras "erro" e "exceção" são frequentemente usadas de forma intercambiável. Embora os erros às vezes sejam considerados mais graves do que as exceções, eles são tratados da mesma maneira. Todas as classes de erro têm <code>Exception</code> (que estende <code>BaseException</code>) como sua superclasse, indicando sua abordagem comum de tratamento.</p>
+
+        <div id="4-1-1-raising-exceptions">
+            <h3>Lançando Exceções</h3>
+            <p>Veja esta classe que adiciona itens a uma lista apenas se forem números pares:</p>
+            <pre><code>class EvenOnly(list):
+    def append(self, integer):
+        if not isinstance(integer, int):
+            raise TypeError("Only integers can be added")
+        if integer % 2:
+            raise ValueError("Only even numbers can be added")
+        super().append(integer)</code></pre>
+
+            <p>Se uma das duas condições não for atendida, a palavra-chave <code>raise</code> causa a ocorrência de uma exceção. A palavra-chave <code>raise</code> é seguida pelo objeto que está sendo levantado (lançado) como exceção. No exemplo anterior, são construídos dois objetos das classes incorporadas <code>TypeError</code> e <code>ValueError</code>. O objeto levantado também poderia ser de uma nova classe de exceção personalizada (veremos como em breve), uma exceção definida em outro lugar ou até mesmo um objeto de <code>Exception</code> que foi levantado e tratado anteriormente.</p>
+
+            <p>Teste esta classe, fornecendo valores válidos e inválidos.</p>
+        </div>
+
+        <div id="4-1-2-the-effects-of-an-exception">
+            <h3>Os Efeitos de uma Exceção</h3>
+            <p>Quando uma exceção é levantada e não é tratada, a execução do programa é interrompida imediatamente. Nenhuma linha que deveria ser executada após a exceção ser levantada é executada, e a menos que a exceção seja tratada, o programa será encerrado com uma mensagem de erro. Veja esta função básica:</p>
+
+            <pre><code>def no_return():
+    print("I am about to raise an exception")
+    raise Exception("This is always raised")
+    print("This line will never execute")
+    return "I won't be returned"</code></pre>
+
+            <p>Quando uma exceção é levantada em uma função chamada por outra função, toda a execução na primeira função pára no ponto em que a segunda função foi chamada. Essa interrupção da execução continua pela pilha de chamadas de funções até que a exceção seja tratada ou faça com que o programa seja encerrado.</p>
+
+            <pre><code>def call_exceptor():
+    print("call_exceptor starts here...")
+    no_return()
+    print("an exception was raised...")
+    print("...so these lines don't run")</code></pre>
+
+            <p>Quando chamamos essa função, vemos que a primeira instrução <code>print</code> é executada, assim como a primeira linha na função <code>no_return</code>. Mas uma vez que a exceção é levantada, nada mais é executado.</p>
+
+            <p>A saída da exceção, conhecida como rastreamento (traceback), deve ser lida de baixo para cima. A exceção é levantada primeiro na função <code>no_return</code>. O rastreamento mostra então que a função <code>no_return</code> foi chamada dentro da função <code>call_exceptor</code>, fazendo com que a exceção suba para esta função na chamada. A partir daí, ela sobe mais um nível para o interpretador principal. Como o interpretador não sabe como lidar com isso, ele desiste e imprime o rastreamento. De fato, exceções podem ser tratadas em qualquer nível depois de serem inicialmente levantadas.</p>
+        </div>
+
+        <div id="4-1-3-handling-exceptions">
+            <h3>Capturando Exceções</h3>
+            <p>Para lidar com exceções, usamos uma cláusula <code>try...except</code>. Essa cláusula envolve qualquer código que possa potencialmente gerar uma exceção, seja o código da exceção em si ou uma chamada a uma função ou método que pode gerar uma exceção dentro dela. Isso permite que nosso código reaja ou se recupere de situações excepcionais.</p>
+
+            <pre><code>print("executed before the exception")
+try:
+    no_return()
+except:
+    print("I caught an exception")
+print("executed after the exception")</code></pre>
+
+            <p>Ao tratar (capturar) uma exceção, o código conseguiu gerenciar a situação (neste caso, indicando que estava lidando com o problema) e continuar sua execução sem interrupção da função que gerou a exceção. Enquanto o código restante na função <code>no_return</code> permaneceu não executado, o código que chamou a função foi capaz de se recuperar e continuar.</p>
+
+            <p>A cláusula <code>try</code> encapsula qualquer código que possa potencialmente gerar uma exceção. A cláusula <code>except</code>, que está alinhada com a linha <code>try</code>, contém o código recuado para lidar com a exceção. Uma vez concluído o tratamento da exceção, a execução normal do código retoma o nível de recuo original.</p>
+
+            <p>Em um cenário em que o código poderia gerar tanto <code>TypeError</code> quanto <code>ZeroDivisionError</code>, podemos querer tratar <code>ZeroDivisionError</code>, mas permitir que <code>TypeError</code> se propague para o rastreamento. Portanto, é importante especificar o tipo de exceções que desejamos tratar.</p>
+
+            <pre><code>def funny_division(divider):
+    try:
+        return 100 / divider
+    except ZeroDivisionError:
+        return "Zero is not a good idea!"
+
+print(funny_division(0))
+print(funny_division(50.0))
+print(funny_division("hello"))</code></pre>
+
+            <p>O uso de uma cláusula <code>except</code> vazia que não especifica um <code>ZeroDivisionError</code> erroneamente indicaria uma divisão por zero quando inserimos uma string. Isso não é o comportamento correto, enfatizando a importância de especificar o tipo de exceção na cláusula.</p>
+
+            <p>O uso de uma cláusula <code>except</code> simples é geralmente desencorajado, mesmo que a intenção seja tratar todas as exceções. É recomendável usar <code>except Exception:</code> para tratar explicitamente todos os tipos de exceções, o que indica a intenção de tratar objetos de exceção e todas as subclasses de <code>Exception</code>. A sintaxe de <code>except</code> simples é equivalente a <code>except BaseException:</code>, que trata exceções de nível de sistema que raramente são destinadas a serem tratadas. Se houver necessidade de tratá-las, é melhor usar explicitamente <code>except BaseException:</code> para deixar claro para quem lê o código que a omissão de um tipo de exceção específico foi intencional.</p>
+        </div>
+        <p>Podemos até mesmo tratar duas ou mais exceções diferentes no mesmo local:</p>
+        <pre><code>def funny_division2(divider):
+    try:
+        if divider == 13:
+            raise ValueError("13 is an unlucky number")
+        return 100 / divider
+    except (ZeroDivisionError, TypeError):
+        return "Enter a number other than zero"
+
+for val in (0, "hello", 50.0, 13):
+    print(f"Testing {val}: {funny_division2(val)}")</code></pre>
+
+        <p>Podemos tratar exceções diferentes de maneiras diferentes ou talvez tratar uma exceção e então permitir que ela continue a se propagar para a função pai. Podemos empilhar cláusulas <code>except</code>, e apenas a primeira cláusula correspondente será executada. Portanto, cuidado, se tratarmos <code>Exception</code> antes de <code>TypeError</code>, então apenas <code>Exception</code> será tratado, porque <code>TypeError</code> é uma <code>Exception</code> por herança, e apenas o primeiro tratamento é realizado. Isso pode ser útil em casos em que desejamos lidar com algumas exceções de forma específica e, em seguida, lidar com todas as exceções restantes como um caso mais geral. Podemos simplesmente tratar <code>Exception</code> após tentar tratar todas as exceções específicas e lidar com o caso geral lá.</p>
+        <p>A palavra-chave <code>raise</code> sem argumentos dentro de um tratamento de exceção irá relançar a última exceção, permitindo que ela se propague como se não tivesse sido tratada.</p>
+
+        <p>Ao lidar com exceções, muitas vezes é necessário ter uma referência ao próprio objeto de <code>Exception</code>. Isso é particularmente comum ao definir exceções personalizadas com argumentos únicos, mas também pode se aplicar a exceções padrão. A maioria das classes de exceção aceita argumentos em seu construtor, e esses atributos podem ser necessários no tratamento de exceção. Se uma classe de <code>Exception</code> personalizada for definida, é até possível chamar seus métodos personalizados quando a exceção é tratada.</p>
+
+        <pre><code>try:
+    raise ValueError("This is an argument")
+except ValueError as e:
+    print("The exception arguments were", e.args)</code></pre>
+
+        <p>A palavra-chave <code>finally</code> executa o código independentemente de ocorrer uma exceção. A palavra-chave <code>else</code> é executada apenas se nenhuma exceção ocorrer. Ambas não requerem argumentos adicionais.</p>
+
+        <pre><code>import random
+
+some_exceptions = [ValueError, TypeError, IndexError, None]
+
+try:
+    choice = random.choice(some_exceptions)
+    print(f"raising {choice}")
+    if choice:
+        raise choice("An error")
+except ValueError:
+    print("Caught a ValueError")
+except TypeError:
+    print("Caught a TypeError")
+except Exception as e:
+    print("Caught some other error:", e.__class__.__name__)
+else:
+    print("This code called if there is no exception")
+finally:
+    print("This cleanup code is always called")</code></pre>
+
+        <p>A instrução <code>print</code> na cláusula <code>finally</code> é executada independentemente do que aconteça, o que é particularmente útil para realizar tarefas como limpar uma conexão de banco de dados aberta, fechar um arquivo aberto ou enviar um fechamento de conexão pela rede após a execução do código, mesmo se ocorrer uma exceção. A cláusula <code>finally</code> também desempenha um papel crucial ao executar uma instrução <code>return</code> de dentro de uma cláusula <code>try</code>, pois garante que o tratamento <code>finally</code> seja executado antes de retornar o valor.</p>
+        <p>O bloco <code>try</code> pode ser seguido por qualquer combinação de cláusulas <code>except</code>, <code>else</code> e <code>finally</code>, embora <code>else</code> não possa ser usado sozinho. Se mais de uma for usada, as cláusulas <code>except</code> devem vir primeiro, seguidas por <code>else</code> e, por fim, a cláusula <code>finally</code>. As cláusulas <code>except</code> devem ser ordenadas da mais específica para a mais genérica.</p>
+
+        <p>Vamos ver um exemplo de rastreamento de exceção com tratamento:</p>
+        <pre><code>def f4(p):
+    print("início de f4")
+    if p == 0:
+        raise ZeroDivisionError("Zero é inválido!")
+    elif p > 10 or p &lt; 1:
+        raise IndexError("Somente entre 1 e 10!")
+    elif not p.is_integer():
+        raise TypeError("Somente inteiro!")
+    elif p % 2:
+        raise ValueError("Somente par!")
+    print("fim de f4")
+
+
+def f3(p):
+    print("início de f3")
+    try:
+        f4(p)
+    except ZeroDivisionError as e:
+        print(e)
+    print("fim de f3")
+
+
+def f2(p):
+    print("início de f2")
+    try:
+        f3(p)
+    except IndexError as e:
+        print(e)
+    print("fim de f2")
+
+
+def f1(p):
+    print("início de f1")
+    try:
+        f2(p)
+    except TypeError as e:
+        print(e)
+    print("fim de f1")
+
+
+if __name__ == "__main__":
+    f1(float(input()))</code></pre>
+
+        <p>Qual a saída para cada uma das seguintes entradas? 0, -2, 2.5, 7, 8, saturno.</p>
+
+        <div id="4-1-4-the-exception-hierarchy">
+            <h3>Hierarquia de exceções</h3>
+            <p>Duas principais classes de exceção incorporadas, <code>SystemExit</code> e <code>KeyboardInterrupt</code>, herdam diretamente de <code>BaseException</code> em vez de <code>Exception</code>. A exceção <code>SystemExit</code> surge naturalmente quando o programa é encerrado, frequentemente devido a uma chamada à função <code>sys.exit</code>. Essa exceção permite a realização de tarefas de limpeza antes do programa terminar, mas geralmente é tratada implicitamente dentro de uma cláusula <code>finally</code>. Se tratada explicitamente, geralmente é levantada novamente para evitar que o programa pare seu término. Ela herda diretamente de <code>BaseException</code> para evitar ser tratada acidentalmente em cláusulas genéricas que tratam todas as exceções normais.</p>
+            <p>A exceção <code>KeyboardInterrupt</code> é comum em programas de linha de comando e ocorre quando o usuário interrompe deliberadamente a execução do programa com uma combinação de teclas (geralmente <kbd>Ctrl+C</kbd>). Assim como <code>SystemExit</code>, ela quase sempre resulta no término do programa, com qualquer tarefa de limpeza tratada dentro de blocos <code>finally</code>.</p>
+
+            <p>
+                <img id='4-1-4-exception-hierarchy' alt='hierarquia de exceções'>
+            </p>
+            <p>Usar a cláusula <code>except:</code> sem especificar um tipo de exceção captura todas as subclasses de <code>BaseException</code>, incluindo todas as exceções e as duas especiais, <code>SystemExit</code> e <code>KeyboardInterrupt</code>. No entanto, essas duas exceções geralmente requerem tratamento especial, portanto, geralmente não é recomendado usar a declaração <code>except:</code> sem argumentos. Se você deseja capturar todas as exceções exceto <code>SystemExit</code> e <code>KeyboardInterrupt</code>, deve capturar explicitamente <code>Exception</code>. A maioria dos desenvolvedores Python considera <code>except:</code> sem um tipo como um erro e irá marcá-lo durante a revisão de código. Se você pretende capturar todas as exceções, é melhor usar explicitamente <code>except BaseException:</code>.</p>
+
+            <p>Observe esse exemplo mais <strike>complexo</strike> completo:</p>
+            <pre><code>import sys
+
+some_exceptions = [ValueError, TypeError, AttributeError, None]
+
+stop = False
+
+while not stop:
+    try:
+        choice = int(input())
+        if choice &lt; 0:
+            print("Exiting...")
+            sys.exit()
+        exception = some_exceptions[choice]
+        print(f"Raising {exception}")
+        if exception:
+            raise exception("An error")
+    except ValueError:
+        print("Caught a ValueError!")
+    except TypeError:
+        print("Caught a TypeError!")
+    except Exception as e:
+        print("Caught some other error:", e.__class__.__name__)
+        stop = True
+    except SystemExit:
+        print("Caught a exit command! Exiting...")
+        raise
+    except KeyboardInterrupt:
+        print("Cannot interrupt program this way!")
+    else:
+        print("This code called if there is no exception")
+    finally:
+        print("This cleanup code is always called")
+
+print("End of program")</code></pre>
+
+            <p>Quais das seguintes entradas são capazes de encerrar o programa? -4, 0, 1, 2, 3, 4, [Ctrl]+[C], string. Qual a saída para cada entrada?</p>
+
+        </div>
+        <div id="4-1-5-defining-our-own-exceptions">
+            <h3>Definindo suas próprias exceções</h3>
+            <p>Quando nenhuma das exceções incorporadas é adequada, é possível definir exceções personalizadas. O nome da classe geralmente indica o que deu errado, e informações adicionais podem ser fornecidas por meio de argumentos arbitrários no inicializador. Embora seja possível estender <code>BaseException</code> diretamente, isso raramente é necessário ou aconselhável.</p>
+
+            <pre><code>class InvalidWithdrawal(Exception):
+    pass
+
+raise InvalidWithdrawal("You don't have $50 in your account")</code></pre>
+
+            <p>Você pode passar um número arbitrário de argumentos para uma exceção. Embora uma mensagem de string seja frequentemente usada, qualquer objeto que possa ser útil para um posterior tratamento de exceção pode ser armazenado. O método <code>Exception.__init__</code> é projetado para aceitar quaisquer argumentos e armazená-los como uma tupla em um atributo chamado <code>args</code>. Isso torna mais fácil definir exceções sem a necessidade de sobrescrever <code>__init__</code>.</p>
+
+            <p>Claro, se quisermos personalizar o inicializador, somos livres para fazê-lo.</p>
+
+            <pre><code>class InvalidWithdrawal(Exception):
+    def __init__(self, balance, amount):
+        super().__init__(f"account doesn't have ${amount}")
+        self.amount = amount
+        self.balance = balance
+
+    def overage(self):
+        return self.amount - self.balance
+
+try:
+    raise InvalidWithdrawal(25, 50)
+except InvalidWithdrawal as e:
+    print(f"I'm sorry, but your withdrawal is more than your balance by ${e.overage()}")</code></pre>
+
+            <p>Por convenção, as variáveis de exceção são nomeadas <code>e</code> ou <code>ex</code>.</p>
+
+            <p>Definir exceções personalizadas pode ser benéfico por várias razões. Elas podem ser úteis para adicionar informações à exceção ou para fins de registro. O verdadeiro valor das exceções personalizadas se torna evidente ao criar um framework, biblioteca ou API destinada ao uso por outros programadores. Nesses casos, é crucial garantir que seu código levante exceções que sejam significativas e fáceis de tratar pelo programa cliente. Essas exceções devem descrever claramente o problema e permitir que o programa cliente corrija o erro (se for um bug em seu código) ou trate a exceção (se for uma situação da qual ele precisa estar ciente).</p>
+
+            <p>Exceções não são excepcionais. Programadores iniciantes tendem a pensar em exceções como úteis apenas para circunstâncias excepcionais. No entanto, a definição de circunstâncias excepcionais pode ser vaga e sujeita a interpretação. Considere as duas seguintes funções:</p>
+        </div>
+
+        <pre><code>def divide_with_exception(number, divisor):
+    try:
+        print(f"{number} / {divisor} = {number / divisor}")
+    except ZeroDivisionError:
+        print("You can't divide by zero")
+
+def divide_with_if(number, divisor):
+    if divisor == 0:
+        print("You can't divide by zero")
+    else:
+        print(f"{number} / {divisor} = {number / divisor}")</code></pre>
+
+        <p>Programadores em Python frequentemente adotam a abordagem de executar o código e lidar com quaisquer erros que ocorram, em vez de verificar problemas potenciais antecipadamente. Essa abordagem, conhecida como "pedir perdão em vez de permissão", é preferida porque evita o desperdício de ciclos de CPU verificando situações raras que são improváveis de ocorrer durante a execução normal do código. Portanto, usar exceções até mesmo para circunstâncias ligeiramente incomuns é considerado prudente. Ampliando esse conceito, exceções também podem servir como uma ferramenta eficaz para o controle de fluxo, semelhante a uma instrução <code>if</code>, permitindo tomada de decisões, ramificação e troca de mensagens.</p>
+
+        <p>Em uma aplicação de inventário para uma empresa que vende widgets e gadgets, quando um cliente compra um item, este pode estar disponível ou fora de estoque. Se estiver disponível, o item é removido do inventário e a quantidade restante é retornada. Se estiver fora de estoque, em vez de retornar uma string ou um número negativo, o que exigiria que o método chamador verificasse o valor de retorno, pode-se levantar uma exceção <code>OutOfStock</code>. Esta abordagem utiliza a instrução <code>try</code> para o controle de fluxo.</p>
+
+        <p>Para evitar a venda do mesmo item para dois clientes diferentes ou vender um item que ainda não está em estoque, cada tipo de item pode ser bloqueado. Isso garante que apenas uma pessoa possa atualizá-lo de cada vez. O usuário deve bloquear o item, realizar a ação necessária (compra, adição de estoque, contagem de itens restantes) e, em seguida, desbloquear o item. Isso é demonstrado em um exemplo de Inventário incompleto com docstrings que descrevem as funções dos vários métodos.</p>
+
+        <pre><code>class OutOfStock(Exception):
+    pass
+
+
+class InvalidItemType(Exception):
+    pass
+
+
+class Inventory:
+    def lock(self, item_type):
+        """Select the type of item that is going to
+        be manipulated. This method will lock the
+        item so nobody else can manipulate the
+        inventory until it's returned. This prevents
+        selling the same item to two different
+        customers."""
+        pass
+
+    def unlock(self, item_type):
+        """Release the given type so that other
+        customers can access it."""
+        pass
+
+    def purchase(self, item_type):
+        """If the item is locked, raise an
+        exception. If the item_type  does not exist,
+        raise an exception. If the item is currently
+        out of stock, raise an exception. If the item
+        is available, subtract one item and return
+        the number of items left."""
+        pass
+
+
+item_type = "widget"
+inv = Inventory()
+inv.lock(item_type)
+try:
+    num_left = inv.purchase(item_type)
+except InvalidItemType:
+    print(f"Sorry, we don't sell {item_type}")
+except OutOfStock:
+    print("Sorry, that item is out of stock.")
+else:
+    print("Purchase complete. There are {num_left} {item_types}s left")
+finally:
+    inv.unlock(item_type)</code></pre>
+
+        <p>Embora a situação de "Fora de Estoque" não seja altamente excepcional, ela pode ser gerenciada de forma eficaz usando uma exceção. Embora o mesmo código pudesse ser implementado usando uma estrutura <code>if...elif...else</code>, o uso de exceções torna o código mais fácil de ler e manter.</p>
+
+        <p>As exceções também podem servir como um meio de passar mensagens entre diferentes métodos. Por exemplo, para notificar um cliente sobre a data esperada de reposição de um item fora de estoque, o objeto <code>OutOfStock</code> pode ser construído com um parâmetro <code>back_in_stock</code>. Ao lidar com a exceção, esse valor pode ser verificado para fornecer informações adicionais ao cliente. Os dados anexados ao objeto permitem uma comunicação fácil entre diferentes partes do programa. A exceção poderia até incluir um método que instrui o objeto de inventário a refazer o pedido ou fazer um pedido de reposição de um item.</p>
+
+        <p>O uso de exceções para controle de fluxo pode levar a designs de programa eficazes. É importante entender que exceções não são ocorrências negativas a serem evitadas. Uma exceção não necessariamente indica que uma circunstância incomum deveria ter sido evitada. Em vez disso, é uma ferramenta poderosa para transmitir informações entre duas seções de código que podem não estar interagindo diretamente uma com a outra.</p>
+    </div>
+
+    <div id="4-2-case-study">
+        <h2>Estudo de caso</h2>
+        <p>Vamos implementar um sistema de autenticação e autorização simples para ilustrar os conceitos de orientação a objetos e tratamento de exceções aprendidos até aqui.</p>
+        <p>A autenticação garante que um usuário seja a pessoa que ele afirma ser. Os sistemas web comuns hoje em dia utilizam uma combinação de nome de usuário e senha para esse fim. Outros métodos de autenticação incluem reconhecimento de voz, scanners de impressões digitais ou retinas e cartões de identificação.</p>
+
+        <p>A autorização, por outro lado, foca em determinar se um usuário autenticado tem permissão para realizar uma ação específica. Um sistema de lista de permissões básico será criado para armazenar as pessoas autorizadas a executar determinadas ações. Recursos administrativos também serão adicionados para facilitar a adição de novos usuários ao sistema. Para brevidade, a capacidade de editar senhas ou alterar permissões após sua adição inicial não será incluída inicialmente, embora esses recursos essenciais possam ser incorporados no futuro.</p>
+
+        <p>Para implementar isso, uma classe <code>User</code> será projetada para armazenar nomes de usuário e senhas criptografadas, permitindo que os usuários façam login verificando a senha fornecida. A classe <code>Permission</code> contém o nome da permissão e os usuários que possuem essa permissão. Em vez de criar uma classe <code>Permission</code>, as permissões poderiam ser representadas como strings associadas a <b>conjuntos</b> de usuários por meio de um <b>dicionário</b>. O Python possui as estruturas de dados <code>dict</code> e <code>set</code> para isso. Mas como ainda não as vimos, vamos usar simplesmente <code>list</code>.</p>
+
+        <p>Uma classe <code>Authenticator</code> central será responsável pela gestão de usuários e pelos processos de login/logout. Além disso, uma classe <code>Authorizor</code> lidará com as permissões e determinará se um usuário pode executar uma ação específica. Essas classes serão fornecidas como instâncias únicas no módulo de autenticação, permitindo que outros módulos usem esse mecanismo central para autenticação e autorização. No entanto, se necessário, instâncias privadas dessas classes podem ser criadas para tarefas de autorização descentralizadas.</p>
+
+        <p>Ao longo do processo de desenvolvimento, várias exceções serão definidas. O ponto de partida será uma classe base especial <code>AuthException</code> que aceita um nome de usuário e um objeto de usuário opcional como parâmetros. A maioria das exceções definidas pelo usuário herdará dessa classe base.</p>
+
+        <pre><code>import hashlib
+
+class User:
+    def __init__(self, username, password):
+        """Create a new user object. The password
+        will be encrypted before storing."""
+        self.username = username
+        self.password = self._encrypt_pw(password)
+        self.is_logged_in = False
+
+    def _encrypt_pw(self, password):
+        """Encrypt the password with the username and return
+        the sha digest."""
+        password = self.username + password
+        binary_password = password.encode()
+        return hashlib.sha256(binary_password).hexdigest()
+
+    def check_password(self, password):
+        """Return True if the password is valid for this
+        user, false otherwise."""
+        encrypted = self._encrypt_pw(password)
+        return encrypted == self.password</code></pre>
+
+        <p>O código que criptografa senhas é extraído em um método separado, garantindo que ele seja modificado apenas em um local para melhorias de segurança. <code>hashlib</code> é uma biblioteca Python que fornece várias funções hash, incluindo SHA-256. <code>binary_password</code> é a string que você deseja hashear codificada em bytes. <code>hashlib.sha256(binary_password)</code> cria um objeto hash SHA-256 inicializado com a string de entrada. <code>hexdigest()</code> é um método que converte o valor hash em sua representação hexadecimal.</p>
+        <p>Esta classe também pode ser expandida para incluir detalhes pessoais, como nomes, informações de contato e datas de nascimento.</p>
+        <p>A exceção <code>UsernameAlreadyExists</code> será usada no caso em que uma tentativa de criar um usuário com um nome de usuário que já existe é feita. A exceção <code>PasswordTooShort</code> será usada quando a senha do usuário a ser criado for muito curta. Ambas as exceções estenderão <code>AuthException</code>.</p>
+        <pre><code>class AuthException(Exception):
+    def __init__(self, username, user=None):
+        super().__init__(username, user)
+        self.username = username
+        self.user = user
+
+class UsernameAlreadyExists(AuthException):
+    pass
+
+class PasswordTooShort(AuthException):
+    pass</code></pre>
+
+        <p>O <code>AuthException</code> requer um nome de usuário e possui um parâmetro de usuário opcional da classe <code>User</code> associado a esse nome de usuário.</p>
+        <p>Agora vamos implementar a classe <code>Authenticator</code>:</p>
+
+        <pre><code>class Authenticator:
+    def __init__(self):
+        """Construct an authenticator to manage
+        users logging in and out."""
+        self.users = []
+
+    def get_user(self, username):
+        for user in self.users:
+            if user.name == username:
+                return user
+        return None
+
+    def add_user(self, username, password):
+        if self.get_user(username):
+            raise UsernameAlreadyExists(username)
+        if len(password) &lt; 6:
+            raise PasswordTooShort(username)
+        self.users.append(User(username, password))</code></pre>
+
+        <p>Ao buscar por um item em uma lista, se não achá-lo, é levantada uma exceção. Poderíamos usar <code>dict</code> em vez de <code>list</code> para armazenar os usuários pelos seus nomes de usuário de modo mais eficiente. Antes de implementar o método de login, vamos adicionar mais duas exceções para realizar a validação do usuário.</p>
+
+        <pre><code>class InvalidUsername(AuthException):
+    pass
+
+class InvalidPassword(AuthException):
+    pass</code></pre>
+
+        <p>Em seguida, podemos definir um método de login simples para nossa classe <code>Authenticator</code> que levanta essas exceções, se necessário.</p>
+
+        <pre><code>    def login(self, username, password):
+        user = self.get_user(username)
+        if user is None:
+            raise InvalidUsername(username)
+        if not user.check_password(password):
+            raise InvalidPassword(username, user)
+
+        user.is_logged_in = True
+        return True</code></pre>
+
+        <p>Se não achar o usuário, ou se a senha for incorreta, uma exceção é levantada.</p>
+
+        <p>O seguinte código da classe <code>Authenticator</code> verifica se há um nome de usuário e se ele está autenticado:</p>
+
+        <pre><code>    def is_logged_in(self, username):
+        for user in self.users:
+            if username == user.username:
+                return user.is_logged_in
+        return False</code></pre>
+
+        <p>Um valor de retorno booleano é suficiente. Não há necessidade de usar exceções aqui apenas por usar.</p>
+
+        <p>Agora criaremos a classe <code>Authorizor</code> para adicionar novas permissões e configurar quais usuários estão associados a quais permissões:</p>
+
+        <pre><code>class Authorizor:
+    def __init__(self, authenticator):
+        self.authenticator = authenticator
+        self.permissions = []
+
+    def get_permission(self, perm_name):
+        for permission in self.permissions:
+            if permission.name == perm_name:
+                return permission
+        return None
+
+    def add_permission(self, perm_name):
+        """Create a new permission that users
+        can be added to"""
+        if self.get_permission(perm_name):
+            raise PermissionError("Permission Exists")
+        self.permissions.append(Permission(perm_name))
+
+    def permit_user(self, perm_name, username):
+        """Grant the given permission to the user"""
+
+        permission = self.get_permission(perm_name)
+        if permission is None:
+            raise PermissionError("Permission does not exist")
+
+        user = self.authenticator.get_user(username)
+        if username is None:
+            raise InvalidUsername(username)
+
+        permission.add(username)</code></pre>
+
+        <p>Esta classe possui um autenticador para verificar se o usuário está autenticado antes de verificar se ele tem autorização. O atributo <code>permissions</code> contém a lista de permissões cadastradas e os usuários que possuem essas permissões. A classe <code>Permission</code> não foi implementada, para ser deixada como exercício.</p>
+
+        <p>O método <code>add_permission</code> permite a criação de uma nova permissão, mas levanta uma exceção se a permissão já existir. O método <code>permit_user</code> permite a adição de um nome de usuário a uma permissão, mas levanta uma exceção se a permissão ou o nome de usuário não existirem.</p>
+
+        <p>Neste exemplo, na classe <code>Permission</code>, há um método <code>add</code> que atribui um nome de usuário à permissão correspondente. Os nomes de usuário podem ser armazenados em um conjunto em vez de uma lista. Isso garante que, mesmo se tentarmos dar a mesma permissão a um usuário várias vezes, cada usuário não terá a mesma permissão duplicada. Conjuntos serão discutidos em mais detalhes em um capítulo posterior.</p>
+
+        <p>Ambos os métodos podem levantar um erro <code>PermissionError</code>. Esse novo erro não requer um nome de usuário, portanto, ele estende <code>Exception</code> diretamente, em vez de extender <code>AuthException</code>.</p>
+
+        <pre><code>class PermissionError(Exception):
+    pass</code></pre>
+
+        <p>Vamos adicionar na classe <code>Authorizor</code> o método que verifica se um usuário está autenticado e possui autorização de acesso:</p>
+
+        <pre><code>    def check_permission(self, perm_name, username):
+        if not self.authenticator.is_logged_in(username):
+            raise NotLoggedInError(username)
+
+        permission = self.get_permission(perm_name)
+        if permission is None:
+            raise PermissionError("Permission does not exist")
+
+        if not permission.has_permission(username):
+            raise NotPermittedError(username)
+
+        return True</code></pre>
+
+        <p>A implementação do método <code>hash_permission</code> da classe <code>Permission</code> é deixada como exercício.</p>
+        <p>Aqui, existem duas novas exceções; ambas possuem nomes de usuário, então vamos defini-las como subclasses de <code>AuthException</code>:</p>
+
+        <pre><code>class NotLoggedInError(AuthException):
+    pass
+
+class NotPermittedError(AuthException):
+    pass</code></pre>
+
+        <p>Finalmente, podemos adicionar instâncias padrão de autenticador e autorizador no final do módulo, fora de qualquer definição de classe:</p>
+
+        <pre><code>authenticator = Authenticator()
+authorizor = Authorizor(authenticator)</code></pre>
+
+        <p>Dessa forma, o código cliente pode acessá-los facilmente com <code>auth.authenticator</code> e <code>auth.authorizor</code>.</p>
+
+        <p>Para ilustrar o uso da API, vamos criar uma interface de menu que permite a certos usuários alterar ou testar um programa:</p>
+
+        <pre><code>import auth
+
+# Set up a test user and permission
+auth.authenticator.add_user("joe", "joepassword")
+auth.authorizor.add_permission("test program")
+auth.authorizor.add_permission("change program")
+auth.authorizor.permit_user("test program", "joe")
+
+
+class Editor:
+    def __init__(self):
+        self.username = None
+
+    def login(self):
+        logged_in = False
+        while not logged_in:
+            username = input("username: ")
+            password = input("password: ")
+            try:
+                logged_in = auth.authenticator.login(username, password)
+            except auth.InvalidUsername:
+                print("Sorry, that username does not exist")
+            except auth.InvalidPassword:
+                print("Sorry, incorrect password")
+            else:
+                self.username = username
+
+    def is_permitted(self, permission):
+        try:
+            auth.authorizor.check_permission(permission, self.username)
+        except auth.NotLoggedInError as e:
+            print(e.username, "is not logged in")
+            return False
+        except auth.NotPermittedError as e:
+            print(e.username, "cannot", permission)
+            return False
+        else:
+            return True
+
+    def test(self):
+        if self.is_permitted("test program"):
+            print("Testing program now...")
+
+    def change(self):
+        if self.is_permitted("change program"):
+            print("Changing program now...")
+
+    def quit(self):
+        raise SystemExit()
+
+    def menu(self):
+        try:
+            answer = ""
+            while True:
+                print(
+                    """
+Please enter a command:
+\tlogin\tLogin
+\ttest\tTest the program
+\tchange\tChange the program
+\tquit\tQuit
+"""
+                )
+                answer = input("enter a command: ").lower()
+                if answer == "login":
+                    self.login()
+                elif answer == "test":
+                    self.test()
+                elif answer == "change":
+                    self.change()
+                elif answer == "quit":
+                    self.quit()
+                else:
+                    print(answer, "is not a valid option")
+        finally:
+            print("Thank you for testing the auth module")
+
+
+Editor().menu()</code></pre>
+
+    </div>
+
+    <div id="4-3-exercises">
+        <h2>Exercícios</h2>
+        <ol class="excs">
+            <!-- <li>Implemente sua versão da estrutura de dados <code>dict</code>.</li> -->
+            <!-- <li>Implemente sua versão da estrutura de dados <code>set</code>.</li> -->
+            <li>Implemente a classe <code>Permission</code> que possui uma string <code>perm_name</code> e uma lista de strings <code>usernames</code>, que são atributos que se referem ao nome da permissão e à lista de usuários que possui essa permissão respectivamente. Implemente nesta classe os métodos
+                <ul>
+                    <li><code>add</code>, que adiciona um nome de usuário à lista <code>usernames</code>, sem duplicatas; e</li>
+                    <li><code>has_permission</code>, que verifica se um nome de usuário possui essa permissão.</li>
+                </ul>
+            </li>
+            <li>Aprimore a validação de senha para lançar exceções quando a senha é considerada fraca. Quais critérios você utilizaria para classificar uma senha como fraca?</li>
+            <li>Amplie o sistema de forma que que os usuários possam editar suas senhas.</li>
+            <li>Amplie o sistema para permitir a modificação das permissões dos usuários.</li>
+            <li>Amplie o sistema de modo a incluir os atributos de nome, informações de contato e data de nascimento na classe <code>User</code>.</li>
+        </ol>
+    </div>
+</div>

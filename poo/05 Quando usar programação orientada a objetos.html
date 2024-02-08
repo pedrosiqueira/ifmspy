@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+        }, false);
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="pseudocode.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
+    <style>
+        img {
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        table.custom,
+        table.custom>thead>tr>th,
+        table.custom>tbody>tr>td,
+        table.custom>tbody>tr>th {
+            /* tabela centralizada e com bordas */
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+        }
+
+        table pre {
+            /* Remove a margem interna de tags pre dentro de tabelas */
+            margin: 0;
+            padding: 0;
+        }
+
+        table.align-left th,
+        table.align-left td {
+            /* alinha à esquerda as células da tabela */
+            text-align: left;
+        }
+
+        ol.excs {
+            /* lista de exercícios */
+            padding-inline-start: 0em;
+            counter-reset: excs;
+            list-style: none;
+        }
+
+        ol.excs>li::before {
+            /* lista de exercícios */
+            counter-increment: excs;
+            content: counters(excs, ".") ". ";
+        }
+
+        ol.excs>li {
+            /* Change this to adjust the line color and thickness */
+            border-left: 2px solid #000;
+            /* Optional: Add padding to create some space between the bar and content */
+            padding-left: 10px;
+
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+        }
+
+        ol.section {
+            counter-reset: section;
+            list-style-type: none;
+        }
+
+        ol.section li::before {
+            counter-increment: section;
+            content: counters(section, ".") ". ";
+        }
+
+        td.hljs-ln-numbers {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            color: #ccc;
+            border-right: 1px solid #999;
+            padding-right: 5px;
+        }
+
+        td.hljs-ln-code {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            padding-left: 10px;
+        }
+    </style>
+</head>
+
+<div id="5-when-to-use-object-oriented-programming">
+    <h1>5 Quando usar programação orientada a objetos</h1>
+    <div id="5-1-treat-objects-as-objects">
+        <h2>Trate objetos como objetos</h2>
+        <p>Primeiro, identificamos os objetos no problema, e então modelamos seus dados e comportamentos.</p>
+        <p>Identificar objetos é uma tarefa essencial na análise orientada a objetos. Pena que não é tão simples quanto identificar os substantivos em um parágrafo que descreve um sistema. Se um candidato a objeto possuir apenas dados, mas não comportamentos, então podemos usar uma outra estrutura de dados para armazená-lo, como lista, conjunto ou dicionário, que veremos no próximo capítulo. Por outro lado, se possui apenas comportamentos, então uma simples função é mais adequada.</p>
+        <p>Muitas vezes podemos iniciar nossos programas armazenando dados em algumas variáveis. À medida que o programa se expande, descobrimos que estamos passando o mesmo conjunto de variáveis relacionadas para um conjunto de funções. Este é o momento de pensar em agrupar variáveis e funções em uma classe.</p>
+        <p>Vamos ver um mesmo problema sendo abordado de dois jeitos. Temos um quadrado que é composto por quatro pontos bidimensionais. No primeiro jeito, sem orientação a objetos:</p>
+
+        <pre><code>import math
+
+def distance(p1, p2):
+    return math.sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)
+
+def perimeter(polygon):
+    perimeter = 0
+    points = polygon + [polygon[0]]
+    for i in range(len(polygon)):
+        perimeter += distance(points[i], points[i+1])
+    return perimeter
+
+
+square = [(1,1), (1,2), (2,2), (2,1)]
+perimeter(square)</code></pre>
+
+        <p>Agora, com orientação a objetos:</p>
+        <pre><code>class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def distance(self, p2):
+        return math.sqrt((self.x-p2.x)**2 + (self.y-p2.y)**2)
+
+class Polygon:
+    def __init__(self):
+        self.vertices = []
+
+    def add_point(self, point):
+        self.vertices.append((point))
+
+    def perimeter(self):
+        perimeter = 0
+        points = self.vertices + [self.vertices[0]]
+        for i in range(len(self.vertices)):
+            perimeter += points[i].distance(points[i+1])
+        return perimeter
+
+
+square = Polygon()
+square.add_point(Point(1,1))
+square.add_point(Point(1,2))
+square.add_point(Point(2,2))
+square.add_point(Point(2,1))
+square.perimeter()</code></pre>
+
+        <p>Qual jeito é melhor? Orientação a objetos nesse caso pode até ter ficado mais legível, mas definitivamente não ficou mais conciso. Para o cliente, que for utilizar a API, os métodos <code>distance</code> e <code>perimeter</code> são mais explicativos que as funções correspondentes.</p>
+        <p>Lembre-se, código grande não necessariamente quer dizer código complexo. Inclusive, geralmente colocar várias operações em uma só linha de código, apesar de divertido, pode tornar o código menos legível. E o que queremos é sempre um código que seja legível e manutenível.</p>
+
+        <p>A propósito, não é por que um código orientado a objetos é pior que seu correspondente funcional, que orientação a objetos é pior. Talvez seja apenas código mal escrito. Podemos melhorar a API de polígonos para facilitar seu uso pelo cliente:</p>
+
+        <pre><code>class Polygon2(Polygon):
+    def __init__(self, points=[]):
+        self.vertices = []
+        for point in points:
+            if isinstance(point, tuple):
+                point = Point(point[0], point[1])
+            self.vertices.append(point)</code></pre>
+
+        <p>Como seria um exemplo de cliente que usa essa nova API?</p>
+
+        <p>Para essa API pequena, talvez não faça tanta diferença entre o paradigma funcional e orientado a objetos. Mas à medida que a API cresça, com cálculos de área, colisão de pontos, ou com mais dados aos polígonos, como cor e textura, orientação a objetos passa a se pagar.</p>
+
+        <p>Se o sistema for usar apenas um polígono, não há necessidade de criar uma classe, pois com esta subentende-se que haverá vários objetos. Por outro lado, se o sistema for manipular vários polígonos, cada qual com vários possíveis comportamentos (cálculo de área, perímetro, interseção, ...), pode fazer mais sentido usar orientação a objetos.</p>
+
+        <p>Para saber se podemos usar POO, podemos olhar o relacionamento entre os dados. Se um faz parte de outro (composição), ou se é uma especialização de outro (herança), é um indício de POO.</p>
+    </div>
+
+    <div id="5-2-adding-behaviors-to-class-data-with-properties">
+        <h2>Adicionando comportamentos aos dados de classe com propriedades</h2>
+        <p>Algumas linguagens orientadas a objetos têm como princípio nunca acessar ou modificar atributos diretamente, tornando-os privados e implementando métodos para acessá-los ou modificá-los:</p>
+
+        <pre><code>class Color:
+    def __init__(self, rgb_value, name):
+        self._rgb_value = rgb_value
+        self._name = name
+
+    def set_name(self, name):
+        self._name = name
+
+    def get_name(self):
+        return self._name</code></pre>
+
+        <p>Os métodos <code>get</code> e <code>set</code> são usados para acessar e modificar os atributos:</p>
+
+        <pre><code>c = Color("#ff0000", "bright red")
+print(c.get_name())
+c.set_name("red")
+print(c.get_name())</code></pre>
+
+        <p>Essa versão <i>boilerplate</i> faz exatamente a mesma coisa que a seguinte simples API:</p>
+        <pre><code>class Color:
+ def __init__(self, rgb_value, name):
+    self.rgb_value = rgb_value
+    self.name = name</code></pre>
+
+        <p>O cliente da API mais simples soa mais natural:</p>
+
+        <pre><code>c = Color("#ff0000", "bright red")
+print(c.name)
+c.name = "red"
+print(c.name)</code></pre>
+
+        <p>A justificativa por usar a versão boilerplate é: vai que um dia precisamos validar o dado antes de atribuí-lo, ou apresentá-lo de uma forma diferente do seu valor padrão? Por exemplo:</p>
+
+        <pre><code>def set_name(self, name):
+    if not name:
+        raise Exception("Invalid Name")
+    self._name = name</code></pre>
+
+        <p>Se fizermos essa alteração depois que a API foi publicada, todos que a utilizem precisarão atualizar seus códigos caso queiram manter a versão atualizada da API. Assim, os favoráreis a esse princípio alegam que é bom já deixar o atributo privado e acessá-lo apenas através de set e get para evitar essa situação.</p>
+        <p>Entretanto, até quando se faz validação dos dados, raramente é feita pelo método set, usando-se outros recursos para tal, como anotações e decorações. Acaba que o código fica simplesmente inchado, na maioria dos casos, cheio de sets e gets de uma única linha.</p>
+
+        <p>O Python possui um recurso chamado <b>propriedade</b>, que faz métodos se comportarem como atributos. Esse é um jeito de alcançar o mesmo propósito desse princípio boilerplate:</p>
+
+        <pre><code>class Color:
+    def __init__(self, rgb_value, name):
+        self.rgb_value = rgb_value
+        self._name = name
+
+    @property
+    def name(self):
+        '''o nome da cor'''
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        if not value:
+            raise Exception("Invalid Name")
+        self._name = value</code></pre>
+
+        <p>Podemos até adicionar um docstring ao método <code>property</code> que o Python vai apresentar o docstring como dado e não como método. O código cliente permanece conciso com a validação dos dados ainda ocorrendo na API.</p>
+
+        <p>Apesar do Python não ter o modificador de acesso <code>private</code>, o atributo <code>_name</code> indica que não pode ser acessado diretamente por conta do prefixo sublinhado. Isso já é o suficiente para um cliente educado, e que tem consciência de que se tentar modificá-lo diretamente, a API já não mais garante o funcionamento previsto.</p>
+
+        <div id="5-2-1-properties-in-detail">
+            <h3>Propriedades em detalhes</h3>
+
+            <p>O Python possui a palavra-reservada <code>del</code>, que exclui um atributo de um objeto. Caso o atributo na verdade seja um método "<code>property</code>", podemos decorar um método para tal operação:</p>
+
+            <pre><code>    @name.deleter
+    def name(self):
+        del self._name
+</code></pre>
+
+            <p>Atenção: Nesses exemplos, <code>name</code> foi o nome dado ao atributo encapsulado pelos métodos decorados. Substitua-o conforme o nome adequado do atributo de teu objeto. O nome dos métodos setter e deleter poderia ser outro, pois o que importa são suas decorações.</p>
+
+            <p>Versão completa do cliente, que acessa, modifica e exclui um atributo encapsulado pelos métodos decorados:</p>
+
+            <pre><code>c = Color("#ff0000", "bright red")
+print(c.name)
+c.name = "red"
+print(c.name)
+del c.name
+print(c.name)</code></pre>
+
+            <p>A operação <code>del</code> na prática é raramente usada. Poderíamos decorar um método com <code>@.deleter</code> para registrar no log a ocorrência da operação, ou para impedir que a operação ocorra. Apesar que ao tentar realizar <code>del</code> em uma propriedade que não tenha o método com a decoração<code>@deleter</code>, a operação já não ocorrerá, lançando uma exceção.</p>
+        </div>
+
+        <div id="5-2-2-decorators">
+            <h3>Mais detalhes</h3>
+            <p>Propriedades também podem ser usadas para declarar atributos constantes:</p>
+            <pre><code>class Foo:
+    @property
+    def bar(self):
+        return "baz"</code></pre>
+
+            <p>Não há método decorado como <code>setter</code>, e mesmo se tivesse, seria inócuo, pois a propriedade retorna um valor literal.</p>
+        </div>
+
+        <div id="5-2-3-deciding-when-to-use-properties">
+            <h3>Decidindo quando usar propriedades</h3>
+            <p>Tecnicamente em Python, propriedades e métodos são considerados atributos. A diferença é que métodos são atributos invocáveis.</p>
+            <p>Basicamente quando algo de um objeto se refere a uma ação, então é um método. Ou seja, ao invocar um método, este deve "fazer" alguma coisa. Por isso que nomes de métodos geralmente são verbos.
+            <p>Já, se for um dado, então pode ser um atributo padrão ou uma propriedade. Nomes de atributos e propriedades geralmente são substantivos. Em geral, use atributo padrão a menos que você queira manter um maior controle no acesso e modificação do atributo. A diferença entre atributos padrão e propriedades é que você consegue realizar operações personalizadas ao obter, modificar ou excluir uma propriedade.</p>
+            <p>Um caso de uso comum para propriedades é deixar em <i>cache</i> valores difíceis de calcular, ou que são caros de obter, como uma requisição web ou consulta de banco de dados. Assim, o valor é armazenado localmente para evitar repetidos cálculos caros.</p>
+            <p>A estratégia de <i>cache</i> funciona assim: a primeira vez que um valor é solicitado, realizamos o cálculo, consulta ou requisição, e armazenamos o resultado num atributo privado ou numa API de caching dedicada. Das próximas vezes que o valor for solicitado, basta retornar o valor armazenado em cache. Podemos estipular um prazo para o cache, que ao encerrar, é realizado o processo novamente, para manter o valor atualizado. Exemplo:</p>
+            <pre><code>from urllib.request import urlopen
+
+class WebPage:
+    def __init__(self, url):
+        self.url = url
+        self._content = None
+
+    @property
+    def content(self):
+        if not self._content:
+            print("Retrieving New Page...")
+            self._content = urlopen(self.url).read()
+        return self._content</code></pre>
+
+            <p>Veja um exemplo de cliente:</p>
+            <pre><code>>>> import time
+>>> webpage = WebPage("http://ccphillips.net/")
+>>> now = time.time()
+>>> content1 = webpage.content
+Retrieving New Page...
+>>> time.time() - now
+22.43316888809204
+>>> now = time.time()
+>>> content2 = webpage.content
+>>> time.time() - now
+1.9266459941864014
+>>> content2 == content1
+True</code></pre>
+
+            <p>Propriedades também podem ser usadas para atributos cujo valores dependem de outros atributos do objeto, como a idade, que pode ser obtida a partir da data de nascimento, ou nome completo, que pode ser obtido a partir do nome e sobrenome. Neste caso, não valeria a pena criar um atributo extra, e como não é uma ação, então é uma propriedade. Por exemplo, seja uma lista de números, poderíamos ter um método <code>calcular_média</code>, ou simplesmente a propriedade <code>média</code>:</p>
+
+            <pre><code>class AverageList(list):
+    @property
+    def average(self):
+        return sum(self) / len(self)</code></pre>
+
+            <p>Exemplo de uso:</p>
+            <pre><code>>>> a = AverageList([1,2,3,4])
+>>> a.average
+2.5</code></pre>
+
+            <p>Métodos setters são úteis para validação, como já vimos, mas também podem ser usados para redirecionar um valor para outro local. Por exemplo, poderíamos adicionar um método setter ao <code>content</code> da classe <code>WebPage</code> que faz o login automaticamente em nosso servidor web e faz o upload de uma nova página sempre que o valor é modificado.</p>
+        </div>
+        <div id="5-2-4">
+            <h3>Exercícios</h3>
+            <ol class="excs">
+                <li>
+                    <p><b>Adicionando Expiração ao Cache</b></p>
+                    <p>Considere a classe <code>WebPage</code> que utiliza uma propriedade para armazenar em cache os dados recuperados. Um problema óbvio com esse exemplo é que o cache nunca é atualizado. Introduza um tempo limite no getter da propriedade de modo que a página em cache seja retornada apenas se a solicitação for feita antes da expiração do tempo limite. Você pode usar o módulo <code>time</code> para determinar se o cache expirou: <code>time.time() - an_old_time</code> retorna o número de segundos que se passaram desde <code>an_old_time</code>. Escolha um valor padrão para o tempo limite, mas que possa ser modificado depois através de métodos decorados @property e @setter.</p>
+                    <p>Teste o módulo do exercício anterior com os seguintes passos:</p>
+                    <ul>
+                        <li>Crie uma instância da classe <code>WebPage</code> com uma URL de sua escolha.</li>
+                        <li>Configure um tempo de expiração para o cache (em segundos).</li>
+                        <li>Solicite o conteúdo da página várias vezes e observe se o conteúdo é recarregado após o período de expiração.</li>
+                    </ul>
+                </li>
+                <li>
+                    <p><b>Propriedades dinâmicas</b></p>
+                    Como a constante $\pi$ é uma dízima não periódica, não é possível determinar seu valor exato. Dependendo das necessidades de sua aplicação, é aceitável que o $\pi$ tenha um certo nível de precisão. Desenvolva uma classe <code>Math</code> que possua uma propriedade <code>pi</code>, que retorna o valor do $\pi$ com um determinado número de casas decimais. Essa classe também possui um atributo de classe <code>precision</code>, que indica o número de casas decimais que a propriedade <code>pi</code> deve gerar. Para simplificar, considere que a classe <code>Math</code> pode gerar um $\pi$ de até um valor máximo determinado de casas decimais.
+                    <p>Crie um módulo para testar a classe <code>Math</code> do exercício anterior. Neste módulo, calcule o perímetro de um círculo usando diferentes valores de precisão para $\pi$.</p>
+                </li>
+                <li>
+                    <!-- Este exercício visa praticar o uso de propriedades em Python para calcular valores dinâmicos com base em outros atributos da classe. -->
+                    <p><b>Propriedades dependentes</b></p>
+                    <p>Desenvolva uma classe <code>Pessoa</code> com os atributos <code>nome</code> e <code>data_nascimento</code>. Implemente a propriedade <code>idade</code> que devolve quantos anos a pessoa tem, com base em sua data de nascimento e na data atual.</p>
+                    <p>Crie duas instâncias da classe <code>Pessoa</code> com nomes distintos e datas de nascimento diferentes. Em seguida, exiba a idade de cada pessoa usando a propriedade <code>idade</code>.</p>
+                </li>
+
+
+            </ol>
+        </div>
+    </div>
+    <div id="5-3-manager-objects">
+        <h2>Gerenciador de objetos</h2>
+        <p>Existem simples classes de objetos cujos atributos são tipos simples como strings e listas, e os métodos operam apenas em cima desses atributos. Mas também há classes de objetos mais complexos, cujos atributos são objetos, e métodos são orquestradores dos objetos. Essas classes de objetos gerenciadores funcionam como delegadores de tarefas a outros objetos, praticamente não operando diretamente em seus próprios atributos.</p>
+        <p>Como exemplo, vamos criar uma classe para substituir ocorrências de textos em arquivos numa pasta compactada. Essa classe faz o seguinte:</p>
+        <ol>
+            <li>Descompacta uma pasta,</li>
+            <li>Realiza uma busca e substituição nos arquivos descompactados e</li>
+            <li>Recompacta os arquivos na pasta.</li>
+        </ol>
+        <p>Os atributos são o nome do arquivo compactado, a string de busca e a string de substituição. Também teremos uma pasta temporária para realizar o processo.</p>
+        <pre><code>import sys
+import shutil
+import zipfile
+from pathlib import Path
+
+
+class ZipReplace:
+    def __init__(self, filename, search_string, replace_string):
+        self.filename = filename
+        self.search_string = search_string
+        self.replace_string = replace_string
+        self.temp_directory = Path(f"unzipped-{filename}")</code></pre>
+        <p>Implementamos um método gerenciador, que apenas delega tarefas:</p>
+        <pre><code>def zip_find_replace(self):
+        self.unzip_files()
+        self.find_replace()
+        self.zip_files()</code></pre>
+        <p>Poderíamos realizar esses três passos em apenas um método, ou então, nem criar classes e fazer tudo em um único script. Mas modularizar possui as seguintes vantagens:</p>
+        <ul>
+            <ol><b>Legibilidade:</b> Como cada etapa está bem separada, fica mais fácil de ler o código e ter uma noção geral do que está se passando. Os próprios métodos são autodocumentáveis.</ol>
+            <ol><b>Extensibilidade:</b> Podemos facilmente adaptar o código para outras possibilidades, como descompactar arquivos TAR em vez de ZIP, sem ter que alterar muita parte do código, e melhor, sem CTRL+C, CTRL+V.</ol>
+            <ol><b>Baixo acoplamento:</b> Modularidade nos proporciona partes mais independentes. Um cliente poderia muito bem utilizar nossa API para buscar e substituir ocorrências em arquivos de pastas descompactadas.</ol>
+        </ul>
+        <p>Os métodos delegados:</p>
+        <pre><code>    def unzip_files(self):
+        self.temp_directory.mkdir()
+        zip = zipfile.ZipFile(self.filename)
+        zip.extractall(self.temp_directory)
+        zip.close()
+
+    def find_replace(self):
+        for filename in self.temp_directory.iterdir():
+            file = filename.open()
+            contents = file.read()
+            file.close()
+            contents = contents.replace(self.search_string, self.replace_string)
+            file = filename.open("w")
+            file.write(contents)
+            file.close()
+
+    def zip_files(self):
+        file = zipfile.ZipFile(self.filename, "w")
+        for filename in self.temp_directory.iterdir():
+            file.write(filename, filename.name)
+        file.close()
+        shutil.rmtree(self.temp_directory)
+
+
+if __name__ == "__main__":
+    ZipReplace(*sys.argv[1:4]).zip_find_replace()</code></pre>
+
+        <p>Você pode executar o programa diretamente assim:</p>
+        <pre><code>python zipsearch.py hello.zip hello hi</code></pre>
+        <p>Essa API pode ser usada por diversos clientes, que poderia fornecer uma interface gráfica, acessar pastas compactadas de servidores remotos, enfim.</p>
+
+        <div id="5-3-1-removing-duplicate-code">
+            <h3>Removendo código duplicado</h3>
+            <p>Geralmente você se deparará com códigos genéricos cuja lógica pode ser aplicada em outros lugares. Vejamos alguns motivos do por quê duplicar código é ruim.</p>
+            <p>Pensando a curto prazo, pode ser mais prático copiar e colar um código de um sistema ou outro, fazendo devidas adaptações. Mas um código copiado vem com muitos vestígios, como comentários específicos, variáveis e lógicas.</p>
+            <p>Há uma máxima na programação que o você que escreveu um código hoje, não é o mesmo você que lerá o código amanhã. Isso significa que o que fazia sentido quando foi escrito pode não mais ser facilmente lembrado após algum tempo. Quanto mais quando não foi você que escreveu um código. Dois trechos de código semelhantes podem levantar dúvidas como qual a diferença entre eles, as semelhanças, qual deles deve ser executado em quais circustâncias, enfim. Quando escrevemos código, antes de mais nada, este deve ser legível.</p>
+            <p>O autor nos dá um exemplo que ele passou, de lidar com código de alguém que tinha cerca de 300 linhas mal escritas repetidas em três lugares diferentes. Depois de passar um mês trabalhando no código, ele compreendeu as diferenças e semelhanças, e que muita coisa poderia ser reaproveitada. No final, ele refatorou as 900 linhas de código em cerca de 20!</p>
+            <p>Devemos também procurar escrever código manutenível. Códigos duplicados podem ser um pesadelo. Precisa manter os dois sincronizados à medida que são atualizados, lembrando as partes que são diferentes. Isso é muito sucetível a bugs.</p>
+            <p>Em um sistema de produção, código é lido e modificado muito mais vezes que escrito.</p>
+            <p>Uma maneira de evitar código duplicado é mover a parte comum para dentro de uma função, e utilizar parâmetros para lidar com as diferenças. Buscar maior generalidade no código é alcançado evitando valores fixos ("chumbados") e preferindo variáveis ou até mesmo arquivos de propriedades. Duas formas de reaproveitar código em POO é através de composição ou herança, evitando, assim, código duplicado. </p>
+            <p>Para evitar a duplicação de código, uma estratégia eficaz é extrair a parte comum para uma função e utilizar parâmetros para lidar com as diferenças. Buscar maior generalidade no código é alcançado evitando valores fixos e preferindo variáveis ou até mesmo arquivos de propriedades. Na programação orientada a objetos (POO), duas abordagens para reutilizar código são a composição e a herança, proporcionando uma maneira eficiente de evitar duplicação de código.</p>
+
+        </div>
+        <div id="5-3-2-in-practice">
+            <h3>Na prática</h3>
+            <p>Suponha agora que sejamos contratados para alterar a resolução de imagens em uma pasta compactada. Nosso primeiro impulso poderia ser salvar uma cópia de <code>ZipReplace</code> e alterar apenas o método <code>find_replace</code> para <code>scale_image</code>. O que poderia dar errado?</p>
+            <p>Vamos propor uma solução usando herança:</p>
+            <pre><code>import sys
+import shutil
+import zipfile
+from pathlib import Path
+from PIL import Image
+
+
+class ZipProcessor:
+    def __init__(self, zipname):
+        self.zipname = zipname
+        self.temp_directory = Path(f"unzipped-{zipname[:-4]}")
+
+    def process_zip(self):
+        self.unzip_files()
+        self.process_files()
+        self.zip_files()
+
+    def unzip_files(self):
+        self.temp_directory.mkdir()
+        zip = zipfile.ZipFile(self.zipname)
+        zip.extractall(self.temp_directory)
+        zip.close()
+
+    def zip_files(self):
+        file = zipfile.ZipFile(self.zipname, "w")
+        for filename in self.temp_directory.iterdir():
+            file.write(filename, filename.name)
+        file.close()
+        shutil.rmtree(self.temp_directory)</code></pre>
+
+            <p>Observe que as mudança tornaram o código mais generalizado. Essa classe não implementa o método <code>process_files</code>, que deve ser implementado pelas classes filhas. Ou seja, é uma classe abstrata! Fica como exercício torná-la abstrata.</p>
+
+            <p>A nova versão de <code>ZipReplace</code> ficou mais enxuta:</p>
+            <pre><code>class ZipReplace(ZipProcessor):
+    def __init__(self, filename, search_string, replace_string):
+        super().__init__(filename)
+        self.search_string = search_string
+        self.replace_string = replace_string
+
+    def process_files(self):
+        """perform a search and replace on all files in the
+        temporary directory"""
+        for filename in self.temp_directory.iterdir():
+            file = filename.open()
+            contents = file.read()
+            file.close()
+            contents = contents.replace(self.search_string, self.replace_string)
+            file = filename.open("w")
+            file.write(contents)
+            file.close()</code></pre>
+            <p>Aqui tomamos o cuidado de comentar o método <code>process_files</code> pois agora ele não está mais tão óbvio quanto antes.</p>
+
+            <p>A classe de imagens fica mais fácil de entender:</p>
+            <pre><code>class ScaleZip(ZipProcessor):
+    def process_files(self):
+        """Scale each image in the directory to 640x480"""
+        for filename in self.temp_directory.iterdir():
+            im = Image.open(str(filename))
+            scaled = im.resize((640, 480))
+            scaled.save(filename)
+        
+            im.close()
+            scaled.close()</code></pre>
+
+            <p>Agora podemos melhorar ou corrigir <code>ZipProcessor</code> sem necessariamente afetar as classes filhas. Esse baixo acoplamento torna o código mais manutenível.</p>
+        </div>
+        <div id="5-3-3-exercicios">
+            <h3>Exercícios</h3>
+            <ol class="excs">
+                <li>Torne <code>ZipProcessor</code> abstrata.</li>
+                <li>Modifique <code>ZipProcessor</code> de modo a descompactar recursivamente a pasta selecionada.</li>
+                <li>O método <code>process_files</code> da classe <code>ScaleZip</code> chumbou no código uma resolução fixa de 640x480, o que não é tão interessante. Proponha uma solução em que os novos valores de resolução não estejam chumbados.</li>
+                <li>Teste as classes <code>ZipReplace</code> e <code>ScaleZip</code> para casos como: substituir palavras em arquivos de texto, redimensionar imagens com várias resoluções, verificar se arquivos fora do formato de imagem não são afetados por <code>ScaleZip</code>, e confirmar que todos os arquivos são reinseridos no arquivo ZIP final após a operação.</li>
+                <li>
+                    Resolvemos o problema de duplicação de código em <code>ZipProcessor</code> através de herança. Também é possível usar composição em vez de herança. Em vez de estender a classe nas classes <code>ZipReplace</code> e <code>ScaleZip</code>, você poderia passar instâncias dessas classes para o construtor do <code>ZipProcessor</code> e chamá-las para realizar a parte do processamento. Implemente isso.
+                    <p>Qual versão você acha mais fácil de usar? Qual é mais elegante? Qual é mais fácil de ler? Essas são perguntas subjetivas; a resposta varia para cada um de nós. No entanto, saber a resposta é importante. Se você perceber que prefere herança em vez de composição, é necessário prestar atenção para não abusar da herança em sua programação diária. Se você preferir composição, certifique-se de não perder oportunidades de criar uma solução elegante baseada em herança.</p>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="5-4-case-study">
+        <h2>Estudo de caso</h2>
+        <p>Modelaremos uma classe <code>Document</code> que pode ser usada em um processador de texto. Poderíamos representar o conteúdo como <code>str</code>, mas esse tipo de dados é imutável em Python. Sempre que inserirmos ou excluírmos um caractere, teríamos de criar outra string, o que poderia sobrecarregar o coletor de lixo do Python. Portanto, em vez de <code>str</code>, a estrutura subjacente à classe será uma lista de caracteres, que podemos modificar diretamente.</p>
+        <p>Operações que podemos implementar em nosso sistema: inserir, excluir, selecionar caracteres; recortar, copiar e colar a seleção; savar e fechar o documento.</p>
+
+        <p>Vamos começar com uma primeira versão:</p>
+        <pre><code>class Document:
+    def __init__(self):
+        self.characters = []
+        self.cursor = 0
+        self.filename = ""
+
+    def insert(self, character):
+        self.characters.insert(self.cursor, character)
+        self.cursor += 1
+
+    def delete(self):
+        del self.characters[self.cursor]
+
+    def save(self):
+        file = open(self.filename, "w")
+        string = ""
+        for char in self.characters:
+            string += char
+        file.write(string)
+        file.close()
+
+    def forward(self):
+        self.cursor += 1
+
+    def back(self):
+        self.cursor -= 1</code></pre>
+
+        <p>Exemplo de execução:</p>
+        <pre><code>>>> doc = Document()
+>>> doc.filename = "test_document"
+>>> doc.insert('h')
+>>> doc.insert('e')
+>>> doc.insert('l')
+>>> doc.insert('l')
+>>> doc.insert('o')
+>>> print(doc.characters)
+[h, e, l, l, o]
+>>> doc.back()
+>>> doc.delete()
+>>> doc.insert('p')
+>>> print(doc.characters)
+[h, e, l, l, p]</code></pre>
+
+        <p>Como a class está relativamente pequena, colocamos tudo em um lugar só. Mas e se quiséssemos suportar as operações de <i>home</i>, <i>end</i>, <i>PageUp</i>, <i>PageDown</i>, dentre outras? Poderia ser interessante descentralizar um pouco esses métodos. Vamos implementar a classe <code>Cursor</code> com essas operações relacionadas:</p>
+        <pre><code>class Cursor:
+    def __init__(self, document):
+        self.document = document
+        self.position = 0
+
+    def forward(self):
+        self.position += 1
+
+    def back(self):
+        self.position -= 1
+
+    def home(self):
+        while self.document.characters[self.position - 1] != "\n":
+            self.position -= 1
+            if self.position == 0:  # Got to beginning of file before newline
+                break
+
+    def end(self):
+        while (
+            self.position &lt; len(self.document.characters)
+            and self.document.characters[self.position] != "\n"
+        ):
+            self.position += 1</code></pre>
+
+        <p>Esse código não é perfeito. Por exemplo, tentar ir para <i>home</i> em um documento vazio levantaria uma exceção. Você pode implementar melhorias como validações de erros, como exercício.</p>
+
+        <p>Como ficaria a mudança na classe <code>Document</code>?</p>
+
+        <p>Uma possível execução:</p>
+        <pre><code>>>> d = Document()
+>>> d.insert('h')
+>>> d.insert('e')
+>>> d.insert('l')
+>>> d.insert('l')
+>>> d.insert('o')
+>>> d.insert('\n')
+>>> d.insert('w')
+>>> d.insert('o')
+>>> d.insert('r')
+>>> d.insert('l')
+>>> d.insert('d')
+>>> d.cursor.home()
+>>> d.insert("*")
+>>> print(d.characters)
+[h, e, l, l, o,
+, *, w, o, r, l, d]</code></pre>
+
+        <p>Em vez de imprimir a lista diretamente, poderíamos abstrair essa ideia para um método próprio na classe <code>Document</code>:</p>
+
+        <pre><code>    def __str__(self):
+        s = ""
+        for char in self.characters:
+            s += str(char)
+        return s</code></pre>
+        <p>Como esse código é repetido no método <code>save</code>, podemos modificá-lo para fazer proveito desse código.</p>
+        <p>Vamos suportar agora formatação dos caracteres, como <b>negrito</b>, <i>itálico</i> ou <u>sublinhado</u>. Poderíamos fazer algo como um XML para representar a formatação dos nossos caracteres, como é usado em processadores de textos. Ou então podemos usar uma classe com atributos representando a formatação de cada caractere.</p>
+        <p>Se a classe for possuir métodos próprios, podemos criar nossa própria classe, senão, podemos usar uma classe embutida do Python, como <code>list</code>, <code>dict</code> ou até mesmo <code>str</code> para representar um caractere. Mas aqui vamos criar nossa própria classe para representar um caractere.</p>
+        <pre><code>class Character:
+    def __init__(self, character, bold=False, italic=False, underline=False):
+        assert len(character) == 1
+        self.character = character
+        self.bold = bold
+        self.italic = italic
+        self.underline = underline
+
+    def __str__(self):
+        bold = "*" if self.bold else ""
+        italic = "/" if self.italic else ""
+        underline = "_" if self.underline else ""
+        return bold + italic + underline + self.character</code></pre>
+        <p>Aqui sobrecarregamos o método <code>__str__</code> que diz ao Python como representar o objeto como string. Esse método é chamado automaticamente pelo Python ao tentar imprimir seu objeto.</p>
+        <p>Como agora os caracteres são objetos da classe <code>Character</code>, devemos atualizar os métodos das classes que antes utilizavam <code>str</code> no lugar de <code>Character</code>. Isso inclui os métodos <code>insert</code> e <code>string</code> de <code>Document</code>, e <code>home</code> e <code>end</code> de <code>Cursor</code> para manipular um <code>Character</code> em vez de <code>str</code> (Deixado como exercício).</p>
+        <p>A seguir, um exemplo de utilização:</p>
+        <pre><code>>>> d = Document()
+>>> d.insert('h')
+>>> d.insert('e')
+>>> d.insert(Character('l', bold=True))
+>>> d.insert(Character('l', bold=True))
+>>> d.insert('o')
+>>> d.insert('\n')
+>>> d.insert(Character('w', italic=True))
+>>> d.insert(Character('o', italic=True))
+>>> d.insert(Character('r', underline=True))
+>>> d.insert('l')
+>>> d.insert('d')
+>>> print(d)
+he*l*lo
+/w/o_rld
+>>> d.cursor.home()
+>>> d.delete()
+>>> d.insert('W')
+>>> print(d)
+he*l*lo
+W/o_rld
+>>> d.characters[0].underline = True
+>>> print(d)
+_he*l*lo
+W/o_rld</code></pre>
+        <p>O próximo passo poderia ser integrar essa API a uma interface gráfica, conectada a um teclado para entrada e a uma tela para saída. Naturalmente, gostaríamos de exibir fontes verdadeiramente em negrito, itálico e sublinhado em uma interface do usuário, em vez de usar nosso método <code>__str__</code>, mas isso foi suficiente para nossos testes básicos.</p>
+
+        <div id="5-4-1-exercicios">
+            <h3>Exercícios</h3>
+            <ol class="excs">
+                <li>Como o método <code>save</code> de <code>Document</code> possui um trecho de código que o método <code>__str__</code> já faz, modifique <code>save</code> para reaproveitar o código.</li>
+                <li>Modifique os métodos <code>insert</code> e <code>__str__</code> de <code>Document</code>, <code>home</code> e <code>end</code> de <code>Cursor</code> para manipular um <code>Character</code> em vez de <code>str</code></li>
+                <li>Modifique o método <code>home</code> de <code>Cursor</code> de modo que não dê erro ao tentar voltar para o início de um documento que ainda está vazio.</li>
+                <li>A diferença entre as teclas <kbd>delete</kbd> e <kbd>backspace</kbd> é que esta apaga o que está antes do cursor, enquanto aquela apaga o que está após o cursor. O método <code>delete</code> atualmente implementado apaga o caractere antes ou após o cursor? Implemente o método <code>backspace</code> e, se necessário, modifique o método <code>delete</code>, para ter ambas as operações implementadas conforme o esperado.</li>
+                <li>Adicione alguns manipuladores de erro às várias classes que criamos no estudo de caso. Eles devem garantir que apenas caracteres únicos sejam inseridos, que você não tente mover o cursor além do final ou do início do arquivo, que você não exclua um caractere que não existe e que você não salve um arquivo sem um nome de arquivo. Tente pensar em tantos casos limite quanto possível e leve-os em consideração (pensar em casos limite é cerca de 90% do trabalho de um programador profissional!). Considere diferentes maneiras de lidar com eles; você deve levantar uma exceção quando o usuário tenta ultrapassar o final do arquivo, ou apenas permanecer no último caractere?</li>
+                <li>Dependendo da API, não faz sentido o cliente acessar diretamente alguns atributos, a fim de evitar possíveis inconsistências no estado dos objetos. Identifique quais atributos desta API devem ser mantidos privados, proporcionando apenas métodos específicos para sua manipulação.</li>
+            </ol>
+        </div>
+    </div>
+</div>
