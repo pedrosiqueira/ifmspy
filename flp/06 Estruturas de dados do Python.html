@@ -313,6 +313,176 @@ except:
 for key, value in random_keys.items():
     print(f"{key} has value {value}")</code></pre>
 
-    <p>Geralmente objetos mutáveis, como listas e dicionários, não são hasheáveis, portanto, não podem ser usados como chaves de dicionários. O valor <b>hash</b> de um objeto é como se fosse sua "impressão digital": permanece a mesma enquanto o objeto existir. Por padrão, o hash de objetos de classes personalizadas é um número equivalente ao seu endereço de memória, que é inclusive usado ao imprimir ou comparar o objeto quando não se sobrescrevem os métodos <code>__str__</code> e <code>__eq__</code>. Você também pode sobrescrever o método <code>__hash__</code>, caso queira calcular e retornar um hash baseado nos valores dos atributos do objeto.</p>
+        <p>Geralmente objetos mutáveis, como listas e dicionários, não são hasheáveis, portanto, não podem ser usados como chaves de dicionários. O valor <b>hash</b> de um objeto é como se fosse sua "impressão digital": permanece a mesma enquanto o objeto existir. Por padrão, o hash de objetos de classes personalizadas é um número equivalente ao seu endereço de memória, que é inclusive usado ao imprimir ou comparar o objeto quando não se sobrescrevem os métodos <code>__str__</code> e <code>__eq__</code>. Você também pode sobrescrever o método <code>__hash__</code>, caso queira calcular e retornar um hash baseado nos valores dos atributos do objeto.</p>
+
+        <div id="6-4-1-dictionary-use-cases">
+            <h3>Casos de uso de dicionários</h3>
+            <p>Um dicionário poderia ser usado para armazenar informações específicas de um tipo de dados, como uma ação da bolsa...</p>
+            <pre><code>aapl = {"code": "AAPL", "current": 150.0, "low": 140.0, "high": 160.0}</code></pre>
+            <p>... ou até mesmo para armazenar informações de vários dados de um tipo:</p>
+            <pre><code>stocks = {
+    "AAPL": aapl,
+    "GOOG": {"current": 1235.2, "low": 1242.54, "high": 1231.06},
+    "MSFT": {"current": 110.41, "low": 110.45, "high": 109.84}
+}</code></pre>
+
+            <p>Quando usar dicionários, dataclasses ou tuplas?</p>
+            <p>Quando sabemos exatamente quais atributos um dado deve armazenar, especialmente se quisermos manter uma certa documentação, podemos usar dataclasses.</p>
+            <p>Na verdade, como dataclasses veio depois de tuplas nomeadas, a tendência é que passem a ser mais utilizadas. Mas para casos em que queiramos usar desempacotamento ou iteração, podemos escolher tuplas nomeadas.</p>
+            <p>Dicionários podem ser mais interessantes quando não sabemos de antemão quais as chaves de um dado, ou se nem todos os dados terão as mesmas chaves, e também quando precisamos fazer consultas rápidas de dados pelas chaves.</p>
+            <p>Tecnicamente, a maioria dos objetos em Python são implementados utilizando dicionários nos bastidores. A maioria dos objetos possui o atributo mágico <code>obj.__dict__</code>. Quando você acessa um atributo em um objeto usando <code>obj.nome_do_atributo</code>, essencialmente isso é traduzido para <code>obj['nome_do_atributo']</code> nos bastidores.</p>
+        </div>
+        <div id="6-4-2-using-defaultdict">
+            <h3>Usando <code>defaultdict</code></h3>
+            <p>Um caso de uso típico para dicionários é o problema de contar o número de ocorrências de cada elemento de uma sequência:</p>
+            <pre><code>def letter_frequency(sentence):
+    frequencies = {}
+    for letter in sentence:
+        frequency = frequencies.setdefault(letter, 0)
+        frequencies[letter] = frequency + 1
+    return frequencies</code></pre>
+            <p>Para garantir que não vamos tentar modificar o valor de uma chave que não existe, usamos o método <code>setdefault</code> para cada chave. Podemos definir um valor padrão para todas as chaves de uma vez com <code>defaultdict</code>:</p>
+            <pre><code>from collections import defaultdict
+def letter_frequency(sentence):
+    frequencies = defaultdict(int)
+    for letter in sentence:
+        frequency = frequencies.setdefault(letter, 0)
+        frequencies[letter] = frequency + 1
+    return frequencies</code></pre>
+            <p>O construtor da classe <code>defaultdict</code> aceita uma função como argumento, que é chamada sempre que se tenta acessar ou modificar uma chave que não existe. No caso, a função <code>int</code> quando chamada sem argumentos, retorna o valor zero.</p>
+            <p id="defaultdict-custom-function">Considere o seguinte problema: Queremos implementar um dicionário de definição de palavras, mas também queremos saber em que ordem cada palavra foi adicionada. Uma possível solução:</p>
+            <pre><code>from collections import defaultdict
+
+num_items = 0
+
+def tuple_counter():
+    global num_items
+    num_items += 1
+    return [num_items, ""]
+
+d = defaultdict(tuple_counter)
+
+d["pindaíba"][1] = "falta de dinheiro"
+d["gororoba"][1] = "comida duvidosa"
+d["bugiganga"][1] = "quinquilharia"
+d["bizu"][1] = "ideia"
+
+print(f'gororoba significa {d["gororoba"][1]}, e foi a {d["gororoba"][0]}ª palavra a ser adicionada neste dicionário.')</code></pre>
+            <p>Esse exemplo, meramente para demonstrar uma função própria passada como argumento a <code>defaultdict</code>, possui algumas limitações. Por exemplo, se quiséssemos ter mais de um dicionário, precisaríamos de uma variável global para cada um. Além de que a interface com o programador não é tão amigável. Nos exercícios proporemos uma melhora neste código.</p>
+            <div id="6-4-2-1-counter">
+                <h4>Contador</h4>
+                <p>O problema de contar o número de ocorrências é tão comum que a galera do Python criou uma classe especificamente para isso:</p>
+                <pre><code>from collections import Counter
+def letter_frequency(sentence):
+    return Counter(sentence)</code></pre>
+                <p>O objeto da classe <code>Counter</code> é basicamente um dicionário em que as chaves são cada um dos elementos de <code>seentence</code> e os valores são suas respectivas quantidades. Esse objeto também possui o método <code>most_common</code>, que pode receber um inteiro <code>x</code> e retorna uma lista ordenada com as <code>x</code> chaves e respectivos valores que mais ocorreram:</p>
+                <pre><code>from collections import Counter
+
+responses = [
+    "vanilla",
+    "chocolate",
+    "vanilla",
+    "vanilla",
+    "caramel",
+    "chocolate",
+    "strawberry",
+    "vanilla",
+]
+
+print("The children voted for", Counter(responses).most_common(1)[0][0], "ice cream")</code></pre>
+            </div>
+        </div>
+        <div id="6-4-1-exercises">
+            <h3>Exercícios</h3>
+            <ol class="excs">
+                <li>
+                    <b>API de Preços de Ações</b>
+                    <p>Crie uma API que mantém uma lista dos preços de fechamento de várias ações ao longo dos dias. Utilize dicionários, em que as chaves representam o código da ação e os valores são listas de tuplas contendo a data e o preço de fechamento. Implemente os seguintes métodos:</p>
+                    <ul>
+                        <li><code>add(code, date, closing_price)</code>: adiciona informações de preço de fechamento para uma ação específica em uma determinada data. Certifique-se de lidar com casos em que a ação ainda não possui uma entrada no dicionário, usando <code>defaultdict</code>.</li>
+                        <li><code>get_prices(code)</code>: Retorna a lista de tuplas contendo a data e o preço de fechamento para uma ação específica.</li>
+                        <li><code>get_all_stocks()</code>: Retorna uma lista com todos os códigos de ações presentes no dicionário.</li>
+                        <li><code>average_price(code)</code>: Retorna a média dos preços de fechamento de uma ação específica.</li>
+                        <li><code>recent_prices(code, date)</code>: Retorna uma lista com os preços de fechamento de uma ação específica a partir da data <code>date</code>.</li>
+                    </ul>
+                </li>
+                <li>
+                    <b>Dicionário de definição de palavras</b>
+                    <p>Crie uma API para gerenciar um dicionário de definições de palavras, com a capacidade de rastrear a ordem de adição/modificação de cada palavra. Implemente os seguintes métodos:</p>
+                    <ul>
+                        <li><code>set(word, definition)</code>: Adiciona ou modifica a definição de uma palavra.</li>
+                        <li><code>get(word)</code>: Retorna a definição de uma palavra. Se a palavra não existir no dicionário, retorna uma mensagem indicando que a palavra não foi encontrada.</li>
+                        <li><code>get_word_order(word)</code>: Retorna a ordem em que uma palavra foi adicionada/modificada no dicionário. A ordem deve ser um número inteiro representando a posição da palavra na sequência de adições/modificações.</li>
+                        <li><code>get_all_words()</code>: Retorna uma lista com todas as palavras presentes no dicionário, na ordem em que foram adicionadas/modificadas.</li>
+                    </ul>
+                </li>
+                <li>
+                    <b>Sistema de eleições</b>
+                    <p>Crie um programa para gerenciar uma eleição. Primeiramente, será necessário cadastrar os candidatos e associá-los às suas respectivas chapas. Em seguida, o programa deverá ler a lista de votações, onde cada voto é representado pelo número da chapa do candidato votado. Primeiramente o programa lê a quantidade de candidatos, seguida pelo número da chapa e o nome (sem espaços) de cada candidato. Depois o programa lê a quantidade de votos, seguida pelos números das chapas votadas. Caso haja algum número sem chapa cadastrada, considerar como voto nulo. Por fim, o programa deve exibir os dois candidatos mais votados, e a mensagem "SEM SEGUNDO TURNO" ou "COM SEGUNDO TURNO", caso o primeiro candidato tenha conseguido mais de 50% dos votos ou não. Caso haja empate, o critério de desempate é a ordem alfabética. A entrada e saída de dados deve obedecer ao seguinte padrão de exemplo:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="border-bottom: 1px solid black;">Entrada</th>
+                                <th style="border-bottom: 1px solid black;">Saída</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>3</td>
+                                <td>Sicrano</td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td>Beltrano</td>
+                            </tr>
+                            <tr>
+                                <td>Fulano</td>
+                                <td>COM SEGUNDO TURNO</td>
+                            </tr>
+                            <tr>
+                                <td>42</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Beltrano</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>20</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Sicrano</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>20</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>0</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>42</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>20</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </li>
+                <!-- <li>Faltou um exercício que seja interessante usar a classe counter...</li> -->
+            </ol>
+        </div>
     </div>
 </div>
