@@ -346,7 +346,7 @@ for key, value in random_keys.items():
 def letter_frequency(sentence):
     frequencies = defaultdict(int)
     for letter in sentence:
-        frequencies[letter] = frequency + 1
+        frequencies[letter] += 1
     return frequencies</code></pre>
             <p>O construtor da classe <code>defaultdict</code> aceita uma função como argumento, que é chamada sempre que se tenta acessar ou modificar uma chave que não existe. No caso, a função <code>int</code> quando chamada sem argumentos, retorna o valor zero.</p>
             <p id="defaultdict-custom-function">Considere o seguinte problema: Queremos implementar um dicionário de definição de palavras, mas também queremos saber em que ordem cada palavra foi adicionada. Uma possível solução:</p>
@@ -389,6 +389,15 @@ responses = [
 ]
 
 print("The children voted for", Counter(responses).most_common(1)[0][0], "ice cream")</code></pre>
+                <p><code>Counter(responses)</code> retorna um objeto contador. O método <code>most_common</code> sempre retorna uma lista, mesmo que esta possua apenas um item. Portanto, <code>most_common(1)</code> retorna uma lista com um único item, o que mais ocorreu, e o primeiro índice <code>[0]</code> acessa esse item. O segundo índice <code>[0]</code> acessa o nome do item, já que se o segundo índice fosse <code>[1]</code>, estaria acessando a quantidade de ocorrências daquele item. Veja um exemplo equivalente destrinchado do <code>print</code> anterior:</p>
+                <pre><code>result = Counter(responses)
+most_voted = result.most_common(2)
+first_most_voted = most_voted[0]
+second_most_voted = most_voted[1]
+# third = most_voted[2] # error, only checked the top 2 most voted!
+first_name = first_most_voted[0]
+first_votes_count = first_most_voted[1]
+print("The children voted for", first_name, "ice cream, with", first_votes_count, "votes.")</code></pre>
             </div>
         </div>
         <div id="6-4-1-exercises">
@@ -407,7 +416,7 @@ print("The children voted for", Counter(responses).most_common(1)[0][0], "ice cr
                 </li>
                 <li>
                     <b>Dicionário de definição de palavras</b>
-                    <p>Crie uma API para gerenciar um dicionário de definições de palavras, com a capacidade de rastrear a ordem de adição/modificação de cada palavra. Implemente os seguintes métodos:</p>
+                    <p>Melhore a solução proposta para o problema do dicionário de palavras <a href="#defaultdict-custom-function">definido anteriormente</a>. Crie uma API com os seguintes métodos:</p>
                     <ul>
                         <li><code>set(word, definition)</code>: Adiciona ou modifica a definição de uma palavra.</li>
                         <li><code>get(word)</code>: Retorna a definição de uma palavra. Se a palavra não existir no dicionário, retorna uma mensagem indicando que a palavra não foi encontrada.</li>
@@ -419,64 +428,35 @@ print("The children voted for", Counter(responses).most_common(1)[0][0], "ice cr
                     <b>Sistema de eleições</b>
                     <p>Crie um programa para gerenciar uma eleição. Primeiramente, será necessário cadastrar os candidatos e associá-los às suas respectivas chapas. Em seguida, o programa deverá ler a lista de votos, onde cada voto é representado pelo número da chapa do candidato votado.</p>
                     <p>Primeiramente o programa lê a quantidade de candidatos, seguida pelo número da chapa e o nome (única palavra, sem espaços) de cada candidato. Depois o programa lê a quantidade de votos, seguida pelos números das chapas votadas. Caso haja algum número sem chapa cadastrada, considerar como voto nulo. Por fim, o programa deve exibir os dois candidatos mais votados, e a mensagem "SEM SEGUNDO TURNO" ou "COM SEGUNDO TURNO", caso o primeiro candidato tenha conseguido mais de 50% dos votos ou não. Caso haja empate, o critério de desempate é a ordem alfabética. A entrada e saída de dados deve obedecer ao seguinte padrão de exemplo:</p>
-                    <table>
+                    <table class="custom">
                         <thead>
                             <tr>
-                                <th style="border-bottom: 1px solid black;">Entrada</th>
-                                <th style="border-bottom: 1px solid black;">Saída</th>
+                                <th>Entrada</th>
+                                <th>Saída</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>3</td>
-                                <td>Sicrano</td>
-                            </tr>
-                            <tr>
-                                <td>14</td>
-                                <td>Beltrano</td>
-                            </tr>
-                            <tr>
-                                <td>Fulano</td>
-                                <td>COM SEGUNDO TURNO</td>
-                            </tr>
-                            <tr>
-                                <td>42</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Beltrano</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>20</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Sicrano</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>20</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>14</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>0</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>42</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>20</td>
+                                <td style="text-align: left;">
+                                    <pre>3
+14
+Fulano
+42
+Beltrano
+20
+Sicrano
+5
+20
+14
+0
+42
+20</pre>
+                                </td>
+                                <td style="text-align: left; vertical-align: top;">
+                                    <pre>Sicrano
+Beltrano
+COM SEGUNDO TURNO</pre>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
