@@ -50,6 +50,12 @@
             /* Remove a margem interna de tags pre dentro de tabelas */
             margin: 0;
             padding: 0;
+            text-align: left;
+        }
+
+        td:has(pre) {
+            /* tags pre dentro de tabela são alinhadas no topo à esquerda */
+            vertical-align: top;
         }
 
         table.align-left th,
@@ -437,7 +443,7 @@ print("The children voted for", first_name, "ice cream, with", first_votes_count
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="text-align: left;">
+                                <td>
                                     <pre>3
 14
 Fulano
@@ -452,7 +458,7 @@ Sicrano
 42
 20</pre>
                                 </td>
-                                <td style="text-align: left; vertical-align: top;">
+                                <td>
                                     <pre>Sicrano
 Beltrano
 COM SEGUNDO TURNO</pre>
