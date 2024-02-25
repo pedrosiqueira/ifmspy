@@ -167,6 +167,25 @@ print(f"Stock with the highest percentage change: {result[0]}")
 print(f"Average value of the share with the highest percentage change: {result[1]}")</code></pre>
 
         <p>Nas linhas 3, 7 e 8 fizemos <b>desempacotamento</b> (unpacking), ou <b>destruturação</b> (destructuring) da tupla, um recurso que lhe permite atribuir valores de objetos iteráveis (como tupla e lista) a múltiplas variáveis em uma única linha. Por convenção, quando destruturamos um valor que não precisamos, usamos o <code>_</code>, como nas linhas 7 e 8.</p>
+        <p>Se você quiser inicializar várias variáveis em uma única linha, pode usar desempacotamento de tuplas:</p>
+        <pre><code># jeito pythônico de ser
+a, b, c = 10, 20, 30
+
+# em outras linguagens vc faria algo assim:
+# a=10, b=20, c=30</code></pre>
+<p>Uma tupla pode ser imutável, mas os itens dentro dela não necessariamente:</p>
+<pre><code>tuple1 = (11, [22, 33], 44, 55)
+print("original:", tuple1)
+
+tuple1[1][0] = 222 # a lista dentro da tupla pode ser modificada
+print("modificada:", tuple1)</code></pre>
+
+        <p>Você também pode ter uma tupla com um único item. Neste caso, para diferenciar de um valor isolado, deve haver uma vírgula após o item:</p>
+        <pre><code>a_tuple = (42,)
+not_a_tuple = (42)
+a_int = 42
+print(a_tuple, not_a_tuple, a_int)
+print(type(a_tuple), type(not_a_tuple), type(a_int))</code></pre>
         <p>Ainda, percebemos que tuplas podem carecer de legibilidade, pois os dados dentro dela não são nomeados.</p>
 
         <div id="6-2-1-named-tuples">
@@ -473,7 +492,6 @@ COM SEGUNDO TURNO</pre>
                     </table>
                 </li>
                 <!-- Faltou um exercício que seja interessante usar a classe counter... -->
-                <!-- exercício pra converter de tupla pra dataclass ou alguma coisa assim -->
             </ol>
         </div>
     </div>
