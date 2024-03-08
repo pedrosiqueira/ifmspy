@@ -172,8 +172,8 @@ a, b, c = 10, 20, 30
 
 # em outras linguagens vc faria algo assim:
 # a=10, b=20, c=30</code></pre>
-<p>Uma tupla pode ser imutável, mas os itens dentro dela não necessariamente:</p>
-<pre><code>tuple1 = (11, [22, 33], 44, 55)
+        <p>Uma tupla pode ser imutável, mas os itens dentro dela não necessariamente:</p>
+        <pre><code>tuple1 = (11, [22, 33], 44, 55)
 print("original:", tuple1)
 
 tuple1[1][0] = 222 # a lista dentro da tupla pode ser modificada
@@ -492,6 +492,97 @@ COM SEGUNDO TURNO</pre>
                 </li>
                 <!-- Faltou um exercício que seja interessante usar a classe counter... -->
             </ol>
+        </div>
+    </div>
+    <div id="6-5-lists">
+        <h2>Listas</h2>
+        <p>Listas são classes de objetos em Python que suportam sintaxes personalizadas que encapsulam seu uso, sem a necessidade de chamar métodos explicitamentes, como a capacidade de instanciar objetos sem explicitamente chamar construtores, ou realizar muitas outras operações como <i>list comprehension</i> ou <i>slice notation</i>.</p>
+        <p>Listas geralmente são usadas para armazenar vários objetos do mesmo tipo; listas de strings, listas de números, ou listas de objetos próprios.</p>
+        <p>Apesar de possível, evite armazenar elementos de tipos diferentes em uma mesma lista. Por exemplo, para armazenar pares de letra/ocorrências, poderíamos ter <code>['a', 1, 'b', 3]</code>, que significa que a letra 'a' ocorreu 1 vez e a letra 'b' ocorreu 3 vezes. Mas pensa na hora de iterar por essa lista como seria mais complicado. Uma solução melhor, mas não necessariamente a melhor de todas, seria <code>[('a',1), ('b',3)]</code>.</p>
+        <p>Dentre os métodos mais utilizados de listas, se encontram:</p>
+        <ul>
+            <li><code>append(element)</code>: Adiciona <code>element</code> no final da lista.</li>
+            <li><code>insert(i, element)</code>: Adiciona <code>element</code> numa posição específica da lista.</li>
+            <li><code>count(element)</code>: Conta quantas vezes <code>element</code> aparece na lista.</li>
+            <li><code>index(element)</code>: Retorna o índice onde <code>element</code> se encontra na lista, ou levanta uma exceção caso não se encontre na lista.</li>
+            <li><code>find(element)</code>: Que nem <code>index(element)</code>, mas retorna -1 em vez de levantar exceção.</li>
+            <li><code>reverse()</code>: Inverte a lista <i>in-loco</i> (a modifica). Para retornar um iterador que percorre uma lista <code>l</code> de trás para frente, use a função <code>reversed(l)</code>.</li>
+            <li><code>sort()</code>: Ordena a lista <i>in-loco</i> (a modifica). Para retornar uma cópia ordenada da lista <code>l</code>, use a função <code>sorted(l)</code>.</li>
+        </ul>
+        <div id="6-5-1-sorting-lists">
+            <h3>Ordenando listas</h3>
+            <p>O método <code>sort</code> chama o método mágico <code>__lt__</code> (abreviação de “menor que”) para comparar os elementos da lista. A maioria das classes padrão do Python já vêm com <code>__lt__</code> implementado. Se tentar ordenar objetos que não possuam <code>__lt__</code>, uma exceção é levantada.</p>
+            <pre><code>class WeirdSortee:
+    def __init__(self, string, number):
+        self.string = string
+        self.number = number
+
+    def __lt__(self, other):
+        return self.number < other.number
+
+    def __repr__(self):
+        return f"{self.string}:{self.number}"</code></pre>
+
+            <p>O método mágico <code>__lt__</code> deve retornar <code>True</code> caso <code>self</code> seja menor que <code>other</code>, ou <code>False</code> caso contrário. Esse método é chamado automaticamente pelo método <code>sort</code>. Já o método mágico <code>__repr__</code> deve retornar uma representação em string do objeto, e é chamado automaticamente pela função <code>print</code>. Veja uma ilustração de uso dessa classe:</p>
+            <pre><code>>>> a = WeirdSortee("a", 4)
+>>> b = WeirdSortee("B", 3)
+>>> c = WeirdSortee("c", 2)
+>>> d = WeirdSortee("d", 1)
+>>> l = [a, b, c, d]
+>>> print(l)
+[a:4, b:3, c:2, d:1]
+>>> l.sort()
+>>> print(l)
+[d:1, c:2, b:3, a:4]</code></pre>
+
+            <p>E se quisermos ordenar nossa lista de objetos de um modo diferente ao definido pelo <code>__lt__</code>? Também podemos passar uma função como argumento ao parâmetro <code>key</code> do método <code>sort</code>, que deve retornar o valor a ser comparado de cada objeto da lista. Seguindo a ilustração anterior, agora ordenando por outro atributo:</p>
+            <pre><code>>>> a = WeirdSortee("a", 4)
+>>> b = WeirdSortee("B", 3)
+>>> c = WeirdSortee("c", 2)
+>>> d = WeirdSortee("d", 1)
+>>> l = [a, b, c, d]
+>>> print(l)
+[a:4, B:3, c:2, d:1]
+>>> l.sort()
+>>> print(l)
+[d:1, c:2, B:3, a:4]
+>>>
+>>> def custom_order(obj):
+...     return obj.string.lower()
+...
+>>> l.sort(key=custom_order)
+>>>
+>>> print(l)
+[a:4, B:3, c:2, d:1]</code></pre>
+            <p>Observe que a função <code>custom_order</code> retorna o valor em minúsculo do atributo <code>string</code>, para normalizar a ordenação de letras maiúsculas e minúsculas, senão, as letras maiúsculas são ordenadas à frente das letras minúsculas.</p>
+
+            <p>Podemos usar muitas das funções integradas do Python para personalizar a ordenação de objetos:</p>
+            <pre><code>>>> l = ["hello", "HELP", "Helo"]
+>>> l
+['hello', 'HELP', 'Helo']
+>>> l.sort()
+>>> l
+['HELP', 'Helo', 'hello']
+>>> l.sort(key=str.lower)
+>>> l
+['hello', 'Helo', 'HELP']</code></pre>
+            <p>A função <code>lower</code> da classe <code>str</code> retorna a versão minúscula da string passada como argumento.</p>
+
+            <p>Por padrão, tuplas são ordenadas pelo valor de seus primeiros itens, mas podemos modificar esse comportamento através da função incorporada <code>operator.itemgetter</code>:</p>
+            <pre><code>>>> from operator import itemgetter
+>>> 
+>>> l = [('n', 6), ('o', 5), ('h', 4), ('t', 3), ('y', 2), ('p', 1)]
+>>> l
+[('n', 6), ('o', 5), ('h', 4), ('t', 3), ('y', 2), ('p', 1)]
+>>>
+>>> l.sort()
+>>> l
+[('h', 4), ('n', 6), ('o', 5), ('p', 1), ('t', 3), ('y', 2)]
+>>>
+>>> l.sort(key=itemgetter(1))
+>>> l
+[('p', 1), ('y', 2), ('t', 3), ('h', 4), ('o', 5), ('n', 6)]</code></pre>
+            <p>A função <code>operator.itemgetter(i)</code> retorna uma função que retorna o i-ésimo elemento de um objeto iterável, como uma tupla, lista ou dicionário. Similarmente, para retornar um atributo específico de um objeto, você pode usar a função <code>operator.attrgetter</code>. Mais detalhes na <a href="https://docs.python.org/3/library/operator.html#operator.attrgetter">documentação oficial</a>.</p>
         </div>
     </div>
 </div>

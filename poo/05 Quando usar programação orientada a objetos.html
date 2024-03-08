@@ -632,7 +632,7 @@ class ZipProcessor:
         return s</code></pre>
         <p>Como esse código é repetido no método <code>save</code>, podemos modificá-lo para fazer proveito desse código.</p>
         <p>Vamos suportar agora formatação dos caracteres, como <b>negrito</b>, <i>itálico</i> ou <u>sublinhado</u>. Poderíamos fazer algo como um XML para representar a formatação dos nossos caracteres, como é usado em processadores de textos. Ou então podemos usar uma classe com atributos representando a formatação de cada caractere.</p>
-        <p>Se a classe for possuir métodos próprios, podemos criar nossa própria classe, senão, podemos usar uma classe embutida do Python, como <code>list</code>, <code>dict</code> ou até mesmo <code>str</code> para representar um caractere. Mas aqui vamos criar nossa própria classe para representar um caractere.</p>
+        <p>Se a classe for possuir métodos próprios, podemos criar nossa própria classe, senão, podemos usar uma classe integrada do Python, como <code>list</code>, <code>dict</code> ou até mesmo <code>str</code> para representar um caractere. Mas aqui vamos criar nossa própria classe para representar um caractere.</p>
         <pre><code>class Character:
     def __init__(self, character, bold=False, italic=False, underline=False):
         assert len(character) == 1
