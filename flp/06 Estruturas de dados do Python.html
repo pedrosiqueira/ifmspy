@@ -609,7 +609,7 @@ if "Opeth" in artists:
     print("Opeth in artists")
 
 for artist in artists:
-print(artist, "plays good music")</code></pre>
+    print(artist, "plays good music")</code></pre>
         <p>Observe que os elementos não são impressos na ordem em que foram colocados. Você pode usar o operador <code>in</code> para consultar e percorrer elementos do conjunto. Mas não pode usar índices para acessar elementos específicos. E para ordená-los, precisa converter para uma lista antes.</p>
         <p>Diferentemente de listas, dicionários e tuplas, que possuem sintaxes específicas para inicializar seus objetos vazios, com conjuntos, você precisa chamar explicitamente o construtor. Mas para inicializar um conjuto com elementos iniciais, a sintaxe fica parecida com dicionários, exceto que não vai o dois-pontos. Você também pode passar qualquer objeto iterável como argumento no construtor de conjuntos:</p>
         <pre><code>>>> x = {'foo', 'bar', 'baz', 'foo', 'qux'}
