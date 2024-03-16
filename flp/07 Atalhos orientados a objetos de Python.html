@@ -135,19 +135,19 @@
             <pre><code>normal_list = [1, 2, 3, 4, 5]
 
 class CustomSequence:
-def __len__(self):
-    return 5
-def __getitem__(self, index):
-    return f"x{index}"
+    def __len__(self):
+        return 5
+    def __getitem__(self, index):
+        return f"x{index}"
 
 class FunkyBackwards:
-def __reversed__(self):
-    return "BACKWARDS!"
+    def __reversed__(self):
+        return "BACKWARDS!"
 
 for seq in normal_list, CustomSequence(), FunkyBackwards():
-print(f"\n{seq.__class__.__name__}: ", end="")
-for item in reversed(seq):
-    print(item, end=", ")</code></pre>
+    print(f"\n{seq.__class__.__name__}: ", end="")
+    for item in reversed(seq):
+        print(item, end=", ")</code></pre>
         </div>
         <div id="7-1-3-enumerate">
             <h3>A função <code>enumerate</code></h3>
@@ -200,8 +200,7 @@ print(names)</code></pre>
 ...     print(item, end=" ")
 ... 
 (0, 'fee') (1, 'fi') (2, 'fo')
->>> for item in zip(range(3), ["fee", "fi", 
-"fo", "fum"], True):
+>>> for item in zip(range(3), ["fee", "fi", "fo", "fum"], True):
 ...     print(item, end=" ")
 ...
 Traceback (most recent call last):
@@ -495,17 +494,17 @@ f(1)  # allowed, positional argument
 f(a=1)  # allowed, keyword argument</code></pre>
 
         <p>O propósito desses recursos de parâmetros somente posicionais e somente com palavra-chave é implementar APIs que restrinjam o que os clientes podem fazer, seja para deixar o código mais claro, ou menos suscetível a erros. Por exemplo, você pode estar desenvolvendo uma API que ainda não tem os nomes dos parâmetros muito bem definidos, e que estejam <a href="https://stackoverflow.com/a/76010989/4072641">suscetíveis a mudanças</a>:</p>
-        <pre><code>def pow(base: float, exponet: int) -> float:
+        <pre><code>def pow(base, exponet):
    pass</code></pre>
         <p>Suponha que um código cliente utilize sua API:</p>
         <pre><code>pow(4.5, 10)
 pow(4.5, exponet=10)
 pow(exponet=10, base=4.5)</code></pre>
         <p>Se futuramente você mudar tua API, muitos códigos clientes podem quebrar:</p>
-        <pre><code>def pow(base: float, exp: int) -> float:
+        <pre><code>def pow(base, exp)
    pass</code></pre>
         <p>Você poderia ter evitado todo esse transtorno obrigando os clientes a não usar tua API de determinada forma:</p>
-        <pre><code>def pow(base: float, exponent: int, /) -> float:
+        <pre><code>def pow(base, exponent, /)
     pass</code></pre>
         <p>Por exemplo, observe o cabeçalho da <a href="https://docs.python.org/3/library/functions.html#sorted">função incorporada <code>sorted</code></a>:</p>
         <pre><code>sorted(iterable, /, *, key=None, reverse=False)</code></pre>
