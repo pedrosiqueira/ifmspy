@@ -135,19 +135,19 @@
             <pre><code>normal_list = [1, 2, 3, 4, 5]
 
 class CustomSequence:
-def __len__(self):
-    return 5
-def __getitem__(self, index):
-    return f"x{index}"
+    def __len__(self):
+        return 5
+    def __getitem__(self, index):
+        return f"x{index}"
 
 class FunkyBackwards:
-def __reversed__(self):
-    return "BACKWARDS!"
+    def __reversed__(self):
+        return "BACKWARDS!"
 
 for seq in normal_list, CustomSequence(), FunkyBackwards():
-print(f"\n{seq.__class__.__name__}: ", end="")
-for item in reversed(seq):
-    print(item, end=", ")</code></pre>
+    print(f"\n{seq.__class__.__name__}: ", end="")
+    for item in reversed(seq):
+        print(item, end=", ")</code></pre>
         </div>
         <div id="7-1-3-enumerate">
             <h3>A função <code>enumerate</code></h3>
@@ -200,8 +200,7 @@ print(names)</code></pre>
 ...     print(item, end=" ")
 ... 
 (0, 'fee') (1, 'fi') (2, 'fo')
->>> for item in zip(range(3), ["fee", "fi", 
-"fo", "fum"], True):
+>>> for item in zip(range(3), ["fee", "fi", "fo", "fum"], True):
 ...     print(item, end=" ")
 ...
 Traceback (most recent call last):
@@ -374,11 +373,251 @@ file.close()</code></pre>
                 <li><code>writable()</code>: Retorna True se o fluxo suportar escrita. Se for False, write() e truncate() gerarão OSError.</li>
                 <li><code>encoding</code>: Não é um método, é um atributo que contém o nome da codificação usada para decodificar os bytes do fluxo em strings e para codificar strings em bytes.</li>
             </ul>
+            <p>Por fim, temos o método <code>close</code>, que sempre deve ser chamado após terminarmos de mexer com arquivo. Esse método garante que as modificações sejam salvas no disco e que todos os recursos associados ao arquivo sejam liberados de volta para o sistema operacional. Tecnicamente, isso acontece automaticamente quando o script é encerrado, mas é melhor ser explícito e fecharmos nós mesmos, especialmente em processos de longa execução.</p>
         </div>
         <div id="7-1-5-placing-it-in-context">
             <h3>Contextualizando</h3>
-            Lastly, and I do mean lastly, we come to the close method. This method should be called when we are finished reading or writing the file, to ensure any buffered writes are written to the disk, that the file has been properly cleaned up, and that all resources associated with the file are released back to the operating system. Technically, this will happen automatically when the script exits, but it's better to be explicit and clean up after ourselves, especially in long-running processes.
-        </div>
+            <p>Como trabalhar com arquivos não depende apenas dos códigos que escrevemos, mas do sistema operacional, podem ocorrer exceções. Por isso, quando trabalhamos com arquivos, podemos envolvemos tudo dentro de cláusulas <code>try-except-finally</code> para fazer as devidas tratativas e garantir que o arquivo é fechado e nenhum trabalho seja perdido. Outra maneira mais prática é usar a instrução <code>with-as</code>, que encapsula operações comuns como o método <code>close</code>, sem explicitamente chamá-lo:</p>
+            <pre><code>with open('filename') as file:
+    for line in file:
+        print(line, end='')</code></pre>
+            <p>O objeto criado pela função <code>open</code> é atribuído à variável <code>file</code>, e ao final do bloco do <code>with</code>, é automaticamente fechado, mesmo que ocorra uma exceção.</p>
+            <p>A instrução <code>with-as</code> funciona com qualquer objeto que implemente os métodos mágicos <code>__enter__</code> e <code>__exit__</code>. Esses métodos indicam para o Python como se deve inicializar um recurso e como finalizá-lo após seu uso, mesmo quando ocorre uma exceção. Objetos que implementam esses métodos são chamados de <b>gerenciadores de contexto</b> (<b>context manager</b>).</p>
+            <p>Outro exemplo de gerenciador de contexto no Python é o objeto retornado pela função <code>urllib.request.urlopen</code>, usado para ler o conteúdo de uma página:</p>
+            <pre><code>import urllib.request
+with urllib.request.urlopen('https://orkut.com/') as response:
+   html = response.read()
+print(html)</code></pre>
+            <p>Após o término do <code>with-as</code>, a conexão com o socket é encerrada.</p>
+            <p>Para ilustrar como seria a implementação de um gerenciador de contexto, suponha que queiramos implementar uma classe de objetos que se conecta a um banco de dados:</p>
+            <pre><code>class DatabaseConnection(object):
 
+    def __enter__(self):
+        # make a database connection and return it
+        ...
+        return self.dbconn
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        # make sure the dbconnection gets closed
+        self.dbconn.close()
+        ...</code></pre>
+
+            <p>O método <code>__enter__</code> se encarrega de abrir a conexão com o banco de dados, e o método <code>__exit__</code> se encarrega de fechá-la. Caso ocorra alguma exceção, o método <code>__exit__</code> é chamado com as informações da exceção nos parâmetros exc_type, exc_val e exc_tb.</p>
+        </div>
+    </div>
+    <div id="7-2-an-alternative-to-method-overloading">
+        <h2>Uma alternativa a sobrecarga de métodos</h2>
+        <p>Sobrecarga de métodos e funções é quando temos vários métodos (ou funções) com o mesmo nome, mas com diferentes tipos e quantidades de parâmetros. Um exemplo de utilização pode ser um método que envia email para um contato padrão e outro método que envia email para um contato passado como argumento. Ambos podem ter o mesmo nome. O Python não implementa sobrecarga de métodos, mas alcança funcionalidades semelhantes usando valores padrão para os parâmetros ou usando argumentos arbitrários, como <code>*args</code> e <code>**kwargs</code>.</p>
+
+        <h3>Argumentos padrão</h3>
+        <p>Para tornar um parâmetro opcional, atribua um valor padrão na sua declaração. Se o chamador da função não especificar um argumento para esse parâmetro, ele é inicializado com o valor padrão:</p>
+        <pre><code>def default_arguments(x, y, z, a="String", b=False):
+    print("Meus argumentos são", x, y, z, a, b)</code></pre>
+        <p>Os primeiros três parâmetros dessa função são obrigatórios, mas os dois últimos são opcionais, e se não informados, começam com os valores atribuídos a eles na declaração.</p>
+        <p>Podemos chamar a função de várias formas. Passando apenas os argumentos obrigatórios:</p>
+        <pre><code># passando apenas argumentos obrigatórios
+default_arguments(1,2,3)
+
+# passando todos os argumentos
+default_arguments(4,5,6,7,8)
+
+# passando os argumentos em ordens diferentes
+default_arguments(y=10,x=9,z=11,b=True)</code></pre>
+
+        <p>Por padrão, os argumentos podem ser passados <b>posicionalmente</b> (na ordem em que os parâmetros foram declarados) ou via <b>palavra-chave</b>, que é o nome do respectivo parâmetro. Você também pode especificar quais argumentos só podem ser passados com palavras-chaves ou sem palavra-chaves.</p>
+        <p>Para indicar quais argumentos só podem ser passados com palavras-chave, coloque um <code>*</code> antes de seus parâmetros:</p>
+        <pre><code>def kw_only(x, y='defaultkw', *, a, b='only'):
+    print(x, y, a, b)</code></pre>
+        <p>Os argumentos de <code>x</code> e <code>y</code> podem ser passados posicionalmente ou com palavra-chave, mas os argumentos de <code>a</code> e <code>b</code>, que estão depois do <code>*</code>, só podem ser passados com palavra-chave.</p>
+        <p>Ocorre uma exceção se não informar o argumento obrigatório <code>a:</code></p>
+        <pre><code>>>> kw_only('x')
+Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+TypeError: kw_only() missing 1 required keyword-only argument: 'a'</code></pre>
+        <p>Também ocorre exceção se tentar passar <code>a</code> como posicional:</p>
+        <pre><code>>>> kw_only('x', 'y', 'a')
+Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+TypeError: kw_only() takes from 1 to 2 positional arguments but 3 were given</code></pre>
+        <p>Para indicar quais argumentos não podem ser passados com palavra-chave, coloque uma <code>/</code> depois de seus parâmetros:</p>
+        <pre><code>def pos_only(x, y, /, a, b='only'):
+    print(x, y, a, b)</code></pre>
+        <p>Os argumentos de <code>x</code> e <code>y</code>, que estão antes da <code>/</code>, não podem ser passados com palavra-chave, mas os argumentos de <code>a</code> e <code>b</code>, sim.</p>
+        <p>Agora você não pode mais inverter a ordem de <code>x</code> e <code>y</code>:</p>
+        <pre><code>>>> pos_only(y='y',x='x','a','b')
+Traceback (most recent call last):
+        File "<stdin>", line 1
+SyntaxError: positional argument follows keyword argument</code></pre>
+
+        <p>Veja <a href="https://stackoverflow.com/a/57819001/4072641">diferentes exemplos</a> de argumentos posicionais e argumentos de palavra-chave:</p>
+        <li>Parâmetro obrigatório somente posicional:</li>
+        <pre><code>def f(a, /):
+    pass
+
+f()  # error, argument is required
+f(1)  # allowed, positional argument
+f(a=1)  # error, keyword argument</code></pre>
+        <li>Parâmetro opcional somente posicional:</li>
+        <pre><code>def f(a=2, /):
+    pass
+
+f()  # allowed, argument is optional
+f(1)  # allowed, positional argument
+f(a=1)  # error, keyword argument</code></pre>
+        <li>Parâmetro obrigatório somente com palavra-chave</li>
+        <pre><code>def f(*, a):
+    pass
+
+f()  # error, argument is required
+f(1)  # error, positional argument
+f(a=1)  # allowed, keyword argument</code></pre>
+        <li>Parâmetro opcional somente com palavra-chave</li>
+        <pre><code>def f(*, a=1):
+    pass
+
+f()  # allowed, argument is optional
+f(1)  # error, positional argument
+f(a=1)  # allowed, keyword argument</code></pre>
+        <li>Parâmetro obrigatório</li>
+        <pre><code>def f(a):
+    pass
+
+f()  # error, argument is required
+f(1)  # allowed, positional argument
+f(a=1)  # allowed, keyword argument</code></pre>
+        <li>Parâmetro opcional</li>
+        <pre><code>def f(a=1):
+    pass
+
+f()  # allowed, argument is optional
+f(1)  # allowed, positional argument
+f(a=1)  # allowed, keyword argument</code></pre>
+
+        <p>O propósito desses recursos de parâmetros somente posicionais e somente com palavra-chave é implementar APIs que restrinjam o que os clientes podem fazer, seja para deixar o código mais claro, ou menos suscetível a erros. Por exemplo, você pode estar desenvolvendo uma API que ainda não tem os nomes dos parâmetros muito bem definidos, e que estejam <a href="https://stackoverflow.com/a/76010989/4072641">suscetíveis a mudanças</a>:</p>
+        <pre><code>def pow(base, exponet):
+   pass</code></pre>
+        <p>Suponha que um código cliente utilize sua API:</p>
+        <pre><code>pow(4.5, 10)
+pow(4.5, exponet=10)
+pow(exponet=10, base=4.5)</code></pre>
+        <p>Se futuramente você mudar tua API, muitos códigos clientes podem quebrar:</p>
+        <pre><code>def pow(base, exp)
+   pass</code></pre>
+        <p>Você poderia ter evitado todo esse transtorno obrigando os clientes a não usar tua API de determinada forma:</p>
+        <pre><code>def pow(base, exponent, /)
+    pass</code></pre>
+        <p>Por exemplo, observe o cabeçalho da <a href="https://docs.python.org/3/library/functions.html#sorted">função incorporada <code>sorted</code></a>:</p>
+        <pre><code>sorted(iterable, /, *, key=None, reverse=False)</code></pre>
+        <p>O primeiro parâmetro é somente posicional, e os demais são somente com palavra-chave.</p>
+        <!-- One thing to take note of with keyword arguments is that anything we provide... [essa parte eu não falei] -->
+
+        <h3>Lista de argumentos variável</h3>
+        <p>No Python, uma função pode receber uma quantidade arbitrária de argumentos sem ter que declarar um parâmetro para cada argumento. Esse recurso é chamado de <b>varargs</b>, de <i>variadic arguments</i>, presente em muitas linguagens de programação. Por exemplo, você pode ter uma função que processa um link ou uma lista de links como argumento:</p>
+        <pre><code>def get_pages(*links):
+    for link in links:
+        #download the link with urllib
+        print(link)
+    print()</code></pre>
+        <p>O asterisco no início do parâmetro indica que este recebe um ou vários argumentos:</p>
+        <pre><code>>>> get_pages()
+>>> get_pages("http://www.archlinux.org")
+http://www.archlinux.org
+>>> get_pages("http://www.archlinux.org", "http://mxlinux.org/", "http://q4os.org/")
+http://www.archlinux.org http://mxlinux.org/ http://q4os.org/</code></pre>
+
+        <p>Os argumentos são apenas posicionais. Se quisermos, podemos aceitar argumentos apenas com palavras-chaves, usando dois asteriscos em vez de um. Neste caso, o parâmetro é um dicionário, e não uma lista:</p>
+        <pre><code>>>> def print_keyword_args(**kwargs):
+...     # kwargs is a dict of the keyword args passed to the function
+...     for key, value in kwargs.items():
+...         print(key, "=", value)
+...
+>>> print_keyword_args(first_name="John", last_name="Doe")
+first_name = John
+last_name = Doe</code></pre>
+        <!-- Não dei o exemplo da classe Options do livro, nem falei dos perigos de kwrargs do parágrafo The keyword argument syntax can be dangerous... -->
+        <p>Esses argumentos variados com palavra-chave são conhecidos como <b>kwargs</b>. Uma aplicação deles é quando temos uma função que aceita argumentos arbitrários que são passados para uma segunda função, mas não sabemos de antemão quais serão esses argumetos.</p>
+        <p>Considere o seguinte problema: queremos transferir uma lista de arquivos para uma pasta destino. A opção padrão é mover, mas podemos passar opções diferentes para cada arquivo, como ignorar algum ou copiá-lo em vez de movê-lo. O seguinte exemplo ilustra os diferentes tipos de parâmetros que vimos para resolver esse problema:</p>
+        <pre><code>import shutil
+import os.path
+
+def augmented_move(target_folder, *filenames, verbose=False, **specific):
+    """Move all filenames into the target_folder, allowing specific treatment of certain files."""
+
+    def print_verbose(message, filename):
+        """print the message only if verbose is enabled"""
+        if verbose:
+            print(message, filename)
+
+    for filename in filenames:
+        target_path = os.path.join(target_folder, filename)
+        if filename in specific:
+            if specific[filename] == "ignore":
+                print_verbose("Ignoring", filename)
+            elif specific[filename] == "copy":
+                print_verbose("Copying", filename)
+                shutil.copyfile(filename, target_path)
+        else:
+            print_verbose("Moving", filename)
+            shutil.move(filename, target_path)</code></pre>
+        <p>O primeiro parâmetro é a pasta destino. O segundo parâmetro é uma lista de arquivos que serão movidos para a pasta destino. O terceiro parâmetro indica se deve ser informado ao usuário o estado do processamento. O último parâmetro contém as ações específicas a serem tomadas para determinados arquivos.</p>
+        <p>Veja exemplos de chamadas a essa função:</p>
+        <pre><code>>>> augmented_move("move_here", "one", "two")
+>>> augmented_move("move_here", "three", verbose=True)
+Moving three
+>>> augmented_move("move_here", "four", "five", "six", four="copy", five="ignore")
+>>> augmented_move("move_here", "seven", "eight", "nine", seven="copy", verbose=True, eight="ignore")
+Copying seven
+Ignoring eight
+Moving nine</code></pre>
+
+        <p>Um exemplo de <code>**kwargs</code> no Python é na inicialização de dicionários. As seguintes linhas são equivalentes:</p>
+        <pre><code>d = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+d = dict(a=1, b=2, c=3, d=4)</code></pre>
+        <p>Um exemplo de <code>*args</code> no Python é a função <code>print</code>. Observe seu cabeçalho:</p>
+        <pre><code>print(*args, sep=' ', end='\n', file=None, flush=False)</code></pre>
+        <p>O método <code>format</code> da classe <code>str</code> aceita tanto um <code>*args</code> quanto um <code>**kwargs</code> como argumento:</p>
+        <pre><code>names = ["Bob", "John"]
+conditions = ["good", "ok"]
+
+s1 = "Hello, {}, are you {}?".format(names[0], conditions[0])
+s2 = "Hello, {name}, are you {condition}?".format(condition=conditions[1], name=names[1])
+
+print(s1)
+print(s2)</code></pre>
+
+        <p>Antes do Python 3.6, se quiséssemos formatar uma string, recorríamos ao método <code>format</code>. Mas agora podemos usar diretamente interpolação de strings, conhecida como f-string:</p>
+        <pre><code>s1 = f"Hello, {names[0]}, are you {conditions[0]}?"
+s2 = f"Hello, {names[1]}, are you {conditions[1]}?"</code></pre>
+
+<h3>Desempacotando argumentos</h3>
+<p>Vimos como tratar diversos argumentos como um único parâmetro. Mas e o contrário, podemos tratar um único argumento como diversos parâmetros? Sim, com desempacotamento (ou destruturação):</p>
+<pre><code>def show_args(a, b, c="Default"):
+    print(a, b, c)
+
+a_list = [1, 2]
+a_dict = {"a": 1, "b": 2, "c": 3}
+
+show_args(*a_list)
+show_args(**a_dict)</code></pre>
+
+<p>Desempacotamento também funciona fora de funções:</p>
+<pre><code>l = [1, 2]
+d = {"a": 1, "b": 2, "c": 3}
+
+ll = [0, *l, 3]
+print(ll)
+
+dd = {"x": 4, **d, "y": 5}
+print(dd)
+
+first, second, *_ = ll
+print(first, second)
+
+first, *_, last = ll
+print(first, last)
+
+key1, key2, *_ = dd  # apenas as chaves são desempacotadas...
+print(dd[key1], dd[key2])</code></pre>
+<p>Você pode ler mais a respeito de <a href="https://realpython.com/python-kwargs-and-args/"><code>*args</code> e <code>**kwargs</code> aqui</a>.</p>
     </div>
 </div>
