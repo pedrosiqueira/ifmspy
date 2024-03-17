@@ -143,7 +143,7 @@ Traceback (most recent call last):
 File "&lt;stdin>", line 1, in &lt;module>
 NameError: name 'this_is_not_a_var' is not defined</code></pre>
 
-        <p>No Python, todas as exceções integradas geralmente terminam com o termo <code>Error</code>. As palavras "erro" e "exceção" são frequentemente usadas de forma intercambiável. Embora os erros às vezes sejam considerados mais graves do que as exceções, eles são tratados da mesma maneira. Todas as classes de erro têm <code>Exception</code> (que estende <code>BaseException</code>) como sua superclasse, indicando sua abordagem comum de tratamento.</p>
+        <p>No Python, todas as exceções incorporadas geralmente terminam com o termo <code>Error</code>. As palavras "erro" e "exceção" são frequentemente usadas de forma intercambiável. Embora os erros às vezes sejam considerados mais graves do que as exceções, eles são tratados da mesma maneira. Todas as classes de erro têm <code>Exception</code> (que estende <code>BaseException</code>) como sua superclasse, indicando sua abordagem comum de tratamento.</p>
 
         <div id="4-1-1-raising-exceptions">
             <h3>Lançando Exceções</h3>
@@ -156,7 +156,7 @@ NameError: name 'this_is_not_a_var' is not defined</code></pre>
             raise ValueError("Only even numbers can be added")
         super().append(integer)</code></pre>
 
-            <p>Se uma das duas condições não for atendida, a palavra-chave <code>raise</code> causa a ocorrência de uma exceção. A palavra-chave <code>raise</code> é seguida pelo objeto que está sendo levantado (lançado) como exceção. No exemplo anterior, são construídos dois objetos das classes integradas <code>TypeError</code> e <code>ValueError</code>. O objeto levantado também poderia ser de uma nova classe de exceção personalizada (veremos como em breve), uma exceção definida em outro lugar ou até mesmo um objeto de <code>Exception</code> que foi levantado e tratado anteriormente.</p>
+            <p>Se uma das duas condições não for atendida, a palavra-chave <code>raise</code> causa a ocorrência de uma exceção. A palavra-chave <code>raise</code> é seguida pelo objeto que está sendo levantado (lançado) como exceção. No exemplo anterior, são construídos dois objetos das classes incorporadas <code>TypeError</code> e <code>ValueError</code>. O objeto levantado também poderia ser de uma nova classe de exceção personalizada (veremos como em breve), uma exceção definida em outro lugar ou até mesmo um objeto de <code>Exception</code> que foi levantado e tratado anteriormente.</p>
 
             <p>Teste esta classe, fornecendo valores válidos e inválidos.</p>
         </div>
@@ -310,7 +310,7 @@ if __name__ == "__main__":
 
         <div id="4-1-4-the-exception-hierarchy">
             <h3>Hierarquia de exceções</h3>
-            <p>Duas principais classes de exceção integradas, <code>SystemExit</code> e <code>KeyboardInterrupt</code>, herdam diretamente de <code>BaseException</code> em vez de <code>Exception</code>. A exceção <code>SystemExit</code> surge naturalmente quando o programa é encerrado, frequentemente devido a uma chamada à função <code>sys.exit</code>. Essa exceção permite a realização de tarefas de limpeza antes do programa terminar, mas geralmente é tratada implicitamente dentro de uma cláusula <code>finally</code>. Se tratada explicitamente, geralmente é levantada novamente para evitar que o programa pare seu término. Ela herda diretamente de <code>BaseException</code> para evitar ser tratada acidentalmente em cláusulas genéricas que tratam todas as exceções normais.</p>
+            <p>Duas principais classes de exceção incorporadas, <code>SystemExit</code> e <code>KeyboardInterrupt</code>, herdam diretamente de <code>BaseException</code> em vez de <code>Exception</code>. A exceção <code>SystemExit</code> surge naturalmente quando o programa é encerrado, frequentemente devido a uma chamada à função <code>sys.exit</code>. Essa exceção permite a realização de tarefas de limpeza antes do programa terminar, mas geralmente é tratada implicitamente dentro de uma cláusula <code>finally</code>. Se tratada explicitamente, geralmente é levantada novamente para evitar que o programa pare seu término. Ela herda diretamente de <code>BaseException</code> para evitar ser tratada acidentalmente em cláusulas genéricas que tratam todas as exceções normais.</p>
             <p>A exceção <code>KeyboardInterrupt</code> é comum em programas de linha de comando e ocorre quando o usuário interrompe deliberadamente a execução do programa com uma combinação de teclas (geralmente <kbd>Ctrl+C</kbd>). Assim como <code>SystemExit</code>, ela quase sempre resulta no término do programa, com qualquer tarefa de limpeza tratada dentro de blocos <code>finally</code>.</p>
 
             <p>
@@ -359,7 +359,7 @@ print("End of program")</code></pre>
         </div>
         <div id="4-1-5-defining-our-own-exceptions">
             <h3>Definindo suas próprias exceções</h3>
-            <p>Quando nenhuma das exceções integradas é adequada, é possível definir exceções personalizadas. O nome da classe geralmente indica o que deu errado, e informações adicionais podem ser fornecidas por meio de argumentos arbitrários no inicializador. Embora seja possível estender <code>BaseException</code> diretamente, isso raramente é necessário ou aconselhável.</p>
+            <p>Quando nenhuma das exceções incorporadas é adequada, é possível definir exceções personalizadas. O nome da classe geralmente indica o que deu errado, e informações adicionais podem ser fornecidas por meio de argumentos arbitrários no inicializador. Embora seja possível estender <code>BaseException</code> diretamente, isso raramente é necessário ou aconselhável.</p>
 
             <pre><code>class InvalidWithdrawal(Exception):
     pass

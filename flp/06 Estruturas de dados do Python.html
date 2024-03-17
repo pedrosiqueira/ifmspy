@@ -124,7 +124,7 @@
 Traceback (most recent call last):
 File "&lt;stdin&gt;", line 1, in &lt;module&gt;
 AttributeError: 'object' object has no attribute 'x'</code></pre>
-        <p>O Python desabilita propriedades arbitrárias em várias classes integradas, por padrão, para economizar memória. Também é possível desabilitar propriedades arbitrárias em nossas próprias classes usando <b>slots</b>, mas isto está além do escopo deste livro.</p>
+        <p>O Python desabilita propriedades arbitrárias em várias classes incorporadas, por padrão, para economizar memória. Também é possível desabilitar propriedades arbitrárias em nossas próprias classes usando <b>slots</b>, mas isto está além do escopo deste livro.</p>
         Mas você pode instanciar objetos de suas próprias classes e adicionar atributos posteriormente:
         <pre><code>>>> class MyObject(): pass
 ... 
@@ -556,7 +556,7 @@ COM SEGUNDO TURNO</pre>
 [a:4, B:3, c:2, d:1]</code></pre>
             <p>Observe que a função <code>custom_order</code> retorna o valor em minúsculo do atributo <code>string</code>, para normalizar a ordenação de letras maiúsculas e minúsculas, senão, as letras maiúsculas são ordenadas à frente das letras minúsculas.</p>
 
-            <p>Podemos usar muitas das funções integradas do Python para personalizar a ordenação de objetos:</p>
+            <p>Podemos usar muitas das funções incorporadas do Python para personalizar a ordenação de objetos:</p>
             <pre><code>>>> l = ["hello", "HELP", "Helo"]
 >>> l
 ['hello', 'HELP', 'Helo']
@@ -584,6 +584,7 @@ COM SEGUNDO TURNO</pre>
 [('p', 1), ('y', 2), ('t', 3), ('h', 4), ('o', 5), ('n', 6)]</code></pre>
             <p>A função <code>operator.itemgetter(i)</code> retorna uma função que retorna o i-ésimo elemento de um objeto iterável, como uma tupla, lista ou dicionário. Similarmente, para retornar um atributo específico de um objeto, você pode usar a função <code>operator.attrgetter</code>. Mais detalhes na <a href="https://docs.python.org/3/library/operator.html#operator.attrgetter">documentação oficial</a>.</p>
         </div>
+        <p>Mais sobre listas pode ser <a href="https://realpython.com/python-list/#reversing-a-list-reversed-and-reverse">encontrado aqui</a>.</p>
     </div>
     <div id="6-6-sets">
         <h2>Conjuntos</h2>
@@ -655,9 +656,10 @@ print("issubset:", yours.issubset(mine))
 print("difference:", yours.difference(mine))</code></pre>
 
         <p>Os métodos <code>union</code>, <code>intersection</code> e <code>difference</code> aceitam múltiplos argumentos.</p>
-        
+
         <p>Como os métodos sugerem, <code>set</code>s são bons para situações em que você tem que comparar dados de fontes diferentes. Por exemplo, combiná-los, determinar quais se sobrepõem ou não (elementos contidos em ambos os conjuntos), ou remover duplicatas. Tudo isso garantindo um ótimo desempenho que não seria possível usando listas. Por exemplo, apesar do operador <code>in</code> estar disponíel tanto para conjuntos quanto para listas, ele é muito mais eficiente em conjuntos do que em listas: Em listas, é necessário percorrer a lista até encontrar pelo objeto procurado, se houver; Em conjuntos, não importa o tamanho deles, devido à tabela hash, a busca demora um fator constante de tempo.</p>
 
+        <p>Mais sobre <code>set</code>s pode ser <a href="https://realpython.com/python-sets/#modifying-a-set">lido aqui</a>.</p>
         <div id="6-6-1-exercises">
             <h3>Exercícios</h3>
             <ol class="excs">
@@ -683,8 +685,7 @@ print("difference:", yours.difference(mine))</code></pre>
     </div>
 </div>
 <!-- exercício: Como os métodos sugerem, <code>set</code>s são bons para situações em que você tem que comparar dados de fontes diferentes. Por exemplo, combiná-los, determinar quais se sobrepõem ou não (elementos contidos em ambos os conjuntos), ou remover duplicatas -->
-<!-- we have data incoming that may contain duplicates of data that has already been processed, we can use
-sets to compare the two and process only the new data. -->
+<!-- we have data incoming that may contain duplicates of data that has already been processed, we can use sets to compare the two and process only the new data. -->
 <!-- exercício que verifica se uma frase contém todas as vogais, independentemente de maiúsculo ou minúsculo -->
 <!-- aqui tem bastante exercícios interessantes de sets: https://www.geeksforgeeks.org/python-set-exercise/ -->
 <!-- Another way to create the same list is pairs = [(v, k) for (k, v) in d.items()]. -->

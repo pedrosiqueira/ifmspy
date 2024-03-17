@@ -710,9 +710,9 @@ def invoking_methods():
         <h2>O que são objetos?</h2>
         <p>Em Python, <a href="https://linux.die.net/diveintopython/html/getting_to_know_python/everything_is_an_object.html">tudo é objeto</a>. Mas o que é um objeto? Linguagens de programação diferentes definem "objeto" de maneiras diversas. Em algumas, objetos são aqueles que possuem atributos e métodos; em outras, são aqueles que podem ser herdados.</p>
 
-        <p>No Python, a definição é mais flexível. Alguns objetos não têm atributos ou métodos, e nem todos os objetos podem ser herdados. No entanto, tudo é objeto no sentido de que pode ser atribuído a uma variável ou passado como argumento para uma função. Portanto, funções, classes, números são objetos! Por exemplo, todas as funções têm um atributo integrado chamado <code>doc</code>, que retorna a doc-string definida no código-fonte da função.</p>
+        <p>No Python, a definição é mais flexível. Alguns objetos não têm atributos ou métodos, e nem todos os objetos podem ser herdados. No entanto, tudo é objeto no sentido de que pode ser atribuído a uma variável ou passado como argumento para uma função. Portanto, funções, classes e números são objetos! Por exemplo, todas as funções têm o atributo <code>doc</code>, que retorna a doc-string definida no código-fonte da função.</p>
 
-        <p>No Python, o atributo <code>__dict__</code> é um dicionário integrado ao objeto que armazena seus atributos e valores. A maioria dos objetos em Python possui seu próprio atributo <code>__dict__</code>:</p>
+        <p>No Python, todo objeto possui o atributo <code>__dict__</code>, que é um dicionário contendo os atributos do objeto e seus valores:</p>
 
         <pre><code class="python">class Test:
     """uma classe de teste"""

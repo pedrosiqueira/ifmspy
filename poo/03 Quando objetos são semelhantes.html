@@ -86,7 +86,7 @@
     <p>Boas práticas de programação incluem não duplicar código. Uma das formas de reaproveitar código é através de herança.</p>
     <div id="3-1-basic-inheritance">
         <h2>Herança básica</h2>
-        <p>Todas as classes em Python herdam implicitamente da classe especial <code>object</code>, que possui alguns métodos integrados.</p>
+        <p>Todas as classes em Python herdam implicitamente da classe especial <code>object</code>, que possui alguns métodos incorporados.</p>
         <p>A classe herdada é chamada de <b>superclasse</b> ou <b>pai</b>. A classe que herda é chamada de <b>subclasse</b> ou <b>filha</b>. Herdar uma classe também é chamado de <b>estender</b> uma classe.</p>
         <p>Basicamente, herança é usada para adicionar ou alterar funcionalidades em uma classe.</p>
         <p>Vamos aplicar o conceito em um aplicativo gerenciador de contatos.</p>
@@ -108,7 +108,7 @@
         <p>Tente instanciar objetos <code>Contact</code> e <code>Supplier</code> e chamar o método <code>order</code> para ver o que acontece.</p>
 
         <div id="3-1-1-extending-built-ins">
-            <h3>Extendendo tipos integrados</h3>
+            <h3>Extendendo tipos incorporados</h3>
             <p>Podemos estender a funcionalidade de listas em Python para buscar por um item específico:</p>
             <pre id="3-1-1-contactlist"><code class="python">class ContactList(list):
     def search(self, name):
@@ -131,7 +131,7 @@
 </code></pre>
 
             <p>Lembrando, em Python, podemos inicializar listas com <code>[]</code>, que é um atalho para <code>list()</code>.</p>
-            <p>Outros tipos integrados do Python são <code>object</code>, <code>list</code>, <code>set</code>, <code>dict</code>, <code>file</code>, <code>int</code> e <code>float</code>, que podem ser herdados para adicionar funcionalidades.</p>
+            <p>Outros tipos incorporados do Python são <code>object</code>, <code>list</code>, <code>set</code>, <code>dict</code>, <code>file</code>, <code>int</code> e <code>float</code>, que podem ser herdados para adicionar funcionalidades.</p>
         </div>
 
         <div id="3-1-2-overriding-and-super">
