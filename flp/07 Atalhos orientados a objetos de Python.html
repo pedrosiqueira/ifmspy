@@ -424,11 +424,11 @@ default_arguments(4,5,6,7,8)
 # passando os argumentos em ordens diferentes
 default_arguments(y=10,x=9,z=11,b=True)</code></pre>
 
-        <p>Por padrão, os argumentos podem ser passados <b>posicionalmente</b> (na ordem em que os parâmetros foram declarados) ou via <b>palavra-chave</b>, que é o nome do respectivo parâmetro. Você também pode especificar quais argumentos só podem ser passados com palavras-chaves ou sem palavra-chaves.</p>
-        <p>Para indicar quais argumentos só podem ser passados com palavras-chave, coloque um <code>*</code> antes de seus parâmetros:</p>
+        <p>Por padrão, os parâmetros podem ser <b>posicionais</b> (<i>positional parameters</i>) ou <b>nominais</b> (<i>keyword parameters</i>). Os argumentos de parâmetros posicionais são passados na ordem em que os parâmetros foram declarados. Já os argumentos de parâmetros nominais (parâmetros com palavra-chave) são passados informando o nome dos respectivos parâmetros. Você também pode especificar quais argumentos só podem ser passados posicionalmente ou nominalmente.</p>
+        <p>Para indicar quais argumentos só podem ser passados nominalmente, coloque um <code>*</code> antes de seus parâmetros:</p>
         <pre><code>def kw_only(x, y='defaultkw', *, a, b='only'):
     print(x, y, a, b)</code></pre>
-        <p>Os argumentos de <code>x</code> e <code>y</code> podem ser passados posicionalmente ou com palavra-chave, mas os argumentos de <code>a</code> e <code>b</code>, que estão depois do <code>*</code>, só podem ser passados com palavra-chave.</p>
+        <p>Os argumentos de <code>x</code> e <code>y</code> podem ser passados posicionalmente ou nominalmente, mas os argumentos de <code>a</code> e <code>b</code>, que estão depois do <code>*</code>, só podem ser passados nominalmente.</p>
         <p>Ocorre uma exceção se não informar o argumento obrigatório <code>a:</code></p>
         <pre><code>>>> kw_only('x')
 Traceback (most recent call last):
@@ -439,17 +439,17 @@ TypeError: kw_only() missing 1 required keyword-only argument: 'a'</code></pre>
 Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
 TypeError: kw_only() takes from 1 to 2 positional arguments but 3 were given</code></pre>
-        <p>Para indicar quais argumentos não podem ser passados com palavra-chave, coloque uma <code>/</code> depois de seus parâmetros:</p>
+        <p>Para indicar quais argumentos só podem ser passados posicionalmente, coloque uma <code>/</code> depois de seus parâmetros:</p>
         <pre><code>def pos_only(x, y, /, a, b='only'):
     print(x, y, a, b)</code></pre>
-        <p>Os argumentos de <code>x</code> e <code>y</code>, que estão antes da <code>/</code>, não podem ser passados com palavra-chave, mas os argumentos de <code>a</code> e <code>b</code>, sim.</p>
+        <p>Os argumentos de <code>x</code> e <code>y</code>, que estão antes da <code>/</code>, não podem ser passados nominalmente, mas os argumentos de <code>a</code> e <code>b</code>, sim.</p>
         <p>Agora você não pode mais inverter a ordem de <code>x</code> e <code>y</code>:</p>
         <pre><code>>>> pos_only(y='y',x='x','a','b')
 Traceback (most recent call last):
         File "<stdin>", line 1
 SyntaxError: positional argument follows keyword argument</code></pre>
 
-        <p>Veja <a href="https://stackoverflow.com/a/57819001/4072641">diferentes exemplos</a> de argumentos posicionais e argumentos de palavra-chave:</p>
+        <p>Veja <a href="https://stackoverflow.com/a/57819001/4072641">diferentes exemplos</a> de parâmetros posicionais e parâmetros nominais:</p>
         <li>Parâmetro obrigatório somente posicional:</li>
         <pre><code>def f(a, /):
     pass
@@ -464,14 +464,14 @@ f(a=1)  # error, keyword argument</code></pre>
 f()  # allowed, argument is optional
 f(1)  # allowed, positional argument
 f(a=1)  # error, keyword argument</code></pre>
-        <li>Parâmetro obrigatório somente com palavra-chave</li>
+        <li>Parâmetro obrigatório somente nominal</li>
         <pre><code>def f(*, a):
     pass
 
 f()  # error, argument is required
 f(1)  # error, positional argument
 f(a=1)  # allowed, keyword argument</code></pre>
-        <li>Parâmetro opcional somente com palavra-chave</li>
+        <li>Parâmetro opcional somente nominal</li>
         <pre><code>def f(*, a=1):
     pass
 
@@ -493,7 +493,7 @@ f()  # allowed, argument is optional
 f(1)  # allowed, positional argument
 f(a=1)  # allowed, keyword argument</code></pre>
 
-        <p>O propósito desses recursos de parâmetros somente posicionais e somente com palavra-chave é implementar APIs que restrinjam o que os clientes podem fazer, seja para deixar o código mais claro, ou menos suscetível a erros. Por exemplo, você pode estar desenvolvendo uma API que ainda não tem os nomes dos parâmetros muito bem definidos, e que estejam <a href="https://stackoverflow.com/a/76010989/4072641">suscetíveis a mudanças</a>:</p>
+        <p>O propósito desses recursos de parâmetros somente posicionais e somente nominais é implementar APIs que restrinjam o que os clientes podem fazer, seja para deixar o código mais claro, ou menos suscetível a erros. Por exemplo, você pode estar desenvolvendo uma API que ainda não tem os nomes dos parâmetros muito bem definidos, e que estejam <a href="https://stackoverflow.com/a/76010989/4072641">suscetíveis a mudanças</a>:</p>
         <pre><code>def pow(base, exponet):
    pass</code></pre>
         <p>Suponha que um código cliente utilize sua API:</p>
@@ -508,11 +508,11 @@ pow(exponet=10, base=4.5)</code></pre>
     pass</code></pre>
         <p>Por exemplo, observe o cabeçalho da <a href="https://docs.python.org/3/library/functions.html#sorted">função incorporada <code>sorted</code></a>:</p>
         <pre><code>sorted(iterable, /, *, key=None, reverse=False)</code></pre>
-        <p>O primeiro parâmetro é somente posicional, e os demais são somente com palavra-chave.</p>
+        <p>O primeiro parâmetro é somente posicional, e os demais são somente nominais.</p>
         <!-- One thing to take note of with keyword arguments is that anything we provide... [essa parte eu não falei] -->
 
         <h3>Lista de argumentos variável</h3>
-        <p>No Python, uma função pode receber uma quantidade arbitrária de argumentos sem ter que declarar um parâmetro para cada argumento. Esse recurso é chamado de <b>varargs</b>, de <i>variadic arguments</i>, presente em muitas linguagens de programação. Por exemplo, você pode ter uma função que processa um link ou uma lista de links como argumento:</p>
+        <p>No Python, uma função pode receber uma quantidade arbitrária de argumentos sem ter que declarar um parâmetro para cada argumento. Esse recurso é chamado de <b>varargs</b>, de <i>variadic arguments</i> (ou simplesmente <code>*args</code>), presente em muitas linguagens de programação. Por exemplo, você pode ter uma função que processa um link ou uma lista de links como argumento:</p>
         <pre><code>def get_pages(*links):
     for link in links:
         #download the link with urllib
@@ -525,7 +525,7 @@ http://www.archlinux.org
 >>> get_pages("http://www.archlinux.org", "http://mxlinux.org/", "http://q4os.org/")
 http://www.archlinux.org http://mxlinux.org/ http://q4os.org/</code></pre>
 
-        <p>Os argumentos são apenas posicionais. Se quisermos, podemos aceitar argumentos apenas com palavras-chaves, usando dois asteriscos em vez de um. Neste caso, o parâmetro é um dicionário, e não uma lista:</p>
+        <p>Os argumentos são apenas posicionais. Se quisermos, podemos aceitar argumentos apenas nominais, usando dois asteriscos em vez de um. Neste caso, o parâmetro é um dicionário, e não uma lista:</p>
         <pre><code>>>> def print_keyword_args(**kwargs):
 ...     # kwargs is a dict of the keyword args passed to the function
 ...     for key, value in kwargs.items():
@@ -534,8 +534,8 @@ http://www.archlinux.org http://mxlinux.org/ http://q4os.org/</code></pre>
 >>> print_keyword_args(first_name="John", last_name="Doe")
 first_name = John
 last_name = Doe</code></pre>
-        <!-- Não dei o exemplo da classe Options do livro, nem falei dos perigos de kwrargs do parágrafo The keyword argument syntax can be dangerous... -->
-        <p>Esses argumentos variados com palavra-chave são conhecidos como <b>kwargs</b>. Uma aplicação deles é quando temos uma função que aceita argumentos arbitrários que são passados para uma segunda função, mas não sabemos de antemão quais serão esses argumetos.</p>
+        <!-- Não dei o exemplo da classe Options do livro, nem falei dos perigos de kwargs do parágrafo The keyword argument syntax can be dangerous... -->
+        <p>Esses argumentos variados com palavra-chave são conhecidos como <b>**kwargs</b>. Uma aplicação deles é quando temos uma função que aceita argumentos arbitrários que são passados para uma segunda função, mas não sabemos de antemão quais serão esses argumetos.</p>
         <p>Considere o seguinte problema: queremos transferir uma lista de arquivos para uma pasta destino. A opção padrão é mover, mas podemos passar opções diferentes para cada arquivo, como ignorar algum ou copiá-lo em vez de movê-lo. O seguinte exemplo ilustra os diferentes tipos de parâmetros que vimos para resolver esse problema:</p>
         <pre><code>import shutil
 import os.path
@@ -589,9 +589,9 @@ print(s2)</code></pre>
         <pre><code>s1 = f"Hello, {names[0]}, are you {conditions[0]}?"
 s2 = f"Hello, {names[1]}, are you {conditions[1]}?"</code></pre>
 
-<h3>Desempacotando argumentos</h3>
-<p>Vimos como tratar diversos argumentos como um único parâmetro. Mas e o contrário, podemos tratar um único argumento como diversos parâmetros? Sim, com desempacotamento (ou destruturação):</p>
-<pre><code>def show_args(a, b, c="Default"):
+        <h3>Desempacotando argumentos</h3>
+        <p>Vimos como tratar diversos argumentos como um único parâmetro. Mas e o contrário, podemos tratar um único argumento como diversos parâmetros? Sim, com expansão, também chamado de desempacotamento (unpacking), ou destruturação (destructuring):</p>
+        <pre><code>def show_args(a, b, c="Default"):
     print(a, b, c)
 
 a_list = [1, 2]
@@ -600,24 +600,41 @@ a_dict = {"a": 1, "b": 2, "c": 3}
 show_args(*a_list)
 show_args(**a_dict)</code></pre>
 
-<p>Desempacotamento também funciona fora de funções:</p>
-<pre><code>l = [1, 2]
+        <p>Desempacotamento também funciona fora de funções:</p>
+        <pre><code>l = [1, 2]
 d = {"a": 1, "b": 2, "c": 3}
 
+# os itens de `l` foram desempacotados e inseridos em `ll`
 ll = [0, *l, 3]
 print(ll)
 
+# os itens de `d` foram desempacotados e inseridos em `dd`
 dd = {"x": 4, **d, "y": 5}
 print(dd)
 
+# os dois primeiros itens de `ll` foram desempacotados nas variáveis `first` e `second`,
+#  os demais itens foram desempacotados na lista `_`
 first, second, *_ = ll
 print(first, second)
 
+# o primeiro e o último item de `ll` foram desempacotados nas variáveis `first` e `last`,
+#  os demais itens foram desempacotados na lista `_`
 first, *_, last = ll
 print(first, last)
 
-key1, key2, *_ = dd  # apenas as chaves são desempacotadas...
+# apenas as chaves são desempacotadas...
+key1, key2, *_ = dd
 print(dd[key1], dd[key2])</code></pre>
-<p>Você pode ler mais a respeito de <a href="https://realpython.com/python-kwargs-and-args/"><code>*args</code> e <code>**kwargs</code> aqui</a>.</p>
+        <p>Você pode ler mais a respeito de <a href="https://realpython.com/python-kwargs-and-args/"><code>*args</code> e <code>**kwargs</code> aqui</a>.</p>
+
+        <h3>Exercícios</h3>
+        <ol class="excs">
+            <h4>Implementar as seguintes funções:</h4>
+            <li><code>soma_numeros</code>: Recebe uma quantidade arbitrária de números como argumentos posicionais. Retorna a soma de todos os números passados como argumentos.</li>
+            <li><code>media_valores</code>: Recebe uma quantidade arbitrária de números como argumentos posicionais. Retorna a média de todos os números passados como argumentos.</li>
+            <li><code>concatena_strings</code>: recebe uma string inicial e uma quantidade arbitrária de outras strings como argumentos posicionais. Retorna a concatenação de todas as strings recebidas.</li>
+            <li><code>juncao_listas</code>: Recebe uma quantidade arbitrária de listas como argumentos posicionais. Retorna uma única lista contendo todos os elementos das listas recebidas.</li>
+            <li><code>formata_string</code>: Sua própria versão de str.format, que recebe uma string de entrada com <i>placeholders</i> delimitados por chaves <code>{}</code>, e uma quantidade arbitrária de argumentos nominais (<code>**kwargs</code>). Os <i>placeholders</i> na string de entrada devem corresponder às chaves nos argumentos nominais. Retorna a string de entrada onde cada <i>placeholder</i> é substituído pelo valor da string do argumento correspondente.</li>
+        </ol>
     </div>
 </div>
