@@ -342,7 +342,34 @@ except:
 for key, value in random_keys.items():
     print(f"{key} has value {value}")</code></pre>
 
-        <p>Geralmente objetos mutáveis, como listas e dicionários, não são hasheáveis, portanto, não podem ser usados como chaves de dicionários. O valor <b>hash</b> de um objeto é como se fosse sua "impressão digital": permanece a mesma enquanto o objeto existir. Por padrão, o hash de objetos de classes personalizadas é um número equivalente ao seu endereço de memória, que é inclusive usado ao imprimir ou comparar o objeto quando não se sobrescrevem os métodos <code>__str__</code> e <code>__eq__</code>. Você também pode sobrescrever o método <code>__hash__</code>, caso queira calcular e retornar um hash baseado nos valores dos atributos do objeto.</p>
+        <p>Geralmente objetos mutáveis, como listas e dicionários, não são hasheáveis, portanto, não podem ser usados como chaves de dicionários. O valor <b>hash</b> de um objeto é como se fosse sua "impressão digital": permanece a mesma enquanto o objeto existir. Por padrão, o hash de objetos de classes personalizadas é um número equivalente ao seu endereço de memória, que é inclusive usado ao imprimir ou comparar o objeto quando não se sobrescrevem os métodos <code>__repr__</code> e <code>__eq__</code>. Você também pode sobrescrever o método <code>__hash__</code>, caso queira calcular e retornar um hash baseado nos valores dos atributos do objeto. Vejamos alguns exemplos de objetos personalizados usados como chaves em dicionários.</p>
+        <p>Podemos querer saber as bactérias presentes em determinadas coordenadas:</p>
+        <pre><code>class Coordenada:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __hash__(self):
+        return hash((self.x, self.y))
+
+    def __repr__(self):
+        return f"{self.x},{self.y}"
+
+ponto1 = Coordenada(1, 2)
+ponto2 = Coordenada(3, 4)
+
+dicionario = {ponto1: "Micrococcus luteus", ponto2: "Bradyrhizobium canariense"}
+
+print(dicionario)</code></pre>
+        <p>Ou então querer marcar o evento mais importante ocorrido em determinados dias:</p>
+        <pre><code>from datetime import datetime
+
+data1 = datetime(2024, 3, 15)
+data2 = datetime(2024, 3, 16)
+
+dicionario = {data1: 'evento1', data2: 'evento2'}
+
+print(dicionario)</code></pre>
         <p>Tecnicamente, a maioria dos objetos em Python é implementada utilizando dicionários nos bastidores. A maioria dos objetos possui o atributo mágico <code>obj.__dict__</code>. Quando você acessa um atributo em um objeto usando <code>obj.nome_do_atributo</code>, essencialmente isso é traduzido para <code>obj['nome_do_atributo']</code> nos bastidores.</p>
 
         <div id="6-4-1-dictionary-use-cases">
@@ -684,6 +711,7 @@ print("difference:", yours.difference(mine))</code></pre>
         </div>
     </div>
 </div>
+<!-- comparar as soluções usando listas e dicionários ou sets, pra ver qual é mais rápida -->
 <!-- exercício: Como os métodos sugerem, <code>set</code>s são bons para situações em que você tem que comparar dados de fontes diferentes. Por exemplo, combiná-los, determinar quais se sobrepõem ou não (elementos contidos em ambos os conjuntos), ou remover duplicatas -->
 <!-- we have data incoming that may contain duplicates of data that has already been processed, we can use sets to compare the two and process only the new data. -->
 <!-- exercício que verifica se uma frase contém todas as vogais, independentemente de maiúsculo ou minúsculo -->
