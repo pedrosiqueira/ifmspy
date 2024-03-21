@@ -121,17 +121,17 @@
         <p>Muitas dessas funções empregam duck typing: esperam receber objetos com determinados atributos, mas não forçam os objetos a serem de determinada classe.</p>
         <div id="7-1-1-the-len-function">
             <h3>A função <code>len</code></h3>
-            <p>Muitos objetos são contáveis, como strings, dicionários ou listas. Internamente, eles implementam o método <code>__len__</code>, que é chamado implicitamente ao passá-los como argumento à função <code>len</code>. Portanto, para saber a quantidade de caracteres numa string, por exemplo, podemos fazer:</p>
+            <p>Muitos objetos são contáveis, como strings, dicionários ou listas. Internamente, eles implementam o método <code>__len__</code>, que é invocado implicitamente ao passá-los como argumento à função <code>len</code>. Portanto, para saber a quantidade de caracteres numa string, por exemplo, podemos fazer:</p>
             <pre><code>>>> string = 'eu tenho 22 caracteres' 
 >>> string.__len__() # orientado a objetos
 22
 >>> len(string) # implicitamente orientado a objetos
 22</code></pre>
-            <p>Embora em muitas linguagem o habitual seja chamar um método do tipo <code>__len__</code> do objeto, no Python, a convenção é chamar a função <code>len</code>.</p>
+            <p>Embora em muitas linguagem o habitual seja invocar um método do tipo <code>__len__</code> do objeto, no Python, a convenção é invocar a função <code>len</code>.</p>
         </div>
         <div id="7-1-2-reversed">
             <h3>A função <code>reversed</code></h3>
-            <p>A função <code>reversed</code> retorna uma cópia invertida de um objeto. Internamente, ela chama o método <code>__reversed__</code> do objeto. Se esse método não existir, a função chama os métodos <code>__len__</code> e <code>__getitem__</code> do objeto para conseguir percorrer seus valores de trás para frente. Lembre-se, você pode implementar os métodos mágicos para definir o funcionamento das funções incorporadas do Python. Qual a saída do seguinte código:</p>
+            <p>A função <code>reversed</code> retorna uma cópia invertida de um objeto. Internamente, ela invoca o método <code>__reversed__</code> do objeto. Se esse método não existir, a função invoca os métodos <code>__len__</code> e <code>__getitem__</code> do objeto para conseguir percorrer seus valores de trás para frente. Lembre-se, você pode implementar os métodos mágicos para definir o funcionamento das funções incorporadas do Python. Qual a saída do seguinte código:</p>
             <pre><code>normal_list = [1, 2, 3, 4, 5]
 
 class CustomSequence:
@@ -343,14 +343,14 @@ file.close()</code></pre>
             </table>
 
             <h4>Lendo</h4>
-            <p>Podemos chamar os seguintes métodos no modo leitura:</p>
+            <p>Podemos invocar os seguintes métodos no modo leitura:</p>
             <ul>
                 <li><code>read(size=-1, /)</code>: Lê e retorna no máximo size caracteres como uma única string. Se size for negativo None, lê até EOF. Cuidado ao usar esse método para arquivos grandes, pois o computador pode travar ou a memória pode transbordar.</li>
                 <li><code>readline(size=-1, /)</code>: Lê até nova linha ou EOF e retorne uma única string. Se size for especificado, no máximo size caracteres serão lidos.</li>
-                <li><code>readlines(hint=-1, /)</code>: Lê e retorna uma lista de linhas do arquivo. hint pode ser especificada para controlar o número de linhas lidas: nenhuma outra linha será lida se o tamanho total (em bytes/caracteres) de todas as linhas até o momento exceder hint. Assim como em <code>read</code>, pode ser perigoso chamar esse método para arquivos grandes.</li>
+                <li><code>readlines(hint=-1, /)</code>: Lê e retorna uma lista de linhas do arquivo. hint pode ser especificada para controlar o número de linhas lidas: nenhuma outra linha será lida se o tamanho total (em bytes/caracteres) de todas as linhas até o momento exceder hint. Assim como em <code>read</code>, pode ser perigoso invocar esse método para arquivos grandes.</li>
             </ul>
-            <p>Esses métodos também funcionam para leitura de arquivos binários, apesar de que chamar um <code>readline</code> pode não fazer muito sentido.</p>
-            <p>Observe que é possível iterar em objetos de arquivos usando <code>for line in file: ...</code> sem chamar <code>file.readlines()</code>.</p>
+            <p>Esses métodos também funcionam para leitura de arquivos binários, apesar de que invocar um <code>readline</code> pode não fazer muito sentido.</p>
+            <p>Observe que é possível iterar em objetos de arquivos usando <code>for line in file: ...</code> sem invocar <code>file.readlines()</code>.</p>
 
             <h4>Escrevendo</h4>
             <p>Para escrever, temos os métodos:</p>
@@ -373,11 +373,11 @@ file.close()</code></pre>
                 <li><code>writable()</code>: Retorna True se o fluxo suportar escrita. Se for False, write() e truncate() gerarão OSError.</li>
                 <li><code>encoding</code>: Não é um método, é um atributo que contém o nome da codificação usada para decodificar os bytes do fluxo em strings e para codificar strings em bytes.</li>
             </ul>
-            <p>Por fim, temos o método <code>close</code>, que sempre deve ser chamado após terminarmos de mexer com arquivo. Esse método garante que as modificações sejam salvas no disco e que todos os recursos associados ao arquivo sejam liberados de volta para o sistema operacional. Tecnicamente, isso acontece automaticamente quando o script é encerrado, mas é melhor ser explícito e fecharmos nós mesmos, especialmente em processos de longa execução.</p>
+            <p>Por fim, temos o método <code>close</code>, que sempre deve ser invocado após terminarmos de mexer com arquivo. Esse método garante que as modificações sejam salvas no disco e que todos os recursos associados ao arquivo sejam liberados de volta para o sistema operacional. Tecnicamente, isso acontece automaticamente quando o script é encerrado, mas é melhor ser explícito e fecharmos nós mesmos, especialmente em processos de longa execução.</p>
         </div>
         <div id="7-1-5-placing-it-in-context">
             <h3>Contextualizando</h3>
-            <p>Como trabalhar com arquivos não depende apenas dos códigos que escrevemos, mas do sistema operacional, podem ocorrer exceções. Por isso, quando trabalhamos com arquivos, podemos envolvemos tudo dentro de cláusulas <code>try-except-finally</code> para fazer as devidas tratativas e garantir que o arquivo é fechado e nenhum trabalho seja perdido. Outra maneira mais prática é usar a instrução <code>with-as</code>, que encapsula operações comuns como o método <code>close</code>, sem explicitamente chamá-lo:</p>
+            <p>Como trabalhar com arquivos não depende apenas dos códigos que escrevemos, mas do sistema operacional, podem ocorrer exceções. Por isso, quando trabalhamos com arquivos, podemos envolvemos tudo dentro de cláusulas <code>try-except-finally</code> para fazer as devidas tratativas e garantir que o arquivo é fechado e nenhum trabalho seja perdido. Outra maneira mais prática é usar a instrução <code>with-as</code>, que encapsula operações comuns como o método <code>close</code>, sem explicitamente invocá-lo:</p>
             <pre><code>with open('filename') as file:
     for line in file:
         print(line, end='')</code></pre>
@@ -402,7 +402,7 @@ print(html)</code></pre>
         self.dbconn.close()
         ...</code></pre>
 
-            <p>O método <code>__enter__</code> se encarrega de abrir a conexão com o banco de dados, e o método <code>__exit__</code> se encarrega de fechá-la. Caso ocorra alguma exceção, o método <code>__exit__</code> é chamado com as informações da exceção nos parâmetros exc_type, exc_val e exc_tb.</p>
+            <p>O método <code>__enter__</code> se encarrega de abrir a conexão com o banco de dados, e o método <code>__exit__</code> se encarrega de fechá-la. Caso ocorra alguma exceção, o método <code>__exit__</code> é invocado com as informações da exceção nos parâmetros exc_type, exc_val e exc_tb.</p>
         </div>
     </div>
     <div id="7-2-an-alternative-to-method-overloading">
@@ -410,11 +410,11 @@ print(html)</code></pre>
         <p>Sobrecarga de métodos e funções é quando temos vários métodos (ou funções) com o mesmo nome, mas com diferentes tipos e quantidades de parâmetros. Um exemplo de utilização pode ser um método que envia email para um contato padrão e outro método que envia email para um contato passado como argumento. Ambos podem ter o mesmo nome. O Python não implementa sobrecarga de métodos, mas alcança funcionalidades semelhantes usando valores padrão para os parâmetros ou usando argumentos arbitrários, como <code>*args</code> e <code>**kwargs</code>.</p>
 
         <h3>Argumentos padrão</h3>
-        <p>Para tornar um parâmetro opcional, atribua um valor padrão na sua declaração. Se o chamador da função não especificar um argumento para esse parâmetro, ele é inicializado com o valor padrão:</p>
+        <p>Para tornar um parâmetro opcional, atribua um valor padrão na sua declaração. Se o invocador da função não especificar um argumento para esse parâmetro, ele é inicializado com o valor padrão:</p>
         <pre><code>def default_arguments(x, y, z, a="String", b=False):
     print("Meus argumentos são", x, y, z, a, b)</code></pre>
         <p>Os primeiros três parâmetros dessa função são obrigatórios, mas os dois últimos são opcionais, e se não informados, começam com os valores atribuídos a eles na declaração.</p>
-        <p>Podemos chamar a função de várias formas. Passando apenas os argumentos obrigatórios:</p>
+        <p>Podemos invocar a função de várias formas. Passando apenas os argumentos obrigatórios:</p>
         <pre><code># passando apenas argumentos obrigatórios
 default_arguments(1,2,3)
 
@@ -560,7 +560,7 @@ def augmented_move(target_folder, *filenames, verbose=False, **specific):
             print_verbose("Moving", filename)
             shutil.move(filename, target_path)</code></pre>
         <p>O primeiro parâmetro é a pasta destino. O segundo parâmetro é uma lista de arquivos que serão movidos para a pasta destino. O terceiro parâmetro indica se deve ser informado ao usuário o estado do processamento. O último parâmetro contém as ações específicas a serem tomadas para determinados arquivos.</p>
-        <p>Veja exemplos de chamadas a essa função:</p>
+        <p>Veja exemplos de invocações a essa função:</p>
         <pre><code>>>> augmented_move("move_here", "one", "two")
 >>> augmented_move("move_here", "three", verbose=True)
 Moving three
@@ -636,5 +636,64 @@ print(dd[key1], dd[key2])</code></pre>
             <li><code>juncao_listas</code>: Recebe uma quantidade arbitrária de listas como argumentos posicionais. Retorna uma única lista contendo todos os elementos das listas recebidas.</li>
             <li><code>formata_string</code>: Sua própria versão de str.format, que recebe uma string de entrada com <i>placeholders</i> delimitados por chaves <code>{}</code>, e uma quantidade arbitrária de argumentos nominais (<code>**kwargs</code>). Os <i>placeholders</i> na string de entrada devem corresponder às chaves nos argumentos nominais. Retorna a string de entrada onde cada <i>placeholder</i> é substituído pelo valor da string do argumento correspondente.</li>
         </ol>
+    </div>
+    <div id="7-3-functions-are-objects-too">
+        <h2>Funções como objetos</h2>
+
+        <p>Uma função <i>callback</i> é uma função que é passada como argumento para outra função. A função que recebe a função callback pode então invocá-la quando certas condições são atendidas ou quando um evento ocorre.</p>
+        <p>A seguinte função invoca a função callback após um tempo de espera:</p>
+        <pre><code>import time
+
+def call_after(delay, callback, **kwargs):
+    time.sleep(delay)
+    callback(**kwargs)</code></pre>
+        <p>O legal é que se a função callback precisar de argumentos para ser executada, podemos receber uma quantidade arbitrária de argumentos pelo parâmetro <code>**kwargs</code>, e repassá-los à callback!</p>
+        <p>Vamos declarar algumas funções e invocá-las através da função <code>call_after</code>:</p>
+        <pre><code>from datetime import datetime
+
+def format_time(message):
+    print(datetime.now(), message)
+
+def nothing():
+    format_time("I do nothing")
+
+def sum(a, b):
+    format_time(f"Sum: {a}+{b}={a+b}")
+
+def greetings(name=None):
+    format_time(f"Hello, {name if name else "world"}!" )
+
+class Repeater:
+    def __init__(self, times=3, delay=1):
+        self.count = 0
+        self.times = times
+        self.delay = delay
+
+    def repeat(self):
+        format_time(f"repeat {self.count}")
+        self.count += 1
+        if self.count &lt; self.times:
+            call_after(self.delay, self.repeat)
+
+call_after(3, nothing)
+call_after(2, sum, a=4, b=3)
+call_after(1, greetings, name="Pedro")
+repeater = Repeater()
+call_after(4, repeater.repeat)</code></pre>
+        <p>Observe que uma função só é executada após o término da anterior. Observe também que podemos usar métodos de objetos como callbacks.</p>
+        <p>Funções callback são muito úteis em situações onde você não deseja que a execução do programa seja bloqueada, aguardando a ocorrência de eventos específicos ou a conclusão de operações demoradas. Em casos como o da função <code>call_after</code>, cuja execução pode ser consideravelmente prolongada devido ao seu parâmetro <code>delay</code>, podemos usar o objeto <code>ThreadPoolExecutor</code> para executar funções em paralelo:</p>
+
+        <pre><code>from concurrent.futures import ThreadPoolExecutor
+
+with ThreadPoolExecutor() as executor:
+    executor.submit(call_after, 3, nothing)
+    executor.submit(call_after, 2, sum, a=4, b=3)
+    executor.submit(call_after, 1, greetings, name="Pedro")
+    repeater = Repeater()
+    executor.submit(call_after, 4, repeater.repeat)</code></pre>
+        <p>O método <code>submit</code> recebe três argumentos, a função <code>fn</code> a ser invocada, uma sequência de argumentos posicionais <code>*args</code>, e uma sequência de argumentos nominais <code>**kwargs</code>. O método, então, executa a função como <code>fn(*args, **kwargs)</code>. Não precisa se preocupar em entender o objeto <code>ThreadPoolExecutor</code> e seus métodos. O Capítulo 13 aborda especificamente esse assunto de concorrência e paralelismo em Python. Esse exemplo é mais para ilustrar o funcionamento de callbacks.</p>
+
+        <h3>Usando funções como atributos</h3>
+        
     </div>
 </div>
