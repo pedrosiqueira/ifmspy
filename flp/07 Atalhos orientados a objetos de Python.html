@@ -694,6 +694,19 @@ with ThreadPoolExecutor() as executor:
         <p>O método <code>submit</code> recebe três argumentos, a função <code>fn</code> a ser invocada, uma sequência de argumentos posicionais <code>*args</code>, e uma sequência de argumentos nominais <code>**kwargs</code>. O método, então, executa a função como <code>fn(*args, **kwargs)</code>. Não precisa se preocupar em entender o objeto <code>ThreadPoolExecutor</code> e seus métodos. O Capítulo 13 aborda especificamente esse assunto de concorrência e paralelismo em Python. Esse exemplo é mais para ilustrar o funcionamento de callbacks.</p>
 
         <h3>Usando funções como atributos</h3>
-        
+        <p>Devido à dinamicidade do Python, é possível até atribuir uma função como método de um objeto, após ele ser instanciado:</p>
+        <pre><code>class A:
+    def print(self):
+        print("my class is A")
+
+def fake_print():
+    print("my class is not A")
+
+a = A()
+a.print()
+a.print = fake_print
+a.print()</code></pre>
+        <p>É possível substituir métodos em classes, em vez de objetos, adicionando o argumento <code>self</code> à lista de parâmetros. Isso alterará o método para todas as instâncias daquela classe, mesmo as que já foram criadas. No entanto, substituir métodos dessa maneira pode ser perigoso e confuso de manter. Isso porque pode causar confusão durante a leitura do código, levando a sessões de depuração complicadas e frustrantes.</p>
+        <p>Substituir ou adicionar métodos em tempo de execução é chamado de <b>monkey patching</b>. Seus casos de uso incluem, especialmente em testes automatizados. Por exemplo, pode ser usado para simular comportamentos de rede sem realmente se conectar a um servidor. Também pode ser útil para corrigir bugs ou adicionar funcionalidades em código de terceiros. No entanto, deve ser usado com cuidado, pois geralmente é uma solução pouco elegante e pode causar confusão no código.</p>
     </div>
 </div>
