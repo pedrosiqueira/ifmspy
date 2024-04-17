@@ -179,7 +179,7 @@ print(names)</code></pre>
                 <li><code>bin(x)</code>: Converte um número inteiro em uma string binária prefixada com “0b”.</li>
                 <li><code>chr(i)</code>: Retorna o caractere que representa o código Unicode i. Por exemplo, chr(97) retorna a string 'a', enquanto chr(8364) retorna a string '€'. Este é o inverso de ord.</li>
                 <li><code>delattr(object, name)</code>: Exclui o atributo name de object. Por exemplo, delattr(x, 'foobar') é equivalente a del x.foobar.</li>
-                <li><code>dir(object)</code>: Sem argumentos, retorne a lista de nomes no escopo local atual. Com um argumento, tenta retornar uma lista de atributos válidos para esse objeto.</li>
+                <li><code>dir(object)</code>: Sem argumentos, retorna a lista de nomes no escopo local atual. Com um argumento, tenta retornar uma lista de atributos válidos para esse objeto.</li>
                 <li><code>exec(str)</code>: Analisa e executa o código de str. CUIDADO COM ATAQUE DE INJEÇÃO DE CÓDIGO!</li>
                 <li><code>getattr(object, name)</code>: Retorna o valor do atributo name de object.</li>
                 <li><code>hasattr(object, name)</code>: Retorna True se object possui o atributo name.</li>
@@ -708,5 +708,101 @@ a.print = fake_print
 a.print()</code></pre>
         <p>É possível substituir métodos em classes, em vez de objetos, adicionando o argumento <code>self</code> à lista de parâmetros. Isso alterará o método para todas as instâncias daquela classe, mesmo as que já foram criadas. No entanto, substituir métodos dessa maneira pode ser perigoso e confuso de manter. Isso porque pode causar confusão durante a leitura do código, levando a sessões de depuração complicadas e frustrantes.</p>
         <p>Substituir ou adicionar métodos em tempo de execução é chamado de <b>monkey patching</b>. Seus casos de uso incluem, especialmente em testes automatizados. Por exemplo, pode ser usado para simular comportamentos de rede sem realmente se conectar a um servidor. Também pode ser útil para corrigir bugs ou adicionar funcionalidades em código de terceiros. No entanto, deve ser usado com cuidado, pois geralmente é uma solução pouco elegante e pode causar confusão no código.</p>
+
+        <h3>Objetos invocáveis</h3>
+        <p>Tudo é objeto em Python. Portanto, uma função é um objeto que possui atributos. Se você passar uma função como argumento à função <code>dir</code>, verá seus atributos e métodos. Por exemplo, dentre os métodos do "objeto" <code>print</code>, há o <code>__call__</code>.</p>
+        <pre><code>>>> dir(print)
+['__call__', '__class__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__name__', '__ne__', '__new__', '__qualname__', '__reduce__', '__reduce_ex__', '__repr__', '__self__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__text_signature__']</code></pre>
+
+        <p>Toda função é um objeto que tem implementado o método <code>__call__</code>. Objetos que implementam <code>__call__</code> são conhecidos como objetos invocáveis (callable). E um objeto invocável é aquele que você pode invocar, como uma função, usando parênteses. Você pode saber se um objeto é invocável através da função incorporada <code>callable</code>, que retorna um booleano:</p>
+        <pre><code>>>> callable(print) # uma função
+True
+>>> callable(dict) # uma classe
+True
+>>> callable(dict()) # um objeto
+False</code></pre>
+        <p>Observe que a classe <code>dict</code> é invocável, enquanto que um objeto da classe <code>dict</code> não é invocável.</p>
+        <p>Ao declarar uma função, nos bastidores, o Python está instanciando um objeto com o método <code>__call__</code> com as instruções que você implementou na função:</p>
+        <pre><code>def uma_funcao(um_parametro, outro_parametro):
+    print("uma instrução qualquer")
+    print(um_parametro, outro_parametro)
+
+uma_funcao(12, 34)
+uma_funcao.__call__(12, 34)</code></pre>
+
+        <p>Suponha que queiramos calcular a média de números provindos de diferentes fontes. No <a href="https://realpython.com/python-callable-instances/">seguinte exemplo</a>, implementamos uma classe para instanciar objetos que se comportam como funções para realizar essa tarefa.</p>
+        <pre><code>class CumulativeAverager:
+    def __init__(self):
+        self.data = []
+
+    def __call__(self, new_value):
+        self.data.append(new_value)
+        return sum(self.data) / len(self.data)</code></pre>
+
+        <p>Agora podemos instanciar objetos que simulam funções que calculam a média enquanto mantêm os valores calculados:</p>
+        <pre><code>>>> file_stream_average = CumulativeAverager()
+>>> url_stream_average = CumulativeAverager()
+>>>
+>>> file_stream_average(12)
+12.0
+>>> file_stream_average(13)
+12.5
+>>> file_stream_average(11)
+12.0
+>>> file_stream_average(10)
+11.5
+>>>
+>>> url_stream_average(.34)
+0.34
+>>> url_stream_average(.71)
+0.525
+>>> url_stream_average(.39)
+0.48
+>>>
+>>> file_stream_average.data
+[12, 13, 11, 10]
+>>> url_stream_average.data
+[0.34, 0.71, 0.39]</code></pre>
+
+        <p>Exótico, curioso, intrigante. Devido à filosofia "transparente", o Python te permite ver e até mesmo alterar muita coisa que acontece nos bastidores. Mas isso não quer dizer que você deva se embrenhar nesse mundo de variáveis mágicas.</p>
+    </div>
+
+    <div id="7-4-case-study">
+        <h2>Estudo de caso</h2>
+        <p>Para amarrar alguns dos princípios estudados em um único exemplo, vamos construir um gerenciador de lista de emails. O gerenciador categorizará os endereços de email em grupos. Ao enviar um email, podemos escolher um endereço de email, uma lista de endereços de email, ou um grupo pré-salvo de endereços de email.</p>
+
+
+        add a couple of methods to load and
+        save the list of email groups from and to a file.
+
+        . One of the reasons myriad database systems exist is that if someone
+        else has put this thought into how data is stored, you don't have to. We'll be looking at
+        some data serialization mechanisms in the next chapter, but for this example, let's keep it
+        simple and go with the first solution that could possibly work.
+
+        consider the comma-separated list of groups. What happens if someone decides to
+        put a comma in a group name? If we decide to make commas illegal in group names, we
+        should add validation to enforce such naming in our add_to_group method. For
+        pedagogical clarity, we'll ignore this problem too.
+
+        Finally, there are many security
+        implications we need to consider: can someone get themselves into the wrong group by
+        putting a fake comma in their email address? What does the parser do if it encounters an
+        invalid file?
+
+        There are a ton of bizarre
+        edge cases you might overlook, and it's better to use code that has already encountered and
+        fixed those edge cases.
+
+        But forget that. Let's just write some basic code that uses an unhealthy dose of wishful
+        thinking to pretend this simple data format is safe, demonstrated as follows:
+
+        email1@mydomain.com group1,group2
+        email2@mydomain.com group2,group3
+
+        To make this a little easier for anyone who wants to use our
+        MailingList API in their own code, let's provide the methods __enter__ and __exit__ to support a context manager:
+
+
     </div>
 </div>
