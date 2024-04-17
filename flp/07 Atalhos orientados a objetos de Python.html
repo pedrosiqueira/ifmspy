@@ -637,4 +637,41 @@ print(dd[key1], dd[key2])</code></pre>
             <li><code>formata_string</code>: Sua própria versão de str.format, que recebe uma string de entrada com <i>placeholders</i> delimitados por chaves <code>{}</code>, e uma quantidade arbitrária de argumentos nominais (<code>**kwargs</code>). Os <i>placeholders</i> na string de entrada devem corresponder às chaves nos argumentos nominais. Retorna a string de entrada onde cada <i>placeholder</i> é substituído pelo valor da string do argumento correspondente.</li>
         </ol>
     </div>
+    <div id="7-3-functions-are-objects-too">
+        <h2>Funções também são objetos</h2>
+        <p>Por serem objetos, elas possuem determinados atributos mágicos. Você pode até definir atributos às suas funções (embora isso não seja necessário)! Você também pode passar funções como argumentos para outras funções, que por sua vez podem chamá-las posteriormente.</p>
+        <pre><code>def my_function():
+    print("The Function Was Called")
+
+my_function.description = "A silly function"
+
+def second_function():
+    print("The second was called")
+
+second_function.description = "A sillier function."
+
+def another_function(function):
+    print("The description:", end=" ")
+    print(function.description)
+    print("The name:", end=" ")
+    print(function.__name__)
+    print("The class:", end=" ")
+    print(function.__class__)
+    print("Now I'll call the function passed in")
+    function()
+
+another_function(my_function)
+another_function(second_function)</code></pre>
+<p>A saída desse trecho de código é:</p>
+<pre><code>The description: A silly function
+The name: my_function
+The class: &lt;class 'function'>
+Now I'll call the function passed in
+The function was called
+The description: A sillier function.
+The name: second_function
+The class: &lt;class 'function'>
+Now I'll call the function passed in
+The second was called</code></pre>
+    </div>
 </div>
