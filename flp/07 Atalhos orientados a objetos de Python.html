@@ -345,7 +345,7 @@ file.close()</code></pre>
             <h4>Lendo</h4>
             <p>Podemos invocar os seguintes métodos no modo leitura:</p>
             <ul>
-                <li><code>read(size=-1, /)</code>: Lê e retorna no máximo size caracteres como uma única string. Se size for negativo None, lê até EOF. Cuidado ao usar esse método para arquivos grandes, pois o computador pode travar ou a memória pode transbordar.</li>
+                <li><code>read(size=-1, /)</code>: Lê e retorna no máximo size caracteres como uma única string. Se size for negativo ou não especificado, lê até EOF. Cuidado ao usar esse método para arquivos grandes, pois o computador pode travar ou a memória pode transbordar.</li>
                 <li><code>readline(size=-1, /)</code>: Lê até nova linha ou EOF e retorne uma única string. Se size for especificado, no máximo size caracteres serão lidos.</li>
                 <li><code>readlines(hint=-1, /)</code>: Lê e retorna uma lista de linhas do arquivo. hint pode ser especificada para controlar o número de linhas lidas: nenhuma outra linha será lida se o tamanho total (em bytes/caracteres) de todas as linhas até o momento exceder hint. Assim como em <code>read</code>, pode ser perigoso invocar esse método para arquivos grandes.</li>
             </ul>
@@ -385,7 +385,7 @@ file.close()</code></pre>
             <p>A instrução <code>with-as</code> funciona com qualquer objeto que implemente os métodos mágicos <code>__enter__</code> e <code>__exit__</code>. Esses métodos indicam para o Python como se deve inicializar um recurso e como finalizá-lo após seu uso, mesmo quando ocorre uma exceção. Objetos que implementam esses métodos são chamados de <b>gerenciadores de contexto</b> (<b>context manager</b>).</p>
             <p>Outro exemplo de gerenciador de contexto no Python é o objeto retornado pela função <code>urllib.request.urlopen</code>, usado para ler o conteúdo de uma página:</p>
             <pre><code>import urllib.request
-with urllib.request.urlopen('https://orkut.com/') as response:
+with urllib.request.urlopen('https://www.example.com/') as response:
    html = response.read()
 print(html)</code></pre>
             <p>Após o término do <code>with-as</code>, a conexão com o socket é encerrada.</p>
