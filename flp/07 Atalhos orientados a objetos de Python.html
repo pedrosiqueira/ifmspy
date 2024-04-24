@@ -64,7 +64,7 @@
         table.align-left th,
         table.align-left td {
             /* alinha à esquerda as células da tabela */
-            text-align: left;
+            text-align: left !important;
         }
 
         /* inicia a lista de exercícios */
@@ -110,6 +110,11 @@
         td.hljs-ln-code {
             /* estilizar as linhas de código da extensao highlightjs-line-numbers */
             padding-left: 10px;
+        }
+
+        .info {
+            border-left: 6px solid blue;
+            padding-left: 1%;
         }
     </style>
 </head>
@@ -179,7 +184,7 @@ print(names)</code></pre>
                 <li><code>bin(x)</code>: Converte um número inteiro em uma string binária prefixada com “0b”.</li>
                 <li><code>chr(i)</code>: Retorna o caractere que representa o código Unicode i. Por exemplo, chr(97) retorna a string 'a', enquanto chr(8364) retorna a string '€'. Este é o inverso de ord.</li>
                 <li><code>delattr(object, name)</code>: Exclui o atributo name de object. Por exemplo, delattr(x, 'foobar') é equivalente a del x.foobar.</li>
-                <li><code>dir(object)</code>: Sem argumentos, retorne a lista de nomes no escopo local atual. Com um argumento, tenta retornar uma lista de atributos válidos para esse objeto.</li>
+                <li><code>dir(object)</code>: Sem argumentos, retorna a lista de nomes no escopo local atual. Com um argumento, tenta retornar uma lista de atributos válidos para esse objeto.</li>
                 <li><code>exec(str)</code>: Analisa e executa o código de str. CUIDADO COM ATAQUE DE INJEÇÃO DE CÓDIGO!</li>
                 <li><code>getattr(object, name)</code>: Retorna o valor do atributo name de object.</li>
                 <li><code>hasattr(object, name)</code>: Retorna True se object possui o atributo name.</li>
@@ -345,7 +350,7 @@ file.close()</code></pre>
             <h4>Lendo</h4>
             <p>Podemos invocar os seguintes métodos no modo leitura:</p>
             <ul>
-                <li><code>read(size=-1, /)</code>: Lê e retorna no máximo size caracteres como uma única string. Se size for negativo None, lê até EOF. Cuidado ao usar esse método para arquivos grandes, pois o computador pode travar ou a memória pode transbordar.</li>
+                <li><code>read(size=-1, /)</code>: Lê e retorna no máximo size caracteres como uma única string. Se size for negativo ou não especificado, lê até EOF. Cuidado ao usar esse método para arquivos grandes, pois o computador pode travar ou a memória pode transbordar.</li>
                 <li><code>readline(size=-1, /)</code>: Lê até nova linha ou EOF e retorne uma única string. Se size for especificado, no máximo size caracteres serão lidos.</li>
                 <li><code>readlines(hint=-1, /)</code>: Lê e retorna uma lista de linhas do arquivo. hint pode ser especificada para controlar o número de linhas lidas: nenhuma outra linha será lida se o tamanho total (em bytes/caracteres) de todas as linhas até o momento exceder hint. Assim como em <code>read</code>, pode ser perigoso invocar esse método para arquivos grandes.</li>
             </ul>
@@ -385,7 +390,7 @@ file.close()</code></pre>
             <p>A instrução <code>with-as</code> funciona com qualquer objeto que implemente os métodos mágicos <code>__enter__</code> e <code>__exit__</code>. Esses métodos indicam para o Python como se deve inicializar um recurso e como finalizá-lo após seu uso, mesmo quando ocorre uma exceção. Objetos que implementam esses métodos são chamados de <b>gerenciadores de contexto</b> (<b>context manager</b>).</p>
             <p>Outro exemplo de gerenciador de contexto no Python é o objeto retornado pela função <code>urllib.request.urlopen</code>, usado para ler o conteúdo de uma página:</p>
             <pre><code>import urllib.request
-with urllib.request.urlopen('https://orkut.com/') as response:
+with urllib.request.urlopen('https://www.example.com/') as response:
    html = response.read()
 print(html)</code></pre>
             <p>Após o término do <code>with-as</code>, a conexão com o socket é encerrada.</p>
@@ -595,7 +600,7 @@ s2 = f"Hello, {names[1]}, are you {conditions[1]}?"</code></pre>
     print(a, b, c)
 
 a_list = [1, 2]
-a_dict = {"a": 1, "b": 2, "c": 3}
+a_dict = {"b": 1, "c": 2, "a": 3}
 
 show_args(*a_list)
 show_args(**a_dict)</code></pre>
@@ -708,5 +713,274 @@ a.print = fake_print
 a.print()</code></pre>
         <p>É possível substituir métodos em classes, em vez de objetos, adicionando o argumento <code>self</code> à lista de parâmetros. Isso alterará o método para todas as instâncias daquela classe, mesmo as que já foram criadas. No entanto, substituir métodos dessa maneira pode ser perigoso e confuso de manter. Isso porque pode causar confusão durante a leitura do código, levando a sessões de depuração complicadas e frustrantes.</p>
         <p>Substituir ou adicionar métodos em tempo de execução é chamado de <b>monkey patching</b>. Seus casos de uso incluem, especialmente em testes automatizados. Por exemplo, pode ser usado para simular comportamentos de rede sem realmente se conectar a um servidor. Também pode ser útil para corrigir bugs ou adicionar funcionalidades em código de terceiros. No entanto, deve ser usado com cuidado, pois geralmente é uma solução pouco elegante e pode causar confusão no código.</p>
+
+        <h3>Objetos invocáveis</h3>
+        <p>Tudo é objeto em Python. Portanto, uma função é um objeto que possui atributos. Se você passar uma função como argumento à função <code>dir</code>, verá seus atributos e métodos. Por exemplo, dentre os métodos do "objeto" <code>print</code>, há o <code>__call__</code>.</p>
+        <pre><code>>>> dir(print)
+['__call__', '__class__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__name__', '__ne__', '__new__', '__qualname__', '__reduce__', '__reduce_ex__', '__repr__', '__self__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__text_signature__']</code></pre>
+
+        <p>Toda função é um objeto que tem implementado o método <code>__call__</code>. Objetos que implementam <code>__call__</code> são conhecidos como objetos invocáveis (callable). E um objeto invocável é aquele que você pode invocar, como uma função, usando parênteses. Você pode saber se um objeto é invocável através da função incorporada <code>callable</code>, que retorna um booleano:</p>
+        <pre><code>>>> callable(print) # uma função
+True
+>>> callable(dict) # uma classe
+True
+>>> callable(dict()) # um objeto
+False</code></pre>
+        <p>Observe que a classe <code>dict</code> é invocável, enquanto que um objeto da classe <code>dict</code> não é invocável.</p>
+        <p>Ao declarar uma função, nos bastidores, o Python está instanciando um objeto com o método <code>__call__</code> com as instruções que você implementou na função:</p>
+        <pre><code>def uma_funcao(um_parametro, outro_parametro):
+    print("uma instrução qualquer")
+    print(um_parametro, outro_parametro)
+
+uma_funcao(12, 34)
+uma_funcao.__call__(12, 34)</code></pre>
+
+        <p>Suponha que queiramos calcular a média de números provindos de diferentes fontes. No <a href="https://realpython.com/python-callable-instances/">seguinte exemplo</a>, implementamos uma classe para instanciar objetos que se comportam como funções para realizar essa tarefa.</p>
+        <pre><code>class CumulativeAverager:
+    def __init__(self):
+        self.data = []
+
+    def __call__(self, new_value):
+        self.data.append(new_value)
+        return sum(self.data) / len(self.data)</code></pre>
+
+        <p>Agora podemos instanciar objetos que simulam funções que calculam a média enquanto mantêm os valores calculados:</p>
+        <pre><code>>>> file_stream_average = CumulativeAverager()
+>>> url_stream_average = CumulativeAverager()
+>>>
+>>> file_stream_average(12)
+12.0
+>>> file_stream_average(13)
+12.5
+>>> file_stream_average(11)
+12.0
+>>> file_stream_average(10)
+11.5
+>>>
+>>> url_stream_average(.34)
+0.34
+>>> url_stream_average(.71)
+0.525
+>>> url_stream_average(.39)
+0.48
+>>>
+>>> file_stream_average.data
+[12, 13, 11, 10]
+>>> url_stream_average.data
+[0.34, 0.71, 0.39]</code></pre>
+
+        <p>Exótico, curioso, intrigante. Devido à filosofia "transparente", o Python te permite ver e até mesmo alterar muita coisa que acontece nos bastidores. Mas isso não quer dizer que você deva se embrenhar nesse mundo de variáveis mágicas.</p>
+    </div>
+
+    <div id="7-4-case-study">
+        <h2>Estudo de caso</h2>
+        <p>Para amarrar alguns dos princípios estudados em um único exemplo, vamos construir um gerenciador de grupos de emails. O gerenciador categorizará os endereços de email em grupos. Ao enviar um email, podemos escolher um endereço de email, uma lista de endereços de email, ou um grupo pré-salvo de endereços de email.</p>
+
+        <h3>API de envio de email</h3>
+        <p>Nosso gerenciador se utilizará da seguinte API que se conecta a um servidor Simple Mail Transfer Protocol (SMTP) para enviar email:</p>
+        <pre><code>import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+
+def send_email(subject, body, from_addr, *to_addrs, host="localhost", port=1025):
+    msg = MIMEMultipart()
+    msg["From"] = from_addr
+    msg["To"] = ", ".join(to_addrs)  # Join the recipients with a comma and space
+    msg["Subject"] = subject
+    msg.attach(MIMEText(body, "plain"))
+
+    with smtplib.SMTP(host, port) as server:
+        server.sendmail(from_addr, to_addrs, msg.as_string())
+        print("Sent!")</code></pre>
+
+        <p>Com sua vasta biblioteca, o Python já fornece o módulo <code>email</code> para criar emails e o módulo <code>smtplib</code> para se conectar a um servidor SMTP e enviar o email. Como os detalhes dessa API fogem do escopo do estudo de caso proposto, vamos poupar a explicação desse código. Se quiser saber mais, pode consultar a documentação oficial.</p>
+        <p>O legal é que o Python também vem com um servidor SMTP instalado. Você pode iniciá-lo no modo "debugging", que em vez de enviar o email, simplesmente o imprime no terminal. Se quiser de fato enviar um email, precisaria configurar a API para se conectar a uma conta de email e alterar os parâmetros de inicialização do servidor SMTP. Este artigo trás informações de <a href="https://realpython.com/python-send-email/">como conectar um SMTP</a> a uma conta de email.</p>
+        <p>Abra um terminal e inicie o servidor SMTP:</p>
+        <pre><code>python -m smtpd -n -c DebuggingServer localhost:1025</code></pre>
+        <p>Para testar se a API está funcionando, abra outro terminal, execute a API no modo interativo (<code>-i</code>) e envie um email de teste:</p>
+        <pre><code>>>> send_email("A Party", "Friends and family only: a party", "me@example.com", "friend1@example.com", "family1@example.com")
+Sent!</code></pre>
+        <p>Verifique no terminal rodando o servidor SMTP se ele recebeu a requisição de email:</p>
+        <pre>---------- MESSAGE FOLLOWS ----------
+b'Content-Type: multipart/mixed; boundary="===============2472709131490945134=="'
+b'MIME-Version: 1.0'
+b'From: me@example.com'
+b'To: friend1@example.com, family1@example.com'
+b'Subject: A Party'
+b'X-Peer: ::1'
+b''
+b'--===============2472709131490945134=='
+b'Content-Type: text/plain; charset="us-ascii"'
+b'MIME-Version: 1.0'
+b'Content-Transfer-Encoding: 7bit'
+b''
+b'Friends and family only: a party'
+b'--===============2472709131490945134==--'
+------------ END MESSAGE ------------</pre>
+
+        <h3>Nosso gerenciador de grupos de emails</h3>
+        <p>Agora sua tarefa é implementar a API do gerenciador de grupos de email. Sua interface deve ser a seguinte:</p>
+        <pre><code>class MailingList:
+    """Gerencia grupos de endereços de email para enviar emails."""
+
+    def __init__(self, data_file):
+        """
+        Inicializa uma instância da classe MailingList.
+
+        Args:
+            data_file (str): O caminho do arquivo de dados que armazena as informações do grupo de email.
+        """
+        pass
+
+    def add_to_group(self, email, group):
+        """
+        Adiciona um endereço de email a um grupo específico. Se o endereço ou grupo não existir, criá-lo.
+
+        Args:
+            email (str): O endereço de email a ser adicionado.
+            group (str): O nome do grupo ao qual o email será adicionado.
+        """
+        pass
+
+    def emails_in_groups(self, *groups):
+        """
+        Retorna os endereços de email pertencentes a um ou mais grupos especificados.
+
+        Args:
+            *groups (str): Argumentos variáveis representando os nomes dos grupos.
+
+        Returns:
+            set: Um conjunto contendo os endereços de email pertencentes aos grupos especificados.
+        """
+        pass
+
+    def send_mailing(self, subject, message, from_addr, emails, groups):
+        """
+        Envia um email para todos os endereços no conjunto `emails` e todos os endereços membros dos grupos no conjunto `groups`.
+
+        Args:
+            subject (str): O assunto do email.
+            message (str): O corpo do email.
+            from_addr (str): O endereço de email do remetente.
+            emails (set): Conjunto de strings representando endereços de email.
+            groups (set): Conjunto de strings representando grupos de email.
+        """
+        pass
+
+    def __enter__(self):
+        """
+        Método de entrada do gerenciador de contexto usado para carregar os dados do arquivo.
+        """
+        pass
+
+    def __exit__(self, type, value, tb):
+        """
+        Método de saída do gerenciador de contexto usado para salvar os dados no arquivo.
+        """
+        pass</code></pre>
+
+        <p>Na instanciação (método <code>__init__</code>) é passado o caminho para o arquivo de texto <code>data_file</code> que contém os grupos e endereços de email cadastrados. O relacionamento entre os endereços e seus grupos é de muitos-para-muitos, pois um endereço pode estar em vários grupos, e um grupo pode ter vários endereços. Como você representará esse relacionamento em um arquivo de texto, fica a teu critério. Uma possibilidade é cada linha do arquivo de texto começar com o nome do grupo, seguido por todos os endereços daquele grupo. Mas como cada linha do arquivo separará os grupos dos endereços? Por espaço? E se o nome do grupo puder ter espaços também? Por simplicidade, podemos assumir que os nomes dos grupos serão compostos apenas por letras minúsculas.</p>
+        <p>Como trabalharemos com leitura e escrita de arquivos, a classe <code>MailingList</code> é gerenciadora de contexto, para garantir a abertura e fechamento do arquivo mesmo em caso de exceção, através dos métodos <code>__enter__</code> e <code>__exit__</code>. Como ler e, principalmente, escrever, em arquivos é uma tarefa custosa, vamos lê-lo apenas uma vez dentro do método <code>__enter__</code>, e escrevê-lo apenas uma vez dentro do método <code>__exit__</code>. Mas como carregaremos os dados do arquivo em nosso objeto? Podemos ter um atributo dicionário em que as chaves sãos os grupos, e os valores são conjuntos de endereços pertencentes àqueles grupos.</p>
+        <p>Observe que estamos trabalhando com arquivos gerenciados por nós mesmos. Poderíamos utilizar um sistema de bancos de dados existente para carregar e armazenar os endereços e grupos de email. Mas para fins didáticos e de treinamento, vamos fazer tudo "na unha".</p>
+        <p>Outra questão a considerar é, ao carregar os dados do arquivo, ou adicionar um endereço de email ou grupo, vamos fazer validação? Se sim, como? Por exemplo, como o arquivo separa os endereços por espaço, e se alguém passar uma string contendo vários endereços de email separados por espaço, numa tentativa de "ataque de injeção"? Ou então simplesmente passar um endereço de email inválido? Existem várias situações que poderíamos encontrar durante a validação. Poderíamos usar bibliotecas de validação de dados em vez de desenvolver soluções do zero. Novamente, para fins educacionais, podemos desenvolver uma validação de dados com tratamento de exceção, tentando levantar possíveis situações inválidas que podem surgir.</p>
+        <p>Por fim, como nossa API se utilizará da API fornecida na seção anterior, que conecta ao servidor SMTP e envia o email, será no método <code>send_mailing</code> da nossa classe que invocaremos a função <code>send_email</code> da API fornecida.</p>
+        <!--<pre><code>import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+
+def send_email(subject, body, from_addr, *to_addrs, host="localhost", port=1025):
+    msg = MIMEMultipart()
+    msg["From"] = from_addr
+    msg["To"] = ", ".join(to_addrs)  # Join the recipients with a comma and space
+    msg["Subject"] = subject
+    msg.attach(MIMEText(body, "plain"))
+
+    with smtplib.SMTP(host, port) as server:
+        server.sendmail(from_addr, to_addrs, msg.as_string())
+        print("Sent!")
+
+
+class MailingList:
+    """Gerencia grupos de endereços de email para enviar emails."""
+
+    def __init__(self, data_file):
+        """
+        Inicializa uma instância da classe MailingList.
+
+        Args:
+            data_file (str): O caminho do arquivo de dados que armazena as informações do grupo de email.
+        """
+        self.data_file = data_file
+        self.email_map = defaultdict(set)
+
+    def add_to_group(self, email, group):
+        """
+        Adiciona um endereço de email a um grupo específico.
+
+        Args:
+            email (str): O endereço de email a ser adicionado.
+            group (str): O nome do grupo ao qual o email será adicionado.
+        """
+        self.email_map[email].add(group)
+
+    def emails_in_groups(self, *groups):
+        """
+        Retorna os endereços de email pertencentes a um ou mais grupos especificados.
+
+        Args:
+            *groups (str): Argumentos variáveis representando os nomes dos grupos.
+
+        Returns:
+            set: Um conjunto contendo os endereços de email pertencentes aos grupos especificados.
+        """
+        groups = set(groups)
+        emails = set()
+        for e, g in self.email_map.items():
+            if g & groups:
+                emails.add(e)
+        return emails
+
+    def send_mailing(self, subject, message, from_addr, emails, groups):
+        """
+        Envia um email para todos os endereços em `emails` e todos os endereços membros dos grupos em `groups`.
+
+        Args:
+            subject (str): O assunto do email.
+            message (str): O corpo do email.
+            from_addr (str): O endereço de email do remetente.
+            *groups (str): Argumentos variáveis representando os nomes dos grupos.
+        """
+        emails = self.emails_in_groups(*groups)
+        send_email(subject, message, from_addr, *emails)
+
+    def __enter__(self):
+        """
+        Método de entrada do gerenciador de contexto usado para inicializar a classe e carregar os dados do arquivo.
+        """
+        self.email_map = defaultdict(set)
+        with suppress(IOError):
+            with open(self.data_file) as file:
+                for line in file:
+                    email, groups = line.strip().split(" ")
+                    groups = set(groups.split(","))
+                    self.email_map[email] = groups
+        return self
+
+    def __exit__(self, type, value, tb):
+        """
+        Método de saída do gerenciador de contexto usado para salvar os dados da instância de classe no arquivo.
+        """
+        with open(self.data_file, "w") as file:
+            for email, groups in self.email_map.items():
+                file.write("{} {}\n".format(email, ",".join(groups)))</code></pre>-->
+    </div>
+    <div id="7-5-exercises">
+        <h2>Exercícios</h2>
+        <ol class="excs">
+            <li>Implemente um cliente que utiliza a API <code>MailingList</code> do estudo de caso.</li>
+        </ol>
     </div>
 </div>
+<!-- Colocar mais exercícios -->

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("string-indexes").src = "data:image/png;base64,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"
+        }, false);
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
+    <style>
+        img {
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .katex {
+            /* o padrão é 1.21, vc pode remover essa configuração se quiser deixar o padrão */
+            font-size: 1.0em;
+        }
+
+        table.custom,
+        table.custom>thead>tr>th,
+        table.custom>tbody>tr>td,
+        table.custom>tbody>tr>th {
+            /* tabela centralizada e com bordas */
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+        }
+
+        table pre {
+            /* Remove a margem interna de tags pre dentro de tabelas */
+            margin: 0;
+            padding: 0;
+            text-align: left;
+        }
+
+        td:has(pre) {
+            /* tags pre dentro de tabela são alinhadas no topo à esquerda */
+            vertical-align: top;
+        }
+
+        table.align-left th,
+        table.align-left td {
+            /* alinha à esquerda as células da tabela */
+            text-align: left !important;
+        }
+
+        /* inicia a lista de exercícios */
+        ol.excs {
+            padding-inline-start: 0em;
+            counter-reset: excs;
+            list-style: none;
+        }
+
+        /* põe um numerador num item da lista de exercícios, desde que não seja da classe no-mark */
+        ol.excs>li:not(.no-mark)::before {
+            counter-increment: excs;
+            content: counters(excs, ".") ". ";
+        }
+
+        /* põe uma barra vertical ao lado do item da lista de exercícios */
+        ol.excs>li {
+            /* Change this to adjust the line color and thickness */
+            border-left: 2px solid #000;
+            /* Optional: Add padding to create some space between the bar and content */
+            padding-left: 10px;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+        }
+
+        ol.section {
+            counter-reset: section;
+            list-style-type: none;
+        }
+
+        ol.section li::before {
+            counter-increment: section;
+            content: counters(section, ".") ". ";
+        }
+
+        td.hljs-ln-numbers {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            color: #ccc;
+            border-right: 1px solid #999;
+            padding-right: 5px;
+        }
+
+        td.hljs-ln-code {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            padding-left: 10px;
+        }
+
+        .info {
+            border-left: 6px solid blue;
+            padding-left: 1%;
+        }
+    </style>
+</head>
+
+<div id="8-strings-and-serialization">
+    <h1>8 Strings e serialização</h1>
+    <div id="strings">
+        <h2>8.1 Strings</h2>
+        <div id="string-manipulation">
+            <h3>8.1.1 Manipulação de strings</h3>
+
+            <p>Strings são colocadas entre aspas duplas ou simples. Se colocadas entre 3 aspas (duplas ou simples), podem vir em várias linhas. Exemplos:</p>
+            <pre><code>a = 'hello'
+b = "world"
+c = '''a multiple
+line string'''
+d = """More
+multiple"""
+
+print(a, b, c, d, sep='\n\n')</code></pre>
+            <p>As classes <code>str</code>, <code>list</code>, <code>tuple</code> e <code>range</code> são conhecidas como <b>sequências</b>, que são classes iteráveis que compartilham das operações de indexação (com os colchetes).</p>
+            <p>Considere as seguintes variáveis:</p>
+            <pre><code>string1 = 'abacate'
+string2 = 'abacaxi'</code></pre>
+            <p>Strings são como listas, onde cada caractere é como se fosse um elemento da lista, que está em seu respectivo índice. No python podemos usar índices negativos para acessar elementos de trás para frente, como veremos.</p>
+            <p><img id="string-indexes" alt="índices de string"></p>
+
+            <p>Eis as principais operações suportadas por strings:</p>
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Operação</th>
+                        <th>Exemplo</th>
+                        <th>Explicação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Concatenação</strong></td>
+                        <td>
+                            <pre><code>concatenated_string = string1 + string2 # abacateabacaxi</code></pre>
+                        </td>
+                        <td>Junta duas ou mais strings.</td>
+
+                    </tr>
+                    <tr>
+                        <td><strong>Repetição</strong></td>
+                        <td>
+                            <pre><code>repeated_string = string1 * 3 # abacateabacateabacate</code></pre>
+                        </td>
+                        <td>Repete uma string determinadas vezes.</td>
+
+                    </tr>
+                    <tr>
+                        <td><strong>Indexação</strong></td>
+                        <td>
+                            <pre><code>x = string1[4]  # a
+y = string1[-4]  # c</code></pre>
+                        </td>
+                        <td>Acessa caracteres individuais da string. Se informar um índice negativo, acessa de trás para frente, sendo que o último caractere começa do índice -1.</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="7"><strong>Fatiamento</strong></td>
+                        <td>
+                            <pre><code>i, j, k = 1, 6, 2
+sliced = string1[i:j:k]  # bct</code></pre>
+                        </td>
+                        <td>Extrai uma substring, começando do índice <code>i</code>, indo até o índice <code>j-1</code>, pulando de <code>k</code> em <code>k</code> índices.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>sliced2 = string1[1:4]  # bac</code></pre>
+                        </td>
+                        <td>Se omitido o pulo, também denominado passo, o padrão é de 1 em 1.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>sliced3 = string1[:2]  # ab</code></pre>
+                        </td>
+                        <td>Se omitido o primeiro índice, o padrão é começar do 0.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>sliced4 = string1[1::3]  # ba</code></pre>
+                        </td>
+                        <td>Se omitido o segundo índice, o padrão é terminar no último índice.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>sliced5 = string1[4:1]  # </code></pre>
+                        </td>
+                        <td>Se o primeiro índice for maior ou igual ao segundo índice, retorna uma string vazia.</td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <pre><code>sliced6 = string1[-6:-2]  # baca
+sliced7 = string1[2:-2]  # aca</code></pre>
+                        </td>
+                        <td>Os índices também podem ser negativos.</td>
+
+                    <tr>
+                        <td>
+                            <pre><code>sliced8 = string1[::-1]  # etacaba
+sliced9 = string1[-2:1:-3]  # ta</code></pre>
+                        </td>
+                        <td>Se o pulo for negativo, os caracteres são extraídos de trás para frente. No caso, o primeiro índice precisa ser maior que o segundo índice para não retornar uma string vazia.</td>
+                    <tr>
+                        <td><strong>Continência</strong></td>
+                        <td>
+                            <pre><code>result = 'aca' in string1  # True
+result2 = 'caxi' in string1  # False</code></pre>
+                        </td>
+                        <td>Verifica se uma string está contida em outra.</td>
+
+                    </tr>
+                    <tr>
+                        <td><strong>Igualdade</strong></td>
+                        <td>
+                            <pre><code>result3 = string1 != string2  # True
+result4 = string1 == 'abacate'  # True</code></pre>
+                        </td>
+                        <td>Verifica se uma string é igual ou diferente a outra string.</td>
+
+                    </tr>
+                    <tr>
+                        <td><strong>Comparação</strong></td>
+                        <td>
+                            <pre><code>result5 = string1 &lt; string2  # True
+result6 = 'aba' > string2  # False
+result7 = 'asa' &lt;= string1  # False
+result8 = string1[:5] >= string2[:5]  # True</code></pre>
+                        </td>
+                        <td>Compara lexicograficamente duas strings.</td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <p>Vejamos alguns dos <a href="https://docs.python.org/3/library/stdtypes.html#str">métodos de strings</a>. Vamos começar pelos métodos que retornam booleano.</p>
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Explicação</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>str.startswith(prefix[, start[, end]])</code></pre>
+                        </td>
+                        <td>Verifica se a string começa com <code>prefix</code>.</td>
+                        <td>
+                            <pre><code>'foo bar'.startswith('foo')  # True</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.endswith(suffix[, start[, end]])</code></pre>
+                        </td>
+                        <td>Verifica se a string termina com <code>suffix</code>.</td>
+                        <td>
+                            <pre><code>'foo bar'.endswith('ar')  # True</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.isalnum()</code></pre>
+                        </td>
+                        <td>Verifica se a string contém apenas caracteres alfanuméricos (letras ou números).</td>
+                        <td>
+                            <pre><code>'abc123'.isalnum()  # True</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.isalpha()</code></pre>
+                        </td>
+                        <td>Verifica se a string contém apenas caracteres alfabéticos (letras).</td>
+                        <td>
+                            <pre><code>'abc123'.isalpha()  # False</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.isnumeric()</code></pre>
+                        </td>
+                        <td>Verifica se a string contém apenas caracteres numéricos. Observe que, no sistema Unicode, muitos caracteres são considerados numéricos, como os algarismos romanos <code>'Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ Ⅹ'</code> (Não confunda o caractere <code>X</code>, de código <code>\u0058</code>, com o <code>Ⅹ</code>, de código <code>\u2169</code>).
+                            <p>Por algum motivo, os caracteres <code>.</code> (ponto-final) e <code>-</code> (negativo) não são considerados numéricos. Portanto, para saber se uma string é um <i>float</i> ou número negativo, podemos usar regex, como veremos mais para frente, ou passá-la à função <code>float</code>, que retorna o número ou lança uma exceção caso não seja um número válido.</p>
+                            <p>Além do método <code>isnumeric</code>, o Python também tem métodos similares <code>isdigit</code> e <code>isdecimal</code>. Você encontra <a href="https://stackoverflow.com/a/54912545/4072641">mais informações aqui</a>.</p>
+                        </td>
+                        <td>
+                            <pre><code>'0⓵𝟚⑶⒋⅚Ⅶⅷ٩'.isnumeric()  # True
+'3.14'.isnumeric()  # False
+'-5'.isnumeric()  # False
+
+try:
+    if float('-1.61'): True  # True
+except:
+    False</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.islower()</code></pre>
+                        </td>
+                        <td>Verifica se as letras estão em minúsculo.</td>
+                        <td>
+                            <pre><code>'m1núscul0'.islower()  # True</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.isupper()</code></pre>
+                        </td>
+                        <td>Verifica se as letras estão em maiúsculo.</td>
+                        <td>
+                            <pre><code>'M41Ú5CUL0'.isupper()  # True</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.isspace()</code></pre>
+                        </td>
+                        <td>Verifica se contém apenas caracteres whitespaces (espaços, quebras de linha, tabulações...).</td>
+                        <td>
+                            <pre><code>' \t\n\r\v'.isspace()  # True</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.istitle()</code></pre>
+                        </td>
+                        <td>Verifica se o início de cada palavra apenas é maiúsculo.</td>
+                        <td>
+                            <pre><code>'Um Conto De Fadas'.istitle()  # True</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Agora, métodos que realizam alguma transformação na string. Observe que como uma string é imutável, as transformações na verdade são a criação de uma nova string.</p>
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Explicação</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>str.center(width[, fillchar])</code></pre>
+                        </td>
+                        <td>Centraliza a string entre caracteres <code>fillchar</code>, ocupando ao todo <code>width</code> caracteres. Se não informar <code>fillchar</code>, o padrão é espaço.</td>
+                        <td>
+                            <pre><code>'oi'.center(10)  # '    oi    '</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.ljust(width[, fillchar])</code></pre>
+                        </td>
+                        <td>Justifica a string à esquerda, ocupando ao todo <code>width</code> caracteres e preenchendo o restante com <code>fillchar</code>. Se não informar <code>fillchar</code>, o padrão é espaço.</td>
+                        <td>
+                            <pre><code>'oi'.ljust(10)  # 'oi        '</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.rjust(width[, fillchar])</code></pre>
+                        </td>
+                        <td>Justifica a string à direita, ocupando ao todo <code>width</code> caracteres e preenchendo o restante com <code>fillchar</code>. Se não informar <code>fillchar</code>, o padrão é espaço.</td>
+                        <td>
+                            <pre><code>'oi'.rjust(10)  # '        oi'</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.replace(old, new[, count])</code></pre>
+                        </td>
+                        <td>Substitui todas as ocorrências de <code>old</code> por <code>new</code>, até <code>count</code> vezes. Se não informar <code>count</code>, substitui todas as ocorrências.</td>
+                        <td>
+                            <pre><code>'fia, fio a fio, fino fio, frio a frio'.replace('fi', 'ti')  # 'tia, tio a tio, tino tio, frio a frio'</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.strip([chars])</code></pre>
+                        </td>
+                        <td>Remove qualquer caractere inicial e final contido em <code>chars</code>. Se não informado, remove whitespaces.</td>
+                        <td>
+                            <pre><code>'   spacious   '.strip()  # 'spacious'
+'www.example.com'.strip('cmowz.')  # 'example'</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.capitalize()</code></pre>
+                        </td>
+                        <td>Deixa apenas a primeira letra maiúscula.</td>
+                        <td>
+                            <pre><code>'foO BaR'.capitalize()  # Foo bar</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.lower()</code></pre>
+                        </td>
+                        <td>Converte todas as letras para minúsculo.</td>
+                        <td>
+                            <pre><code>'foO BaR'.lower  # foo bar</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.upper()</code></pre>
+                        </td>
+                        <td>Converte todas as letras para minúsculo.</td>
+                        <td>
+                            <pre><code>'foO BaR'.upper()  # FOO BAR</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.swapcase()</code></pre>
+                        </td>
+                        <td>Alterna as letras entre maiúsculo e minúsculo.</td>
+                        <td>
+                            <pre><code>'foO BaR'.swapcase()  # FOo bAr</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.title()</code></pre>
+                        </td>
+                        <td>Deixa maiúscula apenas a primeira letra de cada palavra.</td>
+                        <td>
+                            <pre><code>'foO BaR'.title()  # Foo Bar</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Também temos métodos que realizam consultas em strings e retornam índices.</p>
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Explicação</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>str.count(sub[, start[, end]])</code></pre>
+                        </td>
+                        <td>Conta quantas vezes <code>sub</code> ocorre na string, começando de <code>start</code>, indo até <code>end</code>
+                        <td>
+                            <pre><code>'fomos herois'.count('o')  # 3</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.find(sub[, start[, end]])</code></pre>
+                        </td>
+                        <td>Similar ao operador <code>in</code>, mas retorna o índice onde encontrou a primeira ocorrência, ou <code>-1</code> caso não ocorra.</td>
+                        <td>
+                            <pre><code>'foo bar baz'.find('ba')  # 4</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.index(sub[, start[, end]])</code></pre>
+                        </td>
+                        <td>Similar ao método <code>find</code>, mas lança uma exceção caso não ocorra.</td>
+                        <td>
+                            <pre><code>'foo bar baz'.index('ba')  # 4</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.rfind(sub[, start[, end]])</code></pre>
+                        </td>
+                        <td>Similar ao método <code>find</code>, mas retorna o índice onde encontrou a última ocorrência (r de <i>reverse</i>).</td>
+                        <td>
+                            <pre><code>'foo bar baz'.rfind('ba')  # 8</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.rindex(sub[, start[, end]])</code></pre>
+                        </td>
+                        <td>Similar ao método <code>rfind</code>, mas lança uma exceção caso não ocorra.</td>
+                        <td>
+                            <pre><code>'foo bar baz'.rindex('ba')  # 8</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Por fim, temos métodos que trabalham com listas.</p>
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Explicação</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>str.join(iterable)</code></pre>
+                        </td>
+                        <td>Retorna uma string que é a concatenação das strings em <code>iterable</code>, usando a string fornecida como separador.</td>
+                        <td>
+                            <pre><code>', '.join(['foo', 'bar', 'baz', 'qux'])  # 'foo, bar, baz, qux'
+':'.join('hello')  # 'h:e:l:l:o'</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.split(sep=None, maxsplit=-1)</code></pre>
+                        </td>
+                        <td>Divide a string em uma lista de substrings, usando <code>sep</code> como delimitador. Ocorrerão no máximo <code>maxsplit</code> divisões, se informado.</td>
+                        <td>
+                            <pre><code>'foo bar\nbaz\tqux'.split()  # ['foo', 'bar', 'baz', 'qux']
+'1,2,3'.split(',')  # ['1', '2', '3']
+'1,2,3'.split(',', maxsplit=1)  # ['1', '2,3']
+'1,2,,3,'.split(',')  # ['1', '2', '', '3', '']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.rsplit(sep=None, maxsplit=-1)</code></pre>
+                        </td>
+                        <td>Similar ao <code>split</code>, mas as divisões começam da direita.</td>
+                        <td>
+                            <pre><code>'1,2,3'.split(',', maxsplit=1)  # ['1,2', '3']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.splitlines(keepends=False)</code></pre>
+                        </td>
+                        <td>Retorna uma lista com as linhas da string. As quebras de linha não são incluídas na lista resultante, a menos que <code>keepends</code> seja fornecido e verdadeiro.</td>
+                        <td>
+                            <pre><code>'ab c\n\nde fg\rkl\r\n'.splitlines()  # ['ab c', '', 'de fg', 'kl']
+'ab c\n\nde fg\rkl\r\n'.splitlines(keepends=True)  # ['ab c\n', '\n', 'de fg\r', 'kl\r\n']</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="string-formatting">
+            <h3>8.1.2 Formatação de strings</h3>
+            <div id="escaping-braces">
+                <h4>Chaves de escape</h4>
+            </div>
+            <div id="f-strings-can-contain-python-code">
+                <h4>Strings formatadas</h4>
+            </div>
+            <div id="making-it-look-right">
+                <h4>Faça corretamente</h4>
+            </div>
+            <div id="custom-formatters">
+                <h4>Formatação personalizada</h4>
+            </div>
+            <div id="the-format-method">
+                <h4>O método <code>format</code></h4>
+            </div>
+        </div>
+        <div id="strings-are-unicode">
+            <h3>8.1.3 Strings são Unicode</h3>
+            <div id="converting-bytes-to-text">
+                <h4>Convertendo bytes para texto</h4>
+            </div>
+            <div id="converting-text-to-bytes">
+                <h4>Convertendo texto para bytes</h4>
+            </div>
+        </div>
+        <div id="mutable-byte-strings">
+            <h3>8.1.4 Strings de byte mutáveis</h3>
+        </div>
+    </div>
+    <div id="regular-expressions">
+        <h2>8.2 Expressões regulares</h2>
+        <div id="matching-patterns">
+            <h3>8.2.1 Padrões de correspondência</h3>
+            <div id="matching-a-selection-of-characters">
+                <h4>Correspondendo uma seleção de caracteres</h4>
+            </div>
+            <div id="escaping-characters">
+                <h4>Caracteres de escape</h4>
+            </div>
+            <div id="matching-multiple-characters">
+                <h4>Correspondendo múltiplos caracteres</h4>
+            </div>
+            <div id="grouping-patterns-together">
+                <h4>Agrupando padrões</h4>
+            </div>
+        </div>
+        <div id="getting-information-from-regular-expressions">
+            <h3>8.2.2 Obtendo informações de expressões regulares</h3>
+            <div id="making-repeated-regular-expressions-efficient">
+                <h4>Fazendo expressões regulares recorrentes eficientemente</h4>
+            </div>
+        </div>
+    </div>
+    <div id="filesystem-paths">
+        <h2>8.3 Caminhos de sistema de arquivos</h2>
+    </div>
+    <div id="serializing-objects">
+        <h2>8.4 Serializando objetos</h2>
+        <div id="customizing-pickles">
+            <h3>8.4.1 Personalizando</h3>
+        </div>
+        <div id="serializing-web-objects">
+            <h3>8.4.2 Serializando objetos web</h3>
+        </div>
+    </div>
+    <div id="case-study">
+        <h2>8.5 Estudo de caso</h2>
+    </div>
+    <div id="exercises">
+        <h2>8.6 Exercícios</h2>
+    </div>
+</div>
+
+<!-- exercício que substitui uma substring por outra em uma string, pra verificar se o aluno sabe que uma string é imutável, substituindo a variável pelo novo valor. -->
+<!-- não esquecer de transformar a imagem em base64 ou svg -->

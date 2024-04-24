@@ -1,0 +1,1 @@
+print("foO BaR".title())
