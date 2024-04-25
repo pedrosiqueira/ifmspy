@@ -613,15 +613,85 @@ print(f"{datetime.datetime.now():%d/%m/%Y %H:%M}")  # 24/04/2024 21:21</code></p
         </div>
         <div id="strings-are-unicode">
             <h3>8.1.3 Strings são Unicode</h3>
+            <p>Bytes representam 8 bits, geralmente descritos como inteiros entre 0 e 255, ou como hexadecimais entre 0 e FF.</p>
+            <p>Qualquer tipo de dados é armazenado como bytes, desde caracteres de strings até pixels de imagens.</p>
+            <p>Para interpretar bytes como strings, precisamos de um sistema de codificação, que associa cada caractere do sistema de codificação a um ou mais bytes correspondentes. Por exemplo, a codificação mais consagrada, da qual muitas outras são baseadas, é a ASCII. Ela é capaz de representar apenas 128 caracteres, dos quais apenas 95 são caracteres imprimíveis, o que a limita bastante. Softwares modernos utilizam Unicode, que consegue representar milhões de caracteres, mas os primeiros 128 deles são iguais à ASCII.</p>
+            <p>Mas não existem apenas as codificações ASCII e Unicode. Se você tentar abrir um arquivo de texto codificado em outra codificação, pode ser que os caracteres sejam interpretados erroneamente.</p>
+            <p>Em algumas situações vamos receber/enviar dados diretamente na forma de bytes, mesmo que representem texto. Nessas situações, precisamos saber converter entre bytes e caracteres.</p>
             <div id="converting-bytes-to-text">
                 <h4>Convertendo bytes para texto</h4>
+                <p>O Python possui o tipo de dados <code>bytes</code> para representar uma sequência de bytes. Você instancia um objeto <code>bytes</code> como se fosse uma string, mas precedida por um <code>b</code> antes das aspas. Cada byte pode ser representado com o caractere de escape <code>\x</code> seguido por dois caracteres relativos ao seu número hexadecimal.</p>
+                <pre><code>>>> characters = b'\x63\x6c\x69\x63\x68\xe9'</code></pre>
+                <p>Se imprimirmos essa variável, o Python interpretará, por padrão, essa sequência de bytes como um texto ASCII:</p>
+                <pre><code>>>> characters
+b'clich\xe9'</code></pre>
+                <p>Como ASCII vai até o número 7F (127), não há um caractere correspondente para o número E9 (233). Mas podemos interpretar essa sequência de bytes usando outra codificação. Como já sei de antemão que o byte E9 representa a letra 'é' na codificação ISO-8859-1, vamos usá-la aqui:</p>
+                <pre><code>>>> characters.decode("latin1")
+'cliché'
+</code></pre>
+                <p>Todo objeto <code>bytes</code> possui o método <code>decode</code> que interpreta (decodifica) os bytes em um sistema de codificação de caracteres passado como argumento. No caso, "latin-1" é um apelido para ISO-8859-1.</p>
+                <p>Se usarmos outro sistema de codificação para interpretar os bytes, pode ser que os caracteres sejam interpretados de outra forma, ou que uma exceção seja lançada, caso não haja como interpretar algum caractere:</p>
+                <pre><code>>>> characters.decode("cyrillic")
+'clichщ'
+>>> characters.decode("utf8")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe9 in position 5: unexpected end of data</code></pre>
+                <p>Nesse exemplo, a codificação "cyrillic" (ISO-8859-5) interpreta o byte E9 como 'щ', já a codificação UTF-8 (Unicode) não possui um caractere válido para o byte E9, daí a exceção.</p>
             </div>
             <div id="converting-text-to-bytes">
                 <h4>Convertendo texto para bytes</h4>
+                <p>Converter de bytes para texto é decodificação. E converter de texto para bytes é codificação. Para codificar uma string em bytes, usamos o método <code>encode</code>.</p>
+                <pre><code class="python-repl">>>> characters = "cliché"
+>>> characters.encode("utf8")
+b'clich\xc3\xa9'
+>>> characters.encode("latin1")
+b'clich\xe9'
+>>> characters.encode("cp437")
+b'clich\x82'
+>>> characters.encode("ascii")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+UnicodeEncodeError: 'ascii' codec can't encode character '\xe9' in position 5: ordinal not in range(128)</code></pre>
             </div>
+            <p>Observe que as codificações mais famosas usam o ASCII como um subconjunto, para compatibilidade. Mas começam a divergir para caracteres além do ASCII.</p>
+            <p>Quando uma codificação não consegue representar um caractere, por padrão, é lançada uma exceção. Mas podemos mudar esse comportamento passando um segundo argumento ao método. As possibilidades para lidar com um caractere não reconhecido são:</p>
+            <pre><code class="python-repl">>>> "cliché".encode("ascii", 'strict')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+UnicodeEncodeError: 'ascii' codec can't encode character '\xe9' in position 5: ordinal not in range(128)
+>>> "cliché".encode("ascii", 'replace')
+b'clich?'
+>>> "cliché".encode("ascii", 'ignore')
+b'clich'
+>>> "cliché".encode("ascii", 'xmlcharrefreplace')
+b'clich&amp;#233;'</code></pre>
+            <p><i>strict</i> é a estratégia padrão, se não informada, e lança uma exceção. <i>replace</i> substitui caracteres não reconhecidos por interrogações. <i>ignore</i> omite caracteres não reconhecidos. E <i>xmlcharrefreplace</i> substitui o caractere não reconhecido pela sua entidade XML.</p>
+
+            <p>É possível invocar os métodos <code>str.encode</code> e <code>bytes.decode</code> sem informar a codificação. Nesse caso, será usada a padrão do teu sistema operacional, que pode ser verificada com <code>sys.getedefaultencoding()</code>. Softwares modernos utilizam a codificação UTF-8, mas sistemas legados utilizavam miríades de codificações. Por isso, é um bom hábito explicitamente informar a codificação, para que seu programa continue funcionando adequadamente em qualquer plataforma.</p>
         </div>
         <div id="mutable-byte-strings">
             <h3>8.1.4 Strings de byte mutáveis</h3>
+            <p>Objetos <code>str</code> e <code>bytes</code> são imutáveis. Para modificar esses objetos, na verdade instanciamos novos objetos<!-- (Removi essa parte pois não necessariamente é verdadeira, pois o Python possui otimizações para trabalhar com concatenação de strings), que é uma operação mais cara que simplesmente adicionar um item a uma lista, por exemplo. Isso pode ser incoveniente ao lidar com I/O, pois frequentemente é necessário fazer o buffer de bytes chegando ou saindo até que os dados estejam completos. Por exemplo, se estivermos recebendo dados de um socket, pode ser necessário invocar <code>recv</code> várias vezes antes de recebermos uma mensagem completa-->. Mas o Python também possui o objeto <code>bytearray</code>, que funciona como um <code>bytes</code> mas possui muitas das operações e métodos de uma lista. A propósito, tanto <code>bytes</code> quanto <code>bytearray</code> possuem muitos dos métodos também presentes em <code>str</code>, como <code>islower</code> ou <code>find</code>.</p>
+            <pre><code class="python-repl">>>> b = bytearray(b"a\xe7\xe3o!")
+>>> b.decode("latin1")
+'ação!'
+>>> b[1] = 110
+>>> b.decode("latin1")
+'anão!'
+>>> b[2:4] = b"el"
+>>> b.decode("latin1")
+'anel!'
+>>> b[4] = "o"
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'str' object cannot be interpreted as an integer
+>>> b[4] = ord("o")
+>>> b
+bytearray(b'anelo')</code></pre>
+            <p>Ao inicializar um <code>bytearray</code>, podemos passar caracteres ASCII normalmente, que serão mapeados para seus respectivos valores em bytes. Para outros caracteres, precisamos informar seu código numérico, por exemplo, usando a sequência de escape <code>\x</code>. A linha 4 modifica o byte do índice 1 para o valor 110, que em ASCII, é a letra 'n'. A linha 7 modifica uma sequência de bytes. Curiosamente, na linha 10, se tentar modificar apenas um índice passando uma string, dá erro. Se você não souber o código ASCII de determinado caractere, pode invocar a função <code>ord</code>, como na linha 14. Se tentar imprimir um objeto <code>bytes</code> ou <code>bytearray</code> sem decodificá-lo, caracteres além do ASCII não serão exibidos. Como na linha 15 não há mais caracteres além do ASCII, optei por imprimir o objeto sem decodificá-lo.</p>
+
+            <p>Com essas três opções, pode ficar a dúvida de qual é a mais apropriada. Como um princípio fundamental de programação, a legibilidade e a facilidade de manuseio devem ser priorizadas. Assim, se estiver lidando com texto, a escolha mais natural seria usar o tipo <code>str</code>. Se por outro lado for trabalhar com arquivos binários, melhor começar com <code>bytes</code>. Se a mutabilidade de <code>bytearray</code> facilitar teu trabalho ou tornar teu código mais legível, então mude.</p>
         </div>
     </div>
     <div id="regular-expressions">
