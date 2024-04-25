@@ -134,11 +134,11 @@ line string'''
 d = """More
 multiple"""
 
-print(a, b, c, d, sep="\n\n")</code></pre>
+print(a, b, c, d, sep='\n\n')</code></pre>
             <p>As classes <code>str</code>, <code>list</code>, <code>tuple</code> e <code>range</code> são conhecidas como <b>sequências</b>, que são classes iteráveis que compartilham das operações de indexação (com os colchetes).</p>
             <p>Considere as seguintes variáveis:</p>
-            <pre><code>string1 = "abacate"
-string2 = "abacaxi"</code></pre>
+            <pre><code>string1 = 'abacate'
+string2 = 'abacaxi'</code></pre>
             <p>Strings são como listas, onde cada caractere é como se fosse um elemento da lista, que está em seu respectivo índice. No python podemos usar índices negativos para acessar elementos de trás para frente, como veremos.</p>
             <p><img id="string-indexes" alt="índices de string"></p>
 
@@ -225,8 +225,8 @@ sliced9 = string1[-2:1:-3]  # ta</code></pre>
                     <tr>
                         <td><strong>Continência</strong></td>
                         <td>
-                            <pre><code>result = "aca" in string1  # True
-result2 = "caxi" in string1  # False</code></pre>
+                            <pre><code>result = 'aca' in string1  # True
+result2 = 'caxi' in string1  # False</code></pre>
                         </td>
                         <td>Verifica se uma string está contida em outra.</td>
 
@@ -235,7 +235,7 @@ result2 = "caxi" in string1  # False</code></pre>
                         <td><strong>Igualdade</strong></td>
                         <td>
                             <pre><code>result3 = string1 != string2  # True
-result4 = string1 == "abacate"  # True</code></pre>
+result4 = string1 == 'abacate'  # True</code></pre>
                         </td>
                         <td>Verifica se uma string é igual ou diferente a outra string.</td>
 
@@ -244,8 +244,8 @@ result4 = string1 == "abacate"  # True</code></pre>
                         <td><strong>Comparação</strong></td>
                         <td>
                             <pre><code>result5 = string1 &lt; string2  # True
-result6 = "aba" > string2  # False
-result7 = "asa" &lt;= string1  # False
+result6 = 'aba' > string2  # False
+result7 = 'asa' &lt;= string1  # False
 result8 = string1[:5] >= string2[:5]  # True</code></pre>
                         </td>
                         <td>Compara lexicograficamente duas strings.</td>
@@ -253,7 +253,7 @@ result8 = string1[:5] >= string2[:5]  # True</code></pre>
                     </tr>
                 </tbody>
             </table>
-            <p>Eis os principais <a href="https://docs.python.org/3/library/stdtypes.html#str">métodos de strings</a>. Observe que como uma string é imutável, as transformações na verdade são a criação de uma nova string.</p>
+            <p>Vejamos alguns dos <a href="https://docs.python.org/3/library/stdtypes.html#str">métodos de strings</a>. Vamos começar pelos métodos que retornam booleano.</p>
             <table class="custom align-left">
                 <thead>
                     <tr>
@@ -265,65 +265,11 @@ result8 = string1[:5] >= string2[:5]  # True</code></pre>
                 <tbody>
                     <tr>
                         <td>
-                            <pre><code>str.capitalize()</code></pre>
-                        </td>
-                        <td>Deixa apenas a primeira letra maiúscula.</td>
-                        <td>
-                            <pre><code>"foO BaR".capitalize()  # Foo bar</code></pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <pre><code>str.lower()</code></pre>
-                        </td>
-                        <td>Converte todas as letras para minúsculo.</td>
-                        <td>
-                            <pre><code>"foO BaR".lower  # foo bar</code></pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <pre><code>str.swapcase()</code></pre>
-                        </td>
-                        <td>Alterna as letras entre maiúsculo e minúsculo.</td>
-                        <td>
-                            <pre><code>"foO BaR".swapcase()  # FOo bAr</code></pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <pre><code>str.title()</code></pre>
-                        </td>
-                        <td>Deixa maiúscula apenas a primeira letra de cada palavra.</td>
-                        <td>
-                            <pre><code>"foO BaR".title()  # Foo Bar</code></pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <pre><code>str.upper()</code></pre>
-                        </td>
-                        <td>Converte todas as letras para minúsculo.</td>
-                        <td>
-                            <pre><code>"foO BaR".upper()  # FOO BAR</code></pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <pre><code>str.count(sub[, start[, end]])</code></pre>
-                        </td>
-                        <td>Conta quantas vezes <code>sub</code> ocorre na string, começando de <code>start</code>, indo até <code>end</code>
-                        <td>
-                            <pre><code>"fomos herois".count("o")  # 3</code></pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             <pre><code>str.startswith(prefix[, start[, end]])</code></pre>
                         </td>
                         <td>Verifica se a string começa com <code>prefix</code>.</td>
                         <td>
-                            <pre><code>"foo bar".startswith("foo")  # True</code></pre>
+                            <pre><code>'foo bar'.startswith('foo')  # True</code></pre>
                         </td>
                     </tr>
                     <tr>
@@ -332,43 +278,7 @@ result8 = string1[:5] >= string2[:5]  # True</code></pre>
                         </td>
                         <td>Verifica se a string termina com <code>suffix</code>.</td>
                         <td>
-                            <pre><code>"foo bar".endswith("ar")  # True</code></pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <pre><code>str.find(sub[, start[, end]])</code></pre>
-                        </td>
-                        <td>Similar ao operador <code>in</code>, mas retorna o índice onde encontrou a primeira ocorrência, ou <code>-1</code> caso não ocorra.</td>
-                        <td>
-                            <pre><code>"foo bar baz".find("ba")  # 4</code></pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <pre><code>str.index(sub[, start[, end]])</code></pre>
-                        </td>
-                        <td>Similar ao método <code>find</code>, mas lança uma exceção caso não ocorra.</td>
-                        <td>
-                            <pre><code>"foo bar baz".index("ba")  # 4</code></pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <pre><code>str.rfind(sub[, start[, end]])</code></pre>
-                        </td>
-                        <td>Similar ao método <code>find</code>, mas retorna o índice onde encontrou a última ocorrência (r de <i>reverse</i>).</td>
-                        <td>
-                            <pre><code>"foo bar baz".rfind("ba")  # 8</code></pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <pre><code>str.rindex(sub[, start[, end]])</code></pre>
-                        </td>
-                        <td>Similar ao método <code>rfind</code>, mas lança uma exceção caso não ocorra.</td>
-                        <td>
-                            <pre><code>"foo bar baz".rindex("ba")  # 8</code></pre>
+                            <pre><code>'foo bar'.endswith('ar')  # True</code></pre>
                         </td>
                     </tr>
                     <tr>
@@ -377,7 +287,7 @@ result8 = string1[:5] >= string2[:5]  # True</code></pre>
                         </td>
                         <td>Verifica se a string contém apenas caracteres alfanuméricos (letras ou números).</td>
                         <td>
-                            <pre><code>"abc123".isalnum()  # True</code></pre>
+                            <pre><code>'abc123'.isalnum()  # True</code></pre>
                         </td>
                     </tr>
                     <tr>
@@ -386,24 +296,24 @@ result8 = string1[:5] >= string2[:5]  # True</code></pre>
                         </td>
                         <td>Verifica se a string contém apenas caracteres alfabéticos (letras).</td>
                         <td>
-                            <pre><code>"abc123".isalpha()  # False</code></pre>
+                            <pre><code>'abc123'.isalpha()  # False</code></pre>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <pre><code>str.isnumeric()</code></pre>
                         </td>
-                        <td>Verifica se a string contém apenas caracteres numéricos. Observe que, no sistema Unicode, muitos caracteres são considerados numéricos, como os algarismos romanos <code>"Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ Ⅹ"</code> (Não confunda o caractere <code>X</code>, de código <code>\u0058</code>, com o <code>Ⅹ</code>, de código <code>\u2169</code>).
+                        <td>Verifica se a string contém apenas caracteres numéricos. Observe que, no sistema Unicode, muitos caracteres são considerados numéricos, como os algarismos romanos <code>'Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ Ⅹ'</code> (Não confunda o caractere <code>X</code>, de código <code>\u0058</code>, com o <code>Ⅹ</code>, de código <code>\u2169</code>).
                             <p>Por algum motivo, os caracteres <code>.</code> (ponto-final) e <code>-</code> (negativo) não são considerados numéricos. Portanto, para saber se uma string é um <i>float</i> ou número negativo, podemos usar regex, como veremos mais para frente, ou passá-la à função <code>float</code>, que retorna o número ou lança uma exceção caso não seja um número válido.</p>
                             <p>Além do método <code>isnumeric</code>, o Python também tem métodos similares <code>isdigit</code> e <code>isdecimal</code>. Você encontra <a href="https://stackoverflow.com/a/54912545/4072641">mais informações aqui</a>.</p>
                         </td>
                         <td>
-                            <pre><code>"0⓵𝟚⑶⒋⅚Ⅶⅷ٩".isnumeric()  # True
-"3.14".isnumeric()  # False
-"-5".isnumeric()  # False
+                            <pre><code>'0⓵𝟚⑶⒋⅚Ⅶⅷ٩'.isnumeric()  # True
+'3.14'.isnumeric()  # False
+'-5'.isnumeric()  # False
 
 try:
-    if float("-1.61"): True  # True
+    if float('-1.61'): True  # True
 except:
     False</code></pre>
                         </td>
@@ -414,7 +324,7 @@ except:
                         </td>
                         <td>Verifica se as letras estão em minúsculo.</td>
                         <td>
-                            <pre><code>"m1núscul0".islower()  # True</code></pre>
+                            <pre><code>'m1núscul0'.islower()  # True</code></pre>
                         </td>
                     </tr>
                     <tr>
@@ -423,7 +333,7 @@ except:
                         </td>
                         <td>Verifica se as letras estão em maiúsculo.</td>
                         <td>
-                            <pre><code>"M41Ú5CUL0".isupper()  # True</code></pre>
+                            <pre><code>'M41Ú5CUL0'.isupper()  # True</code></pre>
                         </td>
                     </tr>
                     <tr>
@@ -432,7 +342,7 @@ except:
                         </td>
                         <td>Verifica se contém apenas caracteres whitespaces (espaços, quebras de linha, tabulações...).</td>
                         <td>
-                            <pre><code>" \t\n\r\v".isspace()  # True</code></pre>
+                            <pre><code>' \t\n\r\v'.isspace()  # True</code></pre>
                         </td>
                     </tr>
                     <tr>
@@ -441,56 +351,220 @@ except:
                         </td>
                         <td>Verifica se o início de cada palavra apenas é maiúsculo.</td>
                         <td>
-                            <pre><code>"Um Conto De Fadas".istitle()  # True</code></pre>
+                            <pre><code>'Um Conto De Fadas'.istitle()  # True</code></pre>
                         </td>
                     </tr>
-                    <!-- parei aqui: 
-                    https://realpython.com/python-strings/
-                    s.center(<width>[, <fill>])
-                    -->
+                </tbody>
+            </table>
+            <p>Agora, métodos que realizam alguma transformação na string. Observe que como uma string é imutável, as transformações na verdade são a criação de uma nova string.</p>
+            <table class="custom align-left">
+                <thead>
                     <tr>
-                        <td>
-                            <pre><code>str</code></pre>
-                        </td>
-                        <td>str.</td>
-                        <td>
-                            <pre><code>str</code></pre>
-                        </td>
+                        <th>Método</th>
+                        <th>Explicação</th>
+                        <th>Exemplo</th>
                     </tr>
+                </thead>
+                <tbody>
                     <tr>
                         <td>
-                            <pre><code>str</code></pre>
+                            <pre><code>str.center(width[, fillchar])</code></pre>
                         </td>
-                        <td>str.</td>
+                        <td>Centraliza a string entre caracteres <code>fillchar</code>, ocupando <code>width</code> caracteres. Se não informar <code>fillchar</code>, o padrão é espaço.</td>
                         <td>
-                            <pre><code>str</code></pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <pre><code>str</code></pre>
-                        </td>
-                        <td>str.</td>
-                        <td>
-                            <pre><code>str</code></pre>
+                            <pre><code>'oi'.center(10)  # '    oi    '</code></pre>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <pre><code>str</code></pre>
+                            <pre><code>str.ljust(width[, fillchar])</code></pre>
                         </td>
-                        <td>str.</td>
+                        <td>Justifica a string à esquerda, ocupando <code>width</code> caracteres e preenchendo o restante com <code>fillchar</code>. Se não informar <code>fillchar</code>, o padrão é espaço.</td>
                         <td>
-                            <pre><code>str</code></pre>
+                            <pre><code>'oi'.ljust(10)  # 'oi        '</code></pre>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <pre><code>str</code></pre>
+                            <pre><code>str.rjust(width[, fillchar])</code></pre>
                         </td>
-                        <td>str.</td>
+                        <td>Justifica a string à direita, ocupando <code>width</code> caracteres e preenchendo o restante com <code>fillchar</code>. Se não informar <code>fillchar</code>, o padrão é espaço.</td>
                         <td>
-                            <pre><code>str</code></pre>
+                            <pre><code>'oi'.rjust(10)  # '        oi'</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.replace(old, new[, count])</code></pre>
+                        </td>
+                        <td>Substitui todas as ocorrências de <code>old</code> por <code>new</code>, até <code>count</code> vezes. Se não informar <code>count</code>, substitui todas as ocorrências.</td>
+                        <td>
+                            <pre><code>'fia, fio a fio, fino fio, frio a frio'.replace('fi', 'ti')  # 'tia, tio a tio, tino tio, frio a frio'</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.strip([chars])</code></pre>
+                        </td>
+                        <td>Remove qualquer caractere inicial e final contido em <code>chars</code>. Se não informado, remove whitespaces.</td>
+                        <td>
+                            <pre><code>'   spacious   '.strip()  # 'spacious'
+'www.example.com'.strip('cmowz.')  # 'example'</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.capitalize()</code></pre>
+                        </td>
+                        <td>Deixa apenas a primeira letra maiúscula.</td>
+                        <td>
+                            <pre><code>'foO BaR'.capitalize()  # Foo bar</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.lower()</code></pre>
+                        </td>
+                        <td>Converte todas as letras para minúsculo.</td>
+                        <td>
+                            <pre><code>'foO BaR'.lower  # foo bar</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.upper()</code></pre>
+                        </td>
+                        <td>Converte todas as letras para minúsculo.</td>
+                        <td>
+                            <pre><code>'foO BaR'.upper()  # FOO BAR</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.swapcase()</code></pre>
+                        </td>
+                        <td>Alterna as letras entre maiúsculo e minúsculo.</td>
+                        <td>
+                            <pre><code>'foO BaR'.swapcase()  # FOo bAr</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.title()</code></pre>
+                        </td>
+                        <td>Deixa maiúscula apenas a primeira letra de cada palavra.</td>
+                        <td>
+                            <pre><code>'foO BaR'.title()  # Foo Bar</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Também temos métodos que realizam consultas em strings e retornam índices.</p>
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Explicação</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>str.count(sub[, start[, end]])</code></pre>
+                        </td>
+                        <td>Conta quantas vezes <code>sub</code> ocorre na string, começando de <code>start</code>, indo até <code>end</code>
+                        <td>
+                            <pre><code>'fomos herois'.count('o')  # 3</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.find(sub[, start[, end]])</code></pre>
+                        </td>
+                        <td>Similar ao operador <code>in</code>, mas retorna o índice onde encontrou a primeira ocorrência, ou <code>-1</code> caso não ocorra.</td>
+                        <td>
+                            <pre><code>'foo bar baz'.find('ba')  # 4</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.index(sub[, start[, end]])</code></pre>
+                        </td>
+                        <td>Similar ao método <code>find</code>, mas lança uma exceção caso não ocorra.</td>
+                        <td>
+                            <pre><code>'foo bar baz'.index('ba')  # 4</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.rfind(sub[, start[, end]])</code></pre>
+                        </td>
+                        <td>Similar ao método <code>find</code>, mas retorna o índice onde encontrou a última ocorrência (r de <i>reverse</i>).</td>
+                        <td>
+                            <pre><code>'foo bar baz'.rfind('ba')  # 8</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.rindex(sub[, start[, end]])</code></pre>
+                        </td>
+                        <td>Similar ao método <code>rfind</code>, mas lança uma exceção caso não ocorra.</td>
+                        <td>
+                            <pre><code>'foo bar baz'.rindex('ba')  # 8</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Por fim, temos métodos que trabalham com listas.</p>
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Explicação</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>str.join(iterable)</code></pre>
+                        </td>
+                        <td>Retorna uma string que é a concatenação das strings em <code>iterable</code>, usando a string fornecida como separador.</td>
+                        <td>
+                            <pre><code>', '.join(['foo', 'bar', 'baz', 'qux'])  # 'foo, bar, baz, qux'
+':'.join('hello')  # 'h:e:l:l:o'</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.split(sep=None, maxsplit=-1)</code></pre>
+                        </td>
+                        <td>Divide a string em uma lista de substrings, usando <code>sep</code> como delimitador. Ocorrerão no máximo <code>maxsplit</code> divisões, se informado.</td>
+                        <td>
+                            <pre><code>'foo bar\nbaz\tqux'.split()  # ['foo', 'bar', 'baz', 'qux']
+'1,2,3'.split(',')  # ['1', '2', '3']
+'1,2,3'.split(',', maxsplit=1)  # ['1', '2,3']
+'1,2,,3,'.split(',')  # ['1', '2', '', '3', '']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.rsplit(sep=None, maxsplit=-1)</code></pre>
+                        </td>
+                        <td>Similar ao <code>split</code>, mas as divisões começam da direita.</td>
+                        <td>
+                            <pre><code>'1,2,3'.split(',', maxsplit=1)  # ['1,2', '3']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>str.splitlines(keepends=False)</code></pre>
+                        </td>
+                        <td>Retorna uma lista com as linhas da string. As quebras de linha não são incluídas na lista resultante, a menos que <code>keepends</code> seja fornecido e verdadeiro.</td>
+                        <td>
+                            <pre><code>'ab c\n\nde fg\rkl\r\n'.splitlines()  # ['ab c', '', 'de fg', 'kl']
+'ab c\n\nde fg\rkl\r\n'.splitlines(keepends=True)  # ['ab c\n', '\n', 'de fg\r', 'kl\r\n']</code></pre>
                         </td>
                     </tr>
                 </tbody>
@@ -498,20 +572,43 @@ except:
         </div>
         <div id="string-formatting">
             <h3>8.1.2 Formatação de strings</h3>
-            <div id="escaping-braces">
-                <h4>Chaves de escape</h4>
-            </div>
+            <p>Strings formatadas, conhecidas como <i>f-strings</i>, permitem que código entre chaves seja interpretado dentro delas.</p>
+            <pre><code>a, b = 1, 2
+print(f"A soma de {a} e {b} é {a+b}.")</code></pre>
+
             <div id="f-strings-can-contain-python-code">
-                <h4>Strings formatadas</h4>
+                <h4>Códigos em strings formatadas</h4>
+                <p>Praticamente qualquer código Python que retorna uma string (ou um valor que pode ser convertido em uma string com a função str()) pode ser executado dentro de uma f-string.</p>
+                <pre><code>l = [1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
+
+print(f"alguns ímpares de fibonacci: {[a for a in l if a%2]}")
+print(f"{l[4]} é {'ímpar' if l[4]%2 else 'par'}")
+print(f"o maior número é {max(l)}")</code></pre>
             </div>
             <div id="making-it-look-right">
-                <h4>Faça corretamente</h4>
+                <h4>Formatando</h4>
+                <p>Você pode saber mais sobre <a href="../alg/07 Caracteres.html#formatando-texto">formatação de strings aqui</a>.</p>
             </div>
             <div id="custom-formatters">
                 <h4>Formatação personalizada</h4>
+                Embora esses formatadores padrão se apliquem à maioria dos objetos incorporados, também é possível que outros objetos definam especificadores personalizados. Por exemplo, podemos usar especificadores de formato para objetos datetime:
+
+                <pre><code>import datetime
+print(f"{datetime.datetime.now():%d/%m/%Y %H:%M}")  # 24/04/2024 21:21</code></pre>
+
+                <p>É até possível escrever formatadores personalizados para objetos que nós mesmos criamos, mas isso está além do escopo deste livro. Pesquise como sobrescrever método mágico <code>__format__</code> se precisar fazer isso em seu código.</p>
+
+                <p>A sintaxe de formatação do Python é bastante flexível, mas é uma minilinguagem difícil de lembrar. O autor do livro usa todos os dias e ocasionalmente ainda precisa procurar conceitos esquecidos na documentação. Também não é poderosa o suficiente para casos mais sérios, como a geração de páginas da web. Existem várias bibliotecas de modelagem (templating) de terceiros que você pode consultar se precisar fazer mais do que a formatação básica de algumas strings.</p>
             </div>
             <div id="the-format-method">
                 <h4>O método <code>format</code></h4>
+                <p>Antes do Python 3.6, que lançou f-strings, você precisava usar o método <code>str.format</code>, que possui basicamente o mesmo uso:</p>
+                <pre><code>>>> template = "abc {number:*^10d}"
+>>> template.format(number=32)
+'abc ****32****'
+>>> template.format(number=84)
+'abc ****84****'</code></pre>
+                <p>Uma vantagem é que você pode definir um template em uma variável e reutilizá-lo em outras partes simplesmente invocando o método <code>str.format</code>. A desvantagem é que você só consegue passar valores ao <code>format</code>, mas não pode executar códigos como invocações de funções.</p>
             </div>
         </div>
         <div id="strings-are-unicode">
