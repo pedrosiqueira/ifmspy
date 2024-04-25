@@ -370,7 +370,7 @@ except:
                         <td>
                             <pre><code>str.center(width[, fillchar])</code></pre>
                         </td>
-                        <td>Centraliza a string entre caracteres <code>fillchar</code>, ocupando ao todo <code>width</code> caracteres. Se não informar <code>fillchar</code>, o padrão é espaço.</td>
+                        <td>Centraliza a string entre caracteres <code>fillchar</code>, ocupando <code>width</code> caracteres. Se não informar <code>fillchar</code>, o padrão é espaço.</td>
                         <td>
                             <pre><code>'oi'.center(10)  # '    oi    '</code></pre>
                         </td>
@@ -379,7 +379,7 @@ except:
                         <td>
                             <pre><code>str.ljust(width[, fillchar])</code></pre>
                         </td>
-                        <td>Justifica a string à esquerda, ocupando ao todo <code>width</code> caracteres e preenchendo o restante com <code>fillchar</code>. Se não informar <code>fillchar</code>, o padrão é espaço.</td>
+                        <td>Justifica a string à esquerda, ocupando <code>width</code> caracteres e preenchendo o restante com <code>fillchar</code>. Se não informar <code>fillchar</code>, o padrão é espaço.</td>
                         <td>
                             <pre><code>'oi'.ljust(10)  # 'oi        '</code></pre>
                         </td>
@@ -388,7 +388,7 @@ except:
                         <td>
                             <pre><code>str.rjust(width[, fillchar])</code></pre>
                         </td>
-                        <td>Justifica a string à direita, ocupando ao todo <code>width</code> caracteres e preenchendo o restante com <code>fillchar</code>. Se não informar <code>fillchar</code>, o padrão é espaço.</td>
+                        <td>Justifica a string à direita, ocupando <code>width</code> caracteres e preenchendo o restante com <code>fillchar</code>. Se não informar <code>fillchar</code>, o padrão é espaço.</td>
                         <td>
                             <pre><code>'oi'.rjust(10)  # '        oi'</code></pre>
                         </td>
@@ -572,20 +572,43 @@ except:
         </div>
         <div id="string-formatting">
             <h3>8.1.2 Formatação de strings</h3>
-            <div id="escaping-braces">
-                <h4>Chaves de escape</h4>
-            </div>
+            <p>Strings formatadas, conhecidas como <i>f-strings</i>, permitem que código entre chaves seja interpretado dentro delas.</p>
+            <pre><code>a, b = 1, 2
+print(f"A soma de {a} e {b} é {a+b}.")</code></pre>
+
             <div id="f-strings-can-contain-python-code">
-                <h4>Strings formatadas</h4>
+                <h4>Códigos em strings formatadas</h4>
+                <p>Praticamente qualquer código Python que retorna uma string (ou um valor que pode ser convertido em uma string com a função str()) pode ser executado dentro de uma f-string.</p>
+                <pre><code>l = [1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
+
+print(f"alguns ímpares de fibonacci: {[a for a in l if a%2]}")
+print(f"{l[4]} é {'ímpar' if l[4]%2 else 'par'}")
+print(f"o maior número é {max(l)}")</code></pre>
             </div>
             <div id="making-it-look-right">
-                <h4>Faça corretamente</h4>
+                <h4>Formatando</h4>
+                <p>Você pode saber mais sobre <a href="../alg/07 Caracteres.html#formatando-texto">formatação de strings aqui</a>.</p>
             </div>
             <div id="custom-formatters">
                 <h4>Formatação personalizada</h4>
+                Embora esses formatadores padrão se apliquem à maioria dos objetos incorporados, também é possível que outros objetos definam especificadores personalizados. Por exemplo, podemos usar especificadores de formato para objetos datetime:
+
+                <pre><code>import datetime
+print(f"{datetime.datetime.now():%d/%m/%Y %H:%M}")  # 24/04/2024 21:21</code></pre>
+
+                <p>É até possível escrever formatadores personalizados para objetos que nós mesmos criamos, mas isso está além do escopo deste livro. Pesquise como sobrescrever método mágico <code>__format__</code> se precisar fazer isso em seu código.</p>
+
+                <p>A sintaxe de formatação do Python é bastante flexível, mas é uma minilinguagem difícil de lembrar. O autor do livro usa todos os dias e ocasionalmente ainda precisa procurar conceitos esquecidos na documentação. Também não é poderosa o suficiente para casos mais sérios, como a geração de páginas da web. Existem várias bibliotecas de modelagem (templating) de terceiros que você pode consultar se precisar fazer mais do que a formatação básica de algumas strings.</p>
             </div>
             <div id="the-format-method">
                 <h4>O método <code>format</code></h4>
+                <p>Antes do Python 3.6, que lançou f-strings, você precisava usar o método <code>str.format</code>, que possui basicamente o mesmo uso:</p>
+                <pre><code>>>> template = "abc {number:*^10d}"
+>>> template.format(number=32)
+'abc ****32****'
+>>> template.format(number=84)
+'abc ****84****'</code></pre>
+                <p>Uma vantagem é que você pode definir um template em uma variável e reutilizá-lo em outras partes simplesmente invocando o método <code>str.format</code>. A desvantagem é que você só consegue passar valores ao <code>format</code>, mas não pode executar códigos como invocações de funções.</p>
             </div>
         </div>
         <div id="strings-are-unicode">

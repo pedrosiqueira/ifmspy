@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="pt">
 
 <head>
     <script>
@@ -11,28 +10,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-    <script defer>hljs.configure({ cssSelector: "code", languages: ["console"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+    <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx" crossorigin="anonymous"></script>
-    <!-- retire o atributo output para, ao copiar uma fórmula, copiar tanto no formato html quanto no formato mathml, entretanto, a fórmula sai duplicada -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false},],output:'html'});"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
 
     <style>
         img {
-            max-width: 100%;
+            max-width: 90vw;
+            max-height: 90vh;
         }
 
         .center {
             text-align: center;
         }
 
+        .katex {
+            /* o padrão é 1.21, vc pode remover essa configuração se quiser deixar o padrão */
+            font-size: 1.0em;
+        }
+
         table.custom,
-        table.custom td,
-        table.custom th {
+        table.custom>thead>tr>th,
+        table.custom>tbody>tr>td,
+        table.custom>tbody>tr>th {
             /* tabela centralizada e com bordas */
             border: 1px solid black;
             border-collapse: collapse;
@@ -47,31 +52,39 @@
             /* Remove a margem interna de tags pre dentro de tabelas */
             margin: 0;
             padding: 0;
+            text-align: left;
+        }
+
+        td:has(pre) {
+            /* tags pre dentro de tabela são alinhadas no topo à esquerda */
+            vertical-align: top;
         }
 
         table.align-left th,
         table.align-left td {
             /* alinha à esquerda as células da tabela */
-            text-align: left;
+            text-align: left !important;
         }
 
+        /* inicia a lista de exercícios */
         ol.excs {
             padding-inline-start: 0em;
             counter-reset: excs;
             list-style: none;
         }
 
-        ol.excs>li::before {
+        /* põe um numerador num item da lista de exercícios, desde que não seja da classe no-mark */
+        ol.excs>li:not(.no-mark)::before {
             counter-increment: excs;
             content: counters(excs, ".") ". ";
         }
 
+        /* põe uma barra vertical ao lado do item da lista de exercícios */
         ol.excs>li {
             /* Change this to adjust the line color and thickness */
             border-left: 2px solid #000;
             /* Optional: Add padding to create some space between the bar and content */
             padding-left: 10px;
-
             margin-block-start: 1em;
             margin-block-end: 1em;
         }
@@ -96,6 +109,11 @@
         td.hljs-ln-code {
             /* estilizar as linhas de código da extensao highlightjs-line-numbers */
             padding-left: 10px;
+        }
+
+        .info {
+            border-left: 6px solid blue;
+            padding-left: 1%;
         }
     </style>
 </head>
@@ -367,14 +385,14 @@
 
     <p>Os whitespaces também são conhecidos como sequências de escape. Eles sempre começam com uma barra invertida, e o caractere seguinte determina a interpretação da sequência de escape. Tanto a barra invertida quanto as aspas têm significados especiais em uma string. Portanto, para representar esses próprios caracteres, você deve prefixá-los com uma barra invertida:</p>
 
-    <pre><code class="python">print('Essa é a barra invertida: "\\".')
+    <pre><code>print('Essa é a barra invertida: "\\".')
 print('Uma palavra entre aspas simples: \'python\'.')
 print("Uma palavra entre aspas duplas: \"python\".")</code></pre>
 
     <p>Observe que quando você usa uma string delimitada por aspas simples, não precisa prefixar as aspas duplas para incluí-las na string, e vice-versa.</p>
 
     <p>Você pode saber o código de um caractere usando a função <code>ord</code>. E também pode saber o caractere correspondente a um número usando a função <code>chr</code>:</p>
-    <pre><code class="python">a = 97
+    <pre><code>a = 97
 U = 85
 cifrao = 36
 maior = ">"
@@ -390,7 +408,7 @@ print(dois, ord(dois))</code></pre>
 
     <p>No Python não é possível realizar operações aritméticas entre números e caracteres, mas se você combinar as funções <code>chr</code> e <code>ord</code>, pode fazer coisas interessantes:</p>
 
-    <pre><code class="python">c1 = "d"
+    <pre><code>c1 = "d"
 c2 = "h"
 n1 = 7
 
@@ -413,28 +431,28 @@ print("Agora, de trás para frente: ", 3, 2, 1, sep=">")
 print("Fim!")</code></pre>
     <p>Esses argumentos adicionais são conhecidos como <b>argumentos chave</b> (<i>keyword arguments</i>) e são identificados por um nome específico no <code>print</code>.</p>
 
-    <h2>Formatando texto</h2>
+    <h2 id="formatando-texto">Formatando texto</h2>
     <p>Textos são representados entre aspas no Python. O Python não faz distinção entre aspas simples e duplas, mas é importante usar a mesma aspa para abrir e fechar um texto. Além disso, para manter o código legível, é aconselhável seguir um padrão consistente.</p>
     <p>Existem maneiras de formatar textos para alterar sua disposição. Já vimos alguns caracteres de controle conhecidos como <b>whitespaces</b>, que são capazes de modificar a formatação do texto.</p>
-    <p>Frequentemente, quando desejamos apresentar um texto que inclui valores de variáveis, é mais prático usar <b>placeholders</b> (marcadores de posição), que indicam onde o valor de uma variável deve ser inserido no texto. Esses placeholders também são chamados de <b>especificadores de formato</b> ou <b>caracteres de conversão</b>, pois permitem personalizar a maneira como um valor é exibido. Para utilizar placeholders em strings, você deve prefixá-las com a letra "f" de <i>format</i>, antes das aspas. Em seguida, coloque a variável entre chaves nas posições onde deseja inserir seu valor:</p>
-    <pre><code class="python">inteiro = 10
+    <p>Frequentemente, quando desejamos apresentar um texto que inclui valores de variáveis, é mais prático usar <b>placeholders</b> (marcadores de posição), que indicam onde o valor de uma variável deve ser inserido no texto. Esses placeholders também são chamados de <b>especificadores de formato</b> ou <b>caracteres de conversão</b>, pois permitem personalizar a maneira como um valor é exibido. Para utilizar placeholders em strings, você deve prefixá-las com a letra "f" de <i>format</i>, antes das aspas. Em seguida, coloque a variável entre chaves nas posições onde deseja inserir seu valor. Essas strings formatadas são conhecidas como <i>f-strings</i>:</p>
+    <pre><code>inteiro = 10
 decimal = 12.34
 letra = 'A'
 
 print(f"Um inteiro: {inteiro}.\nUm decimal: {decimal}.\nUma letra: {letra}")</code></pre>
 
     <p>Na verdade, é possível incluir qualquer expressão válida dentro de um placeholder:</p>
-    <pre><code class="python">a = 65
+    <pre><code>a = 65
 b = 2
 
 print(f"A soma de 'a' e 'b' é {a+b}.\nO caractere correspondente a 65 + 2 é {chr(a+b)}")</code></pre>
 
     <p>Uma expressão é uma combinação de variáveis, operadores, constantes e funções que resulta em um valor.</p>
 
-    <h3>Formatando números</h3>
+    <h3>Formatando números e strings</h3>
     <p>Existem várias maneiras de formatar números. O seguinte código apresenta algumas formatações possíveis para um número float:</p>
 
-    <pre><code class="python">num = 1234.567
+    <pre><code>num = 1234.567
 
 # Arredonda para duas casas decimais.
 print(f"'{num:.2f}'")  # '1234.57'
@@ -445,14 +463,14 @@ print(f"'{num:,.2f}'")  # '1,234.57'
 # Arredonda para duas casas decimais, preenchendo com zeros até ocupar dez espaços.
 print(f"'{num:010.2f}'")  # '0001234.57'
 
-# Arredonda para duas casas decimais e ocupa dez espaços.
-print(f"'{num: 10.2f}'")  # '   1234.57'
-
 # Ocupa dez espaços alinhando à esquerda.
 print(f"'{num:&lt;10}'")  # '1234.567  '
 
-# Ocupa dez espaços com alinhamento centralizado.
+# Ocupa dez espaços alinhando centralizadamente.
 print(f"'{num:^10}'")  # ' 1234.567 '
+
+# Ocupa dez espaços alinhando à direita, arredondando para duas casas decimais e separando os milhares.
+print(f"'{num:>10,.2f}'")  # '   1234.57'
 
 # Usa notação científica se ocupar mais de dois espaços.
 print(f"'{num:.2g}'")  # '1.2e+03'
@@ -460,10 +478,40 @@ print(f"'{num:.2g}'")  # '1.2e+03'
 # Usa notação científica se ocupar mais de dez espaços.
 print(f"'{num:.10g}'")  # '1234.567'</code></pre>
 
-    <p>Você pode personalizar essas formatações de acordo com suas necessidades. O exemplo apresentado é para números em ponto flutuante, mas você pode adaptar a formatação para qualquer tipo de valor, como inteiros ou strings. Por exemplo, para formatar inteiros, basta remover a parte do separador decimal <code>.2f</code>. Da mesma forma que você precisa usar duas barras invertidas para representar uma única barra invertida em uma string, para representar chaves, você deve usar duas chaves adicionais:</p>
-    <pre><code class="python">num = 10
+    <p>Você pode personalizar essas formatações de acordo com suas necessidades. Os especificadores de formato devem estar na ordem correta, embora sejam opcionais: (1) preenchimento, (2) alinhamento, (3) comprimento e (4) tipo. O exemplo apresentado é para números de ponto flutuante, mas você pode adaptar a formatação para outros tipos de dados.</p>
+    <p>O tipo especificado pode afetar a saída de formatação. Para forçar a formatação como float, usamos <code>f</code>; como inteiro, <code>d</code>; e como string, <code>s</code>. A maioria dos outros especificadores de formato são versões alternativas destes; por exemplo, <code>o</code> formata um número inteiro como octal e <code>X</code> como hexadecimal. Para números de ponto flutuante, o tipo <code>%</code> multiplicará por 100 e formatará um float como uma porcentagem.</p>
+
+    <pre><code>i = 12345
+# ocupa 10 espaços, alinhando à direita por padrão
+print(f"'{i:10}'")  # '     12345'
+# ocupa 10 espaços, alinhando à direita por padrão, separando os milhares e preenchendo o restante com `0`
+print(f"'{i:010,}'")  # '00,012,345'
+# ocupa 10 espaços, alinhando à direita explicitamente e preenchendo o restante com `a`
+print(f"'{i:a>10}'")  # 'aaaaa12345'
+# ocupa 10 espaços, alinhando centralizadamente e separando os milhares
+print(f"'{i:^10,}'")  # '  12,345  '
+# ocupa 10 espaços, alinhando à esquerda e preenchendo o restante com -
+print(f"'{i:-&lt;10}'")  # '12345-----'
+
+s = "item"
+# ocupa 10 espaços, alinhando à direita e preenchendo o restante com `a`
+print(f"'{s:a>10}'")  # 'aaaaaaitem'
+# ocupa 10 espaços, alinhando centralizadamente
+print(f"'{s:^10}'")  # '   item   '
+# ocupa 10 espaços, alinhando à esquerda explicitamente e preenchendo o restante com -
+print(f"'{s:-&lt;10}'")  # 'item------'
+# ocupa 10 espaços, alinhando à esquerda por padrão e preenchendo o restante com `0`
+print(f"'{s:010}'")  # 'item000000'
+# ocupa 10 espaços, alinhando à esquerda por padrão
+print(f"'{s:10}'")  # 'item      '</code></pre>
+
+    <p>Os sinais de maior e menor são opcionais ao alinhar, respectivamente, números à direta e strings à esquerda. Entretanto, se quiser preencher o alinhamento com algo diferente de zero ou espaço, o sinal passa a ser obrigatório.</p>
+
+    <p>Da mesma forma que você precisa usar duas barras invertidas para representar uma única barra invertida em uma string, para representar chaves em uma f-string, você deve usar duas chaves adicionais:</p>
+    <pre><code>num = 10
 print(f'Um número dentro de chaves duplas: {{ {num} }}.')</code></pre>
 
+<p>Essas são apenas algumas das formatações possíveis de strings. Para mais informações, consulte a <a href="https://docs.python.org/3/reference/lexical_analysis.html#f-strings">documentação oficial</a>.</p>
     <h2>Exercícios</h2>
     <ol class="excs">
         <li>Dado um caractere, qual o seu código na tabela ASCII?</li>
