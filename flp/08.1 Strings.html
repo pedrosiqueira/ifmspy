@@ -139,7 +139,7 @@ print(a, b, c, d, sep='\n\n')</code></pre>
             <p>Considere as seguintes variáveis:</p>
             <pre><code>string1 = 'abacate'
 string2 = 'abacaxi'</code></pre>
-            <p>Strings são como listas, onde cada caractere é como se fosse um elemento da lista, que está em seu respectivo índice. No python podemos usar índices negativos para acessar elementos de trás para frente, como veremos.</p>
+            <p>Strings são como listas, onde cada caractere é como se fosse um elemento da lista, acessado por seu respectivo índice. No Python podemos usar índices negativos para acessar elementos de trás para frente, como veremos.</p>
             <p><img id="string-indexes" alt="índices de string"></p>
 
             <p>Eis as principais operações suportadas por strings:</p>
@@ -578,7 +578,7 @@ print(f"A soma de {a} e {b} é {a+b}.")</code></pre>
 
             <div id="f-strings-can-contain-python-code">
                 <h4>Códigos em strings formatadas</h4>
-                <p>Praticamente qualquer código Python que retorna uma string (ou um valor que pode ser convertido em uma string com a função str()) pode ser executado dentro de uma f-string.</p>
+                <p>Praticamente qualquer código Python que retorna uma string (ou um valor que pode ser convertido em uma string com a função <code>str</code>) pode ser executado dentro de uma f-string.</p>
                 <pre><code>l = [1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
 
 print(f"alguns ímpares de fibonacci: {[a for a in l if a%2]}")
@@ -591,7 +591,7 @@ print(f"o maior número é {max(l)}")</code></pre>
             </div>
             <div id="custom-formatters">
                 <h4>Formatação personalizada</h4>
-                Embora esses formatadores padrão se apliquem à maioria dos objetos incorporados, também é possível que outros objetos definam especificadores personalizados. Por exemplo, podemos usar especificadores de formato para objetos datetime:
+                Embora esses formatadores padrão se apliquem à maioria dos objetos incorporados, também é possível que outros objetos definam especificadores personalizados. Por exemplo, podemos usar especificadores de formato para objetos <code>datetime</code>:
 
                 <pre><code>import datetime
 print(f"{datetime.datetime.now():%d/%m/%Y %H:%M}")  # 24/04/2024 21:21</code></pre>
@@ -613,7 +613,7 @@ print(f"{datetime.datetime.now():%d/%m/%Y %H:%M}")  # 24/04/2024 21:21</code></p
         </div>
         <div id="strings-are-unicode">
             <h3>8.1.3 Strings são Unicode</h3>
-            <p>Bytes representam 8 bits, geralmente descritos como inteiros entre 0 e 255, ou como hexadecimais entre 0 e FF.</p>
+            <p>Bytes são compostos por 8 bits, geralmente descritos como inteiros entre 0 e 255, ou como hexadecimais entre 0 e FF.</p>
             <p>Qualquer tipo de dados é armazenado como bytes, desde caracteres de strings até pixels de imagens.</p>
             <p>Para interpretar bytes como strings, precisamos de um sistema de codificação, que associa cada caractere do sistema de codificação a um ou mais bytes correspondentes. Por exemplo, a codificação mais consagrada, da qual muitas outras são baseadas, é a ASCII. Ela é capaz de representar apenas 128 caracteres, dos quais apenas 95 são caracteres imprimíveis, o que a limita bastante. Softwares modernos utilizam Unicode, que consegue representar milhões de caracteres, mas os primeiros 128 deles são iguais à ASCII.</p>
             <p>Mas não existem apenas as codificações ASCII e Unicode. Se você tentar abrir um arquivo de texto codificado em outra codificação, pode ser que os caracteres sejam interpretados erroneamente.</p>
@@ -693,7 +693,30 @@ bytearray(b'anelo')</code></pre>
 
             <p>Com essas três opções, pode ficar a dúvida de qual é a mais apropriada. Como um princípio fundamental de programação, a legibilidade e a facilidade de manuseio devem ser priorizadas. Assim, se estiver lidando com texto, a escolha mais natural seria usar o tipo <code>str</code>. Se por outro lado for trabalhar com arquivos binários, melhor começar com <code>bytes</code>. Se a mutabilidade de <code>bytearray</code> facilitar teu trabalho ou tornar teu código mais legível, então mude.</p>
         </div>
+        <div id="exercicios">
+            <h3>8.1.5 Exercícios</h3>
+            <ol class="excs">
+                <li class="no-mark">Implemente uma função para cada exercício.</li>
+                <li>Receber uma string. Retorná-la de trás para frente.</li>
+                <li>Dada uma string, ela é composta apenas por dígitos?</li>
+                <li>Dada uma frase, quantas letras ela possui?</li>
+                <li>Dada uma frase, quais são as iniciais de cada palavra?</li>
+                <li>Receber uma string s e dois caracteres x e y. Substituir as ocorrências de x por y na string s. Retornar a string resultante.</li>
+                <li>Receber uma frase. Retorná-la na notação CamelCase.</li>
+                <li>Receber duas strings. Concatenar a segunda na primeira apenas se a primeira não terminar com a segunda string. Retornar a string resultante.</li>
+                <li>Receber uma frase e retornar sua maior palavra.</li>
+                <li>Receber uma string $s$ e dois índices $i$ e $j$. Remover os caracteres entre $i$ fechado e $j$ aberto. Retornar a string resultante. Exemplo de entrada/saída: "abcdefghij" 4 8/abcdij".</li>
+                <li>Receber duas strings. Remover cada caractere na segunda string da primeira string. Exemplo de entrada/saída: "The quick brown fox jumps over the lazy dog." "aeiou"/"Th qck brwn fx jmps vr th lzy dg."</li>
+                <li>Receber uma string $s$ e quatro índices $i$, $j$, $k$ e $l$. Trocar as substring $[i,j)$ e $[k,l)$. Retornar a string resultante. Exemplo de entrada/saída: abc<b>def</b>ghij<b>klmnop</b>qrstuvwxyz 3 6 10 16/abc<b>klmnop</b>ghij<b>def</b>qrstuvwxyz.</li>
+                <li>Receber uma string $s$, um índice $i$ e outra string $r$. Adicionar a string $r$ no índice $i$ da string $s$. Retornar a string resultante.</li>
+                <li>Receber uma string e retornar outra string formada pelos dois primeiros e dois últimos caracteres da string lida. Exemplos de entrada/saída: abcdef/abef, abcd/abcd, abc/abc, ab/ab, a/a.</li>
+                <li>Receber uma string e retorná-la com as palavras invertidas. Exemplos de entrada/saída: "uma frase"/"frase uma", "programar é muito legal"/"legal muito é programar".</li>
+                <li>Dadas duas strings, elas possuem a mesma sequência de vogais, desconsiderando outros caracteres? Por exemplo, litoral, e picotar possuem a mesma sequência de vogais "ioa".</li>
+                <li>Dadas duas strings, quantas vezes uma está contida na outra? Exemplo, "ANA" ocorre 4 vezes em "ANA E MARIANA GOSTAM DE BANANA".</li>
+                <li>Um palíndromo é uma sequência de caracteres que se lê da mesma forma que de trás para frente, como ARARA, REVIVER ou OGALOAMAOLAGO. Dada uma string, ela é palíndroma?.</li>
+                <li>A Cifra de César é uma das técnicas de criptografia mais simples e conhecidas. Ela consiste em substituir cada letra de um texto pela n-ésima letra do alfabeto após ela, sendo n um número inteiro, chamado de chave de encriptação. Por exemplo, para n=5, o texto "Rex" se torna "Wjc". Dada a chave e o texto, qual o texto encriptado?</li>
+
+            </ol>
+        </div>
     </div>
 </div>
-
-<!-- exercício que substitui uma substring por outra em uma string, pra verificar se o aluno sabe que uma string é imutável, substituindo a variável pelo novo valor. -->
