@@ -329,7 +329,7 @@
     <h2>Programação</h2>
     <p>Um caractere (ou caracter) representa apenas um símbolo, como a letra 'e', o dígito '5', ou o símbolo '&'. Uma sequência de um ou mais caracteres é chamada de <code>string</code>. Diferentemente de outras linguagens de programação, o Python não possui um tipo de dados específico para caracteres, ele trata tudo como strings, que no Python, são consideradas como do tipo <code>str</code>.</p>
     <!-- <p>Os caracteres possuem um tipo de dados específico, chamado <code>char</code>. Para um valor ser do tipo <code>char</code>, ele deve estar entre aspas simples. Logo, ‘9’ é definido como um caractere, e não um número, apesar de representar um número. E ‘ab’ seria um erro, pois caractere deve ser composto de apenas um único símbolo. E para imprimir um <code>char</code> com printf, usamos o %c, que é capaz de imprimir qualquer caractere da tabela Unicode, um superconjunto da tabela ASCII.</p> -->
-    <p>Alguns dos caracteres de controle são chamados de <b>whitespaces</b> e são usados para formatar o texto. São eles:</p>
+    <p>Alguns dos caracteres de controle são chamados de espaços em branco (<b>whitespaces</b>) e são usados para formatar o texto. São eles:</p>
 
     <table class="custom">
         <thead>
@@ -383,7 +383,7 @@
         </tbody>
     </table>
 
-    <p>Os whitespaces também são conhecidos como sequências de escape. Eles sempre começam com uma barra invertida, e o caractere seguinte determina a interpretação da sequência de escape. Tanto a barra invertida quanto as aspas têm significados especiais em uma string. Portanto, para representar esses próprios caracteres, você deve prefixá-los com uma barra invertida:</p>
+    <p>Os whitespaces são escritos com sequências de escape. Uma <a href="https://docs.python.org/3/reference/lexical_analysis.html#escape-sequences">sequência de escape</a> sempre começa com uma barra invertida, e o caractere seguinte determina a interpretação da sequência de escape. Tanto a barra invertida quanto as aspas têm significados especiais em uma string. Portanto, para representar esses próprios caracteres, você deve prefixá-los com uma barra invertida:</p>
 
     <pre><code>print('Essa é a barra invertida: "\\".')
 print('Uma palavra entre aspas simples: \'python\'.')
