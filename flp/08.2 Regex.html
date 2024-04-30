@@ -124,7 +124,8 @@
         <h2>8.2 Expressões regulares</h2>
         <div id="8-2-1-introducao">
             <h3>8.2.1 Introdução</h3>
-            <p>Uma expressão regular (regex) é uma sequência de caracteres que especifica um padrão de busca. regex é uma linguagem formal implementada em várias linguagens. Apesar de regex não ser orientado a objetos, o Python possui vários objetos para trabalhar com regex. O módulo <code>re</code> possui várias classes e funções para trabalhar com regex. vamos começar com a função <code>findall</code>:</p>
+            <p>Uma expressão regular (regex) é uma sequência de caracteres que define um padrão para busca de texto. Existem várias implementações de regex, conhecidas como engines. Assim como as principais linguagens de programação, o Python possui sua própria engine. Diferentes engines podem ter algumas nuances entre si, mas aprendendo regex em Python, talvez apenas algumas adaptações sejam necessárias ao aplicar na maioria das linguagens. A linguagem regex não é orientada a objetos, mas o Python oferece vários objetos para trabalhar com regex. O módulo <code>re</code> inclui diversas classes e funções para manipulação de regex. Vamos começar com a função <code>findall</code>:</p>
+
             <pre><code class="python-repl">>>> import re
 >>> len(re.findall("e", "Python 3.10 was released on October 04, 2021"))
 4
@@ -137,17 +138,17 @@
 ['3', '1', '0', '0', '4', '2', '0', '2', '1']
 >>> re.findall(r"z", "Python 3.10 was released on October 04, 2021")  
 []</code></pre>
-            <p>O primeiro argumento da função <code>findall</code> é o padrão de correspondência e o segundo argumento é a string de busca. O retorno é uma lista com as correspondências encontradas. Na primeira invocação, é buscada pela letra "e". Na segunda invocação é buscado por um dígito, que no regex, é representado pelo caractere <code>\d</code>. Como numa string a barra invertida é usada como sequência de escape, precisamos ignorar a barra invertida colocando outra barra invertida. Regex possui vários caracteres especiais para formar padrões de texto. Para não ter que ficar ignorando cada barra invertida, o Python possui a string bruta, ou r-string, que automaticamente ignora qualquer barra invertida, sem a necessidade de pôr a segunda barra invertida, como na terceira invocação.
-            <div class="info">Para ilustrar a diferença de string e r-string, veja como uma sequência de escape é ignorada numa r-string:
+            <p>O primeiro argumento da função <code>findall</code> é o padrão de correspondência e o segundo argumento é a string de busca. O retorno é uma lista com as correspondências encontradas. Na primeira invocação, é buscada pela letra "e". Na segunda invocação é buscado por um dígito, que no regex, é representado pelo <b>caractere especial</b> <code>\d</code>. Como numa string a barra invertida é usada como sequência de escape, precisamos escapar a barra invertida para não interpretar <code>\d</code> como sequência de escape, colocando outra barra invertida. Regex possui vários caracteres especiais para formar padrões de texto. Para não ter que ficar escapando cada barra invertida, o Python possui a string bruta, ou r-string, que automaticamente escapa qualquer barra invertida, sem a necessidade de pôr a segunda barra invertida, como na terceira invocação.
+            <div class="info">Para ilustrar a diferença de string e r-string, veja como uma sequência de escape não é interpretada numa r-string:
                 <pre><code class="python-repl">>>> print("Hello\nWorld\t!")  # Interpretando sequência de escape
 Hello
 World   !
->>> print("Hello\\nWorld\\t!")  # Ignorando manualmente
+>>> print("Hello\\nWorld\\t!")  # Escapando manualmente
 Hello\nWorld\t!
->>> print(r"Hello\nWorld\t!")  # Ignorando automaticamente
+>>> print(r"Hello\nWorld\t!")  # Escapando automaticamente
 Hello\nWorld\t!</code></pre>
             </div>
-            <p>Apesar da quarta invocação funcionar, é exibida uma mensagem de aviso, pois não ignoramos a barra invertida. Isso funciona pois até a versão 3.12, que estou usando, sequências de escape inválidas são automaticamente ignoradas e a barra invertida é tratada como literal. Mas está previsto para <a href="https://docs.python.org/dev/whatsnew/3.12.html#other-language-changes">alguma próxima versão</a> o aviso se tornar em exceção <code>SyntaxError</code> e esses códigos legados pararem de funcionar. Portanto, sempre que usar um caractere regex especial, que contenha uma barra invertida, não se esqueça de adicionar uma segunda barra invertida ou usar r-string.</p>
+            <p>Apesar da quarta invocação funcionar, é exibida uma mensagem de aviso, pois não escapamos a barra invertida. Isso funciona pois até a versão 3.12, que estou usando, sequências de escape inválidas não são interpretadas e a barra invertida é interpretada literalmente. Mas está previsto para <a href="https://docs.python.org/dev/whatsnew/3.12.html#other-language-changes">alguma próxima versão</a> tornar o aviso em exceção <code>SyntaxError</code> e esses códigos legados pararem de funcionar. Portanto, sempre que usar um caractere regex especial que contenha uma barra invertida, não se esqueça de adicionar uma segunda barra invertida ou usar r-string.</p>
             <p>As principais funções do módulo <code>re</code> são:</p>
             <table class="custom align-left">
                 <thead>
@@ -242,124 +243,133 @@ TypeError: 'callable_iterator' object is not subscriptable</pre>
         </div>
         <div id="8-2-2-conjuntos-caracteres">
             <h3>8.2.2 Conjuntos de caracteres</h3>
-            <p>A seguinte tabela apresenta alguns caracteres especiais que representam conjuntos de caracteres:</p>
-            <table style="margin-left: auto; margin-right: auto;">
-                <tr>
-                    <td>
-                        <table class="custom align-left">
-                            <thead>
-                                <tr>
-                                    <th>Caractere</th>
-                                    <th>Descrição</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code>\d</code></td>
-                                    <td>Qualquer dígito.</td>
-                                </tr>
-                                <tr>
-                                    <td><code>\w</code></td>
-                                    <td>Qualquer caractere alfanumérico (dígito, sublinado ou letra).</td>
-                                </tr>
-                                <tr>
-                                    <td><code>\s</code></td>
-                                    <td>Qualquer caractere de <a href="https://docs.python.org/3.8/library/string.html?highlight=whitespace#string.whitespace">espaço em branco (whitespace)</a>.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                    <td>
-                        <table class="custom align-left">
-                            <thead>
-                                <tr>
-                                    <th>Caractere</th>
-                                    <th>Descrição</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code>\D</code></td>
-                                    <td>Qualquer caractere não-dígito.</td>
-                                </tr>
-                                <tr>
-                                    <td><code>\W</code></td>
-                                    <td>Qualquer caractere não-alfanumérico.</td>
-                                </tr>
-                                <tr>
-                                    <td><code>\S</code></td>
-                                    <td>Qualquer caractere não-whitespace.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <p>Exemplos:</p>
-            <table class="custom">
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Saída</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <pre><code>search_string = "Announcement: Python 3.0 was released in 2008!"
-print("\n\n\nTodas as duplas de dígitos:")
-for match in re.findall(r"\d\d", search_string): print(match, end=", ")
+            <p>Regex possui padrões para representar conjuntos de caracteres, também chamados de classes de caracteres. São eles:</p>
 
-print("\n\nTodos os quartetos de dígitos:")
-for match in re.findall(r"\d\d\d\d", search_string): print(match, end=", ")
+            <h4>
+                <pre>[aeiou]  [a-z]</pre>
+            </h4>
+            <p>Corresponde a qualquer um dos caracteres dentro dos colchetes.</p>
+            <pre><code class="python-repl">>>> re.findall("[aeiou]", "quais as vogais dessa frase?")
+['u', 'a', 'i', 'a', 'o', 'a', 'i', 'e', 'a', 'a', 'e']</code></pre>
+            <p>Se contiver um hífen entre dois caracteres, corresponde ao intervalo fechado de caracteres entre eles.</p>
+            <pre><code class="python-repl">>>> re.findall("[j-o]", "letras entre 'j' e 'o' são essas...")
+['l', 'n', 'j', 'o']</code></pre>
+            <p>Você pode colocar vários conjuntos dentro dos colchetes.</p>
+            <pre><code class="python-repl">>>> re.findall("[A-Z0-9]", "Só qUero as MaiÚsculas e os núm3r05.")
+['S', 'U', 'M', '3', '0', '5']</code></pre>
+            <p>Para corresponder ao hífen também, coloque-o no início ou final dos colchetes.</p>
+            <pre><code class="python-repl">>>> re.findall("[aeiou0-9-]", "Hífen (-) e dígitos 0 e 8.")
+['e', '-', 'e', 'i', 'o', '0', 'e', '8']</code></pre>
+            <p>Na tabela Unicode, letras acentuadas têm códigos diferentes.</p>
+            <pre><code class="python-repl">>>> re.findall("[À-ÖØ-öø-ÿ]", "àquele PÊSSEGO piauí pôde Müller")
+['à', 'Ê', 'í', 'ô', 'ü']</code></pre>
 
-print("\n\nTodos os caracteres alfanuméricos:")
-for match in re.findall(r"\w", search_string): print(match, end="")
+            <h4>
+                <pre>[^aeiou]  [^a-z]</pre>
+            </h4>
+            <p>Corresponde a qualquer caractere que não seja os que estão dentro dos colchetes.</p>
+            <pre><code class="python-repl">>>> re.findall("[^aeiou ]", "Vogais aqui não")
+['V', 'g', 's', 'q', 'n', 'ã']
+>>> re.findall("[^0-9]", "35T3 P3QU3N0 T3XT0")
+['T', ' ', 'P', 'Q', 'U', 'N', ' ', 'T', 'X', 'T']</code></pre>
 
-print("\n\nQuantidade de espaços em branco:")
-print(len(re.findall(r"\s", search_string)), end="")
+            <p>Existem vários caracteres especiais em regex. Mas dentro dos colchetes, os únicos especiais são <code>-</code>, <code>^</code> e <code>\</code>. Para escapá-los, você também pode precedê-los com uma <code>\</code>.</p>
+            <h4>
+                <pre>.</pre>
+            </h4>
+            <p>Corresponde a qualquer caractere exceto quebra de linha.</p>
+            <pre><code class="python-repl">>>> re.findall(".e", "Você me ligou naquela tarde vazia\ne me valeu o dia")
+['me', 'ue', 'de', 'me', 'le']</code></pre>
+            <p>O <code>.</code> dentro dos colchetes funciona como ponto literal. Exemplo que captura cada caractere seguido por uma pontuação:</p>
+            <pre><code class="python-repl">>>> re.findall(r".[.,?!]", "Pare! Repita? Oras, bolas.")
+['e!', 'a?', 's,', 's.']</code></pre>
+            <p>Exemplo que captura vogais distantes por dois caracteres:</p>
+            <pre><code class="python-repl">>>> re.findall(r"[aeiou]..[aeiou]", "Processando erros fatais.")
+['essa', 'erro', 'atai']</code></pre>
 
-print("\n\nCaracteres não-dígitos:")
-for match in re.findall(r"\D", search_string): print(match, end="")
+            <h4>
+                <pre>\d</pre>
+            </h4>
+            <p>Corresponde a qualquer dígito. Abreviação de <code>[0-9]</code>.</p>
+            <pre><code class="python-repl">>>> re.findall(r"\d\d", "Dia de São Valentin: 14/2/270.")
+['14', '27']</code></pre>
 
-print("\n\nCaracteres não-alfanuméricos:")
-for match in re.findall(r"\W", search_string): print(match, end="")
+            <h4>
+                <pre>\w</pre>
+            </h4>
+            <p>Corresponde a qualquer caractere alfanumérico (de qualquer idioma) ou sublinhado.</p>
+            <pre><code class="python-repl">>>> "".join(re.findall(r"\w", "1 ação! 2_アクション? 3-дію."))
+'1ação2_アクション3дію'</code></pre>
 
-print("\n\nCaracteres não-whitespaces:")
-for match in re.findall(r"\w", search_string): print(match, end="")</code></pre>
-                        </td>
-                        <td>
-                            <pre>
+            <h4>\s</h4>
+            <p>Corresponde a qualquer caractere de espaço em branco (<a href="https://docs.python.org/3.8/library/string.html?highlight=whitespace#string.whitespace">whitespace</a>).</p>
+            <pre><code class="python-repl">>>> len(re.findall(r"\s","Quantos\nwhitespaces essa\tfrase\rpossui?"))
+4</code></pre>
 
+            <h4>
+                <pre>\D  \W  \S</pre>
+            </h4>
+            <p>Se você colocar em maiúsculos, é a negação do significado em minúsculo. Isto é, <code>\D</code>, <code>\W</code> e <code>\S</code> correspondem, respectivamente, a qualquer caractere não-dígito, não alfanumérico nem sublinhado, não whitespace.</p>
+            <pre><code class="python-repl">>>> re.sub(r"\D", "", "Só quero os números deste telefone: +55(67)3012-4567")
+'556730124567'
+>>> re.sub(r"\W", "", "Apenas L3TR45! Juntas, misturadas.")
+'ApenasL3TR45Juntasmisturadas'
+>>> len(re.findall(r"\S","Quantidade de caracteres,\ndesconsiderando whitespaces\n"))
+49</code></pre>
 
-Todas as duplas de dígitos:
-20, 08,
+            <h4>Sequências de escape</h4>
+            <p>Se você quiser escapar um caractere especial, para tratá-lo literalmente, basta precedê-lo por uma barra invertida:</p>
+            <pre><code class="python-repl">>>> re.findall("\d\.\d", "1.2, 3.4, 5.6 e, por fim, 7.8")
+['1.2', '3.4', '5.6', '7.8']</code></pre>
 
-Todos os quartetos de dígitos:
-2008,
-
-Todos os caracteres alfanuméricos:
-AnnouncementPython30wasreleasedin2008
-
-Quantidade de espaços em branco:
-6
-
-Caracteres não-dígitos:
-Announcement: Python . was released in !
-
-Caracteres não-alfanuméricos:
-:  .    !
-
-Caracteres não-whitespaces:
-AnnouncementPython30wasreleasedin2008</pre>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p>Exemplo: Podemos garantir que uma string com um número de telefone tenha apenas dígitos:</p>
-            <pre><code>print(re.sub(r"\D", "", "+55(67)3012-4567"))  # 556730124567</code></pre>
-
+            <p>Regex também interpreta sequências de escape. Portanto, uma string usada como padrão de busca é compilada duas vezes, uma pelo próprio Python e outra pela engine de regex do Python. Isso quer dizer que se você colocar a string <code>\\n</code> como padrão de busca, primeiramente o Python entenderá que é para escapar a barra invertida, tornando a string na barra invertida literal seguida pela letra n, que o regex ainda entenderá como uma quebra de linha.</p>
+            <p>Considere cada <code>findall</code> seguinte. O primeiro argumento é um padrão regex, que é interpretado tanto pelo Python quanto pela engine regex, já o segundo argumento é interpretado apenas pelo Python.</p>
+            <pre><code class="python-repl">>>> print("a\nb")
+a
+b
+>>> print("a\\nb")
+a\nb
+>>> re.findall(r"a\nb", "a\nb")
+['a\nb']
+>>> re.findall("a\\nb", "a\nb")
+['a\nb']
+>>> re.findall("a\\nb", "a\\nb")
+[]</code></pre>
+            <p>Na linha 6, o Python interpreta o padrão <code>\n</code> como quebra de linha, por isso correspondeu à string de busca. Na linha 8, o Python interpreta o padrão <code>\\n</code> como <code>\</code> e <code>n</code>, que a engine também interpreta como quebra de linha, por isso da correspondência. Na linha 10, o padrão é o mesmo da linha 8, mas como a string de busca é interpretada apenas pelo Python, o <code>\\n</code> se torna <code>\</code> e <code>n</code>, que não corresponde à quebra de linha do padrão.</p>
+            <p>Se por um lado o Python ainda permite sequências de escape inválidas, tratando a barra invertida literamente, por outro lado, a engine regex também permite caracteres especiais inválidos, mas descarta a barra invertida. Por exemplo, <code>\_</code> não é nem uma sequência de escape, nem um caractere especial regex. E tanto <code>\_</code> quanto <code>\\_</code> são interpretados pelo Python como <code>\_</code>, que por outro lado, é interpretado pela engine como <code>_</code> apenas. Já pelo Python, <code>\\\_</code> vira <code>\\_</code>, que, pela engine, vira <code>\_</code>.</p>
+            <pre><code>import re
+print("a\_b")                         # a\_b
+print("a\\_b")                        # a\_b
+print("a\\\_b")                       # a\\_b
+print(re.findall("a\_b", "a_b"))      # ['a_b']
+print(re.findall("a\\_b", "a_b"))     # ['a_b']
+print(re.findall("a\_b", "a\_b"))     # []
+print(re.findall("a\\_b", "a\\_b"))   # []
+print(re.findall("a\\\_b", "a_b"))    # []
+print(re.findall("a\\\_b", "a\_b"))   # ['a\\_b']
+print(re.findall("a\\\_b", "a\\_b"))  # ['a\\_b']
+print(re.findall("a\\\_b", "a\\\_b")) # []</code></pre>
+            <div class="info">
+                <p>Observação: Você pode estar se perguntando por que as linhas 10 e 11 imprimiram as strings como <code>a\_b</code> em vez de <code>a\_b</code>, conforme as linhas 2 e 3. Isso ocorre porque ao imprimir listas, as sequências de escape não são interpretadas.</p>
+                <pre><code class="python-repl">>>> l = ["string normal", "sequência\nde\tescape"]
+>>> print(l)
+['string normal', 'sequência\nde\tescape']
+>>> print(f"[{l[0]}, {l[1]}]")
+[string normal, sequência
+de      escape]</code></pre>
+            </div>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
         </div>
         <div id="getting-information-from-regular-expressions">
             <h3>8.2.2 Obtendo informações de expressões regulares</h3>
