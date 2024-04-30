@@ -138,7 +138,7 @@
 ['3', '1', '0', '0', '4', '2', '0', '2', '1']
 >>> re.findall(r"z", "Python 3.10 was released on October 04, 2021")  
 []</code></pre>
-            <p>O primeiro argumento da função <code>findall</code> é o padrão de correspondência e o segundo argumento é a string de busca. O retorno é uma lista com as correspondências encontradas. Na primeira invocação, é buscada pela letra "e". Na segunda invocação é buscado por um dígito, que no regex, é representado pelo <b>caractere especial</b> <code>\d</code>. Como numa string a barra invertida é usada como sequência de escape, precisamos escapar a barra invertida para não interpretar <code>\d</code> como sequência de escape, colocando outra barra invertida. Regex possui vários caracteres especiais para formar padrões de texto. Para não ter que ficar escapando cada barra invertida, o Python possui a string bruta, ou r-string, que automaticamente escapa qualquer barra invertida, sem a necessidade de pôr a segunda barra invertida, como na terceira invocação.
+            <p>O primeiro argumento da função <code>findall</code> é o padrão de correspondência e o segundo argumento é a string de busca. O retorno é uma lista com as correspondências encontradas. Na primeira invocação, é buscada pela letra "e". Na segunda invocação é buscado por um dígito, que no regex, é representado pelo <b>caractere especial</b> <code>\d</code>. Como numa string a barra invertida é usada como sequência de escape, precisamos escapar a barra invertida, colocando outra barra invertida, para não interpretar <code>\d</code> como sequência de escape. Regex possui vários caracteres especiais para formar padrões de texto. Para não ter que ficar escapando cada barra invertida, o Python possui a string bruta, ou r-string, que automaticamente escapa qualquer barra invertida, sem a necessidade de pôr a segunda barra invertida, como na terceira invocação.
             <div class="info">Para ilustrar a diferença de string e r-string, veja como uma sequência de escape não é interpretada numa r-string:
                 <pre><code class="python-repl">>>> print("Hello\nWorld\t!")  # Interpretando sequência de escape
 Hello
@@ -291,7 +291,7 @@ TypeError: 'callable_iterator' object is not subscriptable</pre>
                 <pre>\d</pre>
             </h4>
             <p>Corresponde a qualquer dígito. Abreviação de <code>[0-9]</code>.</p>
-            <pre><code class="python-repl">>>> re.findall(r"\d\d", "Dia de São Valentin: 14/2/270.")
+            <pre><code class="python-repl">>>> re.findall(r"\d\d", "Dia de São Valentim: 14/2/270.")
 ['14', '27']</code></pre>
 
             <h4>
@@ -351,13 +351,69 @@ print(re.findall("a\\\_b", "a\\_b"))  # ['a\\_b']
 print(re.findall("a\\\_b", "a\\\_b")) # []</code></pre>
             <div class="info">
                 <p>Observação: Você pode estar se perguntando por que as linhas 10 e 11 imprimiram as strings como <code>a\_b</code> em vez de <code>a\_b</code>, conforme as linhas 2 e 3. Isso ocorre porque ao imprimir listas, as sequências de escape não são interpretadas.</p>
-                <pre><code class="python-repl">>>> l = ["string normal", "sequência\nde\tescape"]
+                <pre><code class="python-repl">>>> l = ["string normal", "sequências\nde\tescape"]
 >>> print(l)
-['string normal', 'sequência\nde\tescape']
->>> print(f"[{l[0]}, {l[1]}]")
-[string normal, sequência
-de      escape]</code></pre>
+['string normal', 'sequências\nde\tescape']
+>>> print(f"['{l[0]}', '{l[1]}']")
+['string normal', 'sequências
+de      escape']</code></pre>
             </div>
+        </div>
+        <div id="8-2-3-quantificadores">
+            <h3>8.2.3 Quantificadores</h3>
+            <p>Quantificadores indicam a quantidade de caracteres ou expressões a corresponder.</p>
+
+            <h4>
+                <pre>*</pre>
+            </h4>
+            <p>Corresponde ao seu predecessor zero ou mais vezes.</p>
+            <pre><code class="python-repl">>>> re.findall(r"fo*", "foo bar. f b. fooooo barrrrr")
+['foo', 'f', 'fooooo']
+>>> re.findall(r"\d*\.\d*", "num1 = 123\nnum2 = 34.56\nnum3 = .7\nnum4 = 8.901")
+['34.56', '.7', '8.901']</code></pre>
+
+            <h4>
+                <pre>*</pre>
+            </h4>
+            <p>Corresponde ao seu predecessor uma ou mais vezes.</p>
+            <pre><code class="python-repl">>>> re.findall(r"fo+", "foo bar. f b. fooooo barrrrr")
+['foo', 'fooooo']
+>>> re.findall(r"\d+\.\d+", "num1 = 123\nnum2 = 34.56\nnum3 = .7\nnum4 = 8.901")
+['34.56', '8.901']</code></pre>
+
+            <h4>
+                <pre>{n}</pre>
+            </h4>
+            <p>Corresponde ao seu predecessor exatamente <code>n</code> vezes.</p>
+            <pre><code class="python-repl">>>> list(re.finditer(r"o{3}", "foobar, foooobar, foooooobar"))
+[&lt;re.Match object; span=(9, 12), match='ooo'>, &lt;re.Match object; span=(19, 22), match='ooo'>, &lt;re.Match object; span=(22, 25), match='ooo'>]</code></pre>
+
+            <h4>
+                <pre>{n,}</pre>
+            </h4>
+            <p>Corresponde ao seu predecessor pelo menos <code>n</code> vezes.</p>
+            <pre><code class="python-repl">>>> list(re.finditer(r"o{3,}", "foobar, foooobar, foooooobar"))
+[&lt;re.Match object; span=(9, 13), match='oooo'>, &lt;re.Match object; span=(19, 25), match='oooooo'>]</code></pre>
+
+            <h4>
+                <pre>x{m,n}</pre>
+            </h4>
+            <p>Corresponde ao seu predecessor pelo menos <code>m</code> e no máximo <code>n</code> vezes, sendo <code>0 &le; m &lt; n</code>.</p>
+            <pre><code class="python-repl">>>> re.findall(r"\d{3,5}", "Capturando entre 3 e 5 dígitos: 1 23 456 7890 12345 678901")
+['456', '7890', '12345', '67890']</code></pre>
+            <p>Observe que no exemplo anterior, apesar de <code>678901</code> ter 6 dígitos, seus 5 primeiros dígitos ainda foram capturados.</p>
+
+            <h4>
+                <pre>?</pre>
+            </h4>
+            <p>Corresponde ao seu predecessor zero ou uma vez.</p>
+            <pre><code class="python-repl">>>> re.findall(r"vultu?osa", "Possui vultuosa quantidade de dinheiro. Precisa de uma mala vultosa para guardá-lo.")
+['vultuosa', 'vultosa']</code></pre>
+
+            <h4>
+                <pre>*?  +?  ??  {n}?  {n,}?  {n,m}?  </pre>
+            </h4>
+            <p>Por padrão, os quantificadores são <i>greedy</i> (gulosos), isto é, eles</p>
             <pre><code class="python-repl"></code></pre>
             <pre><code class="python-repl"></code></pre>
             <pre><code class="python-repl"></code></pre>
@@ -365,11 +421,9 @@ de      escape]</code></pre>
             <pre><code class="python-repl"></code></pre>
             <pre><code class="python-repl"></code></pre>
             <pre><code class="python-repl"></code></pre>
-            <pre><code class="python-repl"></code></pre>
-            <pre><code class="python-repl"></code></pre>
-            <pre><code class="python-repl"></code></pre>
-            <pre><code class="python-repl"></code></pre>
-            <pre><code class="python-repl"></code></pre>
+
+
+            <!-- um bom exemplo de disjunção | é caminhos de arquivos somente com extensão de imagem, como png, jpg, svg. poderia fazer um regex que procura por caminhos de arquivos sem whitespace e que sejam imagens. -->
         </div>
         <div id="getting-information-from-regular-expressions">
             <h3>8.2.2 Obtendo informações de expressões regulares</h3>
@@ -395,7 +449,7 @@ de      escape]</code></pre>
         </div>
         <div id="referencias">
             <h4>Referências</h4>
-            Basicamente a aula foi uma tradução daqui: https://www.pythontutorial.net/python-regex/
+            Basicamente a aula foi extraída desses dois: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet https://www.pythontutorial.net/python-regex/
 
             Muito bom para treinar tuas habilidades regex: http://regextutorials.com/index.html
 
