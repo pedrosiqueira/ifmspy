@@ -125,11 +125,11 @@
 <div id="8-strings-and-serialization">
     <h1>8 Strings e serialização</h1>
     <div id="8-2-regular-expressions">
+    <div id="8-2-regular-expressions">
         <h2>8.2 Expressões regulares</h2>
         <div id="8-2-1-introducao">
             <h3>8.2.1 Introdução</h3>
-            <p>Uma expressão regular (regex) é uma sequência de caracteres que define um padrão para busca de texto. Existem várias implementações de regex, conhecidas como engines. Assim como as principais linguagens de programação, o Python possui sua própria engine. Diferentes engines podem ter algumas nuances entre si, mas aprendendo regex em Python, talvez apenas algumas adaptações sejam necessárias ao aplicar na maioria das linguagens. A linguagem regex não é orientada a objetos, mas o Python oferece vários objetos para trabalhar com regex. O módulo <code>re</code> inclui diversas classes e funções para manipulação de regex. Vamos começar com a função <code>findall</code>:</p>
-
+            <p>Uma expressão regular (regex) é uma sequência de caracteres que especifica um padrão de busca. regex é uma linguagem formal implementada em várias linguagens. Apesar de regex não ser orientado a objetos, o Python possui vários objetos para trabalhar com regex. O módulo <code>re</code> possui várias classes e funções para trabalhar com regex. vamos começar com a função <code>findall</code>:</p>
             <pre><code class="python-repl">>>> import re
 >>> len(re.findall("e", "Python 3.10 was released on October 04, 2021"))
 4
@@ -147,12 +147,12 @@
                 <pre><code class="python-repl">>>> print("Hello\nWorld\t!")  # Interpretando sequência de escape
 Hello
 World   !
->>> print("Hello\\nWorld\\t!")  # Escapando manualmente
+>>> print("Hello\\nWorld\\t!")  # Ignorando manualmente
 Hello\nWorld\t!
->>> print(r"Hello\nWorld\t!")  # Escapando automaticamente
+>>> print(r"Hello\nWorld\t!")  # Ignorando automaticamente
 Hello\nWorld\t!</code></pre>
             </div>
-            <p>Apesar da quarta invocação funcionar, é exibida uma mensagem de aviso, pois não escapamos a barra invertida. Isso funciona pois até a versão 3.12, que estou usando, sequências de escape inválidas não são interpretadas e a barra invertida é interpretada literalmente. Mas está previsto para <a href="https://docs.python.org/dev/whatsnew/3.12.html#other-language-changes">alguma próxima versão</a> tornar o aviso em exceção <code>SyntaxError</code> e esses códigos legados pararem de funcionar. Portanto, sempre que usar um caractere regex especial que contenha uma barra invertida, não se esqueça de adicionar uma segunda barra invertida ou usar r-string.</p>
+            <p>Apesar da quarta invocação funcionar, é exibida uma mensagem de aviso, pois não ignoramos a barra invertida. Isso funciona pois até a versão 3.12, que estou usando, sequências de escape inválidas são automaticamente ignoradas e a barra invertida é tratada como literal. Mas está previsto para <a href="https://docs.python.org/dev/whatsnew/3.12.html#other-language-changes">alguma próxima versão</a> o aviso se tornar em exceção <code>SyntaxError</code> e esses códigos legados pararem de funcionar. Portanto, sempre que usar um caractere regex especial, que contenha uma barra invertida, não se esqueça de adicionar uma segunda barra invertida ou usar r-string.</p>
             <p>As principais funções do módulo <code>re</code> são:</p>
             <table class="custom align-left">
                 <thead>
@@ -484,7 +484,9 @@ print(re.findall(r"id=\".*\"", html_content))
             Muito bom para treinar tuas habilidades regex: http://regextutorials.com/index.html
 
             Conteúdo detalhado sobre regex: https://www.regular-expressions.info/lookaround.html
+            Conteúdo detalhado sobre regex: https://www.regular-expressions.info/lookaround.html
 
+            Bom para testar regex: https://regex101.com/
             Bom para testar regex: https://regex101.com/
         </div>
     </div>
