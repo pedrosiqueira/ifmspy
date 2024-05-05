@@ -370,9 +370,17 @@ de      escape']</code></pre>
 ['foo', 'f', 'fooooo']
 >>> re.findall(r"\d*\.\d*", "num1 = 123\nnum2 = 34.56\nnum3 = .7\nnum4 = 8.901")
 ['34.56', '.7', '8.901']</code></pre>
-
+            <p>Entre cada caractere podemos dizer que há uma string vazia. Portanto, <code>*</code> também é capaz de capturar strings vazias.</p>
+            <pre><code class="python-repl">>>> for m in re.finditer('x*', 'abxxxc'): m
+... 
+&lt;re.Match object; span=(0, 0), match=''>
+&lt;re.Match object; span=(1, 1), match=''>
+&lt;re.Match object; span=(2, 5), match='xxx'>
+&lt;re.Match object; span=(5, 5), match=''>
+&lt;re.Match object; span=(6, 6), match=''></code></pre>
+            <p>O primeiro <i>match</i> se refere à string vazia antes do caractere <code>a</code>; o segundo, à string vazia entre <code>a</code> e <code>b</code>; o terceiro, apesar de ter uma string vazia entre <code>b</code> e <code>x</code>, começa capturando de <code>x</code>; o quarto é a string vazia entre o último <code>x</code> e <code>c</code>; e o quinto é a string vazia depois de <code>c</code>.</p>
             <h4>
-                <pre>*</pre>
+                <pre>+</pre>
             </h4>
             <p>Corresponde ao seu predecessor uma ou mais vezes.</p>
             <pre><code class="python-repl">>>> re.findall(r"fo+", "foo bar. f b. fooooo barrrrr")
@@ -741,72 +749,258 @@ assets/css/image.jpg</pre>
             </table>
             <p>Se você não agrupar os <code>|</code>, o resultado será outro. Observe mais uma diferença entre <code>re.findall</code> e <code>re.finditer</code>. O <code>re.findall</code>, se estiver analisando um padrão que tenha um grupo, retorna apenas o grupo. Já o <code>re.finditer</code> retorna o padrão inteiro.</p>
         </div>
-        
-        <pre><code class="python-repl"></code></pre>
-        <pre><code class="python-repl"></code></pre>
-        <pre><code class="python-repl"></code></pre>
-        <pre><code class="python-repl"></code></pre>
-        <pre><code class="python-repl"></code></pre>
-        <pre><code class="python-repl"></code></pre>
-        <pre><code class="python-repl"></code></pre>
-        <pre><code class="python-repl"></code></pre>
-        <pre><code class="python-repl"></code></pre>
-        <pre><code class="python-repl"></code></pre>
+        <div id="8-2-8-flags-regex">
+            <h3>8.2.8 Flags regex</h3>
+            <p>O último parâmetro das funções regex é o parâmetro <code>flags</code>, que aceita uma ou mais <i>flags</i> (sinalizações). Essas flags são tipos <code>re.RegexFlag</code>.</p>
+            <h4>
+                <pre>re.IGNORECASE</pre>
+            </h4>
+            <p>Como o nome indica, não diferencia maiúsculas de minúsculas.</p>
+            <pre><code class="python-repl">>>> re.findall(r"\b[a-z]+\b", "MAIUSCULO minusculo InTeRcAlAdO")
+['minusculo']
+>>> re.findall(r"\b[A-Z]+\b", "MAIUSCULO minusculo InTeRcAlAdO")
+['MAIUSCULO']
+>>> re.findall(r"\b[a-z]+\b", "MAIUSCULO minusculo InTeRcAlAdO", re.IGNORECASE)
+['MAIUSCULO', 'minusculo', 'InTeRcAlAdO']</code></pre>
 
-        <!--             
-            <div id="getting-information-from-regular-expressions">
-                <h3>8.2.2 Obtendo informações de expressões regulares</h3>
-                Instead of returning a list of match objects, as you would expect, it returns a list of matching strings, or tuples. Sometimes it's strings, sometimes it's tuples. It's not a very good API at all! As with all bad APIs, you'll have to memorize the differences and not rely on intuition. The type of the return value depends on the number of bracketed groups inside the regular expression: If there are no groups in the pattern, re.findall will return a list of strings, where each value is a complete substring from the source string that matches the pattern If there is exactly one group in the pattern, re.findall will return a list of strings where each value is the contents of that group If there are multiple groups in the pattern, re.findall will return a list of tuples where each tuple contains a value from a matching group, in order
+            <h4>
+                <pre>re.MULTILINE</pre>
+            </h4>
+            <p>Trata as asserções <code>^</code> e <code>$</code>, respectivamente, como início e fim de linha, e não apenas início e fim de string.</p>
+            <pre><code class="python-repl">>>> secoes = """1. seção
+... 1.1 subseção
+... 1.2 outra subseção
+... 2. outra seção
+... 3. mais seção"""
+>>> 
+>>> re.findall(r"^\d\. .+", secoes)
+['1. seção']
+>>> re.findall(r"^\d\. .+", secoes, re.MULTILINE)
+['1. seção', '2. outra seção', '3. mais seção']</code></pre>
 
-                When you are designing function calls in your own Python libraries, try to make the function always return a consistent data structure. It is often good to design functions that can take arbitrary inputs and process them, but the return value should not switch from a single value to a list, or a list of values to a list of tuples depending on the input. Let re.findall be a lesson!
+            <h4>
+                <pre>re.DOTALL</pre>
+            </h4>
+            <p>Faz o <code>.</code> também capturar quebras de linhas.</p>
+            <p>Em HTML, espaços em branco são "aparados" (<i>trim</i>) e substituídos por apenas um espaço. Portanto, podemos ter um parágrafo com várias quebras de linha. Para capturar um parágrafo específico usando regex podemos fazer:</p>
+            <pre><code class="python-repl">>>> conteudo = """
+... &lt;p>um parágrafo
+... com várias linhas&lt;/p>
+... 
+... &lt;p id='importante'>
+... outro parágrafo
+... com várias linhas&lt;/p>
+... 
+... &lt;p>mais um
+... parágrafo com
+... várias linhas&lt;/p>
+... 
+... &lt;p id='importante'>apenas uma linha&lt;/p>"""
+>>> 
+>>> re.findall(r"&lt;p id='importante'>(.*?)&lt;/p>", conteudo)
+['apenas uma linha']
+>>> re.findall(r"&lt;p id='importante'>(.*?)&lt;/p>", conteudo, re.DOTALL)
+['\noutro parágrafo\ncom várias linhas', 'apenas uma linha']</code></pre>
 
-                The examples in the following interactive session will hopefully clarify the differences:
-                >>> import re
-                >>> re.findall('a.', 'abacadefagah')
-                ['ab', 'ac', 'ad', 'ag', 'ah']
-                >>> re.findall('a(.)', 'abacadefagah')
-                ['b', 'c', 'd', 'g', 'h']
-                >>> re.findall('(a)(.)', 'abacadefagah')
-                [('a', 'b'), ('a', 'c'), ('a', 'd'), ('a', 'g'), ('a', 'h')]
-                >>> re.findall('((a)(.))', 'abacadefagah')
-                [('ab', 'a', 'b'), ('ac', 'a', 'c'), ('ad', 'a', 'd'), ('ag', 'a', g'), ('ah', 'a','h')]
+            <h4>
+                <pre>re.ASCII</pre>
+            </h4>
+            <p>Faz <code>\w</code>, <code>\W</code>, <code>\b</code>, <code>\B</code>, <code>\d</code>, <code>\D</code>, <code>\s</code> e <code>\S</code> corresponderem a somente caracteres ASCII em vez do Unicode completo.</p>
+            <pre><code class="python-repl">>>> re.findall(r"\b\w+\b", "mãe mom 母 אִמָא madre")
+['mãe', 'mom', '母', 'א', 'מ', 'א', 'madre']
+>>> re.findall(r"\b\w+\b", "mãe mom 母 אִמָא madre", re.ASCII)
+['m', 'e', 'mom', 'madre']</code></pre>
+
+            <h4>Combinações</h4>
+            <p>Assim como qualquer enumeração que herda de <a href="../poo/03 Quando objetos são semelhantes.html#flag-enum"><code>Flag</code></a>, você pode combinar as flags de regex com o <code>|</code>. Por exemplo, para listar linhas que começam com vogais:</p>
+            <pre><code class="python-repl">>>> frutas = """Abacate\nBeterraba\nembaúba\nIngá-cipó"""
+>>> re.findall(r"^[aeiou]\w+$", frutas, re.IGNORECASE | re.MULTILINE)
+['Abacate', 'embaúba']</code></pre>
+        </div>
+        <div id="8-2-9-funcoes-regex">
+            <h3>8.2.9 Funções regex</h3>
+
+            <h4>
+                <pre>re.search(pattern, string, flags=0)</pre>
+            </h4>
+            <p>Retorna um <code>Match</code> da primeira ocorrência de <code>pattern</code> em <code>string</code>, ou <code>None</code> se não houver correspondência.</p>
+            <pre><code class="python-repl">>>> re.search(r"\d+","Python 3 was released on Dec 3, 2008")
+&lt;re.Match object; span=(7, 8), match='3'></code></pre>
+
+            <h4>
+                <pre>re.match(pattern, string, flags=0)</pre>
+            </h4>
+            <p>Retorna um <code>Match</code> se <code>pattern</code> ocorrer no início de <code>string</code>, ou <code>None</code> caso contrário.</p>
+            <pre><code class="python-repl">>>> re.match(r"\d+","Python 3 was released on Dec 3, 2008")
+>>> re.match(r"\d+","3nd version of Python was released on Dec 3, 2008")
+&lt;re.Match object; span=(0, 1), match='3'></code></pre>
+            <p>Observe que muitas dessas funções podem ter os mesmos resultados manipulando a expressão regular. Por exemplo, <code>re.match(r"\d+", string)</code> e <code>re.search(r"^\d+", string)</code> são equivalentes.</p>
+            <h4>
+                <pre>re.fullmatch(pattern, string, flags=0)</pre>
+            </h4>
+            <p>Retorna um <code>Match</code> se <code>pattern</code> corresponder à <code>string</code> inteira, ou <code>None</code> caso contrário. O seguinte regex é uma ingênua tentativa de validar emails:</p>
+            <pre><code class="python-repl">>>> pattern = r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}"
+>>> email1 = "no-reply@ifms"
+>>> email2 = "no-reply@ifms.edu.br"
+>>> re.fullmatch(pattern, email1)
+>>> re.fullmatch(pattern, email2)
+&lt;re.Match object; span=(0, 20), match='no-reply@ifms.edu.br'></code></pre>
+            <p>Observe as diferenças e semelhanças entre essas funções. Por exemplo, as seguintes linhas são equivalentes:</p>
+            <pre><code>re.fullmatch(pattern, string)
+re.match(pattern + r"$", string)
+re.search(r"^" + pattern + r"$", string)</code></pre>
+
+            <h4>
+                <pre>re.sub(pattern, repl, string, count=0, flags=0)</pre>
+            </h4>
+            <p>Retorna a string obtida substituindo até <code>count</code> ocorrências de <code>pattern</code> em <code>string</code> por <code>repl</code>. Se <code>count</code> for zero ou não informado, substitui todas as ocorrências. <code>pattern</code> pode ser uma <code>str</code> ou um objeto <code>Pattern</code>. <code>repl</code> pode ser uma <code>str</code> ou uma função.</p>
+            <p>Se <code>repl</code> for string, a barra invertida só é interpretada para sequências de escape como <code>\n</code> e referências como <code>\2</code>. Os demais caracteres são interpretados literalmente.</p>
+            <p>Para demonstrar o uso de <code>re.sub</code>, considere um arquivo <i>MarkDown</i>, onde texto em negrito é envolto por asteriscos. Para converter esse arquivo em HTML, precisaríamos trocar os asteriscos pelo elemento <code>b</code>:</p>
+            <pre><code class="python-repl">>>> print(re.sub(r"\*(.*?)\*", r"&lt;b>\1&lt;\\b>", "Os *tipos primitivos* são os mais básicos."))
+Os &lt;b>tipos primitivos&lt;\b> são os mais básicos.</code></pre>
+            <p>Para limitar a quantidade de substituições, passe um argumento a <code>count</code>:</p>
+            <pre><code class="python-repl">>>> re.sub("ch", "x", "Deichei o lucho, dei tchau para o capricho.", 2)
+'Deixei o luxo, dei tchau para o capricho.'</code></pre>
+            <p>Para demonstrar o use de uma função como argumento para <code>repl</code>, considere um relatório técnico em que foi usada a medida em milhas, mas deveria ter sido usada em quilômetros. Vamos converter todos os números de milhas para quilômetros.</p>
+            <pre><code>import re
+
+def miles2km(match):
+    num = float(match.group(1))
+    return f"{num * 1.60934:.2f} quilômetro"
+
+relatorio = "A análise revelou uma média de 300 milhas de autonomia por carga, representando um aumento de 25% em relação a 250 milhas do último teste."
+pattern = r"(\d+\.?\d*)( milha)"
+print(re.sub(pattern, miles2km, relatorio))
+
+# A análise revelou uma média de 482.80 quilômetros de autonomia por carga, representando um aumento de 25% em relação a 402.33 quilômetros do último teste.</code></pre>
+            <p>A função passada como argumento deve ter um parâmetro, que é o objeto <code>Match</code>, e deve retornar a string substituta.</p>
+            <p>Como o <code>*</code> também é capaz de capturar strings vazia, podemos substituir strings vazia:</p>
+            <pre><code class="python-repl">>>> re.sub('x*', '-', 'abxxxc')
+'-a-b--c-'</code></pre>
+            <p>Os hífens se referem, respectivamente, aos: string vazia antes do <code>a</code>, string vazia entre <code>a</code> e <code>b</code>, sequência <code>xxx</code>, string vazia entre o último <code>x</code> e <code>c</code>, string vazia depois de <code>c</code>.</p>
+
+            <h4>
+                <pre>re.findall(pattern, string, flags=0)</pre>
+            </h4>
+            <p>A função <code>re.findall</code> possui uma API um tanto quanto confusa. O resultado depende do número de grupos de captura no padrão. Se não houver grupos, retorna uma lista de strings que correspondem ao padrão inteiro. Se houver exatamente um grupo, retorna uma lista de strings que correspondem a esse grupo. Se houver vários grupos, retorne uma lista de tuplas de strings correspondentes a cada grupo. Grupos de não-captura não afetam a forma do resultado.</p>
+            <p>O seguinte exemplo ilustra as diferenças:</p>
+            <pre><code class="python-repl">>>> re.findall('a.', 'abacadefagah')
+['ab', 'ac', 'ad', 'ag', 'ah']
+>>> re.findall('a(.)', 'abacadefagah')
+['b', 'c', 'd', 'g', 'h']
+>>> re.findall('(a)(.)', 'abacadefagah')
+[('a', 'b'), ('a', 'c'), ('a', 'd'), ('a', 'g'), ('a', 'h')]
+>>> re.findall('((a)(.))', 'abacadefagah')
+[('ab', 'a', 'b'), ('ac', 'a', 'c'), ('ad', 'a', 'd'), ('ag', 'a', g'), ('ah', 'a','h')]</code></pre>
+
+            <div class="info">
+                <p>Ao projetar funções em suas próprias bibliotecas, tente fazer com que a função sempre retorne uma estrutura de dados consistente. Você pode projetar funções que receber parâmetros arbitrárioso, mas o retorno não deve alternar entre um único valor e uma lista, ou uma lista de valores e uma lista de tuplas, dependendo dos argumentos. Que <code>re.findall</code> fique de lição!</p>
             </div>
 
-            <div id="conclusao">
-                <h4>Conclusão</h4>
-                (colocar com minhas próprias palavras) The key thing to understand is that regex is about knowing "what" you can do, not necessarily "how" to do it. 15 years regex experience, and I still have to look up rules in Google, and then use a regex tester. But, as long as you know what can be done, finding the how is trivial.
-            </div>
-            <div id="referencias">
-                <h4>Referências</h4>
-                Basicamente a aula foi extraída desses dois: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet https://www.pythontutorial.net/python-regex/
+            <h4>
+                <pre>re.finditer(pattern, string, flags=0)</pre>
+            </h4>
+            <p>Retorna um iterador de objetos <code>Match</code>. Já falamos o que tínhamos para falar sobre essa função nas seções anteriores.</p>
 
-                Muito bom para treinar tuas habilidades regex: http://regextutorials.com/index.html
-
-                Vem com ótimos exemplos e exercícios https://learnbyexample.github.io/py_regular_expressions/groupings-and-backreferences.html
-
-                Conteúdo detalhado sobre regex: https://www.regular-expressions.info/lookaround.html
-                Conteúdo detalhado sobre regex: https://www.regular-expressions.info/lookaround.html
-
-                Bom para testar regex: https://regex101.com/
-                Bom para testar regex: https://regex101.com/
-            </div> -->
-    </div>
-
-    <!-- exercícios de regex
-        no portugues palavras no plural terminam com s. regex que lista todas as palavras que terminam com s em uma string.
-
-The following example uses a backreference to find words that have at least one consecutive repeated character:
-import re
+            <h4>
+                <pre>re.split(pattern, string, maxsplit=0, flags=0)</pre>
+            </h4>
+            <p>Retorna uma lista com até <code>maxsplit</code> cortes em <code>string</code>, separados por <code>pattern</code>. Se usar grupos de captura em <code>pattern</code>, esses também serão itens da lista. Se <code>maxsplit</code> for zero ou não informado, corta a string o máximo possível.</p>
+            <pre><code class="python-repl">>>> re.split(r'\W+', 'Words; words; words')
+['Words', 'words', 'words']
+>>> re.split(r'(\W+)', 'Words; words; words')
+['Words', '; ', 'words', '; ', 'words']
+>>> re.split(r'\W+', 'Words; words; words', 1)
+['Words', 'words; words']
+>>> re.split('[a-f]+', '0a3B9', flags=re.IGNORECASE)
+['0', '3', '9']</code></pre>
+            <p>Se o padrão corresponder ao início da string, o resultado começará com uma string vazia. O mesmo vale para o final da string:</p>
+            <pre><code class="python-repl">>>> re.split(r'\W+', '; Words. words: words!')
+['', 'Words', 'words', 'words', '']
+>>> re.split(r'(\W+)', '; Words. words: words!')
+['', '; ', 'Words', '. ', 'words', ': ', 'words', '!', '']</code></pre>
+            <p>Se o padrão capturar strings vazias, elas também são cortadas:</p>
+            <pre><code class="python-repl">>>> re.split('x*', 'abxd')     
+['', 'a', 'b', '', 'd', '']
+>>> re.split('(x*)', 'abxd')        
+['', '', 'a', '', 'b', 'x', '', '', 'd', '', '']</code></pre>
+        </div>
+        <div id="8-2-10-conclusao">
+            <h3>Conclusão</h3>
+            <p>Palavras do autor: <i>O principal a se saber sobre expressões regulares é "o que" você pode fazer, não necessariamente o "como" fazê-lo. Com 15 anos de experiência em expressões regulares, ainda preciso buscar regras no Google e usar um testador de regex. Mas, desde que você saiba o que pode ser feito, encontrar o "como" é trivial.</i></p>
+        </div>
+        <div id="8-2-11-referencias">
+            <h3>Referências</h3>
+            <p>Esse material foi baseado essencialmente desses sites:
+            <ul>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet</a></li>
+                <li><a href="https://www.pythontutorial.net/python-regex/">https://www.pythontutorial.net/python-regex/</a></p>
+                </li>
+            </ul>
+            <p>Esse site é muito bom para treinar suas habilidades regex: <a href="http://regextutorials.com/index.html">http://regextutorials.com/index.html</a>.</p>
+            <p>Esse site tem ótimos exemplos e exercícios: <a href="https://learnbyexample.github.io/py_regular_expressions/groupings-and-backreferences.html">https://learnbyexample.github.io/py_regular_expressions/groupings-and-backreferences.html</a>.</p>
+            <p>Para um conteúdo aprofundado sobre regex: <a href="https://www.regular-expressions.info/lookaround.html">https://www.regular-expressions.info/lookaround.html</a>.</p>
+            <p>Um dos sites mais famosos para testar suas expressões regulares: <a href="https://regex101.com/">https://regex101.com/</a>.</p>
+        </div>
+        <div id="8-2-12-exercicios">
+            <h3>Exercícios</h3>
+            <ol class="excs">
+                <li class="no-mark">Implemente uma função para cada exercício.</li>
+                <li>Na língua portuguesa, palavras no plural terminam com “s”. Receber uma string e retornar uma lista com as palavras que terminam com “s”.</li>
+                <li>Receber uma string e retornar uma lista com as palavras que contém duas letras repetidas consecutivas, como “correr” ou “assado”.</li>
+                <!-- import re
 words = ['apple', 'orange', 'strawberry']
 pattern = r'\b\w*(\w)\1\w*\b'
 results = [w for w in words if re.search(pattern, w)]
-print(results)
-
-Is this string a valid URL?
-What is the date and time of all warning messages in a log file?
-Which users in /etc/passwd are in a given group?
-What username and document were requested by the URL a visitor typed?
-
-
-
--->
+print(results) -->
+                <li>Receber uma string com várias linhas e retornar uma lista com todas as datas no formato dd/mm/aaaa.</li>
+                <!-- <li>Receber uma string com várias linhas e retornar uma string substituindo as datas no formato dd/mm/aaaa para aaaa-mm-dd.</li> -->
+                <li>Receber uma string e retornar <code>True</code> caso seja um horário no formato “HH:MM” válido, ou <code>False</code> caso contrário. Usar apenas uma expressão regular que faça a validação completa.</li>
+                <!-- ^(?:[01]\d|2[0-3]):(?:[0-5]\d)$ -->
+                <li>Receber uma string, que representa uma URL, e retornar um dicionário com as variáveis e seus valores extraídos da URL, ambas como string. Por exemplo, para a URL <code>https://www.exemplo.com/produto?id=123&nome=produto1&categoria=eletronicos</code>, a função deve retornar o dicionário <code>{"id":"123", "nome":"produto1", "categoria":"eletronicos"}</code>.</li>
+                <li>Receber uma string contendo informações sobre filmes e retornar uma lista apenas com os títulos dos filmes produzidos antes de 1990. Exemplo, para a string:
+                    <pre>1 The Shawshank Redemption (1994)
+2 The Godfather (1972)
+3 The Godfather: Part II (1974)
+4 Pulp Fiction (1994)
+5 The Good, the Bad and the Ugly (1966)
+6 The Dark Knight (2008)
+7 12 Angry Men (1957)
+8 Schindler's List (1993)
+9 The Lord of the Rings: The Return of the King (2003)
+10 Fight Club (1999)</pre>
+                    <p>Retornar a seguinte lista:</p>
+                    <pre>['The Godfather', 'The Godfather: Part II', 'The Good, the Bad and the Ugly', '12 Angry Men']</pre>
+                </li>
+                <li>Receber uma string e retornar outra string deixando apenas dois dígitos após a casa decimal de cada número com ponto flutuante. Exemplo, para a string:
+                    <pre>1 Euro = 1.351299 US Dollar
+British Pound = 1.614873 US Dollar
+Australian Dollar = 0.916063 US Dollar</pre>
+                    <p>Retornar a string:</p>
+                    <pre>1 Euro = 1.35 US Dollar
+British Pound = 1.61 US Dollar
+Australian Dollar = 0.91 US Dollar</pre>
+                </li>
+                <li>Receber uma lista de strings representando URLs e retornar uma lista apenas com os <i>hostnames</i> das URLs de protocolo HTTPS. Exemplo, para a lista:
+                    <pre>['https://www.google.com?q=regexp', 'http://example.com', 'https://pedrosiqueira.github.io/ifmsjs/alg/']</pre>
+                    <p>Retornar a lista:</p>
+                    <pre>['google.com', 'pedrosiqueira.github.io']</pre>
+                </li>
+                <li>Receber uma string de várias linhas com o tempo entre parênteses no final da linha e retornar uma string com o tempo no início da linha, sem parênteses. Exemplo, para a string:
+                    <pre>Cartola - Corra e Olhe o Céu (0:00)
+Chico Buarque - Construção (3:25)
+Elis Regina & Adoniran Barbosa - Tiro ao álvaro (9:47)
+Cartola - Corra e Olhe o Céu (13:12)</pre>
+                    <p>Retornar a string:</p>
+                    <pre>0:00 Cartola - Corra e Olhe o Céu
+3:25 Chico Buarque - Construção
+9:47 Elis Regina & Adoniran Barbosa - Tiro ao álvaro
+13:12 Cartola - Corra e Olhe o Céu</pre>
+                </li>
+                <li>Python f-strings começam com <code>f</code> antes das aspas, e variáveis dentro da string ficam entre chaves. Javascript <i>template strings</i> são similares, mas não começam com <code>f</code>, as aspas são trocadas por acentos graves, e antes das chaves há um cifrão. Receber uma string que contenha uma f-string do Python (não esquecer de escapar os devidos caracteres), e retornar a string no formato template string do Javascript. Exemplo, para a seguinte string:</li>
+                <pre>f"{msg}, {nome}!"</pre>
+                <p>Retornar a string:</p>
+                <pre>`${msg}, ${nome}!`</pre>
+            </ol>
+        </div>
+    </div>

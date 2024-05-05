@@ -120,76 +120,155 @@
 
 <div id="8-strings-and-serialization">
     <h1>8 Strings e serialização</h1>
-    <div id="regular-expressions">
-        <div id="matching-patterns">
-            <h3>8.2.1 Padrões de correspondência</h3>
-            <!-- 
-
-^ início da linha
-$ final da linha
-
-'helpo world' matches pattern 'hel.o world'
-'hel o world' matches pattern 'hel.o world'
-'helo world' does not match pattern 'hel.o world'
-
-'hello world' matches pattern 'hel[lp]o world'
-'helpo world' matches pattern 'hel[lp]o world'
-'helPo world' does not match pattern 'hel[lp]o world'
-
-'hello world' does not match pattern 'hello [a-z] world'
-'hello b world' matches pattern 'hello [a-z] world'
-'hello B world' matches pattern 'hello [a-zA-Z] world'
-'hello 2 world' matches pattern 'hello [a-zA-Z0-9] world'
-
-'hello' matches pattern 'hel*o'
-'heo' matches pattern 'hel*o'
-'helllllo' matches pattern 'hel*o'
-
-'A string.' matches pattern '[A-Z][a-z]* [a-z]*\.'
-'No .' matches pattern '[A-Z][a-z]* [a-z]*\.'
-'' matches pattern '[a-z]*.*'
-
-'0.4' matches pattern '\d+\.\d+'
-'1.002' matches pattern '\d+\.\d+'
-'1.' does not match pattern '\d+\.\d+'
-
-'1%' matches pattern '\d?\d%'
-'99%' matches pattern '\d?\d%'
-'999%' does not match pattern '\d?\d%'
-
-# escapando caracteres
-
-'0.05' matches pattern '0\.[0-9][0-9]'
-'005' does not match pattern '0\.[0-9][0-9]'
-'0,05' does not match pattern '0\.[0-9][0-9]'
-
-'abccc' matches pattern 'abc{3}'
-'abccc' does not match pattern '(abc){3}'
-'abcabcabc' matches pattern '(abc){3}'
-
-Combined with complex patterns, this grouping feature greatly expands our patternmatching repertoire. Here's a regular expression that matches simple English sentences:
-'Eat.' matches pattern '[A-Z][a-z]*( [a-z]+)*\.$'
-'Eat more good food.' matches pattern '[A-Z][a-z]*( [a-z]+)*\.$'
-'A good meal.' matches pattern '[A-Z][a-z]*( [a-z]+)*\.$'
-             -->
-        </div>
-    </div>
     <div id="filesystem-paths">
         <h2>8.3 Caminhos de sistema de arquivos</h2>
-    </div>
-    <div id="serializing-objects">
-        <h2>8.4 Serializando objetos</h2>
-        <div id="customizing-pickles">
-            <h3>8.4.1 Personalizando</h3>
+        <p>Um <b>sistema de arquivos</b> é uma maneira de mapear os bits e bytes armazenados no disco para a abstração lógica de arquivos e pastas (ou diretórios). Um <b>caminho</b> é a localização de um arquivo ou diretório dentro da estrutura hierárquica do sistema de arquivos. Um <b>caminho absoluto</b> contém todos os diretórios desde o diretório raiz que levam a um arquivo ou diretório específico. </p>
+        <p>Programas manipulam o sistema de arquivos por meio de uma interface fornecida pelo sistema operacional. O Python fornece os módulos <code>os</code> e <code>pathlib</code> para se comunicar com o sistema de arquivos, independentemente da interface implementada pelos diferentes sistemas operacionais. O módulo <code>os</code> possui um paradigma estruturado, enquanto que <code>pathlib</code>, mais recente, possui um paradigma mais orientado a objetos. Um <b>caminho relativo</b> começa a partir do diretório atual (ou de outro diretório de referência), geralmente o diretório onde o aplicativo foi executado. Um <b>separador</b> é um caractere utilizado para separar diretórios e arquivos no caminho. No Windows, o separador é a barra invertida, enquanto que em sistemas Unix/Linux, é a barra.</p>
+
+        <p>Para explorar o sistema de arquivos com Python, considere que exista a seguinte estrutura de pastas e arquivos, dentro da pasta <i>home</i> do usuário:</p>
+        <pre>tmp/
+├─ pasta1/
+|  └─ arquivo1.1.txt
+├─ pasta2/
+|  ├─ pasta2.1/
+|  |  └─ arquivo2.1.txt
+|  ├─ arquivo2.1.txt
+|  └─ arquivo2.2.txt|
+├─ arquivo0.1.txt
+└─ arquivo0.2.txt</pre>
+        <p>Apenas para ilustrar, considere que o conteúdo de cada arquivo seja o seu nome.</p>
+
+        <div id="8-3-1-paths">
+            <h3>Objetos <code>Path</code></h3>
+            <p>Um objeto <code>Path</code>, do módulo <code>pathlib</code>, representa um caminho, seja para um arquivo ou diretório, existente ou inexistente. A seguir, os principais métodos, atributoes e operações de <code>Path</code>.</p>
+
+            <h4>
+                <pre>Path(*segments)</pre>
+            </h4>
+            <p>Construtor de um <code>Path</code>. Cada item de <code>*segments</code> pode ser uma string ou um objeto <code>Path</code>, que compõe um segmento do caminho.</p>
+            <pre><code>from pathlib import Path
+
+pasta_pai = Path("foo")
+pasta_interna = Path("bar", "baz")
+arquivo = Path(pasta_pai, pasta_interna, "algum/caminho", "setup.py")
+print(arquivo) # foo\bar\baz\algum\caminho\setup.py</code></pre>
+
+            <p>Você pode usar a barra comum como separador em uma string com vários segmentos, mesmo que esteja no Windows. Mas não use a barra invertida, mesmo no Windows. Ao imprimir um <code>Path</code>, o separador utilizado reflete o sistema operacional em uso, que no exemplo anterior, foi Windows.</p>
+            <p>Se <code>*segment</code> for vazio, a pasta atual é assumida, representada por um <code>.</code>.</p>
+            <table class="custom">
+                <thead>
+                    <tr>
+                        <th>Sistema Windows</th>
+                        <th>Sistema Linux</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre>>>> Path()
+WindowsPath('.')</pre>
+                        </td>
+                        <td>
+                            <pre>>>> Path()
+PosixPath('.')</pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Ao instanciar um objeto <code>Path</code>, na verdade, o Python identifica seu sistema operacional e instancia o respectivo objeto que herda de <code>Path</code>, seja <code>WindowsPath</code> ou <code>PosixPath</code>.</p>
+
+            <p>Se um segmento for um caminho absoluto, todos os segmentos anteriores são ignorados.</p>
+            <table class="custom">
+                <thead>
+                    <tr>
+                        <th>Sistema Windows</th>
+                        <th>Sistema Linux</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre>>>> PureWindowsPath('c:/Windows', 'd:bar')
+PureWindowsPath('d:bar')</pre>
+                        </td>
+                        <td>
+                            <pre>>>> PurePath('/etc', '/usr', 'lib64')
+PurePosixPath('/usr/lib64')</pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Barras excedentes e pontos individuais (<code>.</code>) desnecessários são descartados, mas pontos duplos (<code>..</code>) e barras duplas iniciais não são, pois isso mudaria o significado de um caminho por vários motivos (por exemplo, links simbólicos, caminhos UNC):</p>
+            <pre><code class="python-repl">>>> Path('foo//bar')
+PosixPath('foo/bar')
+>>> Path('//foo/bar')
+PosixPath('//foo/bar')
+>>> Path('foo/./bar')
+PosixPath('foo/bar')
+>>> Path('foo/../bar')
+PosixPath('foo/../bar')</code></pre>
+            <p>(uma abordagem ingênua tornaria <code>Path('foo/../bar')</code> equivalente a <code>PosixPath('bar')</code>, o que seria errado caso <code>foo</code> fosse um link simbólico para outra pasta).</p>
+
+            <h4>
+                <pre>/</pre>
+            </h4>
+            <p>O operador <code>/</code>, quando um dos operandos é <code>Path</code>, atua como um "construtor" de <code>Path</code>, como se fosse uma concatenação em strings.</p>
+            <pre><code class="python repl">>>> p = Path('/etc')
+>>> p
+PosixPath('/etc')
+>>> p / 'init.d' / 'apache2'
+PosixPath('/etc/init.d/apache2')
+>>> q = Path('bin')
+>>> '/usr' / q
+PosixPath('/usr/bin')
+>>> p / '/an_absolute_path'
+PosixPath('/an_absolute_path')</code></pre>
+
+            <h4>
+                <pre>Path.parts</pre>
+            </h4>
+            <p>Tupla contendo cada um dos segmentos do caminho.</p>
+            <pre><code class="python-repl">>>> p = Path('/usr/bin/python3')
+>>> p.parts
+('/', 'usr', 'bin', 'python3')</code></pre>
+
+            <h4>
+                <pre>Path.parents</pre>
+            </h4>
+            <p>Sequência imutável de cada um dos caminhos ancestrais.</p>
+            <pre><code class="python-repl">>>> p = Path("/bisavo/avo/pai/filho.py")
+>>> p.parents[0], p.parents[1], p.parents[2], p.parents[3]
+(PosixPath('/bisavo/avo/pai'), PosixPath('/bisavo/avo'), PosixPath('/bisavo'), PosixPath('/'))</code></pre>
+
+            <h4>
+                <pre>Path.parent</pre>
+            </h4>
+            <p>Equivalente a <code>Parent.parents[0]</code>.</p>
+            <pre><code class="python-repl">>>> p = Path('/a/b/c/d')
+>>> p.parent, p.parents[0]
+(PosixPath('/a/b/c'), PosixPath('/a/b/c'))</code></pre>
+
+            <p>Objetos <code>Path</code> são simplesmente strings encapsuladas. Muitas de suas operações apenas simulam caminhos de arquivos, mas não acessam o sistema de arquivos, o que podem levar a comportamentos como esse:</p>
+            <pre><code class="python-repl">>>> p = Path('foo/..')
+>>> p.parent
+PosixPath('foo')</code></pre>
+            <p>Para de fato caminhar pelo sistema de arquivos, use métodos apropriados, como <code>Path.resolve()</code>, que veremos adiante.</p>
+
+            <h4><pre>Path.name</pre></h4>
+            <p>parei aqui</p>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+            <pre><code class="python-repl"></code></pre>
+
         </div>
-        <div id="serializing-web-objects">
-            <h3>8.4.2 Serializando objetos web</h3>
-        </div>
-    </div>
-    <div id="case-study">
-        <h2>8.5 Estudo de caso</h2>
-    </div>
-    <div id="exercises">
-        <h2>8.6 Exercícios</h2>
+        <!-- falar sobre https://realpython.com/working-with-files-in-python/#extracting-zip-archives -->
     </div>
 </div>
