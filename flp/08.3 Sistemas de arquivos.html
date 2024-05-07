@@ -51,14 +51,20 @@
         table pre {
             /* Remove a margem interna de tags pre dentro de tabelas */
             margin: 0;
-            padding: 0;
-            text-align: left;
+            text-align: left !important;
         }
 
         td:has(pre) {
             /* tags pre dentro de tabela são alinhadas no topo à esquerda */
             vertical-align: top;
         }
+
+        code:not(pre code) {
+            /* tags code não filhas de pre */
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+        }
+
 
         table.align-left th,
         table.align-left td {
@@ -122,25 +128,28 @@
     <h1>8 Strings e serialização</h1>
     <div id="filesystem-paths">
         <h2>8.3 Caminhos de sistema de arquivos</h2>
-        <p>Um <b>sistema de arquivos</b> é uma maneira de mapear os bits e bytes armazenados no disco para a abstração lógica de arquivos e pastas (ou diretórios). Um <b>caminho</b> é a localização de um arquivo ou diretório dentro da estrutura hierárquica do sistema de arquivos. Um <b>caminho absoluto</b> contém todos os diretórios desde o diretório raiz que levam a um arquivo ou diretório específico. </p>
-        <p>Programas manipulam o sistema de arquivos por meio de uma interface fornecida pelo sistema operacional. O Python fornece os módulos <code>os</code> e <code>pathlib</code> para se comunicar com o sistema de arquivos, independentemente da interface implementada pelos diferentes sistemas operacionais. O módulo <code>os</code> possui um paradigma estruturado, enquanto que <code>pathlib</code>, mais recente, possui um paradigma mais orientado a objetos. Um <b>caminho relativo</b> começa a partir do diretório atual (ou de outro diretório de referência), geralmente o diretório onde o aplicativo foi executado. Um <b>separador</b> é um caractere utilizado para separar diretórios e arquivos no caminho. No Windows, o separador é a barra invertida, enquanto que em sistemas Unix/Linux, é a barra.</p>
+        <p>Um <b>sistema de arquivos</b> é uma maneira de mapear os bits e bytes armazenados no disco para a abstração lógica de arquivos e pastas (ou diretórios). Um <b>caminho</b> é a localização de um arquivo ou diretório dentro da estrutura hierárquica do sistema de arquivos. Um <b>caminho absoluto</b> contém todos os diretórios desde o diretório raiz que levam a um arquivo ou diretório específico.</p>
+        <p>Programas manipulam o sistema de arquivos por meio de uma interface fornecida pelo sistema operacional. O Python fornece os módulos <code>os</code> e <code>pathlib</code> para se comunicar com o sistema de arquivos, independentemente da interface implementada pelos diferentes sistemas operacionais. O módulo <code>os</code> possui um paradigma estruturado, enquanto que <code>pathlib</code>, mais recente, possui um paradigma mais orientado a objetos. Um <b>caminho relativo</b> começa a partir do diretório atual (ou de outro diretório de referência), geralmente o diretório onde o aplicativo foi executado. Um <b>separador</b> é um caractere utilizado para separar diretórios e arquivos no caminho. No Windows, o separador é a barra invertida, enquanto que em sistemas Unix/Linux, é a barra. A pasta atual é representada pelo <code>.</code>, e a pasta pai, pelo <code>..</code>.</p>
 
-        <p>Para explorar o sistema de arquivos com Python, considere que exista a seguinte estrutura de pastas e arquivos, dentro da pasta <i>home</i> do usuário:</p>
+        <p id="estrutura-exemplo">Para explorar o sistema de arquivos com Python, considere que exista a seguinte estrutura de pastas e arquivos, dentro da pasta do usuário, conhecida como pasta <i>home</i>:</p>
         <pre>tmp/
 ├─ pasta1/
 |  └─ arquivo1.1.txt
 ├─ pasta2/
 |  ├─ pasta2.1/
-|  |  └─ arquivo2.1.txt
+|  |  ├─ pasta2.1.1/
+|  |  |  ├─ arquivo2.1.1.1.txt
+|  |  |  └─ arquivo2.1.1.2.txt
+|  |  └─ arquivo2.1.1.txt
 |  ├─ arquivo2.1.txt
-|  └─ arquivo2.2.txt|
+|  └─ arquivo2.2.txt
 ├─ arquivo0.1.txt
 └─ arquivo0.2.txt</pre>
         <p>Apenas para ilustrar, considere que o conteúdo de cada arquivo seja o seu nome.</p>
 
-        <div id="8-3-1-paths">
-            <h3>Objetos <code>Path</code></h3>
-            <p>Um objeto <code>Path</code>, do módulo <code>pathlib</code>, representa um caminho, seja para um arquivo ou diretório, existente ou inexistente. A seguir, os principais métodos, atributoes e operações de <code>Path</code>.</p>
+        <div id="8-3-1-purepath">
+            <h3>Objetos <code>PurePath</code></h3>
+            <p>Um objeto <code>PurePath</code>, do módulo <code>pathlib</code>, representa um caminho, seja para um arquivo ou diretório, existente ou inexistente. Objetos <code>PurePath</code> são simplesmente strings encapsuladas. Suas operações apenas manipulam strings, mas não acessam o sistema de arquivos.</p>
 
             <h4>
                 <pre>Path(*segments)</pre>
@@ -249,18 +258,270 @@ PosixPath('/an_absolute_path')</code></pre>
 >>> p.parent, p.parents[0]
 (PosixPath('/a/b/c'), PosixPath('/a/b/c'))</code></pre>
 
-            <p>Objetos <code>Path</code> são simplesmente strings encapsuladas. Muitas de suas operações apenas simulam caminhos de arquivos, mas não acessam o sistema de arquivos, o que podem levar a comportamentos como esse:</p>
+            <p>Como os métodos de <code>PurePath</code> apenas manipulam strings, mas não acessam o sistema de arquivos, eles podem levar a comportamentos como esse:</p>
             <pre><code class="python-repl">>>> p = Path('foo/..')
 >>> p.parent
 PosixPath('foo')</code></pre>
             <p>Para de fato caminhar pelo sistema de arquivos, use métodos apropriados, como <code>Path.resolve()</code>, que veremos adiante.</p>
 
-            <h4><pre>Path.name</pre></h4>
-            <p>parei aqui</p>
-            <pre><code class="python-repl"></code></pre>
-            <pre><code class="python-repl"></code></pre>
-            <pre><code class="python-repl"></code></pre>
-            <pre><code class="python-repl"></code></pre>
+            <h4>
+                <pre>Path.name</pre>
+            </h4>
+            <p>O último segmento do caminho, isto é, o nome do arquivo ou pasta.</p>
+            <pre><code class="python-repl">>>> Path('my/library/setup.py').name
+'setup.py'</code></pre>
+
+            <h4>
+                <pre>Path.suffix</pre>
+            </h4>
+            <p>A extensão do arquivo, se houver.</p>
+            <pre><code class="python-repl">>>> Path('my/library/setup.py').name
+'setup.py'
+>>> Path('my/library/setup.py').suffix
+'.py'
+>>> Path('my/library.tar.gz').suffix
+'.gz'
+>>> Path('my/library').suffix
+''</code></pre>
+
+            <h4>
+                <pre>Path.suffixes</pre>
+            </h4>
+            <p>Uma lista com as extensões do arquivo.</p>
+            <pre><code class="python-repl">>>> Path('my/library.tar.gar').suffixes
+['.tar', '.gar']
+>>> Path('my/library.tar.gz').suffixes
+['.tar', '.gz']
+>>> Path('my/library').suffixes
+[]</code></pre>
+
+            <h4>
+                <pre>Path.stem</pre>
+            </h4>
+            <p>O último segmento do caminho, sem a extensão.</p>
+            <pre><code class="python-repl">>>> Path('my/library/setup.py').stem
+'setup'
+>>> Path('my/library.tar.gz').stem
+'library.tar'
+>>> Path('my/library').stem
+'library'</code></pre>
+
+            <!-- <h4>
+                <pre>Path.match(pattern, *, case_sensitive=None)</pre>
+            </h4>
+            <p>Procura <code>pattern</code> no caminho, sendo <code>pattern</code> um padrão <i>glob</i>, e não regex.</p> -->
+
+            <h4>
+                <pre>Path.with_name(name)</pre>
+            </h4>
+            <p>Retorna um novo caminho com o nome alterado. Se o caminho original não tiver nome, <code>ValueError</code> é lançado:</p>
+            <pre><code class="python-repl">>>> p = Path('c:/Downloads/pathlib.tar.gz')
+>>> p.with_name('setup.py')
+WindowsPath('c:/Downloads/setup.py')
+>>> p = Path('c:/')            
+>>> p.with_name('setup.py')
+ValueError: WindowsPath('c:/') has an empty name</code></pre>
+
+            <h4>
+                <pre>Path.with_stem(stem)</pre>
+            </h4>
+            <p>Retorna um novo caminho com o nome sem extensão alterado. Se o caminho original não tiver nome, <code>ValueError</code> é lançado:</p>
+            <pre><code class="python-repl">>>> p = Path('c:/Downloads/draft.txt')
+>>> p.with_stem('final')
+WindowsPath('c:/Downloads/final.txt')
+>>> p = Path('c:/Downloads/pathlib.tar.gz')
+>>> p.with_stem('lib')
+WindowsPath('c:/Downloads/lib.gz')
+>>> p = Path('c:/')
+>>> p.with_stem('')
+ValueError: WindowsPath('c:/') has an empty name</code></pre>
+
+            <h4>
+                <pre>Path.with_suffix(suffix)</pre>
+            </h4>
+            <p>Retorna um novo caminho com o sufixo alterado. Se o caminho original não tiver um sufixo, o novo sufixo será anexado. Se o sufixo for uma string vazia, o sufixo original será removido:</p>
+            <pre><code class="python-repl">>>> p = Path('c:/Downloads/pathlib.tar.gz')
+>>> p.with_suffix('.bz2')
+WindowsPath('c:/Downloads/pathlib.tar.bz2')
+>>> p = Path('README')
+>>> p.with_suffix('.txt')
+WindowsPath('README.txt')
+>>> p = Path('README.txt')
+>>> p.with_suffix('')
+WindowsPath('README')</code></pre>
+
+        </div>
+        <div id="8-3-2-path">
+            <h3>Objetos <code>Path</code></h3>
+            <p>Objetos <code>Path</code> herdam de <code>PurePath</code>. Além das operações de <code>PurePath</code>, eles também conseguem acessar o sistema de arquivos.</p>
+            <p>Considere que os próximos scripts sejam executados a partir da pasta <code>tmp</code> <a href="#estrutura-exemplo">referida acima</a>.</p>
+            <h4>
+                <pre>Path.cwd()</pre>
+            </h4>
+            <p>Retorna um novo objeto <code>Path</code> representando a pasta atual.</p>
+            <pre><code class="python-repl">>>> Path.cwd()
+WindowsPath('C:/Users/siqueira/tmp')</code></pre>
+            <p>Minha pasta de usuário fica em <code>C:/Users/siqueira</code>, e a pasta <code>tmp</code> está dentro da minha pasta de usuário.</p>
+
+            <h4>
+                <pre>Path.home()</pre>
+            </h4>
+            <p>Retorna um novo <code>Path</code> representando a pasta do usuário.</p>
+            <pre><code class="python-repl">>>> Path.home()
+WindowsPath('C:/Users/siqueira')</code></pre>
+
+            <h4>
+                <pre>Path.stat()</pre>
+            </h4>
+            <p>Retorna um objeto <a href="https://docs.python.org/3/library/os.html#os.stat_result"><code>os.stat_result</code></a>, contendo informações sobre esse caminho.</p>
+            <pre><code class="python-repl">>>> p = Path('arquivo0.1.txt')
+>>> p.stat().st_size
+10
+>>> p.stat().st_mtime
+1714930648.787982</code></pre>
+            <p>O atributo <code>os.stat_result.st_mtime</code> é o tempo em segundos desde 01/01/1970, usado pelos computadores. Mas podemos convertê-lo para uma data:</p>
+            <pre><code class="python-repl">>>> from datetime import datetime
+>>> p = Path('arquivo0.1.txt')
+>>> ultima_modificacao = p.stat().st_mtime       
+>>> datetime.fromtimestamp(ultima_modificacao) 
+datetime.datetime(2024, 5, 6, 14, 37, 28, 787982)</code></pre>
+
+            <h4>
+                <pre>Path.exists()</pre>
+            </h4>
+            <p>Retorna <code>True</code> se o caminho aponta para um arquivo ou pasta existente.</p>
+            <pre><code class="python-repl">>>> Path('pasta1').exists()
+True
+>>> Path('pasta1/arquivo0.1.txt').exists()
+False</code></pre>
+            <h4>
+                <pre>Path.glob(pattern, *, case_sensitive=None)</pre>
+            </h4>
+            <p>Procura por <code>pattern</code> na pasta representada por esse caminho, retornando um iterador. Usa o padrão glob, explicado abaixo.</p>
+            <p>Para listar todos os arquivos <code>.txt</code> da pasta atual:</p>
+            <pre><code class="python-repl">>>> current = Path("tmp")
+>>> matched = current.glob("*.txt")
+>>> sorted_list = sorted(matched)
+>>> sorted_list
+[WindowsPath('arquivo0.1.txt'), WindowsPath('arquivo0.2.txt')]</code></pre>
+
+            <p><code>current = Path('.')</code> instancia um objeto que representa o caminho da pasta atual, que no nosso caso é <code>tmp</code>. Ao invocar o método <code>.glob('*.txt')</code> do objeto recém instanciado, estamos procurando por qualquer arquivo que termine com <code>.txt</code> na pasta atual. Esse método retorna um iterador de arquivos encontrados, que não necessariamente estão ordenados. Por isso, passamos o iterador como argumento à função <code>sorted()</code>, que automaticamente percorre todo o iterador e retorna os itens ordenados em uma lista.</p>
+            <p>É claro que poderíamos escrever esse código em apenas uma linha:</p>
+            <pre><code class="python-repl">>>> sorted(Path('.').glob('*.txt')) 
+[WindowsPath('arquivo0.1.txt'), WindowsPath('arquivo0.2.txt')]</code></pre>
+            <p>Para listar recursivamente todos os arquivos <code>.txt</code> a partir da pasta atual:</p>
+            <pre><code class="python-repl">>>> for p in sorted(Path('.').glob('**/*.txt')): p
+... 
+WindowsPath('arquivo0.1.txt')
+WindowsPath('arquivo0.2.txt')
+WindowsPath('pasta1/arquivo1.1.txt')
+WindowsPath('pasta2/arquivo2.1.txt')
+WindowsPath('pasta2/arquivo2.2.txt')
+WindowsPath('pasta2/pasta2.1/arquivo2.1.1.txt')
+WindowsPath('pasta2/pasta2.1/pasta2.1.1/arquivo2.1.1.1.txt')
+WindowsPath('pasta2/pasta2.1/pasta2.1.1/arquivo2.1.1.2.txt')</code></pre>
+            <p>Quando o argumento <code>case_sensitive</code> é passado como <code>None</code> ou não informado, esse método corresponde a caminhos usando regras de maiúsculas e minúsculas específicas da plataforma: normalmente, diferencia maiúsculas de minúsculas em Unix e não diferencia maiúsculas de minúsculas no Windows. Passe <code>case_sensitive</code> como argumento <code>True</code> ou <code>False</code> para substituir esse comportamento.</p>
+            <p>Atenção: usar o padrão <code>**</code> em grandes árvores de pastas pode consumir uma quantidade excessiva de tempo.</p>
+
+            <div class="info">
+                <h3>O padrão glob</h3>
+                <p>Para fazer correspondências com caminhos, muitas interfaces com o sistema de arquivos utilizam o <a href="https://en.wikipedia.org/wiki/Glob_(programming)">padrão glob</a>, incluindo as bibliotecas Python. Esse padrão é diferente do regex, e suporta apenas alguns caracteres curingas:</p>
+                <table class="custom align-left">
+                    <thead>
+                        <tr>
+                            <th>Curinga</th>
+                            <th>Descrição</th>
+                            <th>Exemplo</th>
+                            <th>Corresponde</th>
+                            <th>Não corresponde</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="4"><code>*</code></td>
+                            <td rowspan="4">Corresponde a zero ou mais caracteres, excluindo o separador.</td>
+                            <td><code>file*</code></td>
+                            <td>Qualquer arquivo que comece com <code>file</code>, como <code>file</code>, <code>files</code>, ou <code>file.txt</code></td>
+                            <td><code>folder/file</code>, <code>fil</code>, ou <code>my_file</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>*file*</code></td>
+                            <td>Qualquer arquivo que tenha <code>file</code> no nome, como <code>file</code>, <code>file.txt</code>, ou <code>my_file</code></td>
+                            <td><code>folder/file</code>, ou <code>ile</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>*/file</code></td>
+                            <td>Arquivos <code>file</code> de qualquer pasta filha da pasta atual, como <code>folder/file</code> ou <code>directory/file</code></td>
+                            <td><code>file</code>, ou <code>folder/subfolder/file</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>folder/*</code></td>
+                            <td>Qualquer arquivo dentro da pasta <code>folder</code>, como <code>folder/file</code> ou <code>folder/image.jpg</code></td>
+                            <td><code>directory/file</code>, <code>file</code>, ou <code>folder/subfolder/file</code></td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="2"><code>**</code></td>
+                            <td rowspan="2">Corresponde a zero ou mais caracteres, incluindo o separador (representa zero ou mais diretórios recursivamente).</td>
+                            <td><code>**/file.txt</code></td>
+                            <td>Arquivos <code>file.txt</code> de qualquer pasta a partir da pasta atual, como <code>a/b/file.txt</code>, <code>file.txt</code>, ou <code>a/file.txt</code></td>
+                            <td><code>a/file</code>, ou <code>file</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>a/**/file*</code></td>
+                            <td>Qualquer arquivo que comece com <code>file</code>, de qualquer pasta a partir da pasta <code>a</code>, como <code>a/file</code> ou <code>a/b/file.txt</code></td>
+                            <td><code>file</code>, ou <code>a/my_file</code></td>
+                        </tr>
+
+                        <tr>
+                            <td><code>?</code></td>
+                            <td>Corresponde a um caractere qualquer.</td>
+                            <td><code>?at</code></td>
+                            <td><code>Cat</code>, <code>cat</code>, <code>Bat</code> ou <code>bat</code></td>
+                            <td><code>at</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>[abc]</code></td>
+                            <td>Corresponde a um dos caracteres entre os colchetes.</td>
+                            <td><code>[CB]at</code></td>
+                            <td><code>Cat</code> ou <code>Bat</code></td>
+                            <td><code>cat</code>, <code>bat</code> ou <code>CBat</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>[a-z]</code></td>
+                            <td>Corresponde a um dos caracteres entre o intervalo entre colchetes.</td>
+                            <td><code>Letter[0-9]</code></td>
+                            <td><code>Letter0</code>, <code>Letter1</code>, <code>Letter2</code> até <code>Letter9</code></td>
+                            <td><code>Letters</code>, <code>Letter</code> ou <code>Letter10</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>
+                <pre>Path.is_dir()</pre>
+            </h4>
+            <p>Retorna <code>True</code> se o caminho apontar para uma pasta (ou um link simbólico apontando para uma pasta), ou <code>False</code> caso contrário. Se o caminho não existir, ou for um link simbólico quebrado, retorna <code>False</code>.</p>
+            <pre><code class="python-repl">>>> Path("pasta2").is_dir()
+True
+>>> Path("pasta2/arquivo2.1.txt").is_dir()
+False
+>>> Path("pasta3").is_dir()
+False</code></pre>
+
+
+            <h4>
+                <pre>Path.is_file()</pre>
+            </h4>
+            <p>Retorna <code>True</code> se o caminho apontar para um arquivo regular (ou um link simbólico apontando para um arquivo regular), ou <code>False</code> caso contrário. Se o caminho não existir, ou for um link simbólico quebrado, retorna <code>False</code>.</p>
+            <pre><code class="python-repl">>>> Path("pasta2").is_file()
+False
+>>> Path("pasta2/arquivo2.1.txt").is_file()
+True
+>>> Path("arquivo.txt").is_file()
+False</code></pre>
+
+
             <pre><code class="python-repl"></code></pre>
             <pre><code class="python-repl"></code></pre>
             <pre><code class="python-repl"></code></pre>

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="pt">
 
 <head>
     <script>
@@ -14,7 +13,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="pseudocode.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
     <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
 
@@ -32,6 +30,11 @@
             text-align: center;
         }
 
+        .katex {
+            /* o padrão é 1.21, vc pode remover essa configuração se quiser deixar o padrão */
+            font-size: 1.0em;
+        }
+
         table.custom,
         table.custom>thead>tr>th,
         table.custom>tbody>tr>td,
@@ -47,36 +50,47 @@
         }
 
         table pre {
-            /* Remove a margem interna de tags pre dentro de tabelas */
+            /* tags pre dentro de tabelas são alinhadas à esquerda, sem margem interna */
             margin: 0;
-            padding: 0;
+            text-align: left !important;
+        }
+
+        td:has(pre) {
+            /* tags pre dentro de tabela são alinhadas no topo */
+            vertical-align: top;
+        }
+
+        code:not(pre code) {
+            /* tags code não filhas de pre */
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
         }
 
         table.align-left th,
         table.align-left td {
             /* alinha à esquerda as células da tabela */
-            text-align: left;
+            text-align: left !important;
         }
 
+        /* inicia a lista de exercícios */
         ol.excs {
-            /* lista de exercícios */
             padding-inline-start: 0em;
             counter-reset: excs;
             list-style: none;
         }
 
-        ol.excs>li::before {
-            /* lista de exercícios */
+        /* põe um numerador num item da lista de exercícios, desde que não seja da classe no-mark */
+        ol.excs>li:not(.no-mark)::before {
             counter-increment: excs;
             content: counters(excs, ".") ". ";
         }
 
+        /* põe uma barra vertical ao lado do item da lista de exercícios */
         ol.excs>li {
             /* Change this to adjust the line color and thickness */
             border-left: 2px solid #000;
             /* Optional: Add padding to create some space between the bar and content */
             padding-left: 10px;
-
             margin-block-start: 1em;
             margin-block-end: 1em;
         }
@@ -101,6 +115,11 @@
         td.hljs-ln-code {
             /* estilizar as linhas de código da extensao highlightjs-line-numbers */
             padding-left: 10px;
+        }
+
+        .info {
+            border-left: 6px solid blue;
+            padding-left: 1%;
         }
     </style>
 </head>
