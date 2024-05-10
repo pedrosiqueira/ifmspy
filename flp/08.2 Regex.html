@@ -802,6 +802,10 @@ assets/css/image.jpg</pre>
 >>> re.findall(r"&lt;p id='importante'>(.*?)&lt;/p>", conteudo, re.DOTALL)
 ['\noutro parágrafo\ncom várias linhas', 'apenas uma linha']</code></pre>
 
+            <p>Algumas engines não possuem configurações de regex como o <code>re.DOTALL</code> do Python. Nesses casos você pode improvisar. As duas linhas seguintes são equivalentes:</p>
+            <pre><code>re.findall(r"<p id='importante'>(.*?)</p>", conteudo, re.DOTALL)
+re.findall(r"<p id='importante'>([\s\S]*?)</p>", conteudo)</code></pre>
+
             <h4>
                 <pre>re.ASCII</pre>
             </h4>
