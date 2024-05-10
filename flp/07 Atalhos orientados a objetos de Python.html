@@ -176,7 +176,7 @@ print(names)</code></pre>
         </div>
         <div id="other-built-in-functions">
             <h3>Outras funções incorporadas</h3>
-            <p>Lembre-se, você pode acessar a documentação do Python sem a Internet através do modo interativo, e com o comando <code>help</code>. Por exemplo, para ver informações sobre as funções incorporadas, execute <code>help(__builtins__)</code>. Para saber sobre uma função específica, <code>help(enumerate)</code>. Dentre outras funções, podemos citar:</p>
+            <p>Lembre-se, você pode acessar a documentação do Python sem a Internet através do modo interativo, e com o comando <code>help</code>. Por exemplo, para ver informações sobre as funções incorporadas, execute <code>help(__builtins__)</code>. Para saber sobre uma função específica, como a <code>enumerate</code>, execute <code>help(enumerate)</code>. Dentre outras funções, podemos citar:</p>
             <ul>
                 <li><code>abs(x)</code>: Retorna o valor absoluto de um número.</li>
                 <li><code>all(iterable)</code>: Retorne True se todos os elementos de iterable forem verdadeiros (ou se o iterável estiver vazio).</li>
@@ -409,6 +409,15 @@ print(html)</code></pre>
 
             <p>O método <code>__enter__</code> se encarrega de abrir a conexão com o banco de dados, e o método <code>__exit__</code> se encarrega de fechá-la. Caso ocorra alguma exceção, o método <code>__exit__</code> é invocado com as informações da exceção nos parâmetros exc_type, exc_val e exc_tb.</p>
         </div>
+        <h3>Exercícios</h3>
+        <ol class="excs">
+            <li>Ler um caminho para um arquivo de texto e escrever o conteúdo do arquivo.</li>
+            <li>Ler um caminho para um novo arquivo de texto e o conteúdo a ser salvo neste arquivo de texto, até encontrar um EOF. Caso o usuário informe um caminho para um arquivo existente, avisá-lo, e encerrar o programa.</li>
+            <li>Ler um caminho para um arquivo de texto e escrever quantas palavras ele possui.</li>
+            <li>Ler um caminho para um arquivo de texto e uma palavra-chave. Escrever quantas vezes a palavra-chave ocorre.</li>
+            <li>Em um arquivo CSV cada linha representa um registro; e cada coluna, separada uma das outras por vírgula, representa o valor de uma propriedade daquele registro. A primeira linha de um arquivo CSV geralmente é o cabeçalho, que vem com os nomes das propriedades dos registros, isto é, não representa um registro. Ler um caminho para um arquivo CSV, cuja primeira linha contém o cabeçalho. Ler um número de linha. Escrever o conteúdo do registro daquela linha específica do arquivo, apresentando cada propriedade em uma linha separada, da seguinte forma: "nome da propriedade: valor da propriedade".</li>
+            <li>Ler um caminho para um novo arquivo CSV e o nome, idade e cidade de várias pessoas, até encontrar um EOF. Caso o arquivo não exista, salvar as informações das pessoas nesse arquivo CSV. (Considerar que os valores informados não possuam vírgula, que é usado como separados das propriedades).</li>
+        </ol>
     </div>
     <div id="7-2-an-alternative-to-method-overloading">
         <h2>Uma alternativa a sobrecarga de métodos</h2>
