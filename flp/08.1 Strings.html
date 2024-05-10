@@ -50,15 +50,20 @@
         }
 
         table pre {
-            /* Remove a margem interna de tags pre dentro de tabelas */
+            /* tags pre dentro de tabelas são alinhadas à esquerda, sem margem interna */
             margin: 0;
-            padding: 0;
-            text-align: left;
+            text-align: left !important;
         }
 
         td:has(pre) {
-            /* tags pre dentro de tabela são alinhadas no topo à esquerda */
+            /* tags pre dentro de tabela são alinhadas no topo */
             vertical-align: top;
+        }
+
+        code:not(pre code) {
+            /* tags code não filhas de pre */
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
         }
 
         table.align-left th,
@@ -399,7 +404,9 @@ except:
                         </td>
                         <td>Substitui todas as ocorrências de <code>old</code> por <code>new</code>, até <code>count</code> vezes. Se não informar <code>count</code>, substitui todas as ocorrências.</td>
                         <td>
-                            <pre><code>'fia, fio a fio, fino fio, frio a frio'.replace('fi', 'ti')  # 'tia, tio a tio, tino tio, frio a frio'</code></pre>
+                            <pre><code>s = 'fia, fio a fio, fino fio, frio a frio'
+s.replace('fi', 'ti')
+# 'tia, tio a tio, tino tio, frio a frio'</code></pre>
                         </td>
                     </tr>
                     <tr>
@@ -532,8 +539,11 @@ except:
                         </td>
                         <td>Retorna uma string que é a concatenação das strings em <code>iterable</code>, usando a string fornecida como separador.</td>
                         <td>
-                            <pre><code>', '.join(['foo', 'bar', 'baz', 'qux'])  # 'foo, bar, baz, qux'
-':'.join('hello')  # 'h:e:l:l:o'</code></pre>
+                            <pre><code>', '.join(['foo', 'bar', 'baz', 'qux'])
+# 'foo, bar, baz, qux'
+
+':'.join('hello')
+# 'h:e:l:l:o'</code></pre>
                         </td>
                     </tr>
                     <tr>
@@ -542,7 +552,9 @@ except:
                         </td>
                         <td>Divide a string em uma lista de substrings, usando <code>sep</code> como delimitador. Ocorrerão no máximo <code>maxsplit</code> divisões, se informado.</td>
                         <td>
-                            <pre><code>'foo bar\nbaz\tqux'.split()  # ['foo', 'bar', 'baz', 'qux']
+                            <pre><code>'foo bar\nbaz\tqux'.split()
+# ['foo', 'bar', 'baz', 'qux']
+
 '1,2,3'.split(',')  # ['1', '2', '3']
 '1,2,3'.split(',', maxsplit=1)  # ['1', '2,3']
 '1,2,,3,'.split(',')  # ['1', '2', '', '3', '']</code></pre>
@@ -563,8 +575,11 @@ except:
                         </td>
                         <td>Retorna uma lista com as linhas da string. As quebras de linha não são incluídas na lista resultante, a menos que <code>keepends</code> seja fornecido e verdadeiro.</td>
                         <td>
-                            <pre><code>'ab c\n\nde fg\rkl\r\n'.splitlines()  # ['ab c', '', 'de fg', 'kl']
-'ab c\n\nde fg\rkl\r\n'.splitlines(keepends=True)  # ['ab c\n', '\n', 'de fg\r', 'kl\r\n']</code></pre>
+                            <pre><code>'ab c\n\nde fg\rkl\r\n'.splitlines()
+# ['ab c', '', 'de fg', 'kl']
+
+'ab c\n\nde fg\rkl\r\n'.splitlines(keepends=True)
+# ['ab c\n', '\n', 'de fg\r', 'kl\r\n']</code></pre>
                         </td>
                     </tr>
                 </tbody>
@@ -635,7 +650,7 @@ b'clich\xe9'</code></pre>
 'clichщ'
 >>> characters.decode("utf8")
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
+  File "&lt;stdin>", line 1, in &lt;module>
 UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe9 in position 5: unexpected end of data</code></pre>
                 <p>Nesse exemplo, a codificação "cyrillic" (ISO-8859-5) interpreta o byte E9 como 'щ', já a codificação UTF-8 (Unicode) não possui um caractere válido para o byte E9, daí a exceção.</p>
             </div>
@@ -651,14 +666,14 @@ b'clich\xe9'
 b'clich\x82'
 >>> characters.encode("ascii")
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
+  File "&lt;stdin>", line 1, in &lt;module>
 UnicodeEncodeError: 'ascii' codec can't encode character '\xe9' in position 5: ordinal not in range(128)</code></pre>
             </div>
             <p>Observe que as codificações mais famosas usam o ASCII como um subconjunto, para compatibilidade. Mas começam a divergir para caracteres além do ASCII.</p>
             <p>Quando uma codificação não consegue representar um caractere, por padrão, é lançada uma exceção. Mas podemos mudar esse comportamento passando um segundo argumento ao método. As possibilidades para lidar com um caractere não reconhecido são:</p>
             <pre><code class="python-repl">>>> "cliché".encode("ascii", 'strict')
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
+  File "&lt;stdin>", line 1, in &lt;module>
 UnicodeEncodeError: 'ascii' codec can't encode character '\xe9' in position 5: ordinal not in range(128)
 >>> "cliché".encode("ascii", 'replace')
 b'clich?'
@@ -684,7 +699,7 @@ b'clich&amp;#233;'</code></pre>
 'anel!'
 >>> b[4] = "o"
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
+  File "&lt;stdin>", line 1, in &lt;module>
 TypeError: 'str' object cannot be interpreted as an integer
 >>> b[4] = ord("o")
 >>> b
