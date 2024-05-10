@@ -1,1 +1,0 @@
-print("foO BaR".title())
