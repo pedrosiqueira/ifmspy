@@ -298,7 +298,7 @@ PosixPath('foo')</code></pre>
             <h4>
                 <pre>Path.stem</pre>
             </h4>
-            <p>O último segmento do caminho, sem a extensão.</p>
+            <p>O último segmento do caminho, conhecido como radical, sem a extensão.</p>
             <pre><code class="python-repl">>>> Path('my/library/setup.py').stem
 'setup'
 >>> Path('my/library.tar.gz').stem
@@ -325,7 +325,7 @@ ValueError: WindowsPath('c:/') has an empty name</code></pre>
             <h4>
                 <pre>Path.with_stem(stem)</pre>
             </h4>
-            <p>Retorna um novo caminho com o nome sem extensão alterado. Se o caminho original não tiver nome, <code>ValueError</code> é lançado:</p>
+            <p>Retorna um novo caminho com o radical (nome sem extensão) alterado. Se o caminho original não tiver nome, <code>ValueError</code> é lançado:</p>
             <pre><code class="python-repl">>>> p = Path('c:/Downloads/draft.txt')
 >>> p.with_stem('final')
 WindowsPath('c:/Downloads/final.txt')
@@ -967,16 +967,18 @@ pasta2\pasta2.1\pasta2.1.1 ocupa 28 bytes com 2 arquivos</pre>
                 </li>
                 <li>Ler um caminho de diretório e listar os arquivos e diretórios presentes nele.</li>
                 <li>Ler um caminho de diretório e uma extensão de arquivo e listar apenas os arquivos naquele diretório com a extensão informada.</li>
-                <li>Ler um caminho para um arquivo existente $origem$, e um caminho para um novo arquivo $destino$. Caso o arquivo $origem$ não exista, ou o arquivo $destino$ exista, informar o usuário e encerrar o programa. Copiar o conteúdo de $origem$ para $destino$, mas convertendo letras minúsculas para maiúsculas.</li>
-                <li>Ler um caminho de diretório e listar recursivamente apenas o nome sem extensão dos seguintes arquivos de áudio: mp3, m4a, aac, flac, ogg e wav.</li>
+                <li>Ler um caminho para um arquivo de texto existente $origem$, e um caminho para um novo arquivo $destino$. Caso o arquivo $origem$ não exista, ou o arquivo $destino$ exista, informar o usuário e encerrar o programa. Copiar o conteúdo de $origem$ para $destino$, mas convertendo letras minúsculas para maiúsculas.</li>
+                <li>Ler um caminho de diretório e listar recursivamente apenas o radical (nome sem extensão) dos seguintes arquivos de áudio: mp3, m4a, aac, flac, ogg e wav.</li>
                 <li>Ler um caminho de diretório e listar recursivamente apenas os diretórios vazios.</li>
                 <li>Ler um caminho de diretório e listar seus arquivos ordenados pela extensão.</li>
                 <li>Ler um caminho de diretório e listar seus arquivos ordenados pela data de modificação.</li>
                 <li>Ler um caminho de diretório, buscar recursivamente o maior arquivo, e escrever seu nome e tamanho em megabytes.</li>
                 <li>Ler um caminho de diretório e uma extensão de arquivo. Escrever quantos arquivos há recursivamente com aquela extensão naquele diretório.</li>
                 <li>Ler um caminho de diretório <code>backup</code>, um caminho de diretório <code>search</code> e um padrão glob <code>pattern</code>. Procurar recursivamente em <code>search</code> por qualquer arquivo cujo nome corresponda a <code>pattern</code>, pedir confirmação do usuário e movê-lo para <code>backup</code>, mas mantendo o caminho relativo do arquivo. Por exemplo, se <code>backup</code> for <code>/home/user/backup</code>, e <code>search</code> for <code>/home/user/Downloads</code> e o caminho do arquivo encontrado for <code>antigos/2014/arquivo-velho.txt</code>, o arquivo deve ser movido para <code>/home/user/backup/antigos/2014/arquivo-velho.txt</code>.</li>
+                <li>Ler um caminho de diretório e listar recursivamente os arquivos que tenham o mesmo radical.</li>
+                <!-- <li>Ler um caminho de diretório, listar recursivamente os arquivos que tenham o mesmo radical, e solicitar a exclusão dos arquivos de mesmo radical, mantendo o mais recente.</li> -->
             </ol>
         </div>
-        <!-- falar sobre https://realpython.com/working-with-files-in-python/#extracting-zip-archives? -->
+        <!-- falar sobre https://realpython.com/working-with-files-in-python/#extracting-zip-archives ? -->
     </div>
 </div>

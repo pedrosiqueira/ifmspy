@@ -549,10 +549,10 @@ print(re.findall(r"id=\".*\"", html_content))
             <pre><code class="python-repl">>>> csv_content = "pedro,1423,ped@ifms\nsiqueira,2143,siq@ifms\nhenrique,2314,hen@ifms"
 >>> re.findall(r"\w+,\d+", csv_content)
 ['pedro,1423', 'siqueira,2143', 'henrique,2314']</code></pre>
-            <p>Ótimo, mas uma vez capturados esses campos dessa forma, precisaríamos passar por outra análise (parsing) para separar os nomes dos IDs. Uma alternativa é usar grupos de captura:</p>
+            <p>Ótimo, mas uma vez capturados esses campos dessa forma, precisaríamos passar por outro processamento (parsing) para separar os nomes dos IDs. Uma alternativa é usar grupos de captura:</p>
             <pre><code class="python-repl">>>> re.findall(r"(\w+),(\d+)", csv_content)
 [('pedro', '1423'), ('siqueira', '2143'), ('henrique', '2314')]</code></pre>
-            <p>Grupos de captura vão entre parênteses. Ao analisar regex com grupos de captura, a função <code>re.findall</code> retorna uma lista de tuplas em vez de strings. Também podemos usar <code>finditer</code> para informações mais detalhadas:</p>
+            <p>Grupos de captura vão entre parênteses. Ao processar regex com grupos de captura, a função <code>re.findall</code> retorna uma lista de tuplas em vez de strings. Também podemos usar <code>finditer</code> para informações mais detalhadas:</p>
             <table class="custom">
                 <thead>
                     <tr>
@@ -747,7 +747,7 @@ assets/css/image.jpg</pre>
                     </tr>
                 </tbody>
             </table>
-            <p>Se você não agrupar os <code>|</code>, o resultado será outro. Observe mais uma diferença entre <code>re.findall</code> e <code>re.finditer</code>. O <code>re.findall</code>, se estiver analisando um padrão que tenha um grupo, retorna apenas o grupo. Já o <code>re.finditer</code> retorna o padrão inteiro.</p>
+            <p>Se você não agrupar os <code>|</code>, o resultado será outro. Observe mais uma diferença entre <code>re.findall</code> e <code>re.finditer</code>. O <code>re.findall</code>, se estiver processando um padrão que tenha um grupo, retorna apenas o grupo. Já o <code>re.finditer</code> retorna o padrão inteiro.</p>
         </div>
         <div id="8-2-8-flags-regex">
             <h3>8.2.8 Flags regex</h3>
