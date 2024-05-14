@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="pt">
 
 <head>
     <script>
@@ -12,19 +11,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-    <script defer>hljs.configure({ cssSelector: "code", languages: ["console"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+    <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx" crossorigin="anonymous"></script>
-    <!-- retire o atributo output para, ao copiar uma fórmula, copiar tanto no formato html quanto no formato mathml, entretanto, a fórmula sai duplicada -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false},],output:'html'});"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
 
     <style>
         img {
-            max-width: 100%;
+            max-width: 90vw;
+            max-height: 90vh;
         }
 
         .center {
@@ -37,32 +36,61 @@
         }
 
         table.custom,
-        table.custom td,
-        table.custom th {
+        table.custom>thead>tr>th,
+        table.custom>tbody>tr>td,
+        table.custom>tbody>tr>th {
+            /* tabela centralizada e com bordas */
             border: 1px solid black;
             border-collapse: collapse;
             margin-left: auto;
             margin-right: auto;
+            padding-left: 5px;
+            padding-right: 5px;
             text-align: center;
         }
 
+        table pre {
+            /* tags pre dentro de tabelas são alinhadas à esquerda, sem margem interna */
+            margin: 0;
+            text-align: left !important;
+        }
+
+        td:has(pre) {
+            /* tags pre dentro de tabela são alinhadas no topo */
+            vertical-align: top;
+        }
+
+        code:not(pre code) {
+            /* tags code não filhas de pre */
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+        }
+
+        table.align-left th,
+        table.align-left td {
+            /* alinha à esquerda as células da tabela */
+            text-align: left !important;
+        }
+
+        /* inicia a lista de exercícios */
         ol.excs {
             padding-inline-start: 0em;
             counter-reset: excs;
             list-style: none;
         }
 
-        ol.excs>li::before {
+        /* põe um numerador num item da lista de exercícios, desde que não seja da classe no-mark */
+        ol.excs>li:not(.no-mark)::before {
             counter-increment: excs;
             content: counters(excs, ".") ". ";
         }
 
+        /* põe uma barra vertical ao lado do item da lista de exercícios */
         ol.excs>li {
             /* Change this to adjust the line color and thickness */
             border-left: 2px solid #000;
             /* Optional: Add padding to create some space between the bar and content */
             padding-left: 10px;
-
             margin-block-start: 1em;
             margin-block-end: 1em;
         }
@@ -78,13 +106,20 @@
         }
 
         td.hljs-ln-numbers {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
             color: #ccc;
             border-right: 1px solid #999;
             padding-right: 5px;
         }
 
         td.hljs-ln-code {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
             padding-left: 10px;
+        }
+
+        .info {
+            border-left: 6px solid blue;
+            padding-left: 1%;
         }
     </style>
 </head>
@@ -99,17 +134,17 @@
 
     <h2>Saída de dados</h2>
     <p>O comando <code>print</code> é usado em Python para exibir informações no terminal. Dizemos "escrever no terminal" ou simplesmente <b>escrever</b>. Para usar o comando <code>print</code>, basta escrever <code>print()</code> e colocar o conteúdo que deseja exibir entre parênteses. Por exemplo:</p>
-    <pre><code class="python">print("Olá, mundo!")</code></pre>
+    <pre><code>print("Olá, mundo!")</code></pre>
     <p>Isso exibirá a mensagem "Olá, mundo!" no terminal.</p>
     <p>Você também pode usar o comando <code>print</code> para exibir o valor de variáveis. Por exemplo:</p>
-    <pre><code class="python">x = 10
+    <pre><code>x = 10
 print(x)</code></pre>
     <p>Isso exibirá o valor da variável <code>x</code>, que é 10, no terminal.</p>
     <p>Como uma expressão aritmética gera um resultado, você pode colocá-la dentro do <code>print</code> para exibir diretamente o resultado da expressão:</p>
-    <pre><code class="python">x = 10
+    <pre><code>x = 10
 print(x * 3 / 2 - x) # 5.0</code></pre>
     <p>Você pode exibir vários dados em um único comando <code>print</code>, separando-os por vírgulas. Neste caso, ele automaticamente insere um espaço entre os dados, exibindo tudo em uma única linha. Por exemplo:</p>
-    <pre><code class="python">x = 5
+    <pre><code>x = 5
 y = 10
 print("A soma de", x, "e", y, "é", x + y)</code></pre>
     <p>Isso exibirá <code>A soma de 5 e 10 é 15</code>. Observe que o comando <code>print</code> inseriu espaços entre cada <b>argumento</b> para criar uma mensagem bem formatada.</p>
@@ -118,26 +153,26 @@ print("A soma de", x, "e", y, "é", x + y)</code></pre>
 
     <h2>Entrada de dados</h2>
     <p>O comando <code>input</code> é usado em Python para receber informações do teclado. Dizemos "ler do teclado" ou simplesmente <b>ler</b>. Para usar o comando <code>input</code>, basta escrever <code>input()</code> e atribuir esse comando a uma variável, que receberá o valor que o usuário digitar no teclado. Por exemplo:</p>
-    <pre><code class="python">x = input()</code></pre>
+    <pre><code>x = input()</code></pre>
     <p>Este comando "congela" o programa, aguardando que o usuário digite algum valor e pressione a tecla <kbd>Enter</kbd>. Após isso, o que o usuário digitou será atribuído (armazenado) à variável <code>x</code>.</p>
     <p>Para tornar a entrada de dados mais interativa, é possível solicitar ao usuário o dado esperado, inserindo uma mensagem entre os parênteses do <code>input</code>. Por exemplo:</p>
-    <pre><code class="python">nome = input("Qual é o seu nome? ")
+    <pre><code>nome = input("Qual é o seu nome? ")
 print("Olá,", nome, "!")</code></pre>
     <p>Nesse caso, o programa solicitará ao usuário que informe seu nome, o qual será armazenado na variável <code>nome</code>. Em seguida, o programa exibirá uma saudação personalizada, usando o nome fornecido pelo usuário. Observe que inserimos um espaço no final da solicitação, para ela não ficar colada ao que o usuário digitar, apenas por questões de formatação.</p>
     <p>O comando <code>input</code> também é uma função, mas diferentemente do <code>print</code>, só aceita um argumento, mas resulta em um valor, que é aquilo que o usuário digitou. Observe que o valor retornado pelo <code>input</code> é do tipo <i>string</i>, logo, os operadores aritméticos não funcionam como você talvez espere:</p>
-    <pre><code class="python">n1 = input('Digite um número: ')
+    <pre><code>n1 = input('Digite um número: ')
 n2 = input('Digite outro número: ')
 soma = n1 + n2
 print('A soma dos números digitados é', soma)</code></pre>
     <p>O operador de adição, quando operado em strings, realiza a operação de <b>concatenação</b>, que é "engatar" o final do primeiro operando no início do segundo operando.</p>
     <p>Portanto, se você quiser que o Python interprete o retorno do <code>input</code> como um número inteiro, deve usar a função <code>int</code> para isso.</p>
-    <pre><code class="python">n1 = int(input('Digite um número: '))
+    <pre><code>n1 = int(input('Digite um número: '))
 n2 = int(input('Digite outro número: '))
 soma = n1 + n2
 print('A soma dos números digitados é', soma)</code></pre>
 
     <p>Da mesma forma, use a função <code>float</code> para interpretar uma string como um número real e a <code>bool</code> para interpretar como booleano:</p>
-    <pre><code class="python">numero1 = 3.4 # isso é um número!
+    <pre><code>numero1 = 3.4 # isso é um número!
 
 numero2 = "2.5" # não se deixe enganar, isso não é um número!
 
@@ -164,7 +199,7 @@ erro = numero1 + numero2 # não vai dar bom...</code></pre>
     <p>Os comentários simples começam com uma cerquilha (<code>#</code>) e se estendem até o final da linha. Geralmente, são usados para pequenas anotações que cabem em uma única linha.</p>
     <p>Os comentários em bloco começam com três aspas (simples <code>'''</code> ou duplas <code>"""</code>) e terminam com as mesmas três aspas (se você começou com as aspas simples, deve terminar com aspas simples). Eles são usados para escrever comentários mais extensos que ocupam várias linhas.</p>
 
-    <pre><code class="python">'''
+    <pre><code>'''
 Programa de exemplo de uso de comentários.
 Autor: Pedro Henrique
 Data: 08/08/2018
@@ -189,11 +224,33 @@ print("Menor:", menor)</code></pre>
     <p>Principalmente em nossos primeiros programas, é comum incluir muitos comentários para ajudá-lo a se familiarizar com o Python.</p>
     <p>Entretanto, tenha cuidado para não sobrecarregar teu código com comentários redundantes ou desnecessários, como o exemplo a seguir:</p>
 
-    <pre><code class="python"># Exibe "Gosto de programar"
+    <pre><code># Exibe "Gosto de programar"
 print("Gosto de programar")
     </code></pre>
     <p>Dica: Comentários podem ser usados para testar teu código ou ignorar “temporariamente” um erro no teu código! Colocar cerquilha (<code>#</code>) no início de uma instrução fará com que o computador a ignore!</p>
 
+    <h3>Quebrando linhas grandes</h3>
+    <p>Ao contrário de outras linguagens que utilizam ponto e vírgula para marcar o final de uma instrução, em Python, geralmente, o final de uma instrução é determinado pelo final da linha. Isso significa que instruções extensas podem ocupar linhas longas. Para melhorar a legibilidade do código, é possível quebrar uma instrução extensa em várias linhas, inserindo uma barra invertida no ponto de quebra, indicando ao Python que a instrução continua na linha seguinte. Considere o seguinte código:</p>
+    <pre><code>numero1 = 3.4
+numero2 = 2.5
+numero3 = 4.1
+numero4 = 0.0
+
+resultado = numero1 + numero2 + numero3 + numero4
+print(resultado) # 10.0</code></pre>
+    <p>O resultado é <code>10.0</code>, como esperado. Entretanto, se você tentar quebrar a instrução da linha 6, o resultado não será exatamente o esperado:</p>
+    <pre><code>resultado = numero1 + numero2
++ numero3 + numero4
+print(resultado) # 5.9</code></pre>
+    <p>Agora, <code>resultado</code> recebe apenas a soma de <code>numero1</code> com <code>numero2</code>, pois <code>numero3</code> e <code>numero4</code> estão em outra linha, isto é, fazer parte de outra instrução. Para considerar essas duas linhas como uma mesma instrução, coloque uma barra invertida no final da primeira linha:</p>
+    <pre><code>resultado = numero1 + numero2 \
+          + numero3 + numero4
+print(resultado) # 10.0</code></pre>
+    <p>Agora sim, na segunda linha você pode até colocar mais espaços para alinhar o código e melhorar ainda mais a legibilidade.</p>
+    <p>Outra alternativa à barra invertida é envolver a instrução extensa entre parênteses, assim, o Python entenderá que a instrução só termina ao fechar os parênteses:</p>
+    <pre><code>resultado = (numero1 + numero2
+          +  numero3 + numero4)
+print(resultado) # 10.0</code></pre>
     <h2>Exercícios</h2>
     <p>Para cada exercício, elabore um programa que resolva à questão.</p>
     <ol class="excs">
