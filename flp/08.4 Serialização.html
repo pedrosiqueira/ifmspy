@@ -348,5 +348,170 @@ print(decoded_obj.__dict__)</code></pre>
     </div>
     <div id="case-study">
         <h2>8.5 Estudo de caso</h2>
+
+        <h3>Template Engine ingênua</h3>
+        <p>Vamos criar uma <i>template engine</i> ingênua usando expressões regulares em Python. Ela processará (parsing) um arquivo HTML usado como modelo (<i>template</i>), gerando outro arquivo HTML, substituindo certas diretivas do modelo pelo seus respectivos valores. Essa é uma tarefa complexa que podemos fazer com expressões regulares, portanto, uma versão completa, como as usadas em frameworks web, exigiria um mecanismo de processamento (parsing) mais avançado.</p>
+        <p>O arquivo template pode conter diretivas no formato <code>/** &lt;directive> &lt;data> **/</code>, onde <code>data</code> é um argumento opcional e <code>directive</code> pode ser uma das seguintes:</p>
+        <ul>
+            <li><code>include</code>: Copia o conteúdo do arquivo <code>data</code> aqui. Considere que <code>data</code> seja apenas o nome do arquivo a ser incluído, e que seu caminho completo esteja na mesma pasta do arquivo template.</li>
+            <li><code>variable</code>: Insere o conteúdo da variável <code>data</code> aqui.</li>
+            <li><code>loopover</code>: Repete o conteúdo do laço para cada item da lista <code>data</code>.</li>
+            <li><code>endloop</code>: Sinaliza o fim do conteúdo do laço.</li>
+            <li><code>loopvar</code>: O item atual da lista dentro do laço.</li>
+        </ul>
+        <p>Considere o seguinte exemplo do arquivo template <code>my_template.html</code> com essas diretivas:</p>
+        <pre><code class="html">/** include header.html **/
+ 
+&lt;h1>This is the title of the front page&lt;/h1>
+ 
+/** include menu.html **/
+ 
+&lt;p>My name is /** variable name **/.
+This is the content of my front page. It goes below the menu.&lt;/p>
+ 
+&lt;table>
+    &lt;tr>&lt;th>Favourite Books&lt;/th>&lt;/tr>
+ 
+    /** loopover book_list **/
+    &lt;tr>&lt;td>/** loopvar **/&lt;/td>&lt;/tr>
+    /** endloop **/
+&lt;/table>
+ 
+Copyright © Today
+
+/** include footer.html **/</code></pre>
+        <p>Nesse estudo de caso, as variáveis serão extraídas de um arquivo de contexto, que é um arquivo json, onde cada variável é uma chave do json. Considere o seguinte exemplo de arquivo de contexto <code>my_context.json</code>:</p>
+        <pre><code class="json">{
+    "name": "Dusty",
+    "book_list": [
+        "Thief Of Time",
+        "The Thief",
+        "Snow Crash",
+        "Lathe Of Heaven"
+    ]
+}</code></pre>
+
+        <p>Considere o seguinte exemplo para <code>header.html</code></p>
+        <pre><code class="html">&lt;html>
+&lt;body></code></pre>
+        <p>Considere o seguinte exemplo para <code>menu.html</code></p>
+        <pre><code class="html">&lt;a href="link1.html">First Link&lt;/a>
+&lt;a href="link2.html">Second Link&lt;/a></code></pre>
+        <p>Considere o seguinte exemplo para <code>footer.html</code></p>
+        <pre><code class="html">&lt;/body>
+&lt;/html></code></pre>
+
+        <p>O arquivo <code>pagina.html</code> de saída seria:</p>
+        <pre><code class="html">&lt;html>
+&lt;body>
+ 
+&lt;h1>This is the title of the front page&lt;/h1>
+ 
+&lt;a href="link1.html">First Link&lt;/a>
+&lt;a href="link2.html">Second Link&lt;/a>
+ 
+&lt;p>My name is Dusty.
+This is the content of my front page. It goes below the menu.&lt;/p>
+ 
+&lt;table>
+    &lt;tr>&lt;th>Favourite Books&lt;/th>&lt;/tr>
+ 
+    &lt;tr>&lt;td>Thief Of Time&lt;/td>&lt;/tr>
+    &lt;tr>&lt;td>The Thief&lt;/td>&lt;/tr>
+    &lt;tr>&lt;td>Snow Crash&lt;/td>&lt;/tr>
+    &lt;tr>&lt;td>Lathe Of Heaven&lt;/td>&lt;/tr>
+&lt;/table>
+ 
+Copyright © Today
+ 
+&lt;/body>
+&lt;/html></code></pre>
+
+        <h3>Implementação da template engine</h3>
+
+        <p>Vamos começar a lógica de processamento de nossa template engine ingênua:</p>
+        <pre><code>import re
+import sys
+import json
+from pathlib import Path
+
+DIRECTIVE_RE = re.compile(r"/\*\*\s*"
+                          r"(include|variable|loopover|endloop|loopvar)"
+                          r"\s*([^ *]*)"
+                          r"\s*\*\*/")
+
+class TemplateEngine:
+    def __init__(self, infilename, outfilename, contextfilename):
+        self.template = open(infilename).read()
+        self.working_dir = Path(infilename).absolute().parent
+        self.pos = 0
+        self.outfile = open(outfilename, "w")
+        with open(contextfilename) as contextfile:
+            self.context = json.load(contextfile)
+
+    def process(self):
+        print("TO-DO...")
+
+if __name__ == "__main__":
+    infilename, outfilename, contextfilename = sys.argv[1:]
+    engine = TemplateEngine(infilename, outfilename, contextfilename)
+    engine.process()</code></pre>
+        <p>A constante <code>DIRECTIVE_RE</code> é um padrão para encontrar uma diretiva. Cada diretiva será substituída por um valor, com exceção das diretivas <code>loopover</code> e <code>endloop</code>, que apenas controlam o início e o final do loop. O arquivo template será varrido do início ao fim, procurando por diretivas, e o <code>self.pos</code> indica o caractere atual do arquivo onde está a varredura. O <code>self.working_dir</code> é o caminho da pasta onde o arquivo template e os demais arquivos HTML se encontram.</p>
+        <p>Nossa template engine funciona pela linha de comando, onde são passados, conforme a linha 24, o caminho para o arquivo template, o arquivo de saída e o arquivo de contexto. Relembrando que, para as diretivas <code>include</code>, os arquivos a serem incluídos estarão na mesma pasta do arquivo template, cujo caminho está no atributo <code>self.working_dir</code>.</p>
+        <p>Segue a implementação do método <code>process</code>:</p>
+        <pre id="process-method"><code>    def process(self):
+        match = DIRECTIVE_RE.search(self.template, pos=self.pos)
+        while match:
+            self.outfile.write(self.template[self.pos : match.start()])
+            directive, argument = match.groups()
+            method_name = "process_{}".format(directive)
+            getattr(self, method_name)(match, argument)
+            match = DIRECTIVE_RE.search(self.template, pos=self.pos)
+        self.outfile.write(self.template[self.pos :])
+        self.outfile.close()</code></pre>
+        <p>Optamos por buscar as diretivas através do método <code>search</code> (linhas 2 e 8), já que podemos especificar a posição inicial da busca. Assim, à medida que buscamos a próxima diretiva (linha 8), já a substituímos pela string adequada através da invocação do método apropriado (linha 7) e vamos gravando no arquivo de saída (linha 4).</p>
+        <p>A linha 7 invoca um método específico para cada diretiva, já que a lógica de substituição varia para cada uma delas. Esse método recebe o <code>match</code> e um possível argumento <code>argument</code>, realiza o processamento e avança o ponteiro <code>pos</code>, como veremos a seguir. A dinamicidade do Python possibilita essa abordagem, em vez de uma série de if-elses ou switches para invocar o método apropriado.</p>
+        <p>Vamos começar da diretiva <code>variable</code>:</p>
+        <pre><code>    def process_variable(self, match, argument):
+        self.outfile.write(self.context.get(argument, ""))
+        self.pos = match.end()</code></pre>
+        <p>Ao processar uma variável, devemos obter seu valor do dicionário de contexto. Nos damos ao trabalho de tratar o caso de uma variável inexistente, devolvendo uma string vazia. O valor da variável, então, é escrito no arquivo de saída, e a posição avança até o final da diretiva no arquivo template.</p>
+        <p>As diretivas do loop são as mais complicadas, pois precisamos compartilhar o estado do loop entre elas. Para simplificar, lidaremos com esse caso usando atributos extras na própria classe:</p>
+        <pre><code>    def process_loopover(self, match, argument):
+            self.loop_list = self.context.get(argument, [])
+            self.loop_index = 0
+            self.pos = self.loop_beginning = match.end()
+        
+    def process_endloop(self, match, argument):
+        self.loop_index += 1
+        if self.loop_index &lt; len(self.loop_list):
+            self.pos = self.loop_beginning
+        else:
+            self.pos = match.end()
+            
+    def process_loopvar(self, match, argument):
+        print("TO-DO")</code></pre>
+        <p>O método <code>process_loopover</code> inicializa o estado do loop usando três atributos. O atributo <code>self.loop_list</code> é a lista extraída do dicionário de contexto. O atributo <code>self.loop_index</code> é o índice do item atual da lista dentro do loop. E <code>self.loop_beginning</code> é a posição no arquivo template onde o loop começa.</p>
+        <p>O método <code>process_endloop</code> verifica se o loop deve continuar ou encerrar. O <code>if</code> da linha 8 é o caso quando ainda faltam itens na lista para serem processados. Neste caso, a posição no arquivo template volta para o início do loop. Caso todos os itens tenham sido processados, no <code>else</code> da linha 10, a posição no arquivo template avança para depois do loop, que é o fim da diretiva <code>endloop</code>.</p>
+        <p>O método <code>process_loopvar</code> é deixado como tarefa, mas semelhantemente ao método <code>process_variable</code>, simplesmente vai escrever o item atual da lista no arquivo de saída. Não se esqueça de, após processar uma diretiva, avançar a posição atual no arquivo template (atributo <code>self.pos</code>) para depois do final da diretiva processada.</p>
+        <p>Por fim, o tratamento da diretiva <code>include</code>, que também será deixada como tarefa:</p>
+        <pre><code>    def process_include(self, match, argument):
+        print("TO-DO")</code></pre>
+        <p>Esse método deve carregar o conteúdo do arquivo cujo nome está no parâmetro <code>argument</code>, e gravar esse conteúdo no arquivo de saída. Mais uma vez, <code>argument</code> é só o nome do arquivo a ser incluído no arquivo de saída, para abri-lo, deve passar o caminho completo, que está no atributo <code>self.working_dir</code>.</p>
+        <h3>Testando</h3>
+        <p>Considere que o arquivo <code>naive_template_engine.py</code> contenha teu script, e esteja dentro da mesma pasta dos outros arquivos. Você executa esse script pela linha de comando, passando argumentos a ele, da seguinte forma:</p>
+        <pre><code class="bash">python naive_template_engine.py my_template.html page.html my_context.json</code></pre>
+
+        <p>Parabéns! Você implementou tua primeira template engine! E espero que seja a última, pois já existem muitas no mercado, e você não precisa reinventar a roda. Além disso, nossa template engine ingênua, conforme seu nome de batismo, é bem simples, destinada apenas para fins didáticos, e também muito frágil. Por exemplo, ela não suporta laços aninhados. Poderíamos realizar melhorias de desempenho e até mesmo adicionar mais verificações de erros para torná-la mais robusta. Mas para os propósitos desta aula, já está mais do que o suficiente!</p>
+    </div>
+    <div id="exercicios">
+        <h2>Exercícios</h2>
+        <ol class="excs">
+            <li>O problema da linha 7 no método <a href="#process-method"><code>process</code></a>é tentar invocar um método inválido quando uma diretiva inexistente é informada. Proponha e implemente uma tratativa de erro. Sugestão: uma estratégia seria lançar uma exceção, outra estratégia, seria ignorar essa diretiva. Qual você escolheria, e por quê?</li>
+            <li>Implemente os métodos <code>process_loopvar</code> e <code>process_include</code>, que ficaram faltando.</li>
+            <li>Alguns métodos como <code>process_endloop</code> recebem <code>argument</code> sem nem precisar dele, enquanto que os que o utilizam, também poderiam obter seu valor diretamente do objeto <code>match</code>, de onde ele foi tirado. Refatore o código retirando qualquer referência à variável <code>argument</code>.</li>
+            <li>Comentários são primariamente destinados à documentação do desenvolvedor e não são necessários para o cliente que recebe a página HTML. Podemos remover comentários do HTML antes de enviá-lo ao cliente, economizando, assim, o uso de banda do servidor. Implemente essa funcionalidade na nossa <i>template engine</i> ingênua.</li>
+            <li><b>Desafio:</b> Adicione as diretivas <code>/** if &lt;var> **/</code> e <code>/** endif **/</code>, que, caso o contexto tenha a variável <code>&lt;var></code>, grave o conteúdo entre essas diretivas no arquivo de saída.</li>
+        </ol>
     </div>
 </div>
