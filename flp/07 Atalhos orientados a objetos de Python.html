@@ -675,9 +675,15 @@ def sum(a, b):
     format_time(f"Sum: {a}+{b}={a+b}")
 
 def greetings(name=None):
-    format_time(f"Hello, {name if name else "world"}!" )
+    format_time(f"Hello, {name if name else 'world'}!" )
 
-class Repeater:
+format_time("Valendo!")
+call_after(3, nothing)
+call_after(2, sum, a=4, b=3)
+call_after(1, greetings, name="Pedro")</code></pre>
+        <p>Observe que uma função só é executada após o término da anterior.</p>
+        <p>Também podemos usar métodos de objetos como callbacks:</p>
+        <pre><code>class Repeater:
     def __init__(self, times=3, delay=1):
         self.count = 0
         self.times = times
@@ -689,17 +695,15 @@ class Repeater:
         if self.count &lt; self.times:
             call_after(self.delay, self.repeat)
 
-call_after(3, nothing)
-call_after(2, sum, a=4, b=3)
-call_after(1, greetings, name="Pedro")
+format_time("Valendo!")
 repeater = Repeater()
 call_after(4, repeater.repeat)</code></pre>
-        <p>Observe que uma função só é executada após o término da anterior. Observe também que podemos usar métodos de objetos como callbacks.</p>
         <p>Funções callback são muito úteis em situações onde você não deseja que a execução do programa seja bloqueada, aguardando a ocorrência de eventos específicos ou a conclusão de operações demoradas. Em casos como o da função <code>call_after</code>, cuja execução pode ser consideravelmente prolongada devido ao seu parâmetro <code>delay</code>, podemos usar o objeto <code>ThreadPoolExecutor</code> para executar funções em paralelo:</p>
 
         <pre><code>from concurrent.futures import ThreadPoolExecutor
 
 with ThreadPoolExecutor() as executor:
+    format_time("Valendo!")
     executor.submit(call_after, 3, nothing)
     executor.submit(call_after, 2, sum, a=4, b=3)
     executor.submit(call_after, 1, greetings, name="Pedro")
