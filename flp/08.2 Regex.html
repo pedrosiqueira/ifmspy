@@ -183,7 +183,7 @@ Hello\nWorld\t!</code></pre>
                     </tr>
                 </tbody>
             </table>
-            <p>O objeto <code>Match</code> possui informações sobre a busca. Veja a diferença entre <code>finditer</code>, que retorna um iterador de <code>Match</code>s e <code>finditer</code>, que aqui retorna uma lista de strings:</p>
+            <p>O objeto <code>Match</code> possui informações sobre a busca. Veja a diferença entre <code>finditer</code>, que retorna um iterador de <code>Match</code>s e <code>findall</code>, que aqui retorna uma lista de strings:</p>
             <table class="custom">
                 <thead>
                     <tr>
@@ -318,8 +318,8 @@ TypeError: 'callable_iterator' object is not subscriptable</pre>
 
             <h4>Sequências de escape</h4>
             <p>Se você quiser escapar um caractere especial, para tratá-lo literalmente, basta precedê-lo por uma barra invertida:</p>
-            <pre><code class="python-repl">>>> re.findall("\d\.\d", "1.2, 3.4, 5.6 e, por fim, 7.8")
-['1.2', '3.4', '5.6', '7.8']</code></pre>
+            <pre><code class="python-repl">>>> re.findall("\d\.\d", "1.2, 3h4, 5,6 e, por fim, 7.8")
+['1.2', '7.8']</code></pre>
 
             <p>Regex também interpreta sequências de escape. Portanto, uma string usada como padrão de correspondência é compilada duas vezes, uma pelo próprio Python e outra pela engine de regex do Python. Isso quer dizer que se você colocar a string <code>\\n</code> como padrão de correspondência, primeiramente o Python entenderá que é para escapar a barra invertida, tornando a string na barra invertida literal seguida pela letra n, que o regex ainda entenderá como uma quebra de linha.</p>
             <p>Considere cada <code>findall</code> seguinte. O primeiro argumento é um padrão regex, que é interpretado tanto pelo Python quanto pela engine regex, já o segundo argumento é interpretado apenas pelo Python.</p>
@@ -349,7 +349,7 @@ print(re.findall("a\\\_b", "a\_b"))   # ['a\\_b']
 print(re.findall("a\\\_b", "a\\_b"))  # ['a\\_b']
 print(re.findall("a\\\_b", "a\\\_b")) # []</code></pre>
             <div class="info">
-                <p>Observação: Você pode estar se perguntando por que as linhas 10 e 11 imprimiram as strings como <code>a\_b</code> em vez de <code>a\_b</code>, conforme as linhas 2 e 3. Isso ocorre porque ao imprimir listas, as sequências de escape não são interpretadas.</p>
+                <p>Observação: Você pode estar se perguntando por que as linhas 10 e 11 imprimiram as strings como <code>a\\_b</code> em vez de <code>a\_b</code>, conforme as linhas 2 e 3. Isso ocorre porque ao imprimir listas, as sequências de escape não são interpretadas.</p>
                 <pre><code class="python-repl">>>> l = ["string normal", "sequências\nde\tescape"]
 >>> print(l)
 ['string normal', 'sequências\nde\tescape']
