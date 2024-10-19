@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+        }, false);
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
+    <style>
+        img {
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .katex {
+            /* o padrão é 1.21, vc pode remover essa configuração se quiser deixar o padrão */
+            font-size: 1.0em;
+        }
+
+        table.custom,
+        table.custom>thead>tr>th,
+        table.custom>tbody>tr>td,
+        table.custom>tbody>tr>th {
+            /* tabela centralizada e com bordas */
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+        }
+
+        table pre {
+            /* tags pre dentro de tabelas são alinhadas à esquerda, sem margem interna */
+            margin: 0;
+            text-align: left !important;
+        }
+
+        td:has(pre) {
+            /* tags pre dentro de tabela são alinhadas no topo */
+            vertical-align: top;
+        }
+
+        code:not(pre code) {
+            /* tags code não filhas de pre */
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+        }
+
+        table.align-left th,
+        table.align-left td {
+            /* alinha à esquerda as células da tabela */
+            text-align: left !important;
+        }
+
+        /* inicia a lista de exercícios */
+        ol.excs {
+            padding-inline-start: 0em;
+            counter-reset: excs;
+            list-style: none;
+        }
+
+        /* põe um numerador num item da lista de exercícios, desde que não seja da classe no-mark */
+        ol.excs>li:not(.no-mark)::before {
+            counter-increment: excs;
+            content: counters(excs, ".") ". ";
+        }
+
+        /* põe uma barra vertical ao lado do item da lista de exercícios */
+        ol.excs>li {
+            /* Change this to adjust the line color and thickness */
+            border-left: 2px solid #000;
+            /* Optional: Add padding to create some space between the bar and content */
+            padding-left: 10px;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+        }
+
+        ol.section {
+            counter-reset: section;
+            list-style-type: none;
+        }
+
+        ol.section li::before {
+            counter-increment: section;
+            content: counters(section, ".") ". ";
+        }
+
+        td.hljs-ln-numbers {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            color: #ccc;
+            border-right: 1px solid #999;
+            padding-right: 5px;
+        }
+
+        td.hljs-ln-code {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            padding-left: 10px;
+        }
+
+        .info {
+            border-left: 6px solid blue;
+            padding-left: 1%;
+        }
+    </style>
+</head>
+<h1>UVa 12157 - Plano de Tarifas</h1>
+<p>A Ampang Communications &amp; Mobile (ACM) oferece serviços de telecomunicação para diferentes tipos de usuários. Como o povo de Ampang é bastante comunicativo, eles estão sempre em busca de pacotes que mais se adequem a eles. Para ter uma vantagem sobre os concorrentes, a ACM oferece diversos pacotes. Dois dos pacotes mais populares são:</p>
+<ul>
+    <li><strong>Mile</strong></li>
+    <li><strong>Juice</strong></li>
+</ul>
+<p>O plano <strong>Mile</strong> cobra a cada 30 segundos com uma tarifa de 10 centavos. Isso significa que, se você falar por 29 segundos ou menos, será cobrado 10 centavos. Se falar entre 30 a 59 segundos, será cobrado 20 centavos, e assim por diante.</p>
+<p>O plano <strong>Juice</strong> cobra a cada 60 segundos com uma tarifa de 15 centavos. Isso significa que, se você falar por 59 segundos ou menos, será cobrado 15 centavos. Da mesma forma, se falar entre 60 a 119 segundos, será cobrado 30 centavos, e assim por diante.</p>
+<p>Dada uma lista de durações de chamadas, você pode determinar qual pacote é mais barato?</p>
+<h3>Entrada</h3>
+<p>A primeira linha da entrada é um número inteiro <strong>T</strong> (T &lt; 50) que indica o número total de casos de teste. Cada caso começa com uma linha contendo um número inteiro <strong>N</strong> (0 &lt; N &lt; 20). A próxima linha contém uma lista com <strong>N</strong> durações de chamadas (em segundos). Cada duração de chamada é um número inteiro no intervalo [1, 2000]. Números consecutivos são separados por um único espaço.</p>
+<h3>Saída</h3>
+<p>Para cada caso, primeiro exiba o número do caso. Em seguida, exiba o nome do pacote mais barato seguido do custo correspondente em centavos. Se ambos os pacotes tiverem o mesmo custo total, exiba os dois nomes (com &quot;Mile&quot; precedendo &quot;Juice&quot;), seguido do custo. Veja a saída de exemplo para detalhes de formatação.</p>
+<h3>Ilustração</h3>
+<ul>
+    <li><strong>Caso 1</strong>: Mile(30 + 10 = 40) &amp; Juice(30 + 15 = 45).</li>
+    <li><strong>Caso 2</strong>: Mile(20 + 20 + 20 = 60) &amp; Juice(15 + 15 + 15 = 45).</li>
+    <li><strong>Caso 3</strong>: Mile(30 + 30 = 60) &amp; Juice(30 + 30 = 60).</li>
+</ul>
+
+<h3>Exemplo de Entrada/Saída</h3>
+<table class="custom">
+    <tr>
+        <th>Entrada</th>
+        <th>Saída</th>
+    </tr>
+    <tr>
+        <td>
+            <pre>3
+2
+61 10
+3
+40 40 40
+2
+60 65</pre>
+        </td>
+        <td>
+            <pre>Case 1: Mile 40
+Case 2: Juice 45
+Case 3: Mile Juice 60</pre>
+        </td>
+    </tr>
+</table>
