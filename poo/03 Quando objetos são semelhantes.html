@@ -164,7 +164,7 @@
         <pre><code class="python">class EmailableContact(Contact, MailSender):
     pass</code></pre>
 
-        <p>Vamos considerar alternativas ao mixin:</p>
+        <p> Os mixins geralmente têm escopo limitado e não devem ser estendidos. Vamos considerar alternativas ao mixin:</p>
         <ul>
             <li>Herança simples: Poderíamos adicionar a função <code>send_mail</code> à subclasse. No entanto, isso resultaria em duplicação da funcionalidade de email para outras classes que também precisassem disso.</li>
             <li>Função independente: Poderíamos criar uma função separada para enviar emails e chamá-la com o endereço de email correto quando necessário, evitando duplicação de código.</li>

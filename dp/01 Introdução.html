@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+        }, false);
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
+    <style>
+        img {
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .katex {
+            /* o padrão é 1.21, vc pode remover essa configuração se quiser deixar o padrão */
+            font-size: 1.0em;
+        }
+
+        table.custom,
+        table.custom>thead>tr>th,
+        table.custom>tbody>tr>td,
+        table.custom>tbody>tr>th {
+            /* tabela centralizada e com bordas */
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+        }
+
+        table pre {
+            /* tags pre dentro de tabelas são alinhadas à esquerda, sem margem interna */
+            margin: 0;
+            text-align: left !important;
+        }
+
+        td:has(pre) {
+            /* tags pre dentro de tabela são alinhadas no topo */
+            vertical-align: top;
+        }
+
+        code:not(pre code) {
+            /* tags code não filhas de pre */
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+        }
+
+        table.align-left th,
+        table.align-left td {
+            /* alinha à esquerda as células da tabela */
+            text-align: left !important;
+        }
+
+        /* inicia a lista de exercícios */
+        ol.excs {
+            padding-inline-start: 0em;
+            counter-reset: excs;
+            list-style: none;
+        }
+
+        /* põe um numerador num item da lista de exercícios, desde que não seja da classe no-mark */
+        ol.excs>li:not(.no-mark)::before {
+            counter-increment: excs;
+            content: counters(excs, ".") ". ";
+        }
+
+        /* põe uma barra vertical ao lado do item da lista de exercícios */
+        ol.excs>li {
+            /* Change this to adjust the line color and thickness */
+            border-left: 2px solid #000;
+            /* Optional: Add padding to create some space between the bar and content */
+            padding-left: 10px;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+        }
+
+        ol.section {
+            counter-reset: section;
+            list-style-type: none;
+        }
+
+        ol.section li::before {
+            counter-increment: section;
+            content: counters(section, ".") ". ";
+        }
+
+        td.hljs-ln-numbers {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            color: #ccc;
+            border-right: 1px solid #999;
+            padding-right: 5px;
+        }
+
+        td.hljs-ln-code {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            padding-left: 10px;
+        }
+
+        .info {
+            border-left: 6px solid blue;
+            padding-left: 1%;
+        }
+    </style>
+</head>
+
+<h1>Desafios de Programação</h1>
+
+<p>O <a href="https://onlinejudge.org/">UVa Online Judge</a> é um juiz automatizado online para problemas de programação, mantido pela Universidade de Valladolid (UVa).</p>
+
+<p>Cada problema apresenta uma breve contextualização, seguida da descrição da entrada e saída de dados. Em competições de programação modernas, é comum usar um único arquivo com múltiplos casos de teste, ao invés de vários arquivos individuais. Existem três formas principais de estruturar a entrada de dados:</p>
+
+<ul>
+    <li>A primeira linha indica o número de casos de teste.</li>
+    <li>Os casos de teste terminam com valores especiais (geralmente zeros).</li>
+    <li>Os casos de teste continuam até o sinal de EOF (fim de arquivo).</li>
+</ul>
+
+<p>Considere o seguinte problema: "Dado dois números inteiros em uma linha, exiba a soma deles em uma linha." Vamos resolvê-lo utilizando as três formas de entrada mencionadas:</p>
+
+<table class="custom">
+    <thead>
+        <tr>
+            <th>Código-fonte</th>
+            <th>Entrada</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <pre><code>TC = int(input())  # número de casos de teste
+for _ in range(TC):  # para cada caso de teste
+    numbers = input().split()  # lê uma linha com vários números
+    a, b = int(numbers[0]), int(numbers[1])  # atribui os números a variáveis
+    print(a + b)  # exibe a soma</code></pre>
+            </td>
+            <td>
+                <pre>3
+1 2
+5 7
+6 3</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <pre><code>numbers = input().split()  # lê uma linha com vários números
+a, b = int(numbers[0]), int(numbers[1])  # atribui os números a variáveis
+while a != 0 or b != 0:  # enquanto não for o último caso de teste
+    print(a + b)  # exibe a soma
+    numbers = input().split()  # lê a próxima linha
+    a, b = int(numbers[0]), int(numbers[1])  # atualiza os valores</code></pre>
+            </td>
+            <td>
+                <pre>1 2
+5 7
+6 3
+0 0</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <pre><code>from sys import stdin
+
+for line in stdin:  # enquanto não chegou no fim da entrada
+    numbers = line.split()  # lê uma linha com vários números
+    a, b = int(numbers[0]), int(numbers[1])  # atribui os números a variáveis
+    print(a + b)  # exibe a soma</code></pre>
+            </td>
+            <td>
+                <pre>1 2
+5 7
+6 3</pre>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p>Para todas essas entradas, a saída será a mesma:</p>
+<pre>3
+12
+9</pre>
+
+<p>Experimente executar cada programa manualmente, lendo os dados da entrada padrão (teclado). No terceiro tipo de entrada, que utiliza EOF, você pode gerar o EOF pressionando <kbd>Ctrl+D</kbd> em sistemas Unix ou <kbd>Ctrl+Z</kbd> no Windows.</p>
+
+<p>O juiz automatizado executa o programa lendo os dados de um arquivo de entrada e escreve a saída em um arquivo de saída. Em seguida, ele compara esse arquivo de saída com o gabarito oficial. Se ambos forem iguais, parabéns, você acertou a solução!</p>
+
+<p>Agora, experimente salvar os dados de teste em um arquivo, como <code>entrada.txt</code>, e execute o programa lendo os dados desse arquivo e escrevendo a saída em outro arquivo, como <code>saida.txt</code>.</p>
+
+<p>Em sistemas Unix, você pode usar o seguinte comando:</p>
+<pre>python3 programa.py &lt;entrada.txt &gt;saida.txt</pre>
+
+<p>No Windows, o comando seria:</p>
+<pre>get-content entrada.txt | python programa.py >saida.txt</pre>
+
+<p>Você também pode copiar os dados de entrada para a área de transferência (com <kbd>Ctrl+C</kbd>) e colá-los no terminal (com <kbd>Ctrl+V</kbd>), o que evita ter que digitar os dados manualmente e permite ver a saída diretamente no terminal sem a necessidade de salvar em arquivos.</p>
+
+<h2>Exercícios</h2>
+<p>Resolva os seguintes exercícios do UVa Judge:</p>
+<ul>
+    <li><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=2661">11614 - Guerreiros etruscos nunca jogam xadrez</a></li>
+    <li><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=3402">12250 - Detecção de Língua</a></li>
+    <li><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=996">10055 - Hashmat, o bravo guerreiro</a></li>
+    <li><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3309">12157 - Plano de Tarifas</a></li>
+</ul>
+<p>Suas versões traduzidas estão disponíveis no Moodle.</p>
