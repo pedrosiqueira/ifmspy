@@ -811,7 +811,7 @@ sliced8 = list(reversed(numbers))</code></pre>
 
         <div id="6-5-1-sorting-lists">
             <h3>Ordenando listas</h3>
-            <p>Listas também têm o método <code>sort(self, /, *, key=None, reverse=False)</code>, que ordena a lista <i>in-loco</i> (a modifica). Para retornar uma cópia ordenada da lista, use a função <code>sorted(iterable, /, *, key=None, reverse=False)</code>.</p>
+            <p>Listas também têm o método <code>sort(self, /, *, key=None, reverse=False)</code>, que ordena a lista <i>in-loco</i> (a modifica). Para retornar uma cópia ordenada da lista, use a função <code>sorted(iterable, /, *, key=None, reverse=False)</code>. Ambas as funções são de ordenação estável, i.e., a ordem de dois elementos iguais é mantida.</p>
             <pre><code>>>> alist = [9, 1, 5, 8, 2, 3]
 >>> sortedlist = sorted(alist)
 >>> alist, sortedlist
