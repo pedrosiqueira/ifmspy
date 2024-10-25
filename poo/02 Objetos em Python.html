@@ -153,7 +153,7 @@ print(point1.calculate_distance(point1))</code></pre>
         <p>Se não definirmos explicitamente as posições <code>x</code> e <code>y</code> em nosso objeto <code>Point</code>, seja usando o método move ou acessando-as diretamente, teremos um ponto com defeito e sem posição real. O que acontecerá quando tentarmos acessá-lo?</p>
         <p>Todas as mensagens de erro seguem esse padrão.</p>
         <p>Poderíamos definir valores padrão para esses atributos. A maioria das linguagens de programação orientada a objetos possui o conceito de um <b>construtor</b>, um método especial que cria e inicializa o objeto quando ele é criado. No Python, existem dois tipos de métodos para construir objetos: <code>__new__</code> e <code>__init__</code>. A menos que você esteja fazendo algo muito exótico, usará o método de inicialização muito mais comum, <code>__init__</code>.</p>
-        <p>Métodos e variáveis ‘mágicas’ no Python começam e terminam com duplos sublinhados. Não identifique os seus próprios assim!</p>
+        <p>Métodos e variáveis ‘mágicas’ no Python começam e terminam com duplos sublinhados. Não identifique os seus próprios assim! Você também não deve acessar diretamente variáveis ou métodos mágicos, eles são utilizados automaticamente pelo Python quando necessário.</p>
         <pre><code class="python">class Point:
     def __init__(self, x, y):
         self.move(x, y)

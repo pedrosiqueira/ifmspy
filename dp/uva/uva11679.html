@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+        }, false);
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
+    <style>
+        img {
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .katex {
+            /* o padrão é 1.21, vc pode remover essa configuração se quiser deixar o padrão */
+            font-size: 1.0em;
+        }
+
+        table.custom,
+        table.custom>thead>tr>th,
+        table.custom>tbody>tr>td,
+        table.custom>tbody>tr>th {
+            /* tabela centralizada e com bordas */
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+        }
+
+        table pre {
+            /* tags pre dentro de tabelas são alinhadas à esquerda, sem margem interna */
+            margin: 0;
+            text-align: left !important;
+        }
+
+        td:has(pre) {
+            /* tags pre dentro de tabela são alinhadas no topo */
+            vertical-align: top;
+        }
+
+        code:not(pre code) {
+            /* tags code não filhas de pre */
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+        }
+
+        table.align-left th,
+        table.align-left td {
+            /* alinha à esquerda as células da tabela */
+            text-align: left !important;
+        }
+
+        /* inicia a lista de exercícios */
+        ol.excs {
+            padding-inline-start: 0em;
+            counter-reset: excs;
+            list-style: none;
+        }
+
+        /* põe um numerador num item da lista de exercícios, desde que não seja da classe no-mark */
+        ol.excs>li:not(.no-mark)::before {
+            counter-increment: excs;
+            content: counters(excs, ".") ". ";
+        }
+
+        /* põe uma barra vertical ao lado do item da lista de exercícios */
+        ol.excs>li {
+            /* Change this to adjust the line color and thickness */
+            border-left: 2px solid #000;
+            /* Optional: Add padding to create some space between the bar and content */
+            padding-left: 10px;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+        }
+
+        ol.section {
+            counter-reset: section;
+            list-style-type: none;
+        }
+
+        ol.section li::before {
+            counter-increment: section;
+            content: counters(section, ".") ". ";
+        }
+
+        td.hljs-ln-numbers {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            color: #ccc;
+            border-right: 1px solid #999;
+            padding-right: 5px;
+        }
+
+        td.hljs-ln-code {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            padding-left: 10px;
+        }
+
+        .info {
+            border-left: 6px solid blue;
+            padding-left: 1%;
+        }
+    </style>
+</head>
+
+<h1>UVa 11679 - Sub-prime</h1>
+
+<p>A crise econômica mais recente foi causada em parte pela forma como os bancos concediam empréstimos a pessoas incapazes de pagá-los e revendiam esses empréstimos a outros bancos como debêntures. Obviamente, quando as pessoas deixaram de pagar seus empréstimos, todo o sistema colapsou.</p>
+
+<p>A crise foi tão profunda que afetou países de todo o mundo, incluindo Nlogônia, onde o respeitado primeiro-ministro Man Dashuva ordenou que o presidente do Banco Central encontrasse uma solução. Ele teve uma ideia brilhante: se todos os bancos conseguissem liquidar suas debêntures apenas com suas próprias reservas monetárias, todos os bancos sobreviveriam e a crise seria evitada.</p>
+
+<p>No entanto, com o elevado número de debêntures e bancos envolvidos, essa era uma tarefa extremamente complicada, então ele pediu sua ajuda para escrever um programa que, dado o conjunto de bancos e debêntures emitidas por eles, determine se é possível que todos os bancos paguem suas dívidas usando apenas suas reservas monetárias e créditos.</p>
+
+<h3>Entrada</h3>
+<p>A entrada consiste em vários casos de teste. A primeira linha de cada caso de teste contém dois inteiros <em>B</em> e <em>N</em>, indicando o número de bancos (<code>1 ≤ B ≤ 20</code>) e o número de debêntures emitidas pelos bancos (<code>1 ≤ N ≤ 20</code>). Os bancos são identificados por inteiros entre 1 e <em>B</em>.</p>
+
+<p>A segunda linha contém <em>B</em> inteiros <em>R<sub>i</sub></em> separados por espaços, indicando as reservas monetárias de cada um dos <em>B</em> bancos (<code>0 ≤ R<sub>i</sub> ≤ 10<sup>4</sup></code>, para <code>1 ≤ i ≤ B</code>).</p>
+
+<p>As <em>N</em> linhas seguintes contêm cada uma três inteiros separados por espaços: um inteiro <em>D</em>, indicando o banco devedor (<code>1 ≤ D ≤ B</code>), um inteiro <em>C</em>, indicando o banco credor (<code>1 ≤ C ≤ B</code> e <code>D ≠ C</code>), e um inteiro <em>V</em>, indicando o valor da debênture (<code>1 ≤ V ≤ 10<sup>4</sup></code>).</p>
+
+<p>O fim da entrada é indicado por uma linha contendo apenas dois zeros, separados por espaços.</p>
+
+<h3>Saída</h3>
+<p>Para cada caso de teste, o programa deve imprimir uma única linha contendo um único caractere: ‘S’, se for possível liquidar todas as debêntures sem intervenção do Banco Central de Nlogônia, ou ‘N’ se uma intervenção for necessária.</p>
+
+<h3>Exemplo de Entrada/Saída</h3>
+<table class="custom">
+    <tr>
+        <th>Entrada</th>
+        <th>Saída</th>
+    </tr>
+    <tr>
+        <td>
+            <pre>3 3
+1 1 1
+1 2 1
+2 3 2
+3 1 3
+3 3
+1 1 1
+1 2 1
+2 3 2
+3 1 4
+3 3
+1 1 1
+1 2 2
+2 3 2
+3 1 2
+0 0</pre>
+        </td>
+        <td>
+            <pre>S
+N
+S</pre>
+        </td>
+    </tr>
+</table>
