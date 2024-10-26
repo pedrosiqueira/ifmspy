@@ -11,11 +11,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-    <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
@@ -124,15 +119,25 @@
     </style>
 </head>
 
-<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=996">UVa 10055</a> - Hashmat, o bravo guerreiro</h1>
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=2726">UVa 11679</a> - Sub-prime</h1>
 
-<p>Hashmat é um guerreiro valente que, com seu grupo de jovens soldados, se move de um lugar para outro para lutar contra seus oponentes. Antes de lutar, ele calcula apenas uma coisa: a diferença entre o número de seus soldados e o número de soldados do oponente. A partir dessa diferença, ele decide se vai lutar ou não. O número de soldados de Hashmat nunca é maior que o do oponente.</p>
+<p>A crise econômica de 2008 foi causada em parte pela forma como os bancos concediam empréstimos a pessoas incapazes de pagá-los e revendiam esses empréstimos a outros bancos como debêntures. Obviamente, quando as pessoas deixaram de pagar seus empréstimos, todo o sistema colapsou.</p>
+
+<p>A crise foi tão profunda que afetou países de todo o mundo, incluindo Nlogônia, onde o respeitado primeiro-ministro Man Dashuva ordenou que o presidente do Banco Central encontrasse uma solução. Ele teve uma ideia brilhante: se todos os bancos conseguissem liquidar suas debêntures apenas com suas próprias reservas monetárias, todos os bancos sobreviveriam e a crise seria evitada.</p>
+
+<p>No entanto, com o elevado número de debêntures e bancos envolvidos, essa era uma tarefa extremamente complicada, então ele pediu sua ajuda para escrever um programa que, dado o conjunto de bancos e debêntures emitidas por eles, determine se é possível que todos os bancos paguem suas dívidas usando apenas suas reservas monetárias e créditos.</p>
 
 <h3>Entrada</h3>
-<p>A entrada contém dois números em cada linha. Esses dois números em cada linha representam o número de soldados no exército de Hashmat e no exército de seu oponente ou vice-versa. Os números de entrada não são maiores que $2^{32}$. A entrada é terminada por &#39;EOF&#39; (Fim de Arquivo).</p>
+<p>A entrada consiste em vários casos de teste. A primeira linha de cada caso de teste contém dois inteiros <em>B</em> e <em>N</em>, indicando o número de bancos (<code>1 ≤ B ≤ 20</code>) e o número de debêntures emitidas pelos bancos (<code>1 ≤ N ≤ 20</code>). Os bancos são identificados por inteiros entre 1 e <em>B</em>.</p>
+
+<p>A segunda linha contém <em>B</em> inteiros <em>R<sub>i</sub></em> separados por espaços, indicando as reservas monetárias de cada um dos <em>B</em> bancos (<code>0 ≤ R<sub>i</sub> ≤ 10<sup>4</sup></code>, para <code>1 ≤ i ≤ B</code>).</p>
+
+<p>As <em>N</em> linhas seguintes contêm cada uma três inteiros separados por espaços: um inteiro <em>D</em>, indicando o banco devedor (<code>1 ≤ D ≤ B</code>), um inteiro <em>C</em>, indicando o banco credor (<code>1 ≤ C ≤ B</code> e <code>D ≠ C</code>), e um inteiro <em>V</em>, indicando o valor da debênture (<code>1 ≤ V ≤ 10<sup>4</sup></code>).</p>
+
+<p>O fim da entrada é indicado por uma linha contendo apenas dois zeros, separados por espaços.</p>
 
 <h3>Saída</h3>
-<p>Para cada linha de entrada, imprima a diferença no número de soldados entre o exército de Hashmat e o exército de seu oponente. Cada saída deve estar em uma linha separada.</p>
+<p>Para cada caso de teste, o programa deve imprimir uma única linha contendo um único caractere: ‘S’, se for possível liquidar todas as debêntures sem intervenção do Banco Central de Nlogônia, ou ‘N’ se uma intervenção for necessária.</p>
 
 <h3>Exemplo de Entrada/Saída</h3>
 <table class="custom">
@@ -142,14 +147,27 @@
     </tr>
     <tr>
         <td>
-            <pre>10 12
-10 14
-100 200</pre>
+            <pre>3 3
+1 1 1
+1 2 1
+2 3 2
+3 1 3
+3 3
+1 1 1
+1 2 1
+2 3 2
+3 1 4
+3 3
+1 1 1
+1 2 2
+2 3 2
+3 1 2
+0 0</pre>
         </td>
         <td>
-            <pre>2
-4
-100</pre>
+            <pre>S
+N
+S</pre>
         </td>
     </tr>
 </table>
