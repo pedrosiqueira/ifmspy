@@ -14,7 +14,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-    <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+    <script defer>hljs.configure({ languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+
+    <!-- https://github.com/arronhunt/highlightjs-copy -->
+    <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" />
+    <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+    <script defer>hljs.addPlugin(new CopyButtonPlugin());</script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
@@ -64,7 +69,12 @@
         table.align-left th,
         table.align-left td {
             /* alinha à esquerda as células da tabela */
-            text-align: left !important;
+            text-align: left;
+        }
+
+        .bordered-line td {
+            /* tags tr com borda em todas as suas células */
+            border: 1px solid black;
         }
 
         /* inicia a lista de exercícios */
@@ -100,6 +110,12 @@
             content: counters(section, ".") ". ";
         }
 
+        p code {
+            /* estiliza códigos dentro de parágrafos */
+            color: darkred;
+            background-color: #f3f3f3;
+        }
+
         td.hljs-ln-numbers {
             /* estilizar as linhas de código da extensao highlightjs-line-numbers */
             color: #ccc;
@@ -113,6 +129,7 @@
         }
 
         .info {
+            /* balão de informação */
             border-left: 6px solid blue;
             padding-left: 1%;
         }
@@ -639,6 +656,17 @@ print(first, last)
 # apenas as chaves são desempacotadas...
 key1, key2, *_ = dd
 print(dd[key1], dd[key2])</code></pre>
+
+        <!-- 
+
+
+
+https://realpython.com/python-iterators-iterables/#unpacking-iterables
+
+
+
+-->
+
         <p>Você pode ler mais a respeito de <a href="https://realpython.com/python-kwargs-and-args/"><code>*args</code> e <code>**kwargs</code> aqui</a>.</p>
 
         <h3>Exercícios</h3>
