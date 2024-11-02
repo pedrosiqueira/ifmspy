@@ -846,8 +846,8 @@ print("Deep Copied Points:   ", deepcopied)</code></pre>
                         <pre><code>>>> i, j, t = 2, 5, (9,) * 15
 >>> s[i:j] = t
 >>> s # [3, 6, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 18, 21]
->>> s[2:-3] = (1,) * 10
->>> s # [3, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 18, 21]</code></pre>
+>>> s[2:-2] = (1,) * 10
+>>> s # [3, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 18, 21]</code></pre>
                     </td>
                     <td>A fatia de <code>i</code> a <code>j</code> é substituída por <code>t</code>. Observe que se <code>t</code> for maior ou menor que a fatia, a lista pode aumentar ou diminuir.</td>
                 </tr>
