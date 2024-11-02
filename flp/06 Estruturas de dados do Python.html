@@ -55,21 +55,26 @@
         }
 
         table pre {
-            /* Remove a margem interna de tags pre dentro de tabelas */
+            /* tags pre dentro de tabelas são alinhadas à esquerda, sem margem interna */
             margin: 0;
-            padding: 0;
             text-align: left;
         }
 
         td:has(pre) {
-            /* tags pre dentro de tabela são alinhadas no topo à esquerda */
+            /* tags pre dentro de tabela são alinhadas no topo */
             vertical-align: top;
+        }
+
+        code:not(pre code) {
+            /* tags code não filhas de pre */
+            color: darkred;
+            background-color: #f3f3f3;
         }
 
         table.align-left th,
         table.align-left td {
             /* alinha à esquerda as células da tabela */
-            text-align: left;
+            text-align: left !important;
         }
 
         .bordered-line td {
@@ -108,12 +113,6 @@
         ol.section li::before {
             counter-increment: section;
             content: counters(section, ".") ". ";
-        }
-
-        p code {
-            /* estiliza códigos dentro de parágrafos */
-            color: darkred;
-            background-color: #f3f3f3;
         }
 
         td.hljs-ln-numbers {
@@ -348,7 +347,7 @@ print(movie1.better_than(movie2))</code></pre>
                     <td>
                         <pre><code>__reversed__(self, /)</code></pre>
                     </td>
-                    <td>Retorna um iterador que percorre a lista de trás para frente. Ainda estudaremos iteradores, mas eles são objetos que representam fluxos de dados.</td>
+                    <td>Retorna um iterador que percorre a lista de trás para frente. Ainda estudaremos iteradores, mas eles são objetos que representam fluxos de dados<sup><a href="#iteradores">1</a></sup>.</td>
                     <td>
                         <pre><code>>>> reverse = reversed([9, 1, 8, 2])
 >>> for item in reverse: item # 2 8 1 9</code></pre>
@@ -366,6 +365,10 @@ print(movie1.better_than(movie2))</code></pre>
             </tbody>
         </table>
         <p>De qualquer forma, você não deve invocar diretamente os métodos mágicos.</p>
+        <div id="iteradores" class="info"><sup>1</sup>Iteradores percorrem objetos iteráveis de forma preguiçosa (*lazily*) para otimizar desempenho. Isso significa que um iterador não armazena previamente todos os itens do iterável; em vez disso, ele os gera conforme são acessados durante a iteração. Por causa dessa característica, ao tentar imprimir um iterador, a saída pode não ser exatamente o que você espera:
+            <pre><code>>>> reversed([1,2,3,4])
+&lt;list_reverseiterator object at 0x7a8bf76c0100></code></pre>
+        </div>
 
         <h3>Métodos de <code>Sequence</code></h3>
         <p>Considere a seguinte lista de exemplo:</p>
@@ -416,7 +419,7 @@ print(movie1.better_than(movie2))</code></pre>
                     <td>
                         <pre><code>__add__(self, other, /)</code></pre>
                     </td>
-                    <td>Concatena outra lista à lista.</td>
+                    <td>Concatena outra lista à lista. (Não é possível concatenar outro iterável a não ser uma lista.)</td>
                     <td>
                         <pre><code>>>> otherlist = alist + [9, 5] # [9, 3, 7, 9, 5]</code></pre>
                     </td>
@@ -425,7 +428,7 @@ print(movie1.better_than(movie2))</code></pre>
                     <td>
                         <pre><code>__mul__(self, value, /)</code></pre>
                     </td>
-                    <td>Repete <code>value</code> vezes os itens da lista<sup id="cit-1"><a href="#obs-1">1</a></sup>. Observe que tanto na concatenação quanto na repetição é criada uma nova lista.</td>
+                    <td>Repete <code>value</code> vezes os itens da lista<sup><a href="#obs-1">2</a></sup>. Observe que tanto na concatenação quanto na repetição é criada uma nova lista.</td>
                     <td>
                         <pre><code>>>> alist * 3 # [9, 3, 7, 9, 3, 7, 9, 3, 7]</code></pre>
                     </td>
@@ -494,7 +497,8 @@ print(movie1.better_than(movie2))</code></pre>
                     </td>
                     <td>Obtém o item em <code>index</code>.</td>
                     <td>
-                        <pre><code>>>> alist[0] # 9</code></pre>
+                        <pre><code>>>> alist[0] # 9
+>>> alist[-2] # 3</code></pre>
                     </td>
                 </tr>
                 <tr>
@@ -527,7 +531,7 @@ ValueError: 9 is not in list</code></pre>
         </table>
 
         <div class="info">
-            <p><sup id="obs-1"><a href="#cit-1">1</a></sup>Observação (da <a href="https://docs.python.org/3/faq/programming.html#how-do-i-create-a-multidimensional-list">documentação oficial</a>):</p>
+            <p>Observação (da <a href="https://docs.python.org/3/faq/programming.html#how-do-i-create-a-multidimensional-list">documentação oficial</a>):</p>
             <p>Os itens não são copiados, mas referenciados várias vezes. Isso frequentemente assombra novos programadores Python:</p>
             <pre><code>>>> line = [0]    
 >>> table = [line] * 3
@@ -539,7 +543,10 @@ ValueError: 9 is not in list</code></pre>
             <p>Acontece que o item <code>line</code>, que é uma lista, foi repetido três vezes na lista <code>table</code>. Ou seja, cada item de <code>table</code> na verdade referencia a mesma lista <code>line</code>. Modificando qualquer desses itens de <code>table</code>, modifica a mesma lista <code>line</code>.</p>
         </div>
 
-        <p>Ao usar dois-pontos entre colchetes, o método <code>__getitem__(self, index, /)</code> permite slicing (fatiamento), que é extrair uma parte da lista. (Entenda "extrair" por "acessar", pois não estamos modificando a lista). Considere a seguinte lista de exemplo:</p>
+        <h4>Fatiamento de <code>Sequence</code></h4>
+        <p>Ao usar dois-pontos entre colchetes, o método <code>__getitem__(self, index, /)</code> permite slicing (fatiamento), que é extrair uma parte da lista. (Entenda "extrair" por "acessar", pois não estamos modificando a lista).</p>
+        <div class="info">Observação: Operações de slicing <a href="https://docs.python.org/dev/library/functions.html#slice">instanciam objetos</a> <code>slice</code> internamente.</div>
+        <p>Considere a seguinte lista de exemplo:</p>
         <pre><code>numbers = [3, 6, 9, 12, 15, 18, 21]</code></pre>
         <p>No Python podemos usar índices negativos para acessar elementos de trás para frente:</p>
         <table style="text-align: center; font-family: monospace;border-collapse: collapse;margin-left: auto; margin-right: auto;">
@@ -582,55 +589,72 @@ ValueError: 9 is not in list</code></pre>
             <tbody>
                 <tr>
                     <td>
-                        <pre><code>i, j, k = 1, 6, 2
-sliced = numbers[i:j:k]  # [6, 12, 18]</code></pre>
+                        <pre><code>start, stop, step = 1, 6, 2
+sliced = numbers[start:stop:step] # [6, 12, 18]</code></pre>
                     </td>
-                    <td>Extrai uma sublista, começando do índice <code>i</code>, indo até o índice <code>j-1</code>, pulando de <code>k</code> em <code>k</code> índices.</td>
+                    <td>Extrai uma sublista, começando do índice <code>start</code>, indo até o índice <code>stop-1</code>, pulando de <code>step</code> em <code>step</code> índices.</td>
                 </tr>
                 <tr>
                     <td>
-                        <pre><code>sliced2 = numbers[1:4] # [6, 9, 12]</code></pre>
+                        <pre><code>numbers[1:4] # [6, 9, 12]</code></pre>
                     </td>
-                    <td>Se omitido o pulo, também denominado passo, o padrão é de 1 em 1.</td>
+                    <td>Se omitido o <code>step</code> (passo, ou pulo) o padrão é de 1 em 1.</td>
                 </tr>
                 <tr>
                     <td>
-                        <pre><code>sliced3 = numbers[:2] # [3, 6]</code></pre>
+                        <pre><code>numbers[:2] # [3, 6]</code></pre>
                     </td>
-                    <td>Se omitido o primeiro índice, o padrão é começar do 0.</td>
+                    <td>Se omitido o <code>start</code> (índice inicial), o padrão é começar do zero.</td>
                 </tr>
                 <tr>
                     <td>
-                        <pre><code>sliced4 = numbers[1::3] # [6, 15]</code></pre>
+                        <pre><code>numbers[1::3] # [6, 15]</code></pre>
                     </td>
-                    <td>Se omitido o segundo índice, o padrão é terminar no último índice.</td>
+                    <td>Se omitido o <code>stop</code> (índice final), o padrão é terminar no último índice.</td>
                 </tr>
                 <tr>
                     <td>
-                        <pre><code>sliced5 = numbers[4:1] # []</code></pre>
+                        <pre><code>numbers[4:1] # []</code></pre>
                     </td>
-                    <td>O item do primeiro índice deve estar ANTES do item do segundo índice, para não retornar uma lista vazia.</td>
+                    <td>Se <code>start</code> estiver DEPOIS de <code>stop</code>, retorna uma lista vazia.</td>
                 </tr>
 
                 <tr>
                     <td>
-                        <pre><code>sliced6 = numbers[-6:-2] # [6, 9, 12, 15]
-sliced7 = numbers[2:-2] # [9, 12, 15]</code></pre>
+                        <pre><code>numbers[-6:-2] # [6, 9, 12, 15]
+numbers[2:-2] # [9, 12, 15]</code></pre>
                     </td>
                     <td>Os índices também podem ser negativos.</td>
                 </tr>
                 <tr>
                     <td>
-                        <pre><code>sliced8 = numbers[::-1] # [21, 18, 15, 12, 9, 6, 3]
-sliced8 = list(reversed(numbers))</code></pre>
+                        <pre><code>numbers[::-1] # [21, 18, 15, 12, 9, 6, 3]
+list(reversed(numbers))</code></pre>
                     </td>
                     <td>Se o pulo for negativo, os caracteres são extraídos de trás para frente. Ambas essas operações possuem resultados equivalentes.</td>
                 </tr>
                 <tr>
                     <td>
-                        <pre><code>sliced9 = numbers[-2:1:-3] # [18, 9]</code></pre>
+                        <pre><code>numbers[-2:1:-3] # [18, 9]
+numbers[5:1:-3] # [18, 9]
+numbers[1:5:-3] # []</code></pre>
                     </td>
-                    <td>De trás para frente, o item do primeiro índice deve estar DEPOIS do item do segundo índice, para não retornar uma lista vazia.</td>
+                    <td>De trás para frente, se <code>start</code> estiver ANTES de <code>stop</code>, retorna uma lista vazia.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <pre><code>numbers[-10:10] # [3, 6, 9, 12, 15, 18, 21]</code></pre>
+                    </td>
+                    <td>Se <code>start</code> estiver antes do início da lista, começa do zero. Similarmente, se <code>stop</code> estiver depois do final da lista, termina no último índice.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <pre><code>numbers[20:30] # []
+numbers[2:3] # [9]
+numbers[-20:-10] # []
+numbers[-2:-1] #[18]</code></pre>
+                    </td>
+                    <td>Se <code>start</code> estiver depois do final da lista ou <code>stop</code> estiver antes do início da lista, retorna uma lista vazia.</td>
                 </tr>
             </tbody>
         </table>
@@ -686,7 +710,8 @@ sliced8 = list(reversed(numbers))</code></pre>
                     </td>
                     <td>Atribui <code>value</code> a <code>self[i]</code>.</td>
                     <td>
-                        <pre><code>>>> alist[4] = 'z' # [9, 3, 7, 'o', 'z', 3, 7, 'o', 'i']</code></pre>
+                        <pre><code>>>> alist[4] = 'z' # [9, 3, 7, 'o', 'z', 3, 7, 'o', 'i']
+>>> alist[-1] = 'u' # [9, 3, 7, 'o', 'z', 3, 7, 'o', 'u']</code></pre>
                     </td>
                 </tr>
                 <tr>
@@ -695,7 +720,7 @@ sliced8 = list(reversed(numbers))</code></pre>
                     </td>
                     <td>Exclui a primeira ocorrência de <code>value</code>. Se não encontrar, levanta uma exceção.</td>
                     <td>
-                        <pre><code>>>> alist.remove('o') # [9, 3, 7, 'z', 3, 7, 'o', 'i']</code></pre>
+                        <pre><code>>>> alist.remove('o') # [9, 3, 7, 'z', 3, 7, 'o', 'u']</code></pre>
                     </td>
                 </tr>
                 <tr>
@@ -705,7 +730,7 @@ sliced8 = list(reversed(numbers))</code></pre>
                     <td>Exclui e retorna o item em <code>index</code> (o último, por padrão). Se lista vazia ou índice fora dos limites, levanta uma exceção.</td>
                     <td>
                         <pre><code>>>> secondlast = alist.pop(6) # 'o'
->>> last = alist.pop() # 'i'
+>>> last = alist.pop() # 'u'
 >>> thirdlast = alist.pop(-3) # 'z'
 >>> alist
 [9, 3, 7, 3, 7]</code></pre>
@@ -751,7 +776,7 @@ sliced8 = list(reversed(numbers))</code></pre>
                     <td>
                         <pre><code>copy(self, /)</code></pre>
                     </td>
-                    <td>Único método que não modifica, mas faz uma cópia da lista. Equivale à <code>self[:]</code>.</td>
+                    <td>Único método que não modifica, mas faz uma cópia<sup><a href="#shallow-copy">3</a></sup> da lista. Equivale à <code>self[:]</code>.</td>
                     <td>
                         <pre><code class="python-repl">>>> alist = list('oi')
 >>> samelist = alist
@@ -774,6 +799,39 @@ sliced8 = list(reversed(numbers))</code></pre>
             </tbody>
         </table>
 
+        <h4 id="shallow-copy">Cópia rasa vs cópia profunda</h4>
+        <p>Assim como ocorre na multiplicação de listas<sup><a href="#obs-1">2</a></sup>, o método <code>copy</code> e a operação <code>[:]</code> fazem uma cópia da lista apenas, mas mantêm as referências aos mesmos objetos contidos na lista original. Considere o seguinte exemplo:</p>
+
+        <pre><code>from dataclasses import make_dataclass
+from copy import copy, deepcopy
+
+Point = make_dataclass("Point", ("x", "y"))
+
+original = [Point(0, 0), Point(1, 1)]
+reference = original
+shallowcopied1 = original.copy()
+shallowcopied2 = copy(original)
+deepcopied = deepcopy(original)
+
+original.append(Point(2, 4))
+original[0].x, original[0].y = 3, 9
+
+shallowcopied1.append(Point(4, 16))
+
+shallowcopied2[1].x, original[1].y = 5, 25
+
+print("Original Points:      ", original)
+print("Reference Points:     ", reference)
+print("Shallow Copied Points:", shallowcopied1)
+print("Also Shallow Copy:    ", shallowcopied2)
+print("Deep Copied Points:   ", deepcopied)</code></pre>
+
+        <p>A variável <code>reference</code> referencia (aponta para) a mesma lista que a variável <code>original</code>, ou seja, ambas são a mesma lista. Alterar a lista em uma das variáveis é imediatamente refletido na outra.</p>
+        <p>As variáveis <code>shallowcopied1</code> e <code>shallowcopied2</code> são cópias da da lista <code>original</code>, mas referenciam os mesmos objetos. Isso é conhecido como cópia rasa (shallow copy). Você pode fazer uma cópia rasa de uma lista usando tanto o método <code>copy</code> da lista quanto a função <code>copy</code> do módulo <code>copy</code>, sendo que esta última também permite copiar outros tipos de objetos.</p>
+        <p>A variável <code>deepcopied</code> é uma cópia recursiva da lista <code>original</code> e de seus itens, garantindo uma cópia independente em todos os níveis. Nenhuma referência ao conteúdo original é mantida. Isso é conhecido como cópia profunda (deep copy). A função <code>deepcopy</code> do módulo <code>copy</code> permite copiar profundamente outros tipos de objetos.</p>
+        <p>Observe que, ao adicionar um novo objeto na lista <code>original</code> (linha 12), apenas a lista de <code>reference</code> reflete a alteração, já que ambas compartilham a mesma referência. Contudo, ao modificar um objeto dentro da lista <code>original</code>, essa mudança também afeta as listas <code>shallowcopied1</code> e <code>shallowcopied2</code>, pois ambas compartilham referências aos mesmos objetos internos.</p>
+
+        <h4>Fatiamento de <code>MutableSequence</code></h4>
         <p>O método <code>__setitem__(self, key, value, /)</code> também permite slicing. (Neste caso sim, estamos modificando a lista).</p>
         <p>Considere a seguinte lista de exemplo:</p>
         <pre><code>s = [3, 6, 9, 12, 15, 18, 21]</code></pre>
@@ -789,11 +847,13 @@ sliced8 = list(reversed(numbers))</code></pre>
             <tbody>
                 <tr>
                     <td>
-                        <pre><code>>>> i, j, t = 2, 5, (1,) * 10
+                        <pre><code>>>> i, j, t = 2, 5, (9,) * 15
 >>> s[i:j] = t
+>>> s # [3, 6, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 18, 21]
+>>> s[2:-2] = (1,) * 10
 >>> s # [3, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 18, 21]</code></pre>
                     </td>
-                    <td>A fatia de <code>i</code> a <code>j</code> é substituída por <code>t</code>s.</td>
+                    <td>A fatia de <code>i</code> a <code>j</code> é substituída por <code>t</code>. Observe que se <code>t</code> for maior ou menor que a fatia, a lista pode aumentar ou diminuir.</td>
                 </tr>
                 <tr>
                     <td>
@@ -851,6 +911,15 @@ sliced8 = list(reversed(numbers))</code></pre>
 >>> sortedlist.sort(reverse=True)
 >>> alist, sortedlist
 ([1, 2, 3, 5, 8, 9], [9, 8, 5, 3, 2, 1])</code></pre>
+            <div class="info">Observação: Não confunda, enquanto a função <code>sorted</code> retorna uma lista, a função <code>reversed</code> retorna um iterador.</div>
+
+            <p>Apesar de Python permitir listas heterogêneas, ordená-las não é possível:</p>
+            <pre><code>>>> alist = [4, "d", 1, "a", 3, "c"]
+>>> sorted(alist)
+Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
+TypeError: '&lt;' not supported between instances of 'str' and 'int'</code></pre>
+
             <p>O método <code>sort</code> chama o método mágico <code>__lt__</code> (abreviação de “menor que”) para comparar os elementos da lista. A maioria das classes padrão do Python já vêm com <code>__lt__</code> implementado. Se tentar ordenar objetos que não possuam <code>__lt__</code>, uma exceção é levantada.</p>
             <pre><code>class WeirdSortee:
     def __init__(self, string, number):
@@ -918,28 +987,94 @@ sliced8 = list(reversed(numbers))</code></pre>
         <div id="6-5-2-exercises">
             <h3>Exercícios</h3>
             <ol class="excs">
+                <li>Qual a saída de cada trecho de código a seguir?
+                    <table>
+                        <tr>
+                            <td>
+                                <pre><code>alist = [3, 1, 4, 2]
+result = alist.sort()
+print(result)
+print(alist)</code></pre>
+                            </td>
+                            <td>
+                                <pre><code>alist = [3, 1, 4, 2]
+result = sorted(alist)
+print(result)
+print(alist)</code></pre>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>Qual a saída de cada trecho de código a seguir?
+                    <table>
+                        <tr>
+                            <td>
+                                <pre><code>alist = [3, 1, 4, 2]
+result = alist.reverse()
+print(result)
+print(alist)</code></pre>
+                            </td>
+                            <td>
+                                <pre><code>alist = [3, 1, 4, 2]
+result = reversed(alist)
+print(list(result))
+print(alist)</code></pre>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
                 <li class="no-mark">Para os seguintes exercícios, resolva com apenas uma linha de código:</li>
                 <li>Como inicializar uma lista com cem números zeros?</li>
                 <li>Como inicializar uma lista com os primeiros 50 números pares? (dica: use um objeto `range` como parâmetro do construtor da lista)</li>
-                <li>Como obter os 10 primeiros itens de uma lista?</li>
-                <li>Como obter os 10 últimos itens de uma lista?</li>
-                <li>Como obter os itens dos índices pares de uma lista?</li>
-                <li>Como obter os itens de uma lista de trás para frente?</li>
-                <li>Como obter o segundo terço de uma lista?</li>
-                <li>Como zerar o segundo terço de uma lista?</li>
+                <li>Como obter os 3 primeiros itens de uma lista?</li>
+                <li>Como obter os 3 últimos itens de uma lista?</li>
                 <li>Como obter os 3 primeiros e os 3 últimos itens de uma lista juntos? (dica: combine fatiamento com adição)</li>
-                <li>Como obter os itens de uma lista de trás para frente, a cada três itens?</li>
+                <li>Como obter os itens dos índices pares de uma lista?</li>
+                <li>Como obter os itens dos índices ímpares de uma lista?</li>
+                <li>Como obter os itens de trás para frente de uma lista?</li>
+                <li>Como obter os itens de trás para frente de uma lista, a cada três itens?</li>
+                <li>Como obter os 4 itens do meio de uma lista?</li>
+                <li>Como zerar o segundo terço de uma lista?</li>
+                <li>Como excluir o primeiro item da lista?</li>
+                <li>Como excluir os 3 últimos itens da lista?</li>
+                <li>Como substituir um item <code>x</code> da lista por outro item <code>y</code>?<!--alist[alist.index(x)] = y--></li>
+                <li>Como colocar uma lista no meio de outra lista?<!--l1[len(l1)//2:len(l1)//2]=l2--></li>
             </ol>
         </div>
     </div>
     <div id="6-4-dictionaries">
+
         <!--
+
+https://realpython.com/python-list/#reversing-and-sorting-lists
+
+parei aqui In practice, you won’t find heterogeneous lists in many use cases. Sequences of heterogeneous objects are like a database record with a few known and immutable fields. In those cases, using a tuple is a better way to go.
+
+
+
+
 https://realpython.com/python-range/
 
 Note, the non-operator versions of union(), intersection(), difference(), symmetric_difference(), issubset(), issuperset(), update(), intersection_update(), difference_update(), and symmetric_difference_update() methods will accept any iterable as an argument. In contrast, their operator based counterparts require their arguments to be sets.
 
 >>> list({"name": "John", "age": 30, "city": "New York"}.items())
 [('name', 'John'), ('age', 30), ('city', 'New York')]
+
+
+>>> employees = [
+...     {"name": "John", "age": 30, "job": "Software Engineer"},
+...     {"name": "Alice", "age": 25, "job": "Web Developer"},
+...     {"name": "Bob", "age": 45, "job": "Data Analyst"},
+...     {"name": "Mark", "age": 22, "job": "Intern"},
+...     {"name": "Samantha", "age": 36, "job": "Project Manager"}
+... ]
+
+>>> employees[3]["name"]
+'Mark'
+>>> employees[3]["age"]
+22
+>>> employees[3]["job"]
+Intern
 
 -->
         <h2>Dicionários</h2>

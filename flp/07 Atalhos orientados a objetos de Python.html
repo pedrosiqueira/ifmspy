@@ -55,21 +55,26 @@
         }
 
         table pre {
-            /* Remove a margem interna de tags pre dentro de tabelas */
+            /* tags pre dentro de tabelas são alinhadas à esquerda, sem margem interna */
             margin: 0;
-            padding: 0;
             text-align: left;
         }
 
         td:has(pre) {
-            /* tags pre dentro de tabela são alinhadas no topo à esquerda */
+            /* tags pre dentro de tabela são alinhadas no topo */
             vertical-align: top;
+        }
+
+        code:not(pre code) {
+            /* tags code não filhas de pre */
+            color: darkred;
+            background-color: #f3f3f3;
         }
 
         table.align-left th,
         table.align-left td {
             /* alinha à esquerda as células da tabela */
-            text-align: left;
+            text-align: left !important;
         }
 
         .bordered-line td {
@@ -108,12 +113,6 @@
         ol.section li::before {
             counter-increment: section;
             content: counters(section, ".") ". ";
-        }
-
-        p code {
-            /* estiliza códigos dentro de parágrafos */
-            color: darkred;
-            background-color: #f3f3f3;
         }
 
         td.hljs-ln-numbers {
