@@ -14,7 +14,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-    <script defer>hljs.configure({ cssSelector: "code", languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+    <script defer>hljs.configure({ languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+
+    <!-- https://github.com/arronhunt/highlightjs-copy -->
+    <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" />
+    <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+    <script defer>hljs.addPlugin(new CopyButtonPlugin());</script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
@@ -62,14 +67,19 @@
 
         code:not(pre code) {
             /* tags code não filhas de pre */
-            padding-top: 0px !important;
-            padding-bottom: 0px !important;
+            color: darkred;
+            background-color: #f3f3f3;
         }
 
         table.align-left th,
         table.align-left td {
             /* alinha à esquerda as células da tabela */
             text-align: left !important;
+        }
+
+        .bordered-line td {
+            /* tags tr com borda em todas as suas células */
+            border: 1px solid black;
         }
 
         /* inicia a lista de exercícios */
@@ -118,6 +128,7 @@
         }
 
         .info {
+            /* balão de informação */
             border-left: 6px solid blue;
             padding-left: 1%;
         }
@@ -125,6 +136,109 @@
 </head>
 
 <h1>Introdução a Desafios de Programação</h1>
+<!-- <p>Material baseado no livro Competitive Programming, de Steven, Felix e Suhendry</p> -->
+
+<h2>Competições de programação</h2>
+
+<p>Existem muitas competições de programação, tanto online quanto presenciais. Esses eventos desafiam os participantes a resolverem problemas de lógica, algoritmos e otimização em um tempo limitado, testando não apenas o conhecimento técnico, mas também a capacidade de raciocínio rápido e resolução eficiente de problemas. Dentre as principais competições, podemos citar as Olimpíadas Brasileiras de Informática (OBI), Maratona de Programação, ACM ICPC, Google CodeJam, Facebook Hacker Cup, Topcoder Open, Codeforces contest, Internet Problem Solving Contest (IPSC).</p>
+
+<p>Essas competições são importantes não apenas para o desenvolvimento da lógica e habilidades em programação, mas também são um diferencial valioso no currículo. Participar de competições exige que os participantes desenvolvam competências essenciais, como a habilidade de decompor problemas complexos em partes menores e utilizarem soluções criativas para encontrar respostas otimizadas. Essa prática é um exercício intensivo que aumenta o domínio em algoritmos e estruturas de dados, o que acaba se tornando um diferencial competitivo no mercado de trabalho, uma vez que muitas empresas buscam esses conhecimentos para desenvolvimento de softwares de alta performance. Inclusive muitos dos processos seletivos de multinacionais de tecnologia envolve resolução de problemos no estilo dos dessas competições.</p>
+
+<p>Competir também proporciona um ambiente de aprendizado colaborativo, pois os participantes têm a oportunidade de discutir diferentes abordagens para os problemas com outros competidores e profissionais, expandindo a capacidade de comunicação e trabalho em equipe. Em competições de alto nível, como a ACM ICPC, os finalistas são reconhecidos mundialmente, o que gera visibilidade e abre portas para estágios e vagas em empresas de tecnologia líderes de mercado.</p>
+
+<p>No contexto acadêmico, a participação em competições de programação pode ainda levar a benefícios como bolsas de estudo e convites para programas avançados de pesquisa, além de contribuir para a formação de um portfólio robusto. Em suma, as competições de programação representam um caminho promissor para desenvolver a lógica, reforçar o currículo e conquistar posições de destaque na área da tecnologia, sendo um excelente investimento para aqueles que desejam aprimorar sua carreira profissional.</p>
+
+<h2>Dicas para competição</h2>
+
+<h3>Digite rápido e conheça os atalhos de teclado!</h3>
+<p>Alguns sites para treinar digitação são <a href="https://monkeytype.com/">https://monkeytype.com/</a> e <a href="https://zty.pe/">https://zty.pe/</a>.</p>
+<p>Neste tutorial coloco os atalhos que mais utilizo no vscode: <a href="https://pedrosiqueira.github.io/Tutoriais/tutorial-vscode.html">https://pedrosiqueira.github.io/Tutoriais/tutorial-vscode.html</a>.</p>
+
+<h3>Identifique os tipos de problemas</h3>
+<p>Os problemas podem ser classificados conforme a seguinte tabela:</p>
+<table class="custom">
+    <thead>
+        <tr>
+            <th>No </th>
+            <th>Category </th>
+            <th>In This Book </th>
+            <th>Frequency </th>
+        </tr>
+    </thead>
+    <tr>
+        <td>1. </td>
+        <td>Ad Hoc </td>
+        <td>Section 1.4-1.6 </td>
+        <td>1-2 </td>
+    </tr>
+    <tr>
+        <td>2. </td>
+        <td>(Heavy) Data Structure </td>
+        <td>Chapter 2 </td>
+        <td>0-1 </td>
+    </tr>
+    <tr>
+        <td>3. </td>
+        <td>Complete Search (Iterative/Recursive) </td>
+        <td>Section 3.2++ </td>
+        <td>1-2 </td>
+    </tr>
+    <tr>
+        <td>4. </td>
+        <td>Divide and Conquer </td>
+        <td>Section 3.3 </td>
+        <td>0-1 </td>
+    </tr>
+    <tr>
+        <td>5. </td>
+        <td>Greedy (the non-classic ones) </td>
+        <td>Section 3.4 </td>
+        <td>1 </td>
+    </tr>
+    <tr>
+        <td>6. </td>
+        <td>Dynamic Programming (the non-classic ones) </td>
+        <td>Section 3.5++ </td>
+        <td>1-2 </td>
+    </tr>
+    <tr>
+        <td>7. </td>
+        <td>Graph (except Network Flow/Graph Matching) </td>
+        <td> Chapter 4 </td>
+        <td>1 </td>
+    </tr>
+    <tr>
+        <td>8. </td>
+        <td>Mathematics </td>
+        <td>Chapter 5 </td>
+        <td>1-2 </td>
+    </tr>
+    <tr>
+        <td>9. </td>
+        <td>String Processing </td>
+        <td>Chapter 6 </td>
+        <td>1 </td>
+    </tr>
+    <tr>
+        <td>10. </td>
+        <td> Computational Geometry </td>
+        <td>Chapter 7 </td>
+        <td>1 </td>
+    </tr>
+    <tr>
+        <td>11. </td>
+        <td> Some Harder/Rare/Emerging Trend Problems </td>
+        <td>Chapter 8-9 </td>
+        <td>2-3</td>
+    </tr>
+</table>
+
+<p>Algumas técnicas, como ordenação, não são classificados por serem considerados "triviais" e geralmente serem utilizados como partes para a resolução de problemas maiores.</p>
+
+<h3>Analise o algoritmo</h3>
+
+
+<h3>Online</h3>
 
 <p>O <a href="https://onlinejudge.org/">UVa Online Judge</a> é um juiz automatizado online para problemas de programação, mantido pela Universidade de Valladolid (UVa).</p>
 

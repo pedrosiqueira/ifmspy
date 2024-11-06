@@ -135,14 +135,19 @@
     </style>
 </head>
 
-<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=3402">UVa 12250</a> - Detecção de Língua</h1>
-<p>Inglês, espanhol, alemão, francês, italiano e russo são as 6 línguas mais proeminentes nos países da União Europeia. Todas essas línguas têm palavras diferentes para representar a palavra inglesa “HELLO”. Por exemplo, em espanhol, a palavra equivalente a “HELLO” é “HOLA”. Em alemão, francês, italiano e russo, a palavra que significa (ou é semelhante a) “HELLO” é “HALLO”, “BONJOUR”, “CIAO” e “ZDRAVSTVUJTE”, respectivamente. Neste problema, sua tarefa é bastante simples. Você receberá uma das seis palavras mencionadas acima ou qualquer outra palavra, e você terá que tentar detectar de qual língua ela é.</p>
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=3093">UVa 11942</a> - Sequenciamento dos Lenhadores</h1>
+
+<p>Mais uma história de lenhadores? Vamos ver…</p>
+
+<p>Os lenhadores são trabalhadores rudes e barbados, enquanto os capatazes tendem a ser mandões e de mentalidade simples. Os capatazes gostam de importunar os lenhadores, fazendo-os alinhar-se em grupos de dez, ordenados pelo comprimento de suas barbas. Os lenhadores, tendo alturas físicas variadas, mudam suas posições para confundir os capatazes. Assim, os capatazes precisam realmente medir as barbas em centímetros para ver se todos estão alinhados corretamente.</p>
+
+<p>Sua tarefa é escrever um programa para ajudar os capatazes a determinar se os lenhadores estão alinhados corretamente, seja da barba mais curta para a mais longa, ou da mais longa para a mais curta.</p>
 
 <h3>Entrada</h3>
-<p>O arquivo de entrada contém cerca de 2000 linhas de entradas. Cada linha contém uma string $S$. Você pode assumir que todas as letras da string são letras maiúsculas do alfabeto inglês e o comprimento máximo da string é 14. A entrada é terminada por uma linha contendo um único caractere ‘#’ (sem as aspas). Esta linha não deve ser processada.</p>
+<p>A entrada começa com uma linha contendo um único inteiro <em>N</em>, <code>0 &lt; N &lt; 20</code>, que é o número de grupos a serem processados. A seguir, há <em>N</em> linhas, cada uma contendo dez inteiros positivos distintos, menores que 100.</p>
 
 <h3>Saída</h3>
-<p>Para cada linha de entrada, exceto a última, produza uma linha de saída. Esta linha contém o número da saída seguido pelo nome da língua. Se a string de entrada for ‘HELLO’ ou ‘HOLA’ ou ‘HALLO’ ou ‘BONJOUR’ ou ‘CIAO’ ou ‘ZDRAVSTVUJTE’, você deve informar a língua a que pertence. Se a string de entrada for algo diferente dessas 6 strings, imprima a string ‘UNKNOWN’ (sem as aspas) em vez disso. Todos os caracteres nas strings de saída também estão em maiúsculas. Veja a saída e a entrada de exemplo para detalhes de formatação.</p>
+<p>A saída deve conter uma linha de título e, em seguida, uma linha para cada conjunto de comprimentos de barbas. Consulte o exemplo de saída para detalhes de capitalização e pontuação.</p>
 
 <h3>Exemplo de Entrada/Saída</h3>
 <table class="custom">
@@ -152,21 +157,16 @@
     </tr>
     <tr>
         <td>
-            <pre>HELLO
-HOLA
-HALLO
-BONJOUR
-CIAO
-ZDRAVSTVUJTE
-#</pre>
+            <pre>3
+13 25 39 40 55 62 68 77 88 95
+88 62 77 20 40 10 99 56 45 36
+91 78 61 59 54 49 43 33 26 18</pre>
         </td>
         <td>
-            <pre>Case 1: ENGLISH
-Case 2: SPANISH
-Case 3: GERMAN
-Case 4: FRENCH
-Case 5: ITALIAN
-Case 6: RUSSIAN</pre>
+            <pre>Lumberjacks:
+Ordered
+Unordered
+Ordered</pre>
         </td>
     </tr>
 </table>

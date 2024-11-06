@@ -135,14 +135,19 @@
     </style>
 </head>
 
-<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=3402">UVa 12250</a> - Detecção de Língua</h1>
-<p>Inglês, espanhol, alemão, francês, italiano e russo são as 6 línguas mais proeminentes nos países da União Europeia. Todas essas línguas têm palavras diferentes para representar a palavra inglesa “HELLO”. Por exemplo, em espanhol, a palavra equivalente a “HELLO” é “HOLA”. Em alemão, francês, italiano e russo, a palavra que significa (ou é semelhante a) “HELLO” é “HALLO”, “BONJOUR”, “CIAO” e “ZDRAVSTVUJTE”, respectivamente. Neste problema, sua tarefa é bastante simples. Você receberá uma das seis palavras mencionadas acima ou qualquer outra palavra, e você terá que tentar detectar de qual língua ela é.</p>
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=3166">UVa 12015</a> - Google está com Sorte</h1>
+
+<p>O Google é um dos motores de busca na Internet mais famosos, que desenvolve uma variedade de serviços e produtos online. Em seu site de busca, um interessante botão, “Estou com Sorte”, chama a atenção. Esse recurso permite que o usuário pule a página de resultados de busca e vá diretamente para a primeira página classificada. Incrível! Isso economiza muito tempo.</p>
+
+<p>A questão é: quando alguém digita algumas palavras-chave e pressiona o botão “Estou com Sorte”, qual página da web aparecerá? O Google usa métodos avançados para determinar isso. Neste problema simplificado, consideramos apenas que o Google atribui uma relevância numérica a cada página da web. A página mais relacionada será escolhida. Em caso de empate, todas as páginas com a maior relevância podem ser escolhidas.</p>
+
+<p>Sua tarefa é simples: dada uma lista de 10 páginas da web e suas relevâncias, selecione todas as possíveis candidatas que serão apresentadas ao usuário ao clicar em “Estou com Sorte”.</p>
 
 <h3>Entrada</h3>
-<p>O arquivo de entrada contém cerca de 2000 linhas de entradas. Cada linha contém uma string $S$. Você pode assumir que todas as letras da string são letras maiúsculas do alfabeto inglês e o comprimento máximo da string é 14. A entrada é terminada por uma linha contendo um único caractere ‘#’ (sem as aspas). Esta linha não deve ser processada.</p>
+<p>A entrada contém múltiplos casos de teste. O número de casos de teste <em>T</em> está na primeira linha do arquivo de entrada. Para cada caso de teste, há 10 linhas, cada uma descrevendo uma página da web e sua relevância. Cada linha contém uma string de caracteres sem espaços representando a URL da página e um inteiro <em>V<sub>i</sub></em> indicando a relevância dessa página (<code>1 ≤ V<sub>i</sub> ≤ 100</code>). O comprimento da URL está entre 1 e 100 caracteres, inclusive.</p>
 
 <h3>Saída</h3>
-<p>Para cada linha de entrada, exceto a última, produza uma linha de saída. Esta linha contém o número da saída seguido pelo nome da língua. Se a string de entrada for ‘HELLO’ ou ‘HOLA’ ou ‘HALLO’ ou ‘BONJOUR’ ou ‘CIAO’ ou ‘ZDRAVSTVUJTE’, você deve informar a língua a que pertence. Se a string de entrada for algo diferente dessas 6 strings, imprima a string ‘UNKNOWN’ (sem as aspas) em vez disso. Todos os caracteres nas strings de saída também estão em maiúsculas. Veja a saída e a entrada de exemplo para detalhes de formatação.</p>
+<p>Para cada caso de teste, imprima várias linhas contendo as URLs das páginas da web que podem ser escolhidas. A ordem das URLs deve ser a mesma da entrada. Veja o exemplo de saída para mais informações sobre o formato da saída.</p>
 
 <h3>Exemplo de Entrada/Saída</h3>
 <table class="custom">
@@ -152,21 +157,35 @@
     </tr>
     <tr>
         <td>
-            <pre>HELLO
-HOLA
-HALLO
-BONJOUR
-CIAO
-ZDRAVSTVUJTE
-#</pre>
+            <pre>2
+www.youtube.com 1
+www.google.com 2
+www.google.com.hk 3
+www.alibaba.com 10
+www.taobao.com 5
+www.bad.com 10
+www.good.com 7
+www.fudan.edu.cn 8
+www.university.edu.cn 9
+acm.university.edu.cn 10
+www.youtube.com 1
+www.google.com 2
+www.google.com.hk 3
+www.alibaba.com 11
+www.taobao.com 5
+www.bad.com 10
+www.good.com 7
+www.fudan.edu.cn 8
+acm.university.edu.cn 9
+acm.university.edu.cn 10</pre>
         </td>
         <td>
-            <pre>Case 1: ENGLISH
-Case 2: SPANISH
-Case 3: GERMAN
-Case 4: FRENCH
-Case 5: ITALIAN
-Case 6: RUSSIAN</pre>
+            <pre>Case #1:
+www.alibaba.com
+www.bad.com
+acm.university.edu.cn
+Case #2:
+www.alibaba.com</pre>
         </td>
     </tr>
 </table>
