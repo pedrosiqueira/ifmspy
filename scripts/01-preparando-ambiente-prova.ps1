@@ -12,18 +12,23 @@ Set-ExecutionPolicy RemoteSigned -Scope Process -Force;
 (New-Object System.Net.WebClient).DownloadString($script1) | Invoke-Expression
 
 # Define o código para abrir uma nova instância do PowerShell sem privilégios elevados
-$code1 = "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; (New-Object System.Net.WebClient).DownloadString('$script2') | Invoke-Expression"
-$code2 = "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; (New-Object System.Net.WebClient).DownloadString('$script3') | Invoke-Expression"
+$code1 = "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; (New-Object System.Net.WebClient).DownloadString('$script2') | Invoke-Expression; exit"
+$code2 = "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; (New-Object System.Net.WebClient).DownloadString('$script3') | Invoke-Expression; exit"
+
+$username = "aluno"
+$password = ConvertTo-SecureString "alunoifms" -AsPlainText -Force
+$credential = New-Object System.Management.Automation.PSCredential($username, $password)
+
+# Executa o código em um novo processo com as credenciais especificadas
+Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-Command", $code1
+Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-Command", $code2
 
 # Abre o PowerShell no contexto do usuário atual, sem privilégios administrativos, e executa o script
-Start-Process -FilePath "powershell" -ArgumentList "-NoProfile", "-NoExit", "-Command", $code1 -Verb RunAsUser
-Start-Process -FilePath "powershell" -ArgumentList "-NoProfile", "-NoExit", "-Command", $code2 -Verb RunAsUser
+# Start-Process -FilePath "powershell" -ArgumentList "-NoProfile", "-NoExit", "-Command", $code1 -Verb RunAsUser
+# Start-Process -FilePath "powershell" -ArgumentList "-NoProfile", "-NoExit", "-Command", $code2 -Verb RunAsUser
 
 # exclui o conteúdo da pasta temporária
 # Remove-Item -Path "$env:TEMP\*" -Recurse -Force
-
-# $username = "aluno"
-# $password = ConvertTo-SecureString "alunoifms" -AsPlainText -Force
 
 # executa um comando com outra credencial solicitada
 # Start-Process powershell -Credential (Get-Credential) -ArgumentList "SeuComando"
@@ -31,9 +36,6 @@ Start-Process -FilePath "powershell" -ArgumentList "-NoProfile", "-NoExit", "-Co
 # executa um script com outra credencial solicitada
 # Start-Process -FilePath "powershell" -ArgumentList "-File 'C:\Caminho\Para\SeuScript.ps1'" -Credential (Get-Credential) -NoNewWindow
 
-# executa um comando com a credencial configurada
-# $credential = New-Object System.Management.Automation.PSCredential($username, $password)
-# Start-Process powershell -Credential $credential -ArgumentList "SeuComando"
 
 # permissão de execução de scripts
 # Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
