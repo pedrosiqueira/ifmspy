@@ -22,8 +22,8 @@ $password = ConvertTo-SecureString "alunoifms" -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential($username, $password)
 
 # Executa o código em um novo processo com as credenciais especificadas
-Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-Command", $code1
-Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-Command", $code2
+Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-Command", $code1 -Wait
+Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-Command", $code2 -Wait
 
 # desliga o pc
 Stop-Computer
