@@ -5,12 +5,15 @@ $script1 = "https://raw.githubusercontent.com/pedrosiqueira/ifmspy/refs/heads/ma
 $script2 = "https://raw.githubusercontent.com/pedrosiqueira/ifmspy/refs/heads/main/scripts/03-preparando-ambiente-python.ps1"
 $script3 = "https://raw.githubusercontent.com/pedrosiqueira/ifmspy/refs/heads/main/scripts/04-baixando-prova.ps1"
 
+# define a política de execução de script desta sessão atual de terminal para RemoteSigned (permissão de executar scripts) sem solicitar confirmação (-Force)
+Set-ExecutionPolicy RemoteSigned -Scope Process -Force;
+
 # executa o script online
 (New-Object System.Net.WebClient).DownloadString($script1) | Invoke-Expression
 
 # Define o código para abrir uma nova instância do PowerShell sem privilégios elevados
-$code1 = "(New-Object System.Net.WebClient).DownloadString('$script2') | Invoke-Expression"
-$code2 = "(New-Object System.Net.WebClient).DownloadString('$script3') | Invoke-Expression"
+$code1 = "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; (New-Object System.Net.WebClient).DownloadString('$script2') | Invoke-Expression"
+$code2 = "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; (New-Object System.Net.WebClient).DownloadString('$script3') | Invoke-Expression"
 
 # Abre o PowerShell no contexto do usuário atual, sem privilégios administrativos, e executa o script
 Start-Process -FilePath "powershell" -ArgumentList "-NoProfile", "-NoExit", "-Command", $code1 -Verb RunAsUser
