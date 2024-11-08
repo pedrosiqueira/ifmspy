@@ -15,17 +15,17 @@ Set-ExecutionPolicy RemoteSigned -Scope Process -Force;
 $code1 = "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; (New-Object System.Net.WebClient).DownloadString('$script2') | Invoke-Expression; exit"
 $code2 = "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; (New-Object System.Net.WebClient).DownloadString('$script3') | Invoke-Expression; exit"
 
-$username = "aluno"
-$password = ConvertTo-SecureString "alunoifms" -AsPlainText -Force
-$credential = New-Object System.Management.Automation.PSCredential($username, $password)
+# Abre o PowerShell no contexto do usuário atual, sem privilégios administrativos, e executa o script
+Start-Process -FilePath "powershell" -ArgumentList "-NoProfile", "-NoExit", "-Command", $code1 -Verb RunAsUser
+Start-Process -FilePath "powershell" -ArgumentList "-NoProfile", "-NoExit", "-Command", $code2 -Verb RunAsUser
+
+# $username = "aluno"
+# $password = ConvertTo-SecureString "alunoifms" -AsPlainText -Force
+# $credential = New-Object System.Management.Automation.PSCredential($username, $password)
 
 # Executa o código em um novo processo com as credenciais especificadas
-Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-Command", $code1
-Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-Command", $code2
-
-# Abre o PowerShell no contexto do usuário atual, sem privilégios administrativos, e executa o script
-# Start-Process -FilePath "powershell" -ArgumentList "-NoProfile", "-NoExit", "-Command", $code1 -Verb RunAsUser
-# Start-Process -FilePath "powershell" -ArgumentList "-NoProfile", "-NoExit", "-Command", $code2 -Verb RunAsUser
+# Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-Command", $code1
+# Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-Command", $code2
 
 # exclui o conteúdo da pasta temporária
 # Remove-Item -Path "$env:TEMP\*" -Recurse -Force
@@ -36,13 +36,11 @@ Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-C
 # executa um script com outra credencial solicitada
 # Start-Process -FilePath "powershell" -ArgumentList "-File 'C:\Caminho\Para\SeuScript.ps1'" -Credential (Get-Credential) -NoNewWindow
 
-
 # permissão de execução de scripts
 # Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # executa o script
 # & "\\10.8.32.3\arquivos\Arquivos curso superior\tads-algoritmos\02-instalando-ambiente-python.ps1"
-
 
 # executa os scripts com a credencial configurada
 # $credential = New-Object System.Management.Automation.PSCredential($username, $password)
