@@ -25,6 +25,9 @@ $credential = New-Object System.Management.Automation.PSCredential($username, $p
 Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-Command", $code1
 Start-Process powershell -Credential $credential -ArgumentList "-NoProfile", "-Command", $code2
 
+# desliga o pc
+Stop-Computer
+
 # Abre o PowerShell no contexto do usuário atual, sem privilégios administrativos, e executa o script
 # Start-Process -FilePath "powershell" -ArgumentList "-NoProfile", "-NoExit", "-Command", $code1 -Verb RunAsUser
 # Start-Process -FilePath "powershell" -ArgumentList "-NoProfile", "-NoExit", "-Command", $code2 -Verb RunAsUser
