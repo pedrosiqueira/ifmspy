@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+        }, false);
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script defer>hljs.configure({ languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+
+    <!-- https://github.com/arronhunt/highlightjs-copy -->
+    <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" />
+    <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+    <script defer>hljs.addPlugin(new CopyButtonPlugin());</script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
+    <style>
+        img {
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .katex {
+            /* o padrão é 1.21, vc pode remover essa configuração se quiser deixar o padrão */
+            font-size: 1.0em;
+        }
+
+        table.custom,
+        table.custom>thead>tr>th,
+        table.custom>tbody>tr>td,
+        table.custom>tbody>tr>th {
+            /* tabela centralizada e com bordas */
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+        }
+
+        table pre {
+            /* tags pre dentro de tabelas são alinhadas à esquerda, sem margem interna */
+            margin: 0;
+            text-align: left !important;
+        }
+
+        td:has(pre) {
+            /* tags pre dentro de tabela são alinhadas no topo */
+            vertical-align: top;
+        }
+
+        code:not(pre code) {
+            /* tags code não filhas de pre */
+            color: darkred;
+            background-color: #f3f3f3;
+        }
+
+        table.align-left th,
+        table.align-left td {
+            /* alinha à esquerda as células da tabela */
+            text-align: left !important;
+        }
+
+        .bordered-line td {
+            /* tags tr com borda em todas as suas células */
+            border: 1px solid black;
+        }
+
+        /* inicia a lista de exercícios */
+        ol.excs {
+            padding-inline-start: 0em;
+            counter-reset: excs;
+            list-style: none;
+        }
+
+        /* põe um numerador num item da lista de exercícios, desde que não seja da classe no-mark */
+        ol.excs>li:not(.no-mark)::before {
+            counter-increment: excs;
+            content: counters(excs, ".") ". ";
+        }
+
+        /* põe uma barra vertical ao lado do item da lista de exercícios */
+        ol.excs>li {
+            /* Change this to adjust the line color and thickness */
+            border-left: 2px solid #000;
+            /* Optional: Add padding to create some space between the bar and content */
+            padding-left: 10px;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+        }
+
+        ol.section {
+            counter-reset: section;
+            list-style-type: none;
+        }
+
+        ol.section li::before {
+            counter-increment: section;
+            content: counters(section, ".") ". ";
+        }
+
+        td.hljs-ln-numbers {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            color: #ccc;
+            border-right: 1px solid #999;
+            padding-right: 5px;
+        }
+
+        td.hljs-ln-code {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            padding-left: 10px;
+        }
+
+        .info {
+            /* balão de informação */
+            border-left: 6px solid blue;
+            padding-left: 1%;
+        }
+    </style>
+</head>
+
+<h1>Introdução a Desafios de Programação</h1>
+<p>Material baseado no livro Competitive Programming, de Steven, Felix e Suhendry</p>
+
+<h2>Competições de programação</h2>
+
+<p>Existem muitas competições de programação, tanto online quanto presenciais. Esses eventos desafiam os participantes a resolverem problemas de lógica, algoritmos e otimização em um tempo limitado, testando não apenas o conhecimento técnico, mas também a capacidade de raciocínio rápido e resolução eficiente de problemas. Dentre as principais competições, podemos citar as Olimpíadas Brasileiras de Informática (OBI), Maratona de Programação, ACM ICPC, Google CodeJam, Facebook Hacker Cup, Topcoder Open, Codeforces contest, Internet Problem Solving Contest (IPSC).</p>
+
+<p>Essas competições são importantes não apenas para o desenvolvimento da lógica e habilidades em programação, mas também são um diferencial valioso no currículo. Participar de competições exige que os participantes desenvolvam competências essenciais, como a habilidade de decompor problemas complexos em partes menores e utilizar soluções criativas para encontrar respostas otimizadas. Essa prática é um exercício intensivo que aumenta o domínio em algoritmos e estruturas de dados, o que acaba se tornando um diferencial competitivo no mercado de trabalho, uma vez que muitas empresas buscam esses conhecimentos para desenvolvimento de softwares de alta performance. Inclusive muitos dos processos seletivos de multinacionais de tecnologia envolve resolução de problemos no estilo dos dessas competições.</p>
+
+<p>Competir também proporciona um ambiente de aprendizado colaborativo, pois os participantes têm a oportunidade de discutir diferentes abordagens para os problemas com outros competidores e profissionais, expandindo a capacidade de comunicação e trabalho em equipe. Em competições de alto nível, como a ACM ICPC, os finalistas são reconhecidos mundialmente, o que gera visibilidade e abre portas para estágios e vagas em empresas de tecnologia líderes de mercado.</p>
+
+<p>No contexto acadêmico, a participação em competições de programação pode ainda levar a benefícios como bolsas de estudo e convites para programas avançados de pesquisa, além de contribuir para a formação de um portfólio robusto. Em suma, as competições de programação representam um caminho promissor para desenvolver a lógica, reforçar o currículo e conquistar posições de destaque na área da tecnologia, sendo um excelente investimento para aqueles que desejam aprimorar sua carreira profissional.</p>
+
+<h2>Dicas para competição</h2>
+
+<h3>Digite rápido e conheça os atalhos de teclado!</h3>
+<p>Alguns sites para treinar digitação são <a href="https://monkeytype.com/">https://monkeytype.com/</a> e <a href="https://zty.pe/">https://zty.pe/</a>.</p>
+<p>Neste tutorial coloco os atalhos que mais utilizo no vscode: <a href="https://pedrosiqueira.github.io/Tutoriais/tutorial-vscode.html">https://pedrosiqueira.github.io/Tutoriais/tutorial-vscode.html</a>.</p>
+
+<h3>Identifique os tipos de problemas</h3>
+<p>Os problemas podem ser classificados conforme a seguinte tabela:</p>
+<table class="custom">
+    <thead>
+        <tr>
+            <th>No </th>
+            <th>Category </th>
+            <th>In This Book </th>
+            <th>Frequency </th>
+        </tr>
+    </thead>
+    <tr>
+        <td>1. </td>
+        <td>Ad Hoc </td>
+        <td>Section 1.4-1.6 </td>
+        <td>1-2 </td>
+    </tr>
+    <tr>
+        <td>2. </td>
+        <td>(Heavy) Data Structure </td>
+        <td>Chapter 2 </td>
+        <td>0-1 </td>
+    </tr>
+    <tr>
+        <td>3. </td>
+        <td>Complete Search (Iterative/Recursive) </td>
+        <td>Section 3.2++ </td>
+        <td>1-2 </td>
+    </tr>
+    <tr>
+        <td>4. </td>
+        <td>Divide and Conquer </td>
+        <td>Section 3.3 </td>
+        <td>0-1 </td>
+    </tr>
+    <tr>
+        <td>5. </td>
+        <td>Greedy (the non-classic ones) </td>
+        <td>Section 3.4 </td>
+        <td>1 </td>
+    </tr>
+    <tr>
+        <td>6. </td>
+        <td>Dynamic Programming (the non-classic ones) </td>
+        <td>Section 3.5++ </td>
+        <td>1-2 </td>
+    </tr>
+    <tr>
+        <td>7. </td>
+        <td>Graph (except Network Flow/Graph Matching) </td>
+        <td> Chapter 4 </td>
+        <td>1 </td>
+    </tr>
+    <tr>
+        <td>8. </td>
+        <td>Mathematics </td>
+        <td>Chapter 5 </td>
+        <td>1-2 </td>
+    </tr>
+    <tr>
+        <td>9. </td>
+        <td>String Processing </td>
+        <td>Chapter 6 </td>
+        <td>1 </td>
+    </tr>
+    <tr>
+        <td>10. </td>
+        <td> Computational Geometry </td>
+        <td>Chapter 7 </td>
+        <td>1 </td>
+    </tr>
+    <tr>
+        <td>11. </td>
+        <td> Some Harder/Rare/Emerging Trend Problems </td>
+        <td>Chapter 8-9 </td>
+        <td>2-3</td>
+    </tr>
+</table>
+
+<p>Algumas técnicas, como ordenação, não são classificados por serem considerados "triviais" e geralmente serem utilizados como partes para a resolução de problemas maiores.</p>
+
+<h3>Analise o algoritmo</h3>
+<!-- 
+
+Sometimes, there is more than one way to attack a problem. Some approaches may be
+incorrect, others not fast enough, and yet others ‘overkill’. A good strategy is to brainstorm
+for many possible algorithms and then pick the simplest solution that works (i.e., is fast
+enough to pass the time and memory limit and yet still produce the correct answer) 
+
+Computers from 2021 (when this book was published) can process  up to \approximately 100M=10^8 operations in one second. And most competitive problems must run in under 1 second. You can use this information to determine if your
+algorithm will run in time. For example, if the maximum input size n is 100K=10^5  and your current algorithm has a time complexity of O(n2 ), it will need a time in seconds of \approximately (10^5)^2=10^10=10G>100M. You will thus
+need to devise a faster (and also correct) algorithm to solve the problem.  Suppose you then
+find one that runs with a time complexity of O(n log2 n), hence, run in 10^5\log_2 10^5 \approximately 1.7 \times 10^6<10^8. Now this algorithm is able to run in less than 1 second.
+
+problem authors should have designed the time limits so that a few (more than one) rea-
+sonable implementations of the algorithm with the intended target time complexity will all
+achieve the Accepted (AC) verdict. By analyzing the complexity of your algorithm with the given input bound and the stated
+time/memory limit, you can better decide whether you should attempt to implement your
+algorithm (which will take up precious time in the IOIs and ICPCs), attempt to improve
+your algorithm first, or switch to other problems in the problem set.
+
+we will not discuss the concept of algorithmic
+analysis in details. We assume that you already have this basic skill. There are a multitude
+of other reference books (for example, the “Introduction to Algorithms” [5], “Algorithm De-
+sign” [35], “Algorithms” [6], etc) that will help you to understand the following prerequisite
+concepts/techniques in algorithmic analysis:
+
+• Basic time and space complexity analysis for iterative and recursive algorithms:
+– An algorithm with k-nested loops of about n iterations each has O(nk) complexity.
+– If your algorithm is recursive with b recursive calls per level and has L levels, the
+algorithm has roughly O(bL ) complexity, but this is a only a rough upper bound.
+The actual complexity depends on what actions are done per level and whether
+pruning is possible.
+– A Dynamic Programming algorithm or other iterative routine which processes a
+2D n ⇥ n matrix in O(k) per cell runs in O(k ⇥ n2) time. This is explained in
+further detail in Section 3.5.
+– Binary searching over a range of [1..n] has O(log n) complexity.
+
+-->
+
+
+
+<h3>Online</h3>
+
+<p>O <a href="https://onlinejudge.org/">UVa Online Judge</a> é um juiz automatizado online para problemas de programação, mantido pela Universidade de Valladolid (UVa).</p>
+
+<p>Cada problema apresenta uma breve contextualização, seguida da descrição da entrada e saída de dados. Em competições de programação modernas, é comum usar um único arquivo com múltiplos casos de teste, ao invés de vários arquivos individuais. Existem três formas principais de estruturar a entrada de dados:</p>
+
+<ul>
+    <li>A primeira linha indica o número de casos de teste.</li>
+    <li>Os casos de teste terminam com valores especiais (geralmente zeros).</li>
+    <li>Os casos de teste continuam até o sinal de EOF (fim de arquivo).</li>
+</ul>
+
+<p>Considere o seguinte problema: "Dado dois números inteiros em uma linha, exiba a soma deles em uma linha." Vamos resolvê-lo utilizando as três formas de entrada mencionadas:</p>
+
+<table class="custom">
+    <thead>
+        <tr>
+            <th>Código-fonte</th>
+            <th>Entrada</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <pre><code>TC = int(input())  # número de casos de teste
+for _ in range(TC):  # para cada caso de teste
+    numbers = input().split()  # lê uma linha com vários números
+    a, b = int(numbers[0]), int(numbers[1])  # atribui os números a variáveis
+    print(a + b)  # exibe a soma</code></pre>
+            </td>
+            <td>
+                <pre>3
+1 2
+5 7
+6 3</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <pre><code>numbers = input().split()  # lê uma linha com vários números
+a, b = int(numbers[0]), int(numbers[1])  # atribui os números a variáveis
+while a != 0 or b != 0:  # enquanto não for o último caso de teste
+    print(a + b)  # exibe a soma
+    numbers = input().split()  # lê a próxima linha
+    a, b = int(numbers[0]), int(numbers[1])  # atualiza os valores</code></pre>
+            </td>
+            <td>
+                <pre>1 2
+5 7
+6 3
+0 0</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <pre><code>from sys import stdin
+
+for line in stdin:  # enquanto não chegou no fim da entrada
+    numbers = line.split()  # lê uma linha com vários números
+    a, b = int(numbers[0]), int(numbers[1])  # atribui os números a variáveis
+    print(a + b)  # exibe a soma</code></pre>
+            </td>
+            <td>
+                <pre>1 2
+5 7
+6 3</pre>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p>Para todas essas entradas, a saída será a mesma:</p>
+<pre>3
+12
+9</pre>
+
+<p>Experimente executar cada programa manualmente, lendo os dados da entrada padrão (teclado). No terceiro tipo de entrada, que utiliza EOF, você pode gerar o EOF pressionando <kbd>Ctrl+D</kbd> em sistemas Unix ou <kbd>Ctrl+Z</kbd> no Windows.</p>
+
+<p>O juiz automatizado executa o programa lendo os dados de um arquivo de entrada e escreve a saída em um arquivo de saída. Em seguida, ele compara esse arquivo de saída com o gabarito oficial. Se ambos forem iguais, parabéns, você acertou a solução!</p>
+
+<p>Agora, experimente salvar os dados de teste em um arquivo, como <code>entrada.txt</code>, e execute o programa lendo os dados desse arquivo e escrevendo a saída em outro arquivo, como <code>saida.txt</code>.</p>
+
+<p>Em sistemas Unix, você pode usar o seguinte comando:</p>
+<pre>python3 programa.py &lt;entrada.txt &gt;saida.txt</pre>
+
+<p>No Windows, o comando seria:</p>
+<pre>get-content entrada.txt | python programa.py >saida.txt</pre>
+
+<p>Você também pode copiar os dados de entrada para a área de transferência (com <kbd>Ctrl+C</kbd>) e colá-los no terminal (com <kbd>Ctrl+Shift+V</kbd>), o que evita ter que digitar os dados manualmente e permite ver a saída diretamente no terminal sem a necessidade de salvar em arquivos.</p>
+
+<h2>Exercícios</h2>
+<p>Resolva os seguintes exercícios do UVa Judge:</p>
+<ul>
+    <li><a href="./uva/uva11614.html">UVa 11614 - Guerreiros etruscos nunca jogam xadrez</a></li>
+    <li><a href="./uva/uva12250.html">UVa 12250 - Detecção de Língua</a></li>
+    <li><a href="./uva/uva10055.html">UVa 10055 - Hashmat, o bravo guerreiro</a></li>
+    <li><a href="./uva/uva12157.html">UVa 12157 - Plano de Tarifas</a></li>
+    <li><a href="./uva/uva10324.html">UVa 10324 - Zeros e Uns</a></li>
+</ul>

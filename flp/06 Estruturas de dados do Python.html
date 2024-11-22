@@ -294,6 +294,7 @@ print(movie1.better_than(movie2))</code></pre>
     <div id="6-5-lists">
         <h2>Listas</h2>
         <p>Listas geralmente são usadas para armazenar vários objetos do mesmo tipo; listas de strings, listas de números, ou listas de objetos próprios. Apesar de possível, evite armazenar elementos de tipos diferentes em uma mesma lista. Por exemplo, para armazenar pares de letra/ocorrências, poderíamos ter <code>['a', 1, 'b', 3]</code>, que significa que a letra 'a' ocorreu 1 vez e a letra 'b' ocorreu 3 vezes. Mas pensa na hora de iterar por essa lista como seria mais complicado. Uma solução melhor, mas não necessariamente a melhor de todas, seria <code>[('a',1), ('b',3)]</code>.</p>
+        <div class="info">Observação: Na prática, dificilmente usaremos listas heterogêneas. Quando precisamos armazenar uma sequência de objetos heterogêneos, como um registro de banco de dados com campos conhecidos e imutáveis, é melhor usar tuplas.</div>
         <p>Listas não têm um tamanho fixo, podem aumentar ou diminuir de tamanho, à medida que inserimos ou excluímos itens delas.</p>
 
         <h3>Construção</h3>
@@ -807,14 +808,18 @@ from copy import copy, deepcopy
 
 Point = make_dataclass("Point", ("x", "y"))
 
-original = [Point(0, 5), Point(-3, 6)]
+original = [Point(0, 0), Point(1, 1)]
 reference = original
 shallowcopied1 = original.copy()
 shallowcopied2 = copy(original)
 deepcopied = deepcopy(original)
 
-original.append(Point(0, 0))
-original[0].x, original[0].y = 1, 1
+original.append(Point(2, 4))
+original[0].x, original[0].y = 3, 9
+
+shallowcopied1.append(Point(4, 16))
+
+shallowcopied2[1].x, original[1].y = 5, 25
 
 print("Original Points:      ", original)
 print("Reference Points:     ", reference)
@@ -1044,9 +1049,7 @@ print(alist)</code></pre>
 
 https://realpython.com/python-list/#reversing-and-sorting-lists
 
-parei em In practice, you won’t find heterogeneous lists in many use cases. Sequences of heterogeneous objects are like a database record with a few known and immutable fields. In those cases, using a tuple is a better way to go.
-
-
+parei aqui "Up to this point, all your list-traversing examples iterate over a list without performing any modification on the list itself"
 
 
 https://realpython.com/python-range/

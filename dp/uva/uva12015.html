@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+        }, false);
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script defer>hljs.configure({ languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+
+    <!-- https://github.com/arronhunt/highlightjs-copy -->
+    <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" />
+    <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+    <script defer>hljs.addPlugin(new CopyButtonPlugin());</script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
+    <style>
+        img {
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .katex {
+            /* o padrão é 1.21, vc pode remover essa configuração se quiser deixar o padrão */
+            font-size: 1.0em;
+        }
+
+        table.custom,
+        table.custom>thead>tr>th,
+        table.custom>tbody>tr>td,
+        table.custom>tbody>tr>th {
+            /* tabela centralizada e com bordas */
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+        }
+
+        table pre {
+            /* tags pre dentro de tabelas são alinhadas à esquerda, sem margem interna */
+            margin: 0;
+            text-align: left !important;
+        }
+
+        td:has(pre) {
+            /* tags pre dentro de tabela são alinhadas no topo */
+            vertical-align: top;
+        }
+
+        code:not(pre code) {
+            /* tags code não filhas de pre */
+            color: darkred;
+            background-color: #f3f3f3;
+        }
+
+        table.align-left th,
+        table.align-left td {
+            /* alinha à esquerda as células da tabela */
+            text-align: left !important;
+        }
+
+        .bordered-line td {
+            /* tags tr com borda em todas as suas células */
+            border: 1px solid black;
+        }
+
+        /* inicia a lista de exercícios */
+        ol.excs {
+            padding-inline-start: 0em;
+            counter-reset: excs;
+            list-style: none;
+        }
+
+        /* põe um numerador num item da lista de exercícios, desde que não seja da classe no-mark */
+        ol.excs>li:not(.no-mark)::before {
+            counter-increment: excs;
+            content: counters(excs, ".") ". ";
+        }
+
+        /* põe uma barra vertical ao lado do item da lista de exercícios */
+        ol.excs>li {
+            /* Change this to adjust the line color and thickness */
+            border-left: 2px solid #000;
+            /* Optional: Add padding to create some space between the bar and content */
+            padding-left: 10px;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+        }
+
+        ol.section {
+            counter-reset: section;
+            list-style-type: none;
+        }
+
+        ol.section li::before {
+            counter-increment: section;
+            content: counters(section, ".") ". ";
+        }
+
+        td.hljs-ln-numbers {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            color: #ccc;
+            border-right: 1px solid #999;
+            padding-right: 5px;
+        }
+
+        td.hljs-ln-code {
+            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
+            padding-left: 10px;
+        }
+
+        .info {
+            /* balão de informação */
+            border-left: 6px solid blue;
+            padding-left: 1%;
+        }
+    </style>
+</head>
+
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=3166">UVa 12015</a> - Google está com Sorte</h1>
+
+<p>O Google é um dos motores de busca na Internet mais famosos, que desenvolve uma variedade de serviços e produtos online. Em seu site de busca, um interessante botão, “Estou com Sorte”, chama a atenção. Esse recurso permite que o usuário pule a página de resultados de busca e vá diretamente para a primeira página classificada. Incrível! Isso economiza muito tempo.</p>
+
+<p>A questão é: quando alguém digita algumas palavras-chave e pressiona o botão “Estou com Sorte”, qual página da web aparecerá? O Google usa métodos avançados para determinar isso. Neste problema simplificado, consideramos apenas que o Google atribui uma relevância numérica a cada página da web. A página mais relacionada será escolhida. Em caso de empate, todas as páginas com a maior relevância podem ser escolhidas.</p>
+
+<p>Sua tarefa é simples: dada uma lista de 10 páginas da web e suas relevâncias, selecione todas as possíveis candidatas que serão apresentadas ao usuário ao clicar em “Estou com Sorte”.</p>
+
+<h3>Entrada</h3>
+<p>A entrada contém múltiplos casos de teste. O número de casos de teste <em>T</em> está na primeira linha do arquivo de entrada. Para cada caso de teste, há 10 linhas, cada uma descrevendo uma página da web e sua relevância. Cada linha contém uma string de caracteres sem espaços representando a URL da página e um inteiro <em>V<sub>i</sub></em> indicando a relevância dessa página (<code>1 ≤ V<sub>i</sub> ≤ 100</code>). O comprimento da URL está entre 1 e 100 caracteres, inclusive.</p>
+
+<h3>Saída</h3>
+<p>Para cada caso de teste, imprima várias linhas contendo as URLs das páginas da web que podem ser escolhidas. A ordem das URLs deve ser a mesma da entrada. Veja o exemplo de saída para mais informações sobre o formato da saída.</p>
+
+<h3>Exemplo de Entrada/Saída</h3>
+<table class="custom">
+    <tr>
+        <th>Entrada</th>
+        <th>Saída</th>
+    </tr>
+    <tr>
+        <td>
+            <pre>2
+www.youtube.com 1
+www.google.com 2
+www.google.com.hk 3
+www.alibaba.com 10
+www.taobao.com 5
+www.bad.com 10
+www.good.com 7
+www.fudan.edu.cn 8
+www.university.edu.cn 9
+acm.university.edu.cn 10
+www.youtube.com 1
+www.google.com 2
+www.google.com.hk 3
+www.alibaba.com 11
+www.taobao.com 5
+www.bad.com 10
+www.good.com 7
+www.fudan.edu.cn 8
+acm.university.edu.cn 9
+acm.university.edu.cn 10</pre>
+        </td>
+        <td>
+            <pre>Case #1:
+www.alibaba.com
+www.bad.com
+acm.university.edu.cn
+Case #2:
+www.alibaba.com</pre>
+        </td>
+    </tr>
+</table>
