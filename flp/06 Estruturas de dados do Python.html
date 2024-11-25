@@ -912,7 +912,7 @@ def __repr__(self):
 [('p', 1), ('y', 2), ('t', 3), ('h', 4), ('o', 5), ('n', 6), ('!', 7), ('!', 8)]</code></pre>
             <p>A função <code>operator.itemgetter(i)</code> retorna uma função que retorna o i-ésimo elemento de um objeto iterável, como uma tupla, lista ou dicionário. Similarmente, para retornar um atributo específico de um objeto, você pode usar a função <code>operator.attrgetter</code>. Mais detalhes na <a href="https://docs.python.org/3/library/operator.html#operator.attrgetter">documentação oficial</a>.</p>
         </div>
-        <div data-heading="listas como argumento padrão">
+        <div data-heading="Listas como argumento padrão">
             <p>Quando definimos uma lista vazia (ou qualquer outro objeto mutável) como argumento padrão de uma função, é importante entender que o <strong>argumento padrão é avaliado apenas uma vez quando a função é definida, e não cada vez que a função é invocada</strong>. Esse comportamento típico do Python pode levar a comportamentos inesperados se o objeto é modificado dentro da função.</p>
             <pre><code>def append_to_list(item, my_list=[]):
     my_list.append(item)
