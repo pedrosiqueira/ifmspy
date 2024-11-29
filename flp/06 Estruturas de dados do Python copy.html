@@ -86,7 +86,7 @@ def get_stock_with_highest_percentage_change(stock1, stock2):
  
 stock = ("GOOGL", 1200.0, 1100.0, 1300.0)
  
-result = get_stock_with_highest_percentage_change(("AAPL", 150.0, 140.0, 160.0), stock)
+result = get_stock_with_highest_percentage_change(("AAPL", 150.0, 160.0, 140.0), stock)
  
 print(f"Stock with the highest percentage change: {result[0]}")
 print(f"Average value of the share with the highest percentage change: {result[1]}")</code></pre>
@@ -121,7 +121,7 @@ print(type(a_tuple), type(not_a_tuple), type(a_int))</code></pre>
 Stock = namedtuple("Stock", ("symbol", "current", "high", "low"))
 stock1 = Stock("FB", 177.46, 178.67, 175.79)
 print(stock1.high, stock1[3])
-stock2 = Stock("AAPL", 150.0, 140.0, 160.0)
+stock2 = Stock("AAPL", 150.0, 160.0, 140.0)
 symbol, current, high, low = stock2
 print(symbol, current)
 
@@ -260,7 +260,7 @@ print(movie1.better_than(movie2))</code></pre>
                         <td>
                             <pre><code>__iter__(self, /)</code></pre>
                         </td>
-                        <td>Retorna um iterador para percorrer a lista normalmente. Nos bastidores, o <i>for-each</i> do Python invoca o método <code>__iter__</code>.</td>
+                        <td>Retorna um iterador para percorrer a lista normalmente. Esse método é usado pelo <i>for-each</i> nos bastidores.</td>
                         <td>
                             <pre><code>>>> for item in [9, 1, 8, 2]: item # 9 1 8 2</code></pre>
                         </td>
@@ -272,7 +272,6 @@ print(movie1.better_than(movie2))</code></pre>
                 <pre><code>>>> reversed([1,2,3,4])
 &lt;list_reverseiterator object at 0x7a8bf76c0100></code></pre>
             </div>
-
         </div>
         <div>
             <h3>Métodos de Sequence</h3>
@@ -1035,15 +1034,525 @@ Intern
         <!-- 
 https://docs.python.org/3/library/stdtypes.html#typesmapping
 /home/siqueira/Mega/LivrosComputacao/python/ifmspy/dict.man        
+
+
+list(d)
+Return a list of all the keys used in the dictionary d.
+
+
 -->
 
-        <p>Um dicionário, em Python, é uma coleção de pares chave-valor. Dicionários em Python são implementados como tabelas hash, uma estrutura de dados altamente eficiente para buscar por itens. A sintaxe de criação de dicionários em Python é parecida com objetos JSON:</p>
-        <pre><code>stocks = {
-    "AAPL": (150.0, 140.0, 160.0),
+        <p>Um dicionário, em Python, é uma coleção de pares chave-valor. Dicionários em Python são implementados como tabelas hash, uma estrutura de dados altamente eficiente para buscar por itens.</p>
+        <div>
+            <h3>Construção</h3>
+            <p>Vejamos os métodos de construção de dicionários:</p>
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>dict()</code></pre>
+                        </td>
+                        <td>Novo dicionário vazio.</td>
+                        <td>
+                            <pre><code>dictionary1 = dict()</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>dict(iterable)</code></pre>
+                        </td>
+                        <td>Novo dicionário a partir de um iterável de pares.</td>
+                        <td>
+                            <pre><code>dictionary2 = dict([("name", "john"), ("age", 42)])</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>dict(mapping)</code></pre>
+                        </td>
+                        <td>Novo dicionário a partir de outro dicionário ou um objeto <code>Mapping</code></td>
+                        <td>
+                            <pre><code>dictionary3 = dict(dictionary2)</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>dict(**kwargs)</code></pre>
+                        </td>
+                        <td>Novo dicionário a partir de argumentos com palavras chaves (veremos mais sobre kwargs adiante).</td>
+                        <td>
+                            <pre><code>dictionary4 = dict(name="john", age=42)</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Assim como ocorre com listas, não precisamos invocar explicitamente o construtor para instanciar dicionários:</p>
+
+            <pre><code>emptydict = {}
+
+stocks = {
+    "AAPL": (150.0, 160.0, 140.0),
     "GOOG": (1235.20, 1242.54, 1231.06),
     "MSFT": (110.41, 110.45, 109.84),
     "FB": (177.46, 178.67, 175.79),
 }</code></pre>
+            <p>A sintaxe de criação de dicionários em Python é parecida com objetos JSON.</p>
+        </div>
+        <div>
+            <h3>Métodos de Collection</h3>
+            <p>Esses métodos também estão disponíveis em listas e tuplas.</p>
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>__len__(self, /)</code></pre>
+                        </td>
+                        <td>Retorna <code>len(self)</code>, isto é, o comprimento, ou a quantidade de itens, do dicionário.</td>
+                        <td>
+                            <pre><code>print(len(stocks)) # 4</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__iter__(self, /)</code></pre>
+                        </td>
+                        <td>Retorna um iterador para percorrer apenas as chaves do dicionário. Esse método é usado pelo <i>for-each</i> nos bastidores.</td>
+                        <td>
+                            <pre><code>for item in stocks: item # 'AAPL' 'GOOG' 'MSFT' 'FB'</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__contains__(self, key, /)</code></pre>
+                        </td>
+                        <td>Verifica se a chave <code>key</code> está contida no dicionário.</td>
+                        <td>
+                            <pre><code>print('aapl' in stocks) # False
+print('AAPL' in stocks) # True</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3>Métodos de Mapping</h3>
+            <p>Vejamos os métodos de dicionários herdados de <code>Mapping</code>, que não modificam o objeto:</p>
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>__eq__(self, other, /)</code></pre>
+                        </td>
+                        <td>Verifica se ambos os dicionários possuem os mesmos itens.</td>
+                        <td>
+                            <pre><code>print({"a": 1, "b": 2} == {"b": 2, "a": 1})  # True
+print({"a": 1, "b": 2} == {"b": 2, "a": 1, "c": 3})  # False</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__ne__(self, other, /)</code></pre>
+                        </td>
+                        <td>Verifica se ambos os dicionários são diferentes.</td>
+                        <td>
+                            <pre><code>print({"a": 1, "b": 2} != {"b": 2, "a": 1})  # False
+print({"a": 1, "b": 2} != {"b": 2, "a": 1, "c": 3})  # True</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__getitem__(self, key, /)</code></pre>
+                        </td>
+                        <td>Retorna o valor da chave <code>key</code>. Caso não encontre, levanta uma exceção<sup><a href="#eafp">3</a></sup>.</td>
+                        <td>
+                            <pre><code>print(stocks["AAPL"])  # (150.0, 160.0, 140.0)
+print(stocks["RIM"])  # KeyError: 'RIM'</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>get(self, key, default=None, /)</code></pre>
+                        </td>
+                        <td>Retorna o valor da chave <code>key</code>. Caso não encontre, retorna <code>default</code>.</td>
+                        <td>
+                            <pre><code>print(stocks.get("AAPL"))  # (150.0, 160.0, 140.0)
+print(stocks.get("RIM"))  # None
+print(stocks.get("RIM", "NOT FOUND"))  # NOT FOUND</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <h4>Percorrendo dicionários</h4>
+                <p>Além disso, <code>Mapping</code> também possui os seguintes métodos para percorrer pelos seus itens:</p>
+                <table class="custom align-left">
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Descrição</th>
+                            <th>Exemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <pre><code>keys()</code></pre>
+                            </td>
+                            <td>Retorna um iterável<sup><a href="#set-like">5</a></sup> das chaves.</td>
+                            <td>
+                                <pre><code>for key in stocks.keys(): print(key)  # AAPL GOOG MSFT FB</code></pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>values()</code></pre>
+                            </td>
+                            <td>Retorna um iterável<sup><a href="#set-like">5</a></sup> dos valores.</td>
+                            <td>
+                                <pre><code>for value in stocks.values(): print(value)
+# (150.0, 160.0, 140.0)
+# (1235.2, 1242.54, 1231.06)
+# (110.41, 110.45, 109.84)
+# (177.46, 178.67, 175.79)</code></pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>items()</code></pre>
+                            </td>
+                            <td>Retorna um iterável<sup><a href="#set-like">5</a></sup> dos itens.</td>
+                            <td>
+                                <pre><code>for item in stocks.items(): print(item)
+# ("AAPL", (150.0, 160.0, 140.0))
+# ("GOOG", (1235.2, 1242.54, 1231.06))
+# ("MSFT", (110.41, 110.45, 109.84))
+# ("FB", (177.46, 178.67, 175.79))
+
+for k, v in stocks.items():
+    print(f"{k}'s highest price is ${v[1]}")
+# AAPL's highest price is $160.0
+# GOOG's highest price is $1242.54
+# MSFT's highest price is $110.45
+# FB's highest price is $178.67</code></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="info" id="set-like">
+                    <p>Observação: <sup>5</sup>Esses iteráveis são <i>view objects</i>, um tipo de objetos parecido com <code>set</code>, que veremos mais adiante:</p>
+                    <pre><code>whatami = stocks.keys()
+print(whatami)  # dict_keys(['AAPL', 'GOOG', 'MSFT', 'FB'])</code></pre>
+                    <p>Mais informações <a href="https://docs.python.org/3/library/stdtypes.html#dictionary-view-objects">aqui</a>.</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <!-- parei aqui -->
+            <h3>Métodos de MutableSequence</h3>
+
+            <p>Considere a seguinte lista de exemplo:</p>
+            <pre><code>alist = [9, 3, 7]</code></pre>
+            <p>Vejamos os métodos de listas herdados de <code>MutableSequence</code>, que são capazes de modificar o objeto:</p>
+
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>__iadd__(self, value, /)</code></pre>
+                        </td>
+                        <td>Adiciona um iterável à lista.</td>
+                        <td>
+                            <pre><code>>>> alist += "oi" # [9, 3, 7, 'o', 'i']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__imul__(self, value, /)</code></pre>
+                        </td>
+                        <td>Adiciona <code>value</code> vezes os itens da lista nela mesma.</td>
+                        <td>
+                            <pre><code>>>> alist *= 2 # [9, 3, 7, 'o', 'i', 9, 3, 7, 'o', 'i']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__delitem__(self, i, /)</code></pre>
+                        </td>
+                        <td>Exclui <code>self[i]</code>. E sim, <code>del</code> também é um operador em Python.</td>
+                        <td>
+                            <pre><code>>>> del alist[4] # [9, 3, 7, 'o', 9, 3, 7, 'o', 'i']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__setitem__(self, key, value, /)</code></pre>
+                        </td>
+                        <td>Atribui <code>value</code> a <code>self[i]</code>.</td>
+                        <td>
+                            <pre><code>>>> alist[4] = 'z' # [9, 3, 7, 'o', 'z', 3, 7, 'o', 'i']
+>>> alist[-1] = 'u' # [9, 3, 7, 'o', 'z', 3, 7, 'o', 'u']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>remove(self, value, /)</code></pre>
+                        </td>
+                        <td>Exclui a primeira ocorrência de <code>value</code>. Se não encontrar, levanta uma exceção.</td>
+                        <td>
+                            <pre><code>>>> alist.remove('o') # [9, 3, 7, 'z', 3, 7, 'o', 'u']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>pop(self, index=-1, /)</code></pre>
+                        </td>
+                        <td>Exclui e retorna o item em <code>index</code> (o último, por padrão). Se lista vazia ou índice fora dos limites, levanta uma exceção.</td>
+                        <td>
+                            <pre><code>>>> secondlast = alist.pop(6) # 'o'
+>>> last = alist.pop() # 'u'
+>>> thirdlast = alist.pop(-3) # 'z'
+>>> alist
+[9, 3, 7, 3, 7]</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>extend(self, iterable, /)</code></pre>
+                        </td>
+                        <td>Equivale à <code>self += iterable</code>.</td>
+                        <td>
+                            <pre><code>>>> alist.extend((3,9)) # [9, 3, 7, 3, 7, 3, 9]</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>append(self, object, /)</code></pre>
+                        </td>
+                        <td>Adiciona <code>object</code> ao final da lista.</td>
+                        <td>
+                            <pre><code>>>> alist.append('ω') # [9, 3, 7, 3, 7, 3, 9, 'ω']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>insert(self, i, object, /)</code></pre>
+                        </td>
+                        <td>Insere <code>object</code> em <code>i</code>.</td>
+                        <td>
+                            <pre><code>>>> alist.insert(0, 'α') # ['α', 9, 3, 7, 3, 7, 3, 9, 'ω']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>reverse(self, /)</code></pre>
+                        </td>
+                        <td>Parecido com <code>__reversed__</code>, mas inverte a lista <i>in-loco</i> (a modifica).</td>
+                        <td>
+                            <pre><code>>>> alist.reverse() # ['ω', 9, 3, 7, 3, 7, 3, 9, 'α']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>copy(self, /)</code></pre>
+                        </td>
+                        <td>Único método de <code>MutableSequence</code> que não modifica, mas faz uma cópia<sup><a href="#shallow-copy">4</a></sup> da lista. Equivale à <code>self[:]</code>.</td>
+                        <td>
+                            <pre><code class="python-repl">>>> alist = list('oi')
+>>> samelist = alist
+>>> clonedlist1 = alist.copy() 
+>>> clonedlist2 = alist[:]
+>>> alist.pop() # 'i'
+>>> alist, samelist, clonedlist1, clonedlist2
+(['o'], ['o'], ['o', 'i'], ['o', 'i'])</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>clear(self, /)</code></pre>
+                        </td>
+                        <td>Exclui todos os itens da lista.</td>
+                        <td>
+                            <pre><code>>>> alist.clear() # []</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div id="shallow-copy">
+                <h4>Cópia rasa vs cópia profunda</h4>
+                <p><sup>4</sup>Assim como ocorre na multiplicação de listas<sup><a href="#multiplicacao">2</a></sup>, o método <code>copy</code> e a operação <code>[:]</code> fazem uma cópia da lista apenas, mas mantêm as referências aos mesmos objetos contidos na lista original. Considere o seguinte exemplo:</p>
+
+                <pre><code>from dataclasses import make_dataclass
+    from copy import copy, deepcopy
+    
+    Point = make_dataclass("Point", ("x", "y"))
+    
+    original = [Point(0, 0), Point(1, 1)]
+    reference = original
+    shallowcopied1 = original.copy()
+    shallowcopied2 = copy(original)
+    deepcopied = deepcopy(original)
+    
+    original.append(Point(2, 4))
+    original[0].x, original[0].y = 3, 9
+    
+    shallowcopied1.append(Point(4, 16))
+    
+    shallowcopied2[1].x, original[1].y = 5, 25
+    
+    print("Original Points:      ", original)
+    print("Reference Points:     ", reference)
+    print("Shallow Copied Points:", shallowcopied1)
+    print("Also Shallow Copy:    ", shallowcopied2)
+    print("Deep Copied Points:   ", deepcopied)</code></pre>
+
+                <p>A variável <code>reference</code> referencia (aponta para) a mesma lista que a variável <code>original</code>, ou seja, ambas são a mesma lista. Alterar a lista em uma das variáveis é imediatamente refletido na outra.</p>
+                <p>As variáveis <code>shallowcopied1</code> e <code>shallowcopied2</code> são cópias da da lista <code>original</code>, mas referenciam os mesmos objetos. Isso é conhecido como cópia rasa (shallow copy). Você pode fazer uma cópia rasa de uma lista usando tanto o método <code>copy</code> da lista quanto a função <code>copy</code> do módulo <code>copy</code>, sendo que esta última também permite copiar outros tipos de objetos.</p>
+                <p>A variável <code>deepcopied</code> é uma cópia recursiva da lista <code>original</code> e de seus itens, garantindo uma cópia independente em todos os níveis. Nenhuma referência ao conteúdo original é mantida. Isso é conhecido como cópia profunda (deep copy). A função <code>deepcopy</code> do módulo <code>copy</code> permite copiar profundamente outros tipos de objetos.</p>
+                <p>Observe que, ao adicionar um novo objeto na lista <code>original</code> (linha 12), apenas a lista de <code>reference</code> reflete a alteração, já que ambas compartilham a mesma referência. Contudo, ao modificar um objeto dentro da lista <code>original</code>, essa mudança também afeta as listas <code>shallowcopied1</code> e <code>shallowcopied2</code>, pois ambas compartilham referências aos mesmos objetos internos.</p>
+            </div>
+            <div>
+                <h4>Fatiamento de MutableSequence</h4>
+                <p>O método <code>__setitem__(self, key, value, /)</code> também permite slicing. (Neste caso sim, estamos modificando a lista).</p>
+                <p>Considere a seguinte lista de exemplo:</p>
+                <pre><code>s = [3, 6, 9, 12, 15, 18, 21]</code></pre>
+                <p>Vejamos exemplos de operações modificadoras de fatiamento:</p>
+
+                <table class="custom align-left">
+                    <thead>
+                        <tr>
+                            <th>Operação</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <pre><code>>>> i, j, t = 2, 5, (9,) * 15
+    >>> s[i:j] = t
+    >>> s # [3, 6, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 18, 21]
+    >>> s[2:-2] = (1,) * 10
+    >>> s # [3, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 18, 21]</code></pre>
+                            </td>
+                            <td>A fatia de <code>i</code> a <code>j</code> é substituída por <code>t</code>. Observe que se <code>t</code> for maior ou menor que a fatia, a lista pode aumentar ou diminuir.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>>>> i, j, k, t = 2, 11, 3, (0, 0, 0)
+    >>> s[i:j:k] = t
+    >>> s # [3, 6, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 18, 21]</code></pre>
+                            </td>
+                            <td>A fatia de <code>i</code> a <code>j</code>, a cada <code>k</code> itens, é substituída por <code>t</code>. Observe que, quando <code>k != 1</code>, a quantidade de itens da fatia deve ser igual à quantidade de itens de <code>t</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>>>> del s[i:j:k]
+    >>> s # [3, 6, 1, 1, 1, 1, 1, 1, 1, 18, 21]
+    >>> del s[2:9]
+    >>> s # [3, 6, 18, 21]</code></pre>
+                            </td>
+                            <td>Exclui os itens de <code>i</code> a <code>j</code>, a cada <code>k</code> itens.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>>>> s[len(s):] = [k] # [3, 6, 18, 21, 3]</code></pre>
+                            </td>
+                            <td>Equivale à <code>s.append(k)</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>>>> s[len(s):] = t # [3, 6, 18, 21, 3, 0, 0, 0]</code></pre>
+                            </td>
+                            <td>Equivale à <code>s.extend(t)</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>>>> s[i:i] = [k]
+    >>> s # [3, 6, 3, 18, 21, 3, 0, 0, 0]</code></pre>
+                            </td>
+                            <td>Equivale à <code>s.insert(i, k)</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>>>> del s[:] # []</code></pre>
+                            </td>
+                            <td>Equivale à <code>s.clear()</code>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h4>Modificando lista enquanto a percorre</h4>
+                <p>Até o momento, todos os exemplos de percurso de lista iteram uma lista sem fazer nenhuma modificação na lista em si. <a href="https://realpython.com/python-list/#traversing-lists">Modificar uma lista durante a iteração</a> pode levar a comportamento inesperado e bugs, então evite essa prática. Como regra geral, se você precisa modificar o conteúdo de uma lista em um loop, então faça uma cópia dessa lista primeiro.</p>
+                <p>Digamos que tenhamos uma lista de números e queiramos excluir apenas os ímpares. Poderíamos tentar algo assim:</p>
+                <pre><code class="python-repl">>>> numbers = [2, 9, 5, 1, 6]
+
+>>> for number in numbers:
+...     if number % 2:
+...         numbers.remove(number)
+...
+>>> numbers
+[2, 5, 6]</code></pre>
+                <p>Infelizmente, apenas 9 e 1 foram excluídos, enquanto 5 permaneceu na lista. Isso ocorre porque excluir itens de uma lista desloca seus índices, o que interfere nos índices dentro de um loop <code>for</code> em execução. Você pode evitar esse problema percorrendo uma cópia da lista:</p>
+                <pre><code class="python-repl">>>> numbers = [2, 9, 5, 1, 6]
+
+>>> for number in numbers[:]:
+...     if number % 2:
+...         numbers.remove(number)
+...
+>>> numbers
+[2, 6]</code></pre>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <p>Um dicionário é um objeto, e como qualquer outro em Python, tem seus próprios métodos. Dentre eles se destacam:</p>
         <pre><code>>>> stocks["GOOG"]
 (1235.20, 1242.54, 1231.06)
@@ -1075,7 +1584,7 @@ KeyError: 'GOOG'</code></pre>
 dict_keys(['AAPL', 'GOOG', 'MSFT', 'FB'])
 >>> for prices in stocks.values(): prices
 ... 
-(150.0, 140.0, 160.0)
+(150.0, 160.0, 140.0)
 (1235.2, 1242.54, 1231.06)
 (110.41, 110.45, 109.84)
 (177.46, 178.67, 175.79)
