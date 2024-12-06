@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.9.0/highlightjs-line-numbers.min.js"></script>
     <script defer>hljs.configure({ languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
 
     <!-- https://github.com/arronhunt/highlightjs-copy -->
@@ -21,127 +21,32 @@
     <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
     <script defer>hljs.addPlugin(new CopyButtonPlugin());</script>
 
+    <!-- https://github.com/TRSasasusu/highlightjs-highlight-lines.js -->
+    <script src="https://cdn.jsdelivr.net/gh/TRSasasusu/highlightjs-highlight-lines.js@1.2.0/highlightjs-highlight-lines.min.js"></script>
+    <script defer>hljs.highlightLinesAll([
+            // [{ start: 2, end: 2, color: 'lightgreen' }, { start: 9, end: 9, color: 'lightblue' }, { start: 14, end: 14, color: 'lightblue' }]
+        ]);
+    </script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '``', right: '``', display: true},{left: '`', right: '`', display: false}]});"></script>
 
-    <style>
-        img {
-            max-width: 90vw;
-            max-height: 90vh;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .katex {
-            /* o padrão é 1.21, vc pode remover essa configuração se quiser deixar o padrão */
-            font-size: 1.0em;
-        }
-
-        table.custom,
-        table.custom>thead>tr>th,
-        table.custom>tbody>tr>td,
-        table.custom>tbody>tr>th {
-            /* tabela centralizada e com bordas */
-            border: 1px solid black;
-            border-collapse: collapse;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 5px;
-            padding-right: 5px;
-            text-align: center;
-        }
-
-        table pre {
-            /* tags pre dentro de tabelas são alinhadas à esquerda, sem margem interna */
-            margin: 0;
-            text-align: left;
-        }
-
-        td:has(pre) {
-            /* tags pre dentro de tabela são alinhadas no topo */
-            vertical-align: top;
-        }
-
-        code:not(pre code) {
-            /* tags code não filhas de pre */
-            color: darkred;
-            background-color: #f3f3f3;
-        }
-
-        table.align-left th,
-        table.align-left td {
-            /* alinha à esquerda as células da tabela */
-            text-align: left !important;
-        }
-
-        .bordered-line td {
-            /* tags tr com borda em todas as suas células */
-            border: 1px solid black;
-        }
-
-        /* inicia a lista de exercícios */
-        ol.excs {
-            padding-inline-start: 0em;
-            counter-reset: excs;
-            list-style: none;
-        }
-
-        /* põe um numerador num item da lista de exercícios, desde que não seja da classe no-mark */
-        ol.excs>li:not(.no-mark)::before {
-            counter-increment: excs;
-            content: counters(excs, ".") ". ";
-        }
-
-        /* põe uma barra vertical ao lado do item da lista de exercícios */
-        ol.excs>li {
-            /* Change this to adjust the line color and thickness */
-            border-left: 2px solid #000;
-            /* Optional: Add padding to create some space between the bar and content */
-            padding-left: 10px;
-            margin-block-start: 1em;
-            margin-block-end: 1em;
-        }
-
-        ol.section {
-            counter-reset: section;
-            list-style-type: none;
-        }
-
-        ol.section li::before {
-            counter-increment: section;
-            content: counters(section, ".") ". ";
-        }
-
-        td.hljs-ln-numbers {
-            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
-            color: #ccc;
-            border-right: 1px solid #999;
-            padding-right: 5px;
-        }
-
-        td.hljs-ln-code {
-            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
-            padding-left: 10px;
-        }
-
-        .info {
-            /* balão de informação */
-            border-left: 6px solid blue;
-            padding-left: 1%;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.min.css">
+    <script defer src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.min.js" onload='
+        // createHeadings("div[data-heading]", 6); // deveria funcionar só com essa linha
+        window.addEventListener("load", () => { // enquanto o cdn ainda não atualiza meu arquivo, faço assim
+            wrapDivs(document.querySelector("div[data-heading]"), 1, 6);
+        });
+    '></script>
 </head>
 
-<div id="6-python-data-structures">
-    <h1>6 Estruturas de dados do Python</h1>
+<div id="6-python-data-structures" data-heading="Estruturas de dados do Python">
     <p>A seguinte figura apresenta as principais <a href="https://docs.python.org/3/library/collections.abc.html#collections-abstract-base-classes">classes de coleção do Python</a>.</p>
     <p id="collection-classes" alt="Classes de collection"></p>
     <p>Em branco são as classes abstratas, e em azul, as concretas. Para economizar espaço, métodos implementados de classes herdadas não são exibidos. Estudaremos a maioria dessas classes.</p>
-    <div id="6-1-empty-objects">
-        <h2>Objetos vazios</h2>
+
+    <div id="6-1-empty-objects" data-heading="Objetos vazios">
         <p>Se toda classe herda de <code>object</code>, poderíamos instanciar um <code>object</code> diretamente. Entretanto, não podemos adicionar atributos a um objeto <code>object</code>:</p>
         <pre><code>>>> o = object()
 >>> o.x = 5
@@ -158,8 +63,7 @@ AttributeError: 'object' object has no attribute 'x'</code></pre>
 'hello'</code></pre>
         <p>Entretanto, se você precisa apenas agrupar dados relacionados, pode usar classes do Python feitas para isso. Lembre-se, um objeto só faz sentido se tiver tanto dados quanto comportamentos.</p>
     </div>
-    <div id="6-2-tuples-and-named-tuples">
-        <h2>Tuplas e tuplas nomeadas</h2>
+    <div id="6-2-tuples-and-named-tuples" data-heading="Tuplas e tuplas nomeadas">
         <p>Tuplas nada mais são do que listas imutáveis, isto é, você não pode adicionar ou excluir objetos de uma tupla depois de instanciada. Esta propriedade garante a integridade dos dados, tornando as tuplas adequadas para representar valores que devem permanecer constantes ao longo do programa. Quando você precisa de uma coleção ordenada de elementos que não devem ser modificados, tupla é uma melhor alternativa à lista.</p>
         <p>O principal propósito de uma tupla é agregar diferentes partes de dados em um único contêiner. Por exemplo, para criar uma tupla contendo o código de uma ação, e seus preços atual, maior e menor do dia:</p>
         <pre><code>>>> stock = "FB", 177.46, 178.67, 175.79
@@ -211,8 +115,7 @@ print(a_tuple, not_a_tuple, a_int)
 print(type(a_tuple), type(not_a_tuple), type(a_int))</code></pre>
         <p>Ainda, percebemos que tuplas podem carecer de legibilidade, pois os dados dentro dela não são nomeados.</p>
 
-        <div id="6-2-1-named-tuples">
-            <h3>Tuplas nomeadas</h3>
+        <div id="6-2-1-named-tuples" data-heading="Tuplas nomeadas">
             <p>Se não precisarmos adicionar comportamento ao objeto e soubermos antecipadamente quais atributos precisamos armazenar, podemos usar uma tupla nomeada. Tuplas nomeadas são uma ótima maneira de agrupar dados somente-leitura.</p>
             <pre><code>from collections import namedtuple
 
@@ -229,8 +132,7 @@ stock1.average = 176 # can't create attribute</code></pre>
             <p>Tuplas nomeadas são como tuplas, podemos acessar seus "atributos" via índices, e não podemos modificar ou acrescentar atributos.</p>
         </div>
     </div>
-    <div id="6-3-dataclasses">
-        <h2>Dataclasses</h2>
+    <div id="6-3-dataclasses" data-heading="Dataclasses">
         <p>Para conseguirmos modificar ou acrescentar atributos, podemos usar <code>dataclass</code>:</p>
         <pre><code>from dataclasses import make_dataclass
 Stock = make_dataclass("Stock", ("symbol", "current", "high", "low"))</code></pre>
@@ -261,8 +163,7 @@ stock_regular2 = StockRegular("FB", 177.46, high=178.67, low=175.79)
 
 print(stock_regular1)
 print(stock_regular1 == stock_regular2)</code></pre>
-        <div id="6-3-1-dataclass-decorator">
-            <h3>A decoração <code>@dataclass</code></h3>
+        <div id="6-3-1-dataclass-decorator" data-heading="A decoração @dataclass">
             <p>A decoração <code>@dataclass</code> declara <code>dataclass</code>es com tipagem. Apesar da sintaxe não ser tão menos verbosa quanto classes tradicionais, <code>dataclassse</code> vem com vários recursos interessantes:</p>
             <pre><code>from dataclasses import dataclass
 
@@ -291,224 +192,225 @@ print(movie1.better_than(movie2))</code></pre>
             <p>É possível atribuir valores padrões aos atributos e, com o argumento <code>order=True</code>, torna-se possível realizar não apenas verificações de igualdade, mas também comparações como menor ou maior. A comparação, por padrão, é feita por atributo, seguindo a ordem em que foram declarados, até que atributos com valores distintos sejam encontrados. Você pode alterar o modo de comparação, bem como utilizar vários outros recursos oferecidos pela classe <code>dataclass</code>. Para mais informações, <a href="https://realpython.com/python-data-classes/#more-flexible-data-classes">acesse aqui</a>.</p>
         </div>
     </div>
-    <div id="6-5-lists">
-        <h2>Listas</h2>
+    <div id="6-5-lists" data-heading="Listas">
         <p>Listas geralmente são usadas para armazenar vários objetos do mesmo tipo; listas de strings, listas de números, ou listas de objetos próprios. Apesar de possível, evite armazenar elementos de tipos diferentes em uma mesma lista. Por exemplo, para armazenar pares de letra/ocorrências, poderíamos ter <code>['a', 1, 'b', 3]</code>, que significa que a letra 'a' ocorreu 1 vez e a letra 'b' ocorreu 3 vezes. Mas pensa na hora de iterar por essa lista como seria mais complicado. Uma solução melhor, mas não necessariamente a melhor de todas, seria <code>[('a',1), ('b',3)]</code>.</p>
         <div class="info">Observação: Na prática, dificilmente usaremos listas heterogêneas. Quando precisamos armazenar uma sequência de objetos heterogêneos, como um registro de banco de dados com campos conhecidos e imutáveis, é melhor usar tuplas.</div>
         <p>Listas não têm um tamanho fixo, podem aumentar ou diminuir de tamanho, à medida que inserimos ou excluímos itens delas.</p>
 
-        <h3>Construção</h3>
-        <p>Vejamos o método construtor de listas:</p>
+        <div data-heading="Construção">
+            <p>Vejamos o método construtor de listas:</p>
 
-        <table class="custom align-left">
-            <thead>
-                <tr>
-                    <th>Método</th>
-                    <th>Descrição</th>
-                    <th>Exemplo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <pre><code>list(iterable=(), /)</code></pre>
-                    </td>
-                    <td>Construtor de lista. Pode receber qualquer objeto iterável (que herda da classe <code>Iterable</code>).</td>
-                    <td>
-                        <pre><code>>>> list1 = [] # lista vazia
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>list(iterable=(), /)</code></pre>
+                        </td>
+                        <td>Construtor de lista. Pode receber qualquer objeto iterável (que herda da classe <code>Iterable</code>).</td>
+                        <td>
+                            <pre><code>>>> list1 = [] # lista vazia
 >>> list2 = [9, 3, 7] # lista com 3 números
 >>> list3 = list("uma string") # cada caractere será um item da lista</code></pre>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <p>Observe que para instanciar uma lista, não precisamos invocar explicitamente o construtor. Listas são um dos poucos objetos incorporados da linguagem que possuem formas especiais de instanciação sem necessidade de invocar diretamente um método.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Observe que para instanciar uma lista, não precisamos invocar explicitamente o construtor. Listas são um dos poucos objetos incorporados da linguagem que possuem formas especiais de instanciação sem necessidade de invocar diretamente um método.</p>
 
-        <h3>Alguns métodos mágicos</h3>
-        <p>A maioria dos métodos mágicos (aqueles que começam e terminam com dois sublinhados) são invocados pelo Python ao se usar os operadores (aritméticos, lógicos, relacionais...). A exceção são os seguintes métodos, que são invocados pelas funções específicas:</p>
-        <table class="custom align-left">
-            <thead>
-                <tr>
-                    <th>Método</th>
-                    <th>Descrição</th>
-                    <th>Exemplo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <pre><code>__len__(self, /)</code></pre>
-                    </td>
-                    <td>Retorna <code>len(self)</code>, isto é, o comprimento, ou a quantidade de itens, da lista.</td>
-                    <td>
-                        <pre><code>>>> len(['temos', 'quatro', 'itens', 'aqui']) # 4</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__reversed__(self, /)</code></pre>
-                    </td>
-                    <td>Retorna um iterador que percorre a lista de trás para frente. Ainda estudaremos iteradores, mas eles são objetos que representam fluxos de dados<sup><a href="#iteradores">1</a></sup>.</td>
-                    <td>
-                        <pre><code>>>> reverse = reversed([9, 1, 8, 2])
->>> for item in reverse: item # 2 8 1 9</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__iter__(self, /)</code></pre>
-                    </td>
-                    <td>Retorna um iterador para percorrer a lista normalmente. Nos bastidores, o <i>for-each</i> do Python invoca o método <code>__iter__</code>.</td>
-                    <td>
-                        <pre><code>>>> for item in [9, 1, 8, 2]: item # 9 1 8 2</code></pre>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <p>De qualquer forma, você não deve invocar diretamente os métodos mágicos.</p>
-        <div id="iteradores" class="info"><sup>1</sup>Iteradores percorrem objetos iteráveis de forma preguiçosa (*lazily*) para otimizar desempenho. Isso significa que um iterador não armazena previamente todos os itens do iterável; em vez disso, ele os gera conforme são acessados durante a iteração. Por causa dessa característica, ao tentar imprimir um iterador, a saída pode não ser exatamente o que você espera:
-            <pre><code>>>> reversed([1,2,3,4])
-&lt;list_reverseiterator object at 0x7a8bf76c0100></code></pre>
         </div>
+        <div data-heading="Alguns métodos mágicos">
+            <p>A maioria dos métodos mágicos (aqueles que começam e terminam com dois sublinhados) são invocados pelo Python ao se usar os operadores (aritméticos, lógicos, relacionais...). A exceção são os seguintes métodos, que são invocados pelas funções específicas:</p>
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>__len__(self, /)</code></pre>
+                        </td>
+                        <td>Retorna <code>len(self)</code>, isto é, o comprimento, ou a quantidade de itens, da lista.</td>
+                        <td>
+                            <pre><code>>>> len(['temos', 'quatro', 'itens', 'aqui']) # 4</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__reversed__(self, /)</code></pre>
+                        </td>
+                        <td>Retorna um iterador que percorre a lista de trás para frente. Ainda estudaremos iteradores, mas eles são objetos que representam fluxos de dados<sup><a href="#iteradores">1</a></sup>.</td>
+                        <td>
+                            <pre><code>>>> reverse = reversed([9, 1, 8, 2])
+>>> for item in reverse: item # 2 8 1 9</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__iter__(self, /)</code></pre>
+                        </td>
+                        <td>Retorna um iterador para percorrer a lista normalmente. Nos bastidores, o <i>for-each</i> do Python invoca o método <code>__iter__</code>.</td>
+                        <td>
+                            <pre><code>>>> for item in [9, 1, 8, 2]: item # 9 1 8 2</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>De qualquer forma, você não deve invocar diretamente os métodos mágicos.</p>
+            <div id="iteradores" class="info">Observação: <sup>1</sup>Iteradores percorrem objetos iteráveis de forma preguiçosa (<i>lazily</i>) para otimizar desempenho. Isso significa que um iterador não armazena previamente todos os itens do iterável; em vez disso, ele os gera conforme são acessados durante a iteração. Por causa dessa característica, ao tentar imprimir um iterador, a saída pode não ser exatamente o que você espera:
+                <pre><code>>>> reversed([1,2,3,4])
+&lt;list_reverseiterator object at 0x7a8bf76c0100></code></pre>
+            </div>
 
-        <h3>Métodos de <code>Sequence</code></h3>
-        <p>Considere a seguinte lista de exemplo:</p>
-        <pre><code>alist = [9, 3, 7]</code></pre>
+        </div>
+        <div data-heading="Métodos de Sequence">
+            <p>Considere a seguinte lista de exemplo:</p>
+            <pre><code>alist = [9, 3, 7]</code></pre>
 
-        <p>No Python podemos usar índices negativos para acessar elementos de trás para frente:</p>
-        <table style="text-align: center; font-family: monospace;border-collapse: collapse;margin-left: auto; margin-right: auto;">
-            <tr>
-                <td>-3</td>
-                <td>-2</td>
-                <td>-1</td>
-            </tr>
-            <tr class="bordered-line">
-                <td>9</td>
-                <td>3</td>
-                <td>7</td>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td>1</td>
-                <td>2</td>
-            </tr>
-        </table>
-
-        <p>Vejamos os métodos de listas herdados de <code>Sequence</code>, que não modificam o objeto:</p>
-
-        <table class="custom align-left">
-            <thead>
+            <p>No Python podemos usar índices negativos para acessar elementos de trás para frente:</p>
+            <table style="text-align: center; font-family: monospace;border-collapse: collapse;margin-left: auto; margin-right: auto;">
                 <tr>
-                    <th>Método</th>
-                    <th>Descrição</th>
-                    <th>Exemplo</th>
+                    <td>-3</td>
+                    <td>-2</td>
+                    <td>-1</td>
                 </tr>
-            </thead>
-            <tbody>
+                <tr class="bordered-line">
+                    <td>9</td>
+                    <td>3</td>
+                    <td>7</td>
+                </tr>
                 <tr>
-                    <td>
-                        <pre><code>__contains__(self, key, /)</code></pre>
-                    </td>
-                    <td>Verifica se <code>key</code> está contido na lista. E sim, <code>in</code> é um operador em Python (que invoca o método <code>__contains__</code> ou o método <code>__iter__</code> dependendo do contexto).</td>
-                    <td>
-                        <pre><code>>>> 'x' in ['l', 'i', 's', 't', 'a'] # False
+                    <td>0</td>
+                    <td>1</td>
+                    <td>2</td>
+                </tr>
+            </table>
+
+            <p>Vejamos os métodos de listas herdados de <code>Sequence</code>, que não modificam o objeto:</p>
+
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>__contains__(self, key, /)</code></pre>
+                        </td>
+                        <td>Verifica se <code>key</code> está contido na lista. E sim, <code>in</code> é um operador em Python (que invoca o método <code>__contains__</code> ou o método <code>__iter__</code> dependendo do contexto).</td>
+                        <td>
+                            <pre><code>>>> 'x' in ['l', 'i', 's', 't', 'a'] # False
 >>> 'x' not in ['l', 'i', 's', 't', 'a'] # True
 >>> 'a' in ['l', 'i', 's', 't', 'a'] # True</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__add__(self, other, /)</code></pre>
-                    </td>
-                    <td>Concatena outra lista à lista. (Não é possível concatenar outro iterável a não ser uma lista.)</td>
-                    <td>
-                        <pre><code>>>> otherlist = alist + [9, 5] # [9, 3, 7, 9, 5]</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__mul__(self, value, /)</code></pre>
-                    </td>
-                    <td>Repete <code>value</code> vezes os itens da lista<sup><a href="#obs-1">2</a></sup>. Observe que tanto na concatenação quanto na repetição é criada uma nova lista.</td>
-                    <td>
-                        <pre><code>>>> alist * 3 # [9, 3, 7, 9, 3, 7, 9, 3, 7]</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__eq__(self, other, /)</code></pre>
-                    </td>
-                    <td>Verifica se ambas as listas possuem os mesmos itens na mesma ordem.</td>
-                    <td>
-                        <pre><code>>>> alist == [9, 3, 7] # True
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__add__(self, other, /)</code></pre>
+                        </td>
+                        <td>Concatena outra lista à lista. (Não é possível concatenar outro iterável a não ser uma lista.)</td>
+                        <td>
+                            <pre><code>>>> otherlist = alist + [9, 5] # [9, 3, 7, 9, 5]</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__mul__(self, value, /)</code></pre>
+                        </td>
+                        <td>Repete <code>value</code> vezes os itens da lista<sup><a href="#multiplicacao">2</a></sup>. Observe que tanto na concatenação quanto na repetição é criada uma nova lista.</td>
+                        <td>
+                            <pre><code>>>> alist * 3 # [9, 3, 7, 9, 3, 7, 9, 3, 7]</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__eq__(self, other, /)</code></pre>
+                        </td>
+                        <td>Verifica se ambas as listas possuem os mesmos itens na mesma ordem.</td>
+                        <td>
+                            <pre><code>>>> alist == [9, 3, 7] # True
 >>> alist == [3, 7, 9] # False</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__ne__(self, other, /)</code></pre>
-                    </td>
-                    <td>Verifica se ambas as listas são diferentes.</td>
-                    <td>
-                        <pre><code>>>> alist != [9, 3, 7] # False
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__ne__(self, other, /)</code></pre>
+                        </td>
+                        <td>Verifica se ambas as listas são diferentes.</td>
+                        <td>
+                            <pre><code>>>> alist != [9, 3, 7] # False
 >>> alist != [3, 7, 9] # True</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__lt__(self, other, /)</code></pre>
-                    </td>
-                    <td>Verifica se a lista é menor (lexicograficamente) que a outra lista.</td>
-                    <td>
-                        <pre><code>>>> [7, 1] &lt; [6, 12, 9] # False
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__lt__(self, other, /)</code></pre>
+                        </td>
+                        <td>Verifica se a lista é menor (lexicograficamente) que a outra lista.</td>
+                        <td>
+                            <pre><code>>>> [7, 1] &lt; [6, 12, 9] # False
 >>> [6, 12, 9] &lt; alist # True</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__le__(self, other, /)</code></pre>
-                    </td>
-                    <td>Verifica se a lista é menor (lexicograficamente) ou igual à outra lista.</td>
-                    <td>
-                        <pre><code>>>> alist &lt;= [9, 3, 7] # True</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__gt__(self, other, /)</code></pre>
-                    </td>
-                    <td>Verifica se a lista é maior (lexicograficamente) que a outra lista.</td>
-                    <td>
-                        <pre><code>>>> [7, 1] > [6, 12, 9] # True
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__le__(self, other, /)</code></pre>
+                        </td>
+                        <td>Verifica se a lista é menor (lexicograficamente) ou igual à outra lista.</td>
+                        <td>
+                            <pre><code>>>> alist &lt;= [9, 3, 7] # True</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__gt__(self, other, /)</code></pre>
+                        </td>
+                        <td>Verifica se a lista é maior (lexicograficamente) que a outra lista.</td>
+                        <td>
+                            <pre><code>>>> [7, 1] > [6, 12, 9] # True
 >>> [6, 12, 9] > alist # False</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__ge__(self, other, /)</code></pre>
-                    </td>
-                    <td>Verifica se a lista é maior (lexicograficamente) ou igual à outra lista.</td>
-                    <td>
-                        <pre><code>>>> alist >= [9, 3, 7] # True</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__getitem__(self, index, /)</code></pre>
-                    </td>
-                    <td>Obtém o item em <code>index</code>.</td>
-                    <td>
-                        <pre><code>>>> alist[0] # 9
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__ge__(self, other, /)</code></pre>
+                        </td>
+                        <td>Verifica se a lista é maior (lexicograficamente) ou igual à outra lista.</td>
+                        <td>
+                            <pre><code>>>> alist >= [9, 3, 7] # True</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__getitem__(self, index, /)</code></pre>
+                        </td>
+                        <td>Obtém o item em <code>index</code>.</td>
+                        <td>
+                            <pre><code>>>> alist[0] # 9
 >>> alist[-2] # 3</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>index(self, x, start=0, stop=math.inf, /)</code></pre>
-                    </td>
-                    <td>Índice da primeira ocorrência de <code>x</code> na lista (a partir do índice <code>start</code> e antes do índice <code>stop</code>). Caso não encontre, levanta uma exceção.</td>
-                    <td>
-                        <pre><code>>>> otherlist.index(9)    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>index(self, x, start=0, stop=math.inf, /)</code></pre>
+                        </td>
+                        <td>Índice da primeira ocorrência de <code>x</code> na lista (a partir do índice <code>start</code> e antes do índice <code>stop</code>). Caso não encontre, levanta uma exceção<sup><a href="#eafp">3</a></sup>.</td>
+                        <td>
+                            <pre><code>>>> otherlist.index(9)    
 0
 >>> otherlist.index(9, 1) 
 3
@@ -516,393 +418,419 @@ print(movie1.better_than(movie2))</code></pre>
 Traceback (most recent call last):
   File "&lt;stdin>", line 1, in &lt;module>
 ValueError: 9 is not in list</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>count(self, value, /)</code></pre>
-                    </td>
-                    <td>Conta quantas vezes <code>value</code> aparece na lista.</td>
-                    <td>
-                        <pre><code>>>> otherlist.count(9) # 2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>count(self, value, /)</code></pre>
+                        </td>
+                        <td>Conta quantas vezes <code>value</code> aparece na lista.</td>
+                        <td>
+                            <pre><code>>>> otherlist.count(9) # 2
 >>> otherlist.count(8) # 0</code></pre>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <div class="info">
-            <p>Observação (da <a href="https://docs.python.org/3/faq/programming.html#how-do-i-create-a-multidimensional-list">documentação oficial</a>):</p>
-            <p>Os itens não são copiados, mas referenciados várias vezes. Isso frequentemente assombra novos programadores Python:</p>
-            <pre><code>>>> line = [0]    
+            <div class="info">
+                <p>Observação (da <a href="https://docs.python.org/3/faq/programming.html#how-do-i-create-a-multidimensional-list">documentação oficial</a>):</p>
+                <p id="multiplicacao"><sup>2</sup>Os itens não são copiados, mas referenciados várias vezes. Isso frequentemente assombra novos programadores Python:</p>
+                <pre><code>>>> line = [0]
 >>> table = [line] * 3
 >>> table
 [[0], [0], [0]]
 >>> table[1][0] = 2
 >>> table
 [[2], [2], [2]]</code></pre>
-            <p>Acontece que o item <code>line</code>, que é uma lista, foi repetido três vezes na lista <code>table</code>. Ou seja, cada item de <code>table</code> na verdade referencia a mesma lista <code>line</code>. Modificando qualquer desses itens de <code>table</code>, modifica a mesma lista <code>line</code>.</p>
+                <p>Acontece que o item <code>line</code>, que é uma lista, foi repetido três vezes na lista <code>table</code>. Ou seja, cada item de <code>table</code> na verdade referencia a mesma lista <code>line</code>. Modificando qualquer desses itens de <code>table</code>, modifica a mesma lista <code>line</code>.</p>
+            </div>
+
+            <div class="info" id="eafp">Obervação: <sup>3</sup>O Python segue o princípio "é mais fácil pedir perdão do que permissão (EAFP). Para mais informações, <a href="https://stackoverflow.com/a/47858231/4072641">acesse aqui</a>.</div>
+
+
+            <div data-heading="Fatiamento de Sequence">
+                <p>Ao usar dois-pontos entre colchetes, o método <code>__getitem__(self, index, /)</code> permite slicing (fatiamento), que é extrair uma parte da lista. (Entenda "extrair" por "acessar", pois não estamos modificando a lista).</p>
+                <div class="info">Observação: Operações de slicing <a href="https://docs.python.org/dev/library/functions.html#slice">instanciam objetos</a> <code>slice</code> internamente.</div>
+                <p>Considere a seguinte lista de exemplo:</p>
+                <pre><code>numbers = [3, 6, 9, 12, 15, 18, 21]</code></pre>
+                <p>No Python podemos usar índices negativos para acessar elementos de trás para frente:</p>
+                <table style="text-align: center; font-family: monospace;border-collapse: collapse;margin-left: auto; margin-right: auto;">
+                    <tr>
+                        <td>-7</td>
+                        <td>-6</td>
+                        <td>-5</td>
+                        <td>-4</td>
+                        <td>-3</td>
+                        <td>-2</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr class="bordered-line">
+                        <td>3</td>
+                        <td>6</td>
+                        <td>9</td>
+                        <td>12</td>
+                        <td>15</td>
+                        <td>18</td>
+                        <td>21</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                    </tr>
+                </table>
+                <p>Vejamos exemplos de operações não-modificadoras de fatiamento:</p>
+                <table class="custom align-left">
+                    <thead>
+                        <tr>
+                            <th>Operação</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <pre><code>start, stop, step = 1, 6, 2
+    sliced = numbers[start:stop:step] # [6, 12, 18]</code></pre>
+                            </td>
+                            <td>Extrai uma sublista, começando do índice <code>start</code>, indo até o índice <code>stop-1</code>, pulando de <code>step</code> em <code>step</code> índices.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>numbers[1:4] # [6, 9, 12]</code></pre>
+                            </td>
+                            <td>Se omitido o <code>step</code> (passo, ou pulo) o padrão é de 1 em 1.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>numbers[:2] # [3, 6]</code></pre>
+                            </td>
+                            <td>Se omitido o <code>start</code> (índice inicial), o padrão é começar do zero.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>numbers[1::3] # [6, 15]</code></pre>
+                            </td>
+                            <td>Se omitido o <code>stop</code> (índice final), o padrão é terminar no último índice.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>numbers[4:1] # []</code></pre>
+                            </td>
+                            <td>Se <code>start</code> estiver DEPOIS de <code>stop</code>, retorna uma lista vazia.</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <pre><code>numbers[-6:-2] # [6, 9, 12, 15]
+    numbers[2:-2] # [9, 12, 15]</code></pre>
+                            </td>
+                            <td>Os índices também podem ser negativos.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>numbers[::-1] # [21, 18, 15, 12, 9, 6, 3]
+    list(reversed(numbers))</code></pre>
+                            </td>
+                            <td>Se o pulo for negativo, os caracteres são extraídos de trás para frente. Ambas essas operações possuem resultados equivalentes.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>numbers[-2:1:-3] # [18, 9]
+    numbers[5:1:-3] # [18, 9]
+    numbers[1:5:-3] # []</code></pre>
+                            </td>
+                            <td>De trás para frente, se <code>start</code> estiver ANTES de <code>stop</code>, retorna uma lista vazia.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>numbers[-10:10] # [3, 6, 9, 12, 15, 18, 21]</code></pre>
+                            </td>
+                            <td>Se <code>start</code> estiver antes do início da lista, começa do zero. Similarmente, se <code>stop</code> estiver depois do final da lista, termina no último índice.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>numbers[20:30] # []
+    numbers[2:3] # [9]
+    numbers[-20:-10] # []
+    numbers[-2:-1] #[18]</code></pre>
+                            </td>
+                            <td>Se <code>start</code> estiver depois do final da lista ou <code>stop</code> estiver antes do início da lista, retorna uma lista vazia.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Não confunda fatiamento (slicing) com indexação (indexing). O seguinte código não extrai uma sublista, mas um item da lista: <code>numbers[i]</code>.</p>
+
+                <p>Esses métodos são compartilhados por todos os objetos que herdam de <code>Sequence</code>, logo, também estão disponíveis para tuplas.</p>
+
+            </div>
         </div>
+        <div data-heading="Métodos de MutableSequence">
 
-        <h4>Fatiamento de <code>Sequence</code></h4>
-        <p>Ao usar dois-pontos entre colchetes, o método <code>__getitem__(self, index, /)</code> permite slicing (fatiamento), que é extrair uma parte da lista. (Entenda "extrair" por "acessar", pois não estamos modificando a lista).</p>
-        <div class="info">Observação: Operações de slicing <a href="https://docs.python.org/dev/library/functions.html#slice">instanciam objetos</a> <code>slice</code> internamente.</div>
-        <p>Considere a seguinte lista de exemplo:</p>
-        <pre><code>numbers = [3, 6, 9, 12, 15, 18, 21]</code></pre>
-        <p>No Python podemos usar índices negativos para acessar elementos de trás para frente:</p>
-        <table style="text-align: center; font-family: monospace;border-collapse: collapse;margin-left: auto; margin-right: auto;">
-            <tr>
-                <td>-7</td>
-                <td>-6</td>
-                <td>-5</td>
-                <td>-4</td>
-                <td>-3</td>
-                <td>-2</td>
-                <td>-1</td>
-            </tr>
-            <tr class="bordered-line">
-                <td>3</td>
-                <td>6</td>
-                <td>9</td>
-                <td>12</td>
-                <td>15</td>
-                <td>18</td>
-                <td>21</td>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-            </tr>
-        </table>
-        <p>Vejamos exemplos de operações não-modificadoras de fatiamento:</p>
-        <table class="custom align-left">
-            <thead>
-                <tr>
-                    <th>Operação</th>
-                    <th>Descrição</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <pre><code>start, stop, step = 1, 6, 2
-sliced = numbers[start:stop:step] # [6, 12, 18]</code></pre>
-                    </td>
-                    <td>Extrai uma sublista, começando do índice <code>start</code>, indo até o índice <code>stop-1</code>, pulando de <code>step</code> em <code>step</code> índices.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>numbers[1:4] # [6, 9, 12]</code></pre>
-                    </td>
-                    <td>Se omitido o <code>step</code> (passo, ou pulo) o padrão é de 1 em 1.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>numbers[:2] # [3, 6]</code></pre>
-                    </td>
-                    <td>Se omitido o <code>start</code> (índice inicial), o padrão é começar do zero.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>numbers[1::3] # [6, 15]</code></pre>
-                    </td>
-                    <td>Se omitido o <code>stop</code> (índice final), o padrão é terminar no último índice.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>numbers[4:1] # []</code></pre>
-                    </td>
-                    <td>Se <code>start</code> estiver DEPOIS de <code>stop</code>, retorna uma lista vazia.</td>
-                </tr>
+            <p>Considere a seguinte lista de exemplo:</p>
+            <pre><code>alist = [9, 3, 7]</code></pre>
+            <p>Vejamos os métodos de listas herdados de <code>MutableSequence</code>, que são capazes de modificar o objeto:</p>
 
-                <tr>
-                    <td>
-                        <pre><code>numbers[-6:-2] # [6, 9, 12, 15]
-numbers[2:-2] # [9, 12, 15]</code></pre>
-                    </td>
-                    <td>Os índices também podem ser negativos.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>numbers[::-1] # [21, 18, 15, 12, 9, 6, 3]
-list(reversed(numbers))</code></pre>
-                    </td>
-                    <td>Se o pulo for negativo, os caracteres são extraídos de trás para frente. Ambas essas operações possuem resultados equivalentes.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>numbers[-2:1:-3] # [18, 9]
-numbers[5:1:-3] # [18, 9]
-numbers[1:5:-3] # []</code></pre>
-                    </td>
-                    <td>De trás para frente, se <code>start</code> estiver ANTES de <code>stop</code>, retorna uma lista vazia.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>numbers[-10:10] # [3, 6, 9, 12, 15, 18, 21]</code></pre>
-                    </td>
-                    <td>Se <code>start</code> estiver antes do início da lista, começa do zero. Similarmente, se <code>stop</code> estiver depois do final da lista, termina no último índice.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>numbers[20:30] # []
-numbers[2:3] # [9]
-numbers[-20:-10] # []
-numbers[-2:-1] #[18]</code></pre>
-                    </td>
-                    <td>Se <code>start</code> estiver depois do final da lista ou <code>stop</code> estiver antes do início da lista, retorna uma lista vazia.</td>
-                </tr>
-            </tbody>
-        </table>
-        <p>Não confunda fatiamento (slicing) com indexação (indexing). O seguinte código não extrai uma sublista, mas um item da lista: <code>numbers[i]</code>.</p>
-
-        <p>Esses métodos são compartilhados por todos os objetos que herdam de <code>Sequence</code>, logo, também estão disponíveis para tuplas.</p>
-
-        <h3>Métodos de <code>MutableSequence</code></h3>
-
-        <p>Considere a seguinte lista de exemplo:</p>
-        <pre><code>alist = [9, 3, 7]</code></pre>
-        <p>Vejamos os métodos de listas herdados de <code>MutableSequence</code>, que são capazes de modificar o objeto:</p>
-
-        <table class="custom align-left">
-            <thead>
-                <tr>
-                    <th>Método</th>
-                    <th>Descrição</th>
-                    <th>Exemplo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <pre><code>__iadd__(self, value, /)</code></pre>
-                    </td>
-                    <td>Adiciona um iterável à lista.</td>
-                    <td>
-                        <pre><code>>>> alist += "oi" # [9, 3, 7, 'o', 'i']</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__imul__(self, value, /)</code></pre>
-                    </td>
-                    <td>Adiciona <code>value</code> vezes os itens da lista nela mesma.</td>
-                    <td>
-                        <pre><code>>>> alist *= 2 # [9, 3, 7, 'o', 'i', 9, 3, 7, 'o', 'i']</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__delitem__(self, i, /)</code></pre>
-                    </td>
-                    <td>Exclui <code>self[i]</code>. E sim, <code>del</code> também é um operador em Python.</td>
-                    <td>
-                        <pre><code>>>> del alist[4] # [9, 3, 7, 'o', 9, 3, 7, 'o', 'i']</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>__setitem__(self, key, value, /)</code></pre>
-                    </td>
-                    <td>Atribui <code>value</code> a <code>self[i]</code>.</td>
-                    <td>
-                        <pre><code>>>> alist[4] = 'z' # [9, 3, 7, 'o', 'z', 3, 7, 'o', 'i']
+            <table class="custom align-left">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <pre><code>__iadd__(self, value, /)</code></pre>
+                        </td>
+                        <td>Adiciona um iterável à lista.</td>
+                        <td>
+                            <pre><code>>>> alist += "oi" # [9, 3, 7, 'o', 'i']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__imul__(self, value, /)</code></pre>
+                        </td>
+                        <td>Adiciona <code>value</code> vezes os itens da lista nela mesma.</td>
+                        <td>
+                            <pre><code>>>> alist *= 2 # [9, 3, 7, 'o', 'i', 9, 3, 7, 'o', 'i']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__delitem__(self, i, /)</code></pre>
+                        </td>
+                        <td>Exclui <code>self[i]</code>. E sim, <code>del</code> também é um operador em Python.</td>
+                        <td>
+                            <pre><code>>>> del alist[4] # [9, 3, 7, 'o', 9, 3, 7, 'o', 'i']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>__setitem__(self, key, value, /)</code></pre>
+                        </td>
+                        <td>Atribui <code>value</code> a <code>self[i]</code>.</td>
+                        <td>
+                            <pre><code>>>> alist[4] = 'z' # [9, 3, 7, 'o', 'z', 3, 7, 'o', 'i']
 >>> alist[-1] = 'u' # [9, 3, 7, 'o', 'z', 3, 7, 'o', 'u']</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>remove(self, value, /)</code></pre>
-                    </td>
-                    <td>Exclui a primeira ocorrência de <code>value</code>. Se não encontrar, levanta uma exceção.</td>
-                    <td>
-                        <pre><code>>>> alist.remove('o') # [9, 3, 7, 'z', 3, 7, 'o', 'u']</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>pop(self, index=-1, /)</code></pre>
-                    </td>
-                    <td>Exclui e retorna o item em <code>index</code> (o último, por padrão). Se lista vazia ou índice fora dos limites, levanta uma exceção.</td>
-                    <td>
-                        <pre><code>>>> secondlast = alist.pop(6) # 'o'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>remove(self, value, /)</code></pre>
+                        </td>
+                        <td>Exclui a primeira ocorrência de <code>value</code>. Se não encontrar, levanta uma exceção.</td>
+                        <td>
+                            <pre><code>>>> alist.remove('o') # [9, 3, 7, 'z', 3, 7, 'o', 'u']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>pop(self, index=-1, /)</code></pre>
+                        </td>
+                        <td>Exclui e retorna o item em <code>index</code> (o último, por padrão). Se lista vazia ou índice fora dos limites, levanta uma exceção.</td>
+                        <td>
+                            <pre><code>>>> secondlast = alist.pop(6) # 'o'
 >>> last = alist.pop() # 'u'
 >>> thirdlast = alist.pop(-3) # 'z'
 >>> alist
 [9, 3, 7, 3, 7]</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>extend(self, iterable, /)</code></pre>
-                    </td>
-                    <td>Equivale à <code>self += iterable</code>.</td>
-                    <td>
-                        <pre><code>>>> alist.extend((3,9)) # [9, 3, 7, 3, 7, 3, 9]</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>append(self, object, /)</code></pre>
-                    </td>
-                    <td>Adiciona <code>object</code> ao final da lista.</td>
-                    <td>
-                        <pre><code>>>> alist.append('ω') # [9, 3, 7, 3, 7, 3, 9, 'ω']</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>insert(self, i, object, /)</code></pre>
-                    </td>
-                    <td>Insere <code>object</code> em <code>i</code>.</td>
-                    <td>
-                        <pre><code>>>> alist.insert(0, 'α') # ['α', 9, 3, 7, 3, 7, 3, 9, 'ω']</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>reverse(self, /)</code></pre>
-                    </td>
-                    <td>Parecido com <code>__reversed__</code>, mas inverte a lista <i>in-loco</i> (a modifica).</td>
-                    <td>
-                        <pre><code>>>> alist.reverse() # ['ω', 9, 3, 7, 3, 7, 3, 9, 'α']</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>copy(self, /)</code></pre>
-                    </td>
-                    <td>Único método que não modifica, mas faz uma cópia<sup><a href="#shallow-copy">3</a></sup> da lista. Equivale à <code>self[:]</code>.</td>
-                    <td>
-                        <pre><code class="python-repl">>>> alist = list('oi')
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>extend(self, iterable, /)</code></pre>
+                        </td>
+                        <td>Equivale à <code>self += iterable</code>.</td>
+                        <td>
+                            <pre><code>>>> alist.extend((3,9)) # [9, 3, 7, 3, 7, 3, 9]</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>append(self, object, /)</code></pre>
+                        </td>
+                        <td>Adiciona <code>object</code> ao final da lista.</td>
+                        <td>
+                            <pre><code>>>> alist.append('ω') # [9, 3, 7, 3, 7, 3, 9, 'ω']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>insert(self, i, object, /)</code></pre>
+                        </td>
+                        <td>Insere <code>object</code> em <code>i</code>.</td>
+                        <td>
+                            <pre><code>>>> alist.insert(0, 'α') # ['α', 9, 3, 7, 3, 7, 3, 9, 'ω']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>reverse(self, /)</code></pre>
+                        </td>
+                        <td>Parecido com <code>__reversed__</code>, mas inverte a lista <i>in-loco</i> (a modifica).</td>
+                        <td>
+                            <pre><code>>>> alist.reverse() # ['ω', 9, 3, 7, 3, 7, 3, 9, 'α']</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>copy(self, /)</code></pre>
+                        </td>
+                        <td>Único método de <code>MutableSequence</code> que não modifica, mas faz uma cópia<sup><a href="#shallow-copy">4</a></sup> da lista. Equivale à <code>self[:]</code>.</td>
+                        <td>
+                            <pre><code class="python-repl">>>> alist = list('oi')
 >>> samelist = alist
 >>> clonedlist1 = alist.copy() 
 >>> clonedlist2 = alist[:]
 >>> alist.pop() # 'i'
 >>> alist, samelist, clonedlist1, clonedlist2
 (['o'], ['o'], ['o', 'i'], ['o', 'i'])</code></pre>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>clear(self, /)</code></pre>
-                    </td>
-                    <td>Exclui todos os itens da lista.</td>
-                    <td>
-                        <pre><code>>>> alist.clear() # []</code></pre>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code>clear(self, /)</code></pre>
+                        </td>
+                        <td>Exclui todos os itens da lista.</td>
+                        <td>
+                            <pre><code>>>> alist.clear() # []</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <h4 id="shallow-copy">Cópia rasa vs cópia profunda</h4>
-        <p>Assim como ocorre na multiplicação de listas<sup><a href="#obs-1">2</a></sup>, o método <code>copy</code> e a operação <code>[:]</code> fazem uma cópia da lista apenas, mas mantêm as referências aos mesmos objetos contidos na lista original. Considere o seguinte exemplo:</p>
+            <div id="shallow-copy" data-heading="Cópia rasa vs cópia profunda">
+                <p><sup>4</sup>Assim como ocorre na multiplicação de listas<sup><a href="#multiplicacao">2</a></sup>, o método <code>copy</code> e a operação <code>[:]</code> fazem uma cópia da lista apenas, mas mantêm as referências aos mesmos objetos contidos na lista original. Considere o seguinte exemplo:</p>
 
-        <pre><code>from dataclasses import make_dataclass
-from copy import copy, deepcopy
+                <pre><code>from dataclasses import make_dataclass
+    from copy import copy, deepcopy
+    
+    Point = make_dataclass("Point", ("x", "y"))
+    
+    original = [Point(0, 0), Point(1, 1)]
+    reference = original
+    shallowcopied1 = original.copy()
+    shallowcopied2 = copy(original)
+    deepcopied = deepcopy(original)
+    
+    original.append(Point(2, 4))
+    original[0].x, original[0].y = 3, 9
+    
+    shallowcopied1.append(Point(4, 16))
+    
+    shallowcopied2[1].x, original[1].y = 5, 25
+    
+    print("Original Points:      ", original)
+    print("Reference Points:     ", reference)
+    print("Shallow Copied Points:", shallowcopied1)
+    print("Also Shallow Copy:    ", shallowcopied2)
+    print("Deep Copied Points:   ", deepcopied)</code></pre>
 
-Point = make_dataclass("Point", ("x", "y"))
+                <p>A variável <code>reference</code> referencia (aponta para) a mesma lista que a variável <code>original</code>, ou seja, ambas são a mesma lista. Alterar a lista em uma das variáveis é imediatamente refletido na outra.</p>
+                <p>As variáveis <code>shallowcopied1</code> e <code>shallowcopied2</code> são cópias da da lista <code>original</code>, mas referenciam os mesmos objetos. Isso é conhecido como cópia rasa (shallow copy). Você pode fazer uma cópia rasa de uma lista usando tanto o método <code>copy</code> da lista quanto a função <code>copy</code> do módulo <code>copy</code>, sendo que esta última também permite copiar outros tipos de objetos.</p>
+                <p>A variável <code>deepcopied</code> é uma cópia recursiva da lista <code>original</code> e de seus itens, garantindo uma cópia independente em todos os níveis. Nenhuma referência ao conteúdo original é mantida. Isso é conhecido como cópia profunda (deep copy). A função <code>deepcopy</code> do módulo <code>copy</code> permite copiar profundamente outros tipos de objetos.</p>
+                <p>Observe que, ao adicionar um novo objeto na lista <code>original</code> (linha 12), apenas a lista de <code>reference</code> reflete a alteração, já que ambas compartilham a mesma referência. Contudo, ao modificar um objeto dentro da lista <code>original</code>, essa mudança também afeta as listas <code>shallowcopied1</code> e <code>shallowcopied2</code>, pois ambas compartilham referências aos mesmos objetos internos.</p>
+            </div>
+            <div data-heading="Fatiamento de MutableSequence">
+                <p>O método <code>__setitem__(self, key, value, /)</code> também permite slicing. (Neste caso sim, estamos modificando a lista).</p>
+                <p>Considere a seguinte lista de exemplo:</p>
+                <pre><code>s = [3, 6, 9, 12, 15, 18, 21]</code></pre>
+                <p>Vejamos exemplos de operações modificadoras de fatiamento:</p>
 
-original = [Point(0, 0), Point(1, 1)]
-reference = original
-shallowcopied1 = original.copy()
-shallowcopied2 = copy(original)
-deepcopied = deepcopy(original)
+                <table class="custom align-left">
+                    <thead>
+                        <tr>
+                            <th>Operação</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <pre><code>>>> i, j, t = 2, 5, (9,) * 15
+    >>> s[i:j] = t
+    >>> s # [3, 6, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 18, 21]
+    >>> s[2:-2] = (1,) * 10
+    >>> s # [3, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 18, 21]</code></pre>
+                            </td>
+                            <td>A fatia de <code>i</code> a <code>j</code> é substituída por <code>t</code>. Observe que se <code>t</code> for maior ou menor que a fatia, a lista pode aumentar ou diminuir.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>>>> i, j, k, t = 2, 11, 3, (0, 0, 0)
+    >>> s[i:j:k] = t
+    >>> s # [3, 6, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 18, 21]</code></pre>
+                            </td>
+                            <td>A fatia de <code>i</code> a <code>j</code>, a cada <code>k</code> itens, é substituída por <code>t</code>. Observe que, quando <code>k != 1</code>, a quantidade de itens da fatia deve ser igual à quantidade de itens de <code>t</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>>>> del s[i:j:k]
+    >>> s # [3, 6, 1, 1, 1, 1, 1, 1, 1, 18, 21]
+    >>> del s[2:9]
+    >>> s # [3, 6, 18, 21]</code></pre>
+                            </td>
+                            <td>Exclui os itens de <code>i</code> a <code>j</code>, a cada <code>k</code> itens.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>>>> s[len(s):] = [k] # [3, 6, 18, 21, 3]</code></pre>
+                            </td>
+                            <td>Equivale à <code>s.append(k)</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>>>> s[len(s):] = t # [3, 6, 18, 21, 3, 0, 0, 0]</code></pre>
+                            </td>
+                            <td>Equivale à <code>s.extend(t)</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>>>> s[i:i] = [k]
+    >>> s # [3, 6, 3, 18, 21, 3, 0, 0, 0]</code></pre>
+                            </td>
+                            <td>Equivale à <code>s.insert(i, k)</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre><code>>>> del s[:] # []</code></pre>
+                            </td>
+                            <td>Equivale à <code>s.clear()</code>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div data-heading="Modificando lista enquanto a percorre">
+                <p>Até o momento, todos os exemplos de percurso de lista iteram uma lista sem fazer nenhuma modificação na lista em si. <a href="https://realpython.com/python-list/#traversing-lists">Modificar uma lista durante a iteração</a> pode levar a comportamento inesperado e bugs, então evite essa prática. Como regra geral, se você precisa modificar o conteúdo de uma lista em um loop, então faça uma cópia dessa lista primeiro.</p>
+                <p>Digamos que tenhamos uma lista de números e queiramos excluir apenas os ímpares. Poderíamos tentar algo assim:</p>
+                <pre><code class="python-repl">>>> numbers = [2, 9, 5, 1, 6]
 
-original.append(Point(2, 4))
-original[0].x, original[0].y = 3, 9
+>>> for number in numbers:
+...     if number % 2:
+...         numbers.remove(number)
+...
+>>> numbers
+[2, 5, 6]</code></pre>
+                <p>Infelizmente, apenas 9 e 1 foram excluídos, enquanto 5 permaneceu na lista. Isso ocorre porque excluir itens de uma lista desloca seus índices, o que interfere nos índices dentro de um loop <code>for</code> em execução. Você pode evitar esse problema percorrendo uma cópia da lista:</p>
+                <pre><code class="python-repl">>>> numbers = [2, 9, 5, 1, 6]
 
-shallowcopied1.append(Point(4, 16))
-
-shallowcopied2[1].x, original[1].y = 5, 25
-
-print("Original Points:      ", original)
-print("Reference Points:     ", reference)
-print("Shallow Copied Points:", shallowcopied1)
-print("Also Shallow Copy:    ", shallowcopied2)
-print("Deep Copied Points:   ", deepcopied)</code></pre>
-
-        <p>A variável <code>reference</code> referencia (aponta para) a mesma lista que a variável <code>original</code>, ou seja, ambas são a mesma lista. Alterar a lista em uma das variáveis é imediatamente refletido na outra.</p>
-        <p>As variáveis <code>shallowcopied1</code> e <code>shallowcopied2</code> são cópias da da lista <code>original</code>, mas referenciam os mesmos objetos. Isso é conhecido como cópia rasa (shallow copy). Você pode fazer uma cópia rasa de uma lista usando tanto o método <code>copy</code> da lista quanto a função <code>copy</code> do módulo <code>copy</code>, sendo que esta última também permite copiar outros tipos de objetos.</p>
-        <p>A variável <code>deepcopied</code> é uma cópia recursiva da lista <code>original</code> e de seus itens, garantindo uma cópia independente em todos os níveis. Nenhuma referência ao conteúdo original é mantida. Isso é conhecido como cópia profunda (deep copy). A função <code>deepcopy</code> do módulo <code>copy</code> permite copiar profundamente outros tipos de objetos.</p>
-        <p>Observe que, ao adicionar um novo objeto na lista <code>original</code> (linha 12), apenas a lista de <code>reference</code> reflete a alteração, já que ambas compartilham a mesma referência. Contudo, ao modificar um objeto dentro da lista <code>original</code>, essa mudança também afeta as listas <code>shallowcopied1</code> e <code>shallowcopied2</code>, pois ambas compartilham referências aos mesmos objetos internos.</p>
-
-        <h4>Fatiamento de <code>MutableSequence</code></h4>
-        <p>O método <code>__setitem__(self, key, value, /)</code> também permite slicing. (Neste caso sim, estamos modificando a lista).</p>
-        <p>Considere a seguinte lista de exemplo:</p>
-        <pre><code>s = [3, 6, 9, 12, 15, 18, 21]</code></pre>
-        <p>Vejamos exemplos de operações modificadoras de fatiamento:</p>
-
-        <table class="custom align-left">
-            <thead>
-                <tr>
-                    <th>Operação</th>
-                    <th>Descrição</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <pre><code>>>> i, j, t = 2, 5, (9,) * 15
->>> s[i:j] = t
->>> s # [3, 6, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 18, 21]
->>> s[2:-2] = (1,) * 10
->>> s # [3, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 18, 21]</code></pre>
-                    </td>
-                    <td>A fatia de <code>i</code> a <code>j</code> é substituída por <code>t</code>. Observe que se <code>t</code> for maior ou menor que a fatia, a lista pode aumentar ou diminuir.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>>>> i, j, k, t = 2, 11, 3, (0, 0, 0)
->>> s[i:j:k] = t
->>> s # [3, 6, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 18, 21]</code></pre>
-                    </td>
-                    <td>A fatia de <code>i</code> a <code>j</code>, a cada <code>k</code> itens, é substituída por <code>t</code>. Observe que, quando <code>k != 1</code>, a quantidade de itens da fatia deve ser igual à quantidade de itens de <code>t</code>.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>>>> del s[i:j:k]
->>> s # [3, 6, 1, 1, 1, 1, 1, 1, 1, 18, 21]
->>> del s[2:9]
->>> s # [3, 6, 18, 21]</code></pre>
-                    </td>
-                    <td>Exclui os itens de <code>i</code> a <code>j</code>, a cada <code>k</code> itens.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>>>> s[len(s):] = [k] # [3, 6, 18, 21, 3]</code></pre>
-                    </td>
-                    <td>Equivale à <code>s.append(k)</code>.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>>>> s[len(s):] = t # [3, 6, 18, 21, 3, 0, 0, 0]</code></pre>
-                    </td>
-                    <td>Equivale à <code>s.extend(t)</code>.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>>>> s[i:i] = [k]
->>> s # [3, 6, 3, 18, 21, 3, 0, 0, 0]</code></pre>
-                    </td>
-                    <td>Equivale à <code>s.insert(i, k)</code>.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre><code>>>> del s[:] # []</code></pre>
-                    </td>
-                    <td>Equivale à <code>s.clear()</code>.</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div id="6-5-1-sorting-lists">
-            <h3>Ordenando listas</h3>
+>>> for number in numbers[:]:
+...     if number % 2:
+...         numbers.remove(number)
+...
+>>> numbers
+[2, 6]</code></pre>
+            </div>
+        </div>
+        <div id="6-5-1-sorting-lists" data-heading="Ordenando listas">
             <p>Listas também têm o método <code>sort(self, /, *, key=None, reverse=False)</code>, que ordena a lista <i>in-loco</i> (a modifica). Para retornar uma cópia ordenada da lista, use a função <code>sorted(iterable, /, *, key=None, reverse=False)</code>. Ambas as funções são de ordenação estável, i.e., a ordem de dois elementos iguais é mantida.</p>
             <pre><code>>>> alist = [9, 1, 5, 8, 2, 3]
 >>> sortedlist = sorted(alist)
@@ -918,20 +846,20 @@ print("Deep Copied Points:   ", deepcopied)</code></pre>
             <pre><code>>>> alist = [4, "d", 1, "a", 3, "c"]
 >>> sorted(alist)
 Traceback (most recent call last):
-  File "&lt;stdin>", line 1, in &lt;module>
+File "&lt;stdin>", line 1, in &lt;module>
 TypeError: '&lt;' not supported between instances of 'str' and 'int'</code></pre>
 
             <p>O método <code>sort</code> chama o método mágico <code>__lt__</code> (abreviação de “menor que”) para comparar os elementos da lista. A maioria das classes padrão do Python já vêm com <code>__lt__</code> implementado. Se tentar ordenar objetos que não possuam <code>__lt__</code>, uma exceção é levantada.</p>
             <pre><code>class WeirdSortee:
-    def __init__(self, string, number):
-        self.string = string
-        self.number = number
+def __init__(self, string, number):
+    self.string = string
+    self.number = number
 
-    def __lt__(self, other):
-        return self.number < other.number
+def __lt__(self, other):
+    return self.number < other.number
 
-    def __repr__(self):
-        return f"{self.string}:{self.number}"</code></pre>
+def __repr__(self):
+    return f"{self.string}:{self.number}"</code></pre>
 
             <p>O método mágico <code>__lt__</code> deve retornar <code>True</code> caso <code>self</code> seja menor que <code>other</code>, ou <code>False</code> caso contrário. Esse método é chamado automaticamente pelo método <code>sort</code>. Já o método mágico <code>__repr__</code> deve retornar uma representação em string do objeto, e é chamado automaticamente pela função <code>print</code>. Veja uma ilustração de uso dessa classe:</p>
             <pre><code>>>> a = WeirdSortee("a", 4)
@@ -984,9 +912,31 @@ TypeError: '&lt;' not supported between instances of 'str' and 'int'</code></pre
 [('p', 1), ('y', 2), ('t', 3), ('h', 4), ('o', 5), ('n', 6), ('!', 7), ('!', 8)]</code></pre>
             <p>A função <code>operator.itemgetter(i)</code> retorna uma função que retorna o i-ésimo elemento de um objeto iterável, como uma tupla, lista ou dicionário. Similarmente, para retornar um atributo específico de um objeto, você pode usar a função <code>operator.attrgetter</code>. Mais detalhes na <a href="https://docs.python.org/3/library/operator.html#operator.attrgetter">documentação oficial</a>.</p>
         </div>
+        <div data-heading="Listas como argumento padrão">
+            <p>Quando definimos uma lista vazia (ou qualquer outro objeto mutável) como argumento padrão de uma função, é importante entender que o <strong>argumento padrão é avaliado apenas uma vez quando a função é definida, e não cada vez que a função é invocada</strong>. Esse comportamento típico do Python pode levar a comportamentos inesperados se o objeto é modificado dentro da função.</p>
+            <pre><code>def append_to_list(item, my_list=[]):
+    my_list.append(item)
+    return my_list
 
-        <div id="6-5-2-exercises">
-            <h3>Exercícios</h3>
+# Call the function multiple times
+print(append_to_list(1))  # Output: [1]
+print(append_to_list(2))  # Output: [1, 2]
+print(append_to_list(3))  # Output: [1, 2, 3]</code></pre>
+
+            <p>Quando a função <code>append_to_list</code> é definida pela primeira vez, a lista vazia <code>[]</code> é criada e atribuída como o valor padrão de <code>my_list</code>. Na primeira invocação, 1 é adicionado à lista, resultando em <code>[1]</code>. Na segunda invocação, a mesma lista (agora contendo <code>[1]</code>) é reutilizada e 2 é anexado, resultando em <code>[1, 2]</code>. Isso continua com invocações subsequentes, modificando o mesmo objeto de lista. Isso ocorre porque os valores de argumento padrão são compartilhados em todas as invocaçãos à função. Eles não são reinicializados em cada invocação, como poderíamos esperar.</p>
+            <p>Para evitar esse problema, você pode usar <code>None</code> como argumento padrão e inicializar a lista dentro da função, se necessário:</p>
+            <pre><code>def append_to_list(item, my_list=None):
+    if my_list is None:
+        my_list = []  # Create a new list for each call
+    my_list.append(item)
+    return my_list
+
+print(append_to_list(1))  # Output: [1]
+print(append_to_list(2))  # Output: [2]
+print(append_to_list(3))  # Output: [3]</code></pre>
+            <p>Aqui, <code>my_list</code> é explicitamente inicializada como uma nova lista vazia toda vez que a função é invocada com nenhum valor fornecido como segundo argumento. Isso garante que cada invocação à função crie de fato uma lista nova, evitando estado compartilhado inesperado.</p>
+        </div>
+        <div id="6-5-2-exercises" data-heading="Exercícios">
             <ol class="excs">
                 <li>Qual a saída de cada trecho de código a seguir?
                     <table>
@@ -1043,14 +993,8 @@ print(alist)</code></pre>
             </ol>
         </div>
     </div>
-    <div id="6-4-dictionaries">
-
+    <div id="6-4-dictionaries" data-heading="Dicionários">
         <!--
-
-https://realpython.com/python-list/#reversing-and-sorting-lists
-
-parei aqui "Up to this point, all your list-traversing examples iterate over a list without performing any modification on the list itself"
-
 
 https://realpython.com/python-range/
 
@@ -1076,20 +1020,25 @@ Note, the non-operator versions of union(), intersection(), difference(), symmet
 Intern
 
 -->
-        <h2>Dicionários</h2>
+
+        <!-- 
+https://docs.python.org/3/library/stdtypes.html#typesmapping
+/home/siqueira/Mega/LivrosComputacao/python/ifmspy/dict.man        
+-->
+
         <p>Um dicionário, em Python, é uma coleção de pares chave-valor. Dicionários em Python são implementados como tabelas hash, uma estrutura de dados altamente eficiente para buscar por itens. A sintaxe de criação de dicionários em Python é parecida com objetos JSON:</p>
         <pre><code>stocks = {
-    "AAPL": (150.0, 140.0, 160.0),
-    "GOOG": (1235.20, 1242.54, 1231.06),
-    "MSFT": (110.41, 110.45, 109.84),
-    "FB": (177.46, 178.67, 175.79),
+"AAPL": (150.0, 140.0, 160.0),
+"GOOG": (1235.20, 1242.54, 1231.06),
+"MSFT": (110.41, 110.45, 109.84),
+"FB": (177.46, 178.67, 175.79),
 }</code></pre>
         <p>Um dicionário é um objeto, e como qualquer outro em Python, tem seus próprios métodos. Dentre eles se destacam:</p>
         <pre><code>>>> stocks["GOOG"]
 (1235.20, 1242.54, 1231.06)
 >>> stocks["RIM"]
 Traceback (most recent call last):
- File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+File "&lt;stdin&gt;", line 1, in &lt;module&gt;
 KeyError: 'RIM'
 >>> print(stocks.get("RIM"))
 None
@@ -1107,7 +1056,7 @@ None
 >>> del stocks["GOOG"]
 >>> stocks["GOOG"]
 Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+File "&lt;stdin&gt;", line 1, in &lt;module&gt;
 KeyError: 'GOOG'</code></pre>
         <p>A diferença entre os métodos <code>get</code> e <code>setdefault</code> é que este, além de retornar um valor padrão caso a chave não se encontre no dicionário, também adiciona no dicionário essa chave com o valor padrão.</p>
         <p>Também temos os métodos <code>keys</code>, <code>values</code> e <code>items</code>, que retornam, respectivamente, um iterador das chaves, valores e tuplas chave-valor do dicionário:</p>
@@ -1135,33 +1084,33 @@ random_keys[25.2] = "floats work too"
 random_keys[("abc", 123)] = "so do tuples"
 
 class AnObject:
-    def __init__(self, avalue):
-        self.avalue = avalue
+def __init__(self, avalue):
+    self.avalue = avalue
 
 my_object = AnObject(14)
 random_keys[my_object] = "We can even store objects"
 my_object.avalue = 12
 
 try:
-    random_keys[[1, 2, 3]] = "we can't store lists though"
+random_keys[[1, 2, 3]] = "we can't store lists though"
 except:
-    print("unable to store list\n")
+print("unable to store list\n")
 
 for key, value in random_keys.items():
-    print(f"{key} has value {value}")</code></pre>
+print(f"{key} has value {value}")</code></pre>
 
         <p>Geralmente objetos mutáveis, como listas e dicionários, não são hasheáveis, portanto, não podem ser usados como chaves de dicionários. O valor <b>hash</b> de um objeto é como se fosse sua "impressão digital": permanece a mesma enquanto o objeto existir. Por padrão, o hash de objetos de classes personalizadas é um número equivalente ao seu endereço de memória, que é inclusive usado ao imprimir ou comparar o objeto quando não se sobrescrevem os métodos <code>__repr__</code> e <code>__eq__</code>. Você também pode sobrescrever o método <code>__hash__</code>, caso queira calcular e retornar um hash baseado nos valores dos atributos do objeto. Vejamos alguns exemplos de objetos personalizados usados como chaves em dicionários.</p>
         <p>Podemos querer saber as bactérias presentes em determinadas coordenadas:</p>
         <pre><code>class Coordenada:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+def __init__(self, x, y):
+    self.x = x
+    self.y = y
 
-    def __hash__(self):
-        return hash((self.x, self.y))
+def __hash__(self):
+    return hash((self.x, self.y))
 
-    def __repr__(self):
-        return f"{self.x},{self.y}"
+def __repr__(self):
+    return f"{self.x},{self.y}"
 
 ponto1 = Coordenada(1, 2)
 ponto2 = Coordenada(3, 4)
@@ -1180,15 +1129,14 @@ dicionario = {data1: 'evento1', data2: 'evento2'}
 print(dicionario)</code></pre>
         <p>Tecnicamente, a maioria dos objetos em Python é implementada utilizando dicionários nos bastidores. A maioria dos objetos possui o atributo mágico <code>obj.__dict__</code>. Quando você acessa um atributo em um objeto usando <code>obj.nome_do_atributo</code>, essencialmente isso é traduzido para <code>obj['nome_do_atributo']</code> nos bastidores.</p>
 
-        <div id="6-4-1-dictionary-use-cases">
-            <h3>Casos de uso de dicionários</h3>
+        <div id="6-4-1-dictionary-use-cases" data-heading="Casos de uso de dicionários">
             <p>Um dicionário poderia ser usado para armazenar informações específicas de um tipo de dados, como uma ação da bolsa...</p>
             <pre><code>aapl = {"code": "AAPL", "current": 150.0, "low": 140.0, "high": 160.0}</code></pre>
             <p>... ou até mesmo para armazenar informações de vários dados de um tipo:</p>
             <pre><code>stocks = {
-    "AAPL": aapl,
-    "GOOG": {"current": 1235.2, "low": 1242.54, "high": 1231.06},
-    "MSFT": {"current": 110.41, "low": 110.45, "high": 109.84}
+"AAPL": aapl,
+"GOOG": {"current": 1235.2, "low": 1242.54, "high": 1231.06},
+"MSFT": {"current": 110.41, "low": 110.45, "high": 109.84}
 }</code></pre>
 
             <p>Quando usar dicionários, dataclasses ou tuplas?</p>
@@ -1196,22 +1144,21 @@ print(dicionario)</code></pre>
             <p>Na verdade, como dataclasses veio depois de tuplas nomeadas, a tendência é que passem a ser mais utilizadas. Mas para casos em que queiramos usar desempacotamento ou iteração, podemos escolher tuplas nomeadas.</p>
             <p>Dicionários podem ser mais interessantes quando não sabemos de antemão quais os atributos de um dado, ou se nem todos os dados terão os mesmos atributos, e também quando precisamos fazer consultas rápidas de dados pelas chaves.</p>
         </div>
-        <div id="6-4-2-using-defaultdict">
-            <h3>Usando <code>defaultdict</code></h3>
+        <div id="6-4-2-using-defaultdict" data-heading="Usando defaultdict">
             <p>Um caso de uso típico para dicionários é o problema de contar o número de ocorrências de cada elemento de uma sequência:</p>
             <pre><code>def letter_frequency(sentence):
-    frequencies = {}
-    for letter in sentence:
-        frequency = frequencies.setdefault(letter, 0)
-        frequencies[letter] = frequency + 1
-    return frequencies</code></pre>
+frequencies = {}
+for letter in sentence:
+    frequency = frequencies.setdefault(letter, 0)
+    frequencies[letter] = frequency + 1
+return frequencies</code></pre>
             <p>Para garantir que não vamos tentar modificar o valor de uma chave que não existe, usamos o método <code>setdefault</code> para cada chave. Podemos definir um valor padrão para todas as chaves de uma vez com <code>defaultdict</code>:</p>
             <pre><code>from collections import defaultdict
 def letter_frequency(sentence):
-    frequencies = defaultdict(int)
-    for letter in sentence:
-        frequencies[letter] += 1
-    return frequencies</code></pre>
+frequencies = defaultdict(int)
+for letter in sentence:
+    frequencies[letter] += 1
+return frequencies</code></pre>
             <p>O construtor da classe <code>defaultdict</code> aceita uma função como argumento, que é chamada sempre que se tenta acessar ou modificar uma chave que não existe. No caso, a função <code>int</code> quando chamada sem argumentos, retorna o valor zero.</p>
             <p id="defaultdict-custom-function">Considere o seguinte problema: Queremos implementar um dicionário de definição de palavras, mas também queremos saber em que ordem cada palavra foi adicionada. Uma possível solução:</p>
             <pre><code>from collections import defaultdict
@@ -1219,9 +1166,9 @@ def letter_frequency(sentence):
 num_items = 0
 
 def tuple_counter():
-    global num_items
-    num_items += 1
-    return [num_items, ""]
+global num_items
+num_items += 1
+return [num_items, ""]
 
 d = defaultdict(tuple_counter)
 
@@ -1232,24 +1179,23 @@ d["bizu"][1] = "ideia"
 
 print(f'gororoba significa {d["gororoba"][1]}, e foi a {d["gororoba"][0]}ª palavra a ser adicionada neste dicionário.')</code></pre>
             <p>Esse exemplo, meramente para demonstrar uma função própria passada como argumento a <code>defaultdict</code>, possui algumas limitações. Por exemplo, se quiséssemos ter mais de um dicionário, precisaríamos de uma variável global para cada um. Além de que a interface com o programador não é tão amigável. Nos exercícios proporemos uma melhora neste código.</p>
-            <div id="6-4-2-1-counter">
-                <h4>Contador</h4>
+            <div id="6-4-2-1-counter" data-heading="Contador">
                 <p>O problema de contar o número de ocorrências é tão comum que a galera do Python criou uma classe especificamente para isso:</p>
                 <pre><code>from collections import Counter
 def letter_frequency(sentence):
-    return Counter(sentence)</code></pre>
+return Counter(sentence)</code></pre>
                 <p>O objeto da classe <code>Counter</code> é basicamente um dicionário em que as chaves são cada um dos elementos de <code>sentence</code> e os valores são suas respectivas quantidades. Esse objeto também possui o método <code>most_common</code>, que pode receber um inteiro <code>x</code> e retorna uma lista ordenada com as <code>x</code> chaves e respectivos valores que mais ocorreram:</p>
                 <pre><code>from collections import Counter
 
 responses = [
-    "vanilla",
-    "chocolate",
-    "vanilla",
-    "vanilla",
-    "caramel",
-    "chocolate",
-    "strawberry",
-    "vanilla",
+"vanilla",
+"chocolate",
+"vanilla",
+"vanilla",
+"caramel",
+"chocolate",
+"strawberry",
+"vanilla",
 ]
 
 print("The children voted for", Counter(responses).most_common(1)[0][0], "ice cream")</code></pre>
@@ -1264,8 +1210,7 @@ first_votes_count = first_most_voted[1]
 print("The children voted for", first_name, "ice cream, with", first_votes_count, "votes.")</code></pre>
             </div>
         </div>
-        <div id="6-4-1-exercises">
-            <h3>Exercícios</h3>
+        <div id="6-4-1-exercises" data-heading="Exercícios">
             <ol class="excs">
                 <li>
                     <b>API de Preços de Ações</b>
@@ -1329,8 +1274,7 @@ COM SEGUNDO TURNO</pre>
             </ol>
         </div>
     </div>
-    <div id="6-6-sets">
-        <h2>Conjuntos</h2>
+    <div id="6-6-sets" data-heading="Conjuntos">
         <p>A classe de objetos <code>set</code> lembra conjuntos da matemática, e é usada para armazenar elementos únicos (sem duplicatas). Similarmente aos dicionários, conjuntos em python usam tabela hash como estrutura de dados subjacente, que não mantém uma ordenação dos elementos, mas consegue buscar rapidamente por eles dentro do conjunto.</p>
         <p>Como exemplo de uso, suponha que você tenha uma coleção de músicas, de vários artistas, e quer uma lista com todos os artistas. Como um artista pode ter várias músicas, você precisa de um meio de filtrar o resultado, para ele não aparecer várias vezes.</p>
         <pre><code>song_library = [
@@ -1345,15 +1289,15 @@ COM SEGUNDO TURNO</pre>
 
 artists = set()
 for song, artist in song_library:
-    artists.add(artist)
+artists.add(artist)
 
 print(artists)
 
 if "Opeth" in artists:
-    print("Opeth in artists")
+print("Opeth in artists")
 
 for artist in artists:
-    print(artist, "plays good music")</code></pre>
+print(artist, "plays good music")</code></pre>
         <p>Observe que os elementos não são impressos na ordem em que foram colocados. Você pode usar o operador <code>in</code> para consultar e percorrer elementos do conjunto. Mas não pode usar índices para acessar elementos específicos. E para ordená-los, precisa converter para uma lista antes.</p>
         <p>Diferentemente de listas, dicionários e tuplas, que possuem sintaxes específicas para inicializar seus objetos vazios, com conjuntos, você precisa chamar explicitamente o construtor. Mas para inicializar um conjuto com elementos iniciais, a sintaxe fica parecida com dicionários, exceto que não vai o dois-pontos. Você também pode passar qualquer objeto iterável como argumento no construtor de conjuntos:</p>
         <pre><code>>>> x = {'foo', 'bar', 'baz', 'foo', 'qux'}
@@ -1400,36 +1344,41 @@ print("difference:", yours.difference(mine))</code></pre>
 
         <p>Os métodos <code>union</code>, <code>intersection</code> e <code>difference</code> aceitam múltiplos argumentos.</p>
 
-        <p>Como os métodos sugerem, <code>set</code>s são bons para situações em que você tem que comparar dados de fontes diferentes. Por exemplo, combiná-los, determinar quais se sobrepõem ou não (elementos contidos em ambos os conjuntos), ou remover duplicatas. Tudo isso garantindo um ótimo desempenho que não seria possível usando listas. Por exemplo, apesar do operador <code>in</code> estar disponíel tanto para conjuntos quanto para listas, ele é muito mais eficiente em conjuntos do que em listas: Em listas, é necessário percorrer a lista até encontrar pelo objeto procurado, se houver; Em conjuntos, não importa o tamanho deles, devido à tabela hash, a busca demora um fator constante de tempo.</p>
+        <p>Como os métodos sugerem, <code>set</code>s são bons para situações em que você tem que comparar dados de fontes diferentes. Por exemplo, combiná-los, determinar quais se sobrepõem ou não (elementos contidos em ambos os conjuntos), ou excluir duplicatas. Tudo isso garantindo um ótimo desempenho que não seria possível usando listas. Por exemplo, apesar do operador <code>in</code> estar disponíel tanto para conjuntos quanto para listas, ele é muito mais eficiente em conjuntos do que em listas: Em listas, é necessário percorrer a lista até encontrar pelo objeto procurado, se houver; Em conjuntos, não importa o tamanho deles, devido à tabela hash, a busca demora um fator constante de tempo.</p>
 
         <p>Mais sobre <code>set</code>s pode ser <a href="https://realpython.com/python-sets/#modifying-a-set">lido aqui</a>.</p>
-        <div id="6-6-1-exercises">
-            <h3>Exercícios</h3>
-            <ol class="excs">
-                <li class="no-mark">Para os seguintes exercícios, escolher estruturas de dados que melhor atendam ao critério de desempenho.</li>
-                <li>Ler uma sequência de números, que se encerra com um número repetido. Escrever os números ordenadamente.</li>
-                <li>Ler uma sequência de itens em uma linha e outra sequência de itens em outra linha. Para cada itens da primeira sequência, escrever onde ele se encontra na segunda sequência, ou escrever -1 caso não se encontre.</li>
-                <li>Ler um número $n$, seguido por uma sequência de $n$ números. Escrever os números, sem duplicatas, ordenadamente.</li>
-                <li>Ler duas frases, uma em cada linha. Escrever em uma linha as palavras da primeira frase que não ocorrem na segunda frase. Escrever em outra linha as palavras da primeira frase que oorrem na segunda frase.</li>
-                <li>Ler dois arquivos de texto diferentes. Escrever as palavras presentes em ambos os arquivos, sem duplicatas.</li>
-                <li>Ler dois arquivos de texto diferentes. Escrever as palavras presentes em pelo menos um dos arquivos, sem duplicatas.</li>
-                <li>Um pangrama é uma frase em que são usadas todas as letras do alfabeto de determinada língua. Exemplo de pangrama em inglês: The quick brown fox jumps over the lazy dog. Exemplo de pangrama em português, desconsiderando as letras de origem saxônica: Blitz prende ex-vesgo com cheque fajuto.
-                    <p>Ler um número $n$, seguido por $n$ frases, uma em cada linha. Para cada frase, escrever "S" ou "N" caso seja pangrama inglês ou não (desconsidera acentos).</p>
-                </li>
-                <li>Um heterograma é uma palavra ou frase em que nenhuma letra do alfabeto ocorre mais de uma vez.
-                    <p>Ler um número $n$, seguido por $n$ frases, uma em cada linha. Para cada frase, escrever "S" ou "N" caso seja heterograma ou não.</p>
-                </li>
-                <li>Um anagrama é uma palavra ou frase formada reorganizando as letras de outra palavra ou frase, usando todas as letras originais exatamente uma vez. Em outras palavras, as palavras ou frases são anagramas se tiverem as mesmas letras, mas em ordens diferentes. Exemplos de anagramas: "amor" e "roma"; "listen" e "silent"; "ator" e "rota".
-                    <p>Ler um número $n$ seguido por $n$ pares de palavras, e, para cada par, escrever "S" ou "N" caso sejam anagramas ou não.</p>
-                </li>
-                <li><b>Lista proibida</b>. Ler um número $n$, seguido por $n$ palavras "proibidas". Depois, ler um número $m$, seguido por $m$ frases, uma em cada linha. Para cada frase, escrever "PERMITIDO" ou "CENSURADO" caso haja palavras proibidas ou não. </li>
-                <li><b>Lista permitida</b>. Ler um número $n$, seguido por $n$ palavras "permitidas". Depois, ler um número $m$, seguido por $m$ frases, uma em cada linha. Para cada frase, escrever "PERMITIDO" ou "CENSURADO" caso contenha apenas palavras permitidas ou não.</li>
-            </ol>
-        </div>
+    </div>
+    <div id="6-6-1-exercises" data-heading="Exercícios">
+        <ol class="excs">
+            <li class="no-mark">Para os seguintes exercícios, escolher estruturas de dados que melhor atendam ao critério de desempenho.</li>
+            <li>Ler uma sequência de números, que se encerra com um número repetido. Escrever os números ordenadamente.</li>
+            <li>Ler uma sequência de itens em uma linha e outra sequência de itens em outra linha. Para cada itens da primeira sequência, escrever onde ele se encontra na segunda sequência, ou escrever -1 caso não se encontre.</li>
+            <li>Ler um número `n`, seguido por uma sequência de `n` números. Escrever os números, sem duplicatas, ordenadamente.</li>
+            <li>Ler duas frases, uma em cada linha. Escrever em uma linha as palavras da primeira frase que não ocorrem na segunda frase. Escrever em outra linha as palavras da primeira frase que oorrem na segunda frase.</li>
+            <li>Ler dois arquivos de texto diferentes. Escrever as palavras presentes em ambos os arquivos, sem duplicatas.</li>
+            <li>Ler dois arquivos de texto diferentes. Escrever as palavras presentes em pelo menos um dos arquivos, sem duplicatas.</li>
+            <li>Um pangrama é uma frase em que são usadas todas as letras do alfabeto de determinada língua. Exemplo de pangrama em inglês: The quick brown fox jumps over the lazy dog. Exemplo de pangrama em português, desconsiderando as letras de origem saxônica: Blitz prende ex-vesgo com cheque fajuto.
+                <p>Ler um número `n`, seguido por `n` frases, uma em cada linha. Para cada frase, escrever "S" ou "N" caso seja pangrama inglês ou não (desconsidera acentos).</p>
+            </li>
+            <li>Um heterograma é uma palavra ou frase em que nenhuma letra do alfabeto ocorre mais de uma vez.
+                <p>Ler um número `n`, seguido por `n` frases, uma em cada linha. Para cada frase, escrever "S" ou "N" caso seja heterograma ou não.</p>
+            </li>
+            <li>Um anagrama é uma palavra ou frase formada reorganizando as letras de outra palavra ou frase, usando todas as letras originais exatamente uma vez. Em outras palavras, as palavras ou frases são anagramas se tiverem as mesmas letras, mas em ordens diferentes. Exemplos de anagramas: "amor" e "roma"; "listen" e "silent"; "ator" e "rota".
+                <p>Ler um número `n` seguido por `n` pares de palavras, e, para cada par, escrever "S" ou "N" caso sejam anagramas ou não.</p>
+            </li>
+            <li><b>Lista proibida</b>. Ler um número `n`, seguido por `n` palavras "proibidas". Depois, ler um número `m`, seguido por `m` frases, uma em cada linha. Para cada frase, escrever "PERMITIDO" ou "CENSURADO" caso haja palavras proibidas ou não. </li>
+            <li><b>Lista permitida</b>. Ler um número `n`, seguido por `n` palavras "permitidas". Depois, ler um número `m`, seguido por `m` frases, uma em cada linha. Para cada frase, escrever "PERMITIDO" ou "CENSURADO" caso contenha apenas palavras permitidas ou não.</li>
+        </ol>
     </div>
 </div>
+<!-- 
+exercícios de listas:
+
+- converter uma lista multidimensional em uma lista unidimensional https://realpython.com/python-list/#flattening-multidimensional-lists
+- dividir uma lista em pedaços de listas menores https://realpython.com/python-list/#splitting-lists-into-chunks
+-->
 <!-- comparar as soluções usando listas e dicionários ou sets, pra ver qual é mais rápida -->
-<!-- exercício: Como os métodos sugerem, <code>set</code>s são bons para situações em que você tem que comparar dados de fontes diferentes. Por exemplo, combiná-los, determinar quais se sobrepõem ou não (elementos contidos em ambos os conjuntos), ou remover duplicatas -->
+<!-- exercício: Como os métodos sugerem, <code>set</code>s são bons para situações em que você tem que comparar dados de fontes diferentes. Por exemplo, combiná-los, determinar quais se sobrepõem ou não (elementos contidos em ambos os conjuntos), ou excluir duplicatas -->
 <!-- we have data incoming that may contain duplicates of data that has already been processed, we can use sets to compare the two and process only the new data. -->
 <!-- exercício que verifica se uma frase contém todas as vogais, independentemente de maiúsculo ou minúsculo -->
 <!-- aqui tem bastante exercícios interessantes de sets: https://www.geeksforgeeks.org/python-set-exercise/ -->
