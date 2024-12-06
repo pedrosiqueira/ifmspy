@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.css">
+    <script src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.js"></script>
+</head>
+
+<h1>UVa 10038 - Jolly Jumpers</h1>
+
+<p>Uma sequência de <em>n > 0</em> inteiros é chamada de "jolly jumper" se os valores absolutos das diferenças entre elementos sucessivos assumirem todos os valores de 1 até <em>n - 1</em>. Por exemplo, a sequência <code>1 4 2 3</code> é um jolly jumper, pois as diferenças absolutas são 3, 2 e 1, respectivamente. A definição implica que qualquer sequência de um único inteiro é um jolly jumper.</p>
+
+<h3>Entrada</h3>
+<p>Cada linha de entrada contém um inteiro <em>n</em> (onde <code>n ≤ 3000</code>), seguido por <em>n</em> inteiros representando a sequência.</p>
+
+<h3>Saída</h3>
+<p>Para cada linha de entrada, gere uma linha de saída dizendo <code>Jolly</code> se a sequência for um jolly jumper ou <code>Not jolly</code> caso contrário.</p>
+
+<h3>Exemplo de Entrada/Saída</h3>
+<table class="custom">
+    <tr>
+        <th>Entrada</th>
+        <th>Saída</th>
+    </tr>
+    <tr>
+        <td>
+            <pre>4 1 4 2 3
+5 1 4 2 -1 6</pre>
+        </td>
+        <td>
+            <pre>Jolly
+Not jolly</pre>
+        </td>
+    </tr>
+</table>
+
+<h3>Dicas</h3>
+<p>Para converter uma string <code>line</code> de números separados por espaço em uma lista <code>numbers</code> de números, em Python, use: <code ctc>numbers = list(map(int, line.split()))</code>.</p>
+<p>Por exemplo, esse código converte <code>"5 1 4 2 -1 6"</code> em <code>[5, 1, 4, 2, -1, 6]</code>.</p>
+<p>Uma possível solução para esse problema é criar uma lista de booleanos de comprimento <code>n</code> e marcar como <code>True</code> os índices correspondentes aos valores das diferenças absolutas entre elementos consecutivos da sequência.</p>

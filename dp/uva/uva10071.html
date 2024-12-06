@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.9.0/highlightjs-line-numbers.min.js"></script>
+    <script defer>hljs.configure({ languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
+
+    <!-- https://github.com/arronhunt/highlightjs-copy -->
+    <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" />
+    <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+    <script defer>hljs.addPlugin(new CopyButtonPlugin());</script>
+
+    <!-- https://github.com/TRSasasusu/highlightjs-highlight-lines.js -->
+    <script src="https://cdn.jsdelivr.net/gh/TRSasasusu/highlightjs-highlight-lines.js@1.2.0/highlightjs-highlight-lines.min.js"></script>
+    <script defer>hljs.highlightLinesAll([
+            // [{ start: 2, end: 2, color: 'lightgreen' }, { start: 9, end: 9, color: 'lightblue' }, { start: 14, end: 14, color: 'lightblue' }]
+        ]);
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.css">
+    <script src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.js"></script>
+</head>
+
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=1012">UVa 10071</a> - De Volta à Física do Ensino Médio</h1>
+
+<p>Uma partícula possui velocidade inicial e aceleração. Se sua velocidade após certo tempo é <em>v</em>, qual será o seu deslocamento em duas vezes esse tempo?</p>
+
+<h3>Entrada</h3>
+<p>A entrada contém dois inteiros em cada linha, formando um conjunto de entrada. Esses dois inteiros representam o valor de <em>v</em> (<code>-100 ≤ v ≤ 100</code>) e <em>t</em> (<code>0 ≤ t ≤ 200</code>), onde <em>t</em> é o instante em que a partícula atinge essa velocidade.</p>
+
+<h3>Saída</h3>
+<p>Para cada linha de entrada, imprima um único número inteiro em uma linha, representando o deslocamento em duas vezes o tempo dado.</p>
+
+<h3>Exemplo de Entrada/Saída</h3>
+<table class="custom">
+    <tr>
+        <th>Entrada</th>
+        <th>Saída</th>
+    </tr>
+    <tr>
+        <td>
+            <pre>0 36
+5 6
+10 66
+11 134
+11 62</pre>
+        </td>
+        <td>
+            <pre>0
+60
+1320
+2948
+1364</pre>
+        </td>
+    </tr>
+</table>
+
+<h3>Dica</h3>
+<p>Como não foi dada a aceleração, podemos considerar velocidade constante e aplicar a fórmula de deslocamento uniforme: $s = v \times t$, onde $s$ é o deslocamento, $v$ a velocidade e $t$ o tempo. Atente-se que o problema pede o deslocamento no dobro do tempo.</p>
