@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.css">
+    <script src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.js"></script>
+</head>
+
+<h1>UVa 591 - Box of Bricks</h1>
+
+<p>O pequeno Bob gosta de brincar com sua caixa de blocos. Ele empilha os blocos e constrói pilhas de diferentes alturas. “Olha, eu construí uma parede!”, ele diz à sua irmã mais velha, Alice. “Não, você deveria fazer todas as pilhas terem a mesma altura. Então você teria uma parede de verdade.”, ela responde. Após pensar um pouco, Bob percebe que ela está certa. Então, ele decide reorganizar os blocos, um por um, para que todas as pilhas fiquem com a mesma altura. Mas, como Bob é preguiçoso, ele quer fazer isso com o menor número possível de movimentos. Você pode ajudar?</p>
+
+<table>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>⬜️</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>⬜️</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>⬜️</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                </tr>
+                <tr>
+                    <td>⬜️</td>
+                    <td></td>
+                    <td>⬜️</td>
+                    <td></td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                </tr>
+                <tr>
+                    <td>⬜️</td>
+                    <td></td>
+                    <td>⬜️</td>
+                    <td></td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                </tr>
+                <tr>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td></td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                </tr>
+                <tr>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                </tr>
+            </table>
+        </td>
+        <td>→</td>
+        <td style="vertical-align: bottom;">
+            <table>
+                <tr>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                </tr>
+                <tr>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                </tr>
+                <tr>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                </tr>
+                <tr>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                    <td>⬜️</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<h3>Entrada</h3>
+<p>A entrada consiste em vários conjuntos de dados. Cada conjunto começa com uma linha contendo o número <em>n</em> de pilhas que Bob construiu. A próxima linha contém <em>n</em> números, representando as alturas <em>h<sub>i</sub></em> das <em>n</em> pilhas. Você pode assumir que <code>1 ≤ n ≤ 50</code> e <code>1 ≤ h<sub>i</sub> ≤ 100</code>.</p>
+<p>O número total de blocos será divisível pelo número de pilhas. Assim, sempre será possível reorganizar os blocos de forma que todas as pilhas fiquem com a mesma altura.</p>
+<p>A entrada é terminada por um conjunto começando com <code>n = 0</code>. Este conjunto não deve ser processado.</p>
+
+<h3>Saída</h3>
+<p>Para cada conjunto, primeiro imprima o número do conjunto, como mostrado no exemplo de saída. Em seguida, imprima a linha <code>The minimum number of moves is k.</code>, onde <em>k</em> é o número mínimo de blocos que devem ser movidos para que todas as pilhas fiquem com a mesma altura.</p>
+<p>Imprima uma linha em branco após cada conjunto.</p>
+
+<h3>Exemplo de Entrada/Saída</h3>
+<table class="custom">
+    <tr>
+        <th>Entrada</th>
+        <th>Saída</th>
+    </tr>
+    <tr>
+        <td>
+            <pre>6
+5 2 4 1 7 5
+0</pre>
+        </td>
+        <td>
+            <pre>Set #1
+The minimum number of moves is 5.</pre>
+        </td>
+    </tr>
+</table>
