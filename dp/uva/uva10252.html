@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.css">
+    <script src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.js"></script>
+</head>
+
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=1193">UVa 10252</a> - Permutação Comum</h1>
+
+<p>Dadas duas strings de letras minúsculas, <code>a</code> e <code>b</code>, imprima a maior string <code>x</code> de letras minúsculas tal que existe uma permutação de <code>x</code> que seja uma subsequência de <code>a</code> e uma permutação de <code>x</code> que seja uma subsequência de <code>b</code>.</p>
+
+<h3>Entrada</h3>
+<p>O arquivo de entrada contém várias linhas de entrada. Linhas consecutivas (pares de linhas) formam um conjunto de entrada: a linha 1 e 2 formam o primeiro conjunto, a linha 3 e 4 o segundo, e assim por diante. A primeira linha do par contém a string <code>a</code> e a segunda linha contém <code>b</code>. Cada string está em uma linha separada e contém no máximo 1000 letras minúsculas.</p>
+
+<h3>Saída</h3>
+<p>Para cada conjunto de entrada, imprima uma linha contendo <code>x</code>. Se houver várias strings <code>x</code> que satisfaçam o critério, escolha a primeira em ordem alfabética.</p>
+
+<h3>Exemplo de Entrada/Saída</h3>
+
+<table class="custom">
+    <tr>
+        <th>Entrada</th>
+        <th>Saída</th>
+    </tr>
+    <tr>
+        <td>
+            <pre>pretty
+women
+walking
+down
+the
+street</pre>
+        </td>
+        <td>
+            <pre>e
+nw
+et</pre>
+        </td>
+    </tr>
+</table>
