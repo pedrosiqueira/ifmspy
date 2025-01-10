@@ -515,7 +515,7 @@ print(s2)</code></pre>
 s2 = f"Hello, {names[1]}, are you {conditions[1]}?"</code></pre>
 
         <h3>Desempacotando argumentos</h3>
-        <p>Vimos como tratar diversos argumentos como um único parâmetro. Mas e o contrário, podemos tratar um único argumento como diversos parâmetros? Sim, com expansão, também chamado de desempacotamento (unpacking), ou destruturação (destructuring):</p>
+        <p>Vimos como tratar diversos argumentos como um único parâmetro. Mas e o contrário, podemos tratar um único argumento como diversos parâmetros? Sim, com expansão, também chamado de desempacotamento (unpacking), ou desestruturação (destructuring):</p>
         <pre><code>def show_args(a, b, c="Default"):
     print(a, b, c)
 
@@ -712,13 +712,13 @@ uma_funcao.__call__(12, 34)</code></pre>
         <p>Para amarrar alguns dos princípios estudados em um único exemplo, vamos construir um gerenciador de grupos de emails. O gerenciador categorizará os endereços de email em grupos. Ao enviar um email, podemos escolher um endereço de email, uma lista de endereços de email, ou um grupo pré-salvo de endereços de email.</p>
 
         <h3>API de envio de email</h3>
-        <p>Nosso gerenciador se utilizará da seguinte API que se conecta a um servidor Simple Mail Transfer Protocol (SMTP) para enviar email:</p>
+        <p>Nosso gerenciador se utilizará da seguinte API <code>email_api.py</code> que se conecta a um servidor Simple Mail Transfer Protocol (SMTP) para enviar email:</p>
         <pre><code>import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-def send_email(subject, body, from_addr, *to_addrs, host="localhost", port=1025):
+def send_email(subject, body, from_addr, *to_addrs, host="localhost", port=8025):
     msg = MIMEMultipart()
     msg["From"] = from_addr
     msg["To"] = ", ".join(to_addrs)  # Join the recipients with a comma and space
@@ -730,28 +730,28 @@ def send_email(subject, body, from_addr, *to_addrs, host="localhost", port=1025)
         print("Sent!")</code></pre>
 
         <p>Com sua vasta biblioteca, o Python já fornece o módulo <code>email</code> para criar emails e o módulo <code>smtplib</code> para se conectar a um servidor SMTP e enviar o email. Como os detalhes dessa API fogem do escopo do estudo de caso proposto, vamos poupar a explicação desse código. Basta saber o quê a função faz: envia uma mensagem para uma lista de endereços de email usando um servidor SMTP rodando no endereço <code>host:port</code>. Se quiser saber mais, pode consultar a documentação oficial.</p>
-        <p>O legal é que o Python também vem com um servidor SMTP instalado. Você pode iniciá-lo no modo "debugging", que em vez de enviar o email, simplesmente o imprime no terminal. Se quiser de fato enviar um email, precisaria configurar a API para se conectar a uma conta de email e alterar os parâmetros de inicialização do servidor SMTP. Este artigo trás informações de <a href="https://realpython.com/python-send-email/">como conectar um SMTP</a> a uma conta de email.</p>
-        <p>Abra um terminal e inicie o servidor SMTP:</p>
-        <pre><code>python -m smtpd -n -c DebuggingServer localhost:1025</code></pre>
-        <p>Para testar se a API está funcionando, abra outro terminal, execute a API no modo interativo (<code>-i</code>) e envie um email de teste:</p>
+        <p><!-- O legal é que o Python também vem com um servidor SMTP instalado. Você pode iniciá-lo no modo "debugging", que em vez de enviar o email, simplesmente o imprime no terminal. OBSOLETO: https://docs.python.org/3/whatsnew/3.12.html#smtpd -->Vamos usar a biblioteca Python <a href="https://aiosmtpd.aio-libs.org/en/latest/">aiosmtpd</a>, que vem com um servidor SMTP para testarmos. Para instalar, execute <code ctc>pip install aiosmtpd</code>. Vamos executar o servidor no modo "debugging", que em vez de enviar o email, simplesmente o imprime no terminal. Abra um terminal e inicie o servidor SMTP:</p>
+        <pre><code>python3 -m aiosmtpd -n</code></pre>
+        <div class="info">Observação: Se quiser de fato enviar um email, precisaria configurar a API para se conectar a uma conta de email e alterar os parâmetros de inicialização do servidor SMTP. Este artigo traz informações de <a href="https://realpython.com/python-send-email/">como conectar um SMTP</a> a uma conta de email.</div>
+        <p>Para testar se a API está funcionando, abra outro terminal, execute a API no modo interativo (<code>python3 -i email_api.py</code>) e envie um email de teste:</p>
         <pre><code>>>> send_email("A Party", "Friends and family only: a party", "me@example.com", "friend1@example.com", "family1@example.com")
 Sent!</code></pre>
         <p>Verifique no terminal rodando o servidor SMTP se ele recebeu a requisição de email:</p>
         <pre>---------- MESSAGE FOLLOWS ----------
-b'Content-Type: multipart/mixed; boundary="===============2472709131490945134=="'
-b'MIME-Version: 1.0'
-b'From: me@example.com'
-b'To: friend1@example.com, family1@example.com'
-b'Subject: A Party'
-b'X-Peer: ::1'
-b''
-b'--===============2472709131490945134=='
-b'Content-Type: text/plain; charset="us-ascii"'
-b'MIME-Version: 1.0'
-b'Content-Transfer-Encoding: 7bit'
-b''
-b'Friends and family only: a party'
-b'--===============2472709131490945134==--'
+Content-Type: multipart/mixed; boundary="===============4965865233795964820=="
+MIME-Version: 1.0
+From: me@example.com
+To: friend1@example.com, family1@example.com
+Subject: A Party
+X-Peer: ('127.0.0.1', 47942)
+
+--===============4965865233795964820==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+Friends and family only: a party
+--===============4965865233795964820==--
 ------------ END MESSAGE ------------</pre>
 
         <h3>Nosso gerenciador de grupos de emails</h3>
