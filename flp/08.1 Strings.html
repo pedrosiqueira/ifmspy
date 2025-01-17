@@ -452,7 +452,7 @@ s.replace('fi', 'ti')
                         </td>
                         <td>Converte todas as letras para minúsculo.</td>
                         <td>
-                            <pre><code>'foO BaR'.lower  # foo bar</code></pre>
+                            <pre><code>'foO BaR'.lower()  # foo bar</code></pre>
                         </td>
                     </tr>
                     <tr>
@@ -629,7 +629,7 @@ print(f"o maior número é {max(l)}")</code></pre>
                 <pre><code>import datetime
 print(f"{datetime.datetime.now():%d/%m/%Y %H:%M}")  # 24/04/2024 21:21</code></pre>
 
-                <p>É até possível escrever formatadores personalizados para objetos que nós mesmos criamos, mas isso está além do escopo deste livro. Pesquise como sobrescrever método mágico <code>__format__</code> se precisar fazer isso em seu código.</p>
+                <p>É até possível escrever formatadores personalizados para objetos que nós mesmos criamos, mas isso está além do escopo deste livro. Pesquise como sobrescrever o método mágico <code>__format__</code> se precisar fazer isso em seu código.</p>
 
                 <p>A sintaxe de formatação do Python é bastante flexível, mas é uma minilinguagem difícil de lembrar. O autor do livro usa todos os dias e ocasionalmente ainda precisa procurar conceitos esquecidos na documentação. Também não é poderosa o suficiente para casos mais sérios, como a geração de páginas da web. Existem várias bibliotecas de modelagem (templating) de terceiros que você pode consultar se precisar fazer mais do que a formatação básica de algumas strings.</p>
             </div>
