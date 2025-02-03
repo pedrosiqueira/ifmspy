@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script> -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.css">
+    <script src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.js"></script>
+</head>
+
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=1620">UVa 10679</a> - Eu Amo Strings!!!</h1>
+
+<p>Hmmmmmm... strings de novo :) Então, deve ser uma tarefa fácil para você. Bem, você recebe uma string <code>S</code> com comprimento de no máximo 100.000 caracteres (contendo apenas letras de ‘a’ a ‘z’ e de ‘A’ a ‘Z’). Em seguida, há <code>q</code> consultas (<code>q &lt; 1000</code>), onde cada consulta contém uma string <code>T</code> de comprimento máximo 1.000 (também contendo apenas letras de ‘a’ a ‘z’ e de ‘A’ a ‘Z’).</p>
+
+<p>Seu objetivo é determinar se <code>T</code> é uma sub-string de <code>S</code>.</p>
+
+<h3>Entrada</h3>
+<p>A primeira linha contém um inteiro <code>k</code> (<code>k &lt; 10</code>), indicando o número de casos de teste. Cada caso de teste começa com a string em uma linha<code>S</code>. A linha seguinte contém um inteiro <code>q</code>, indicando o número de consultas. Cada uma das próximas <code>q</code> linhas contêm uma string <code>T</code>.</p>
+
+<h3>Saída</h3>
+<p>Para cada consulta, imprima <code>'y'</code> se <code>T</code> for uma sub-string de <code>S</code>, ou <code>'n'</code> caso contrário. Cada resposta deve estar em uma nova linha.</p>
+
+<h3>Exemplo de Entrada/Saída</h3>
+<table class="custom">
+    <tr>
+        <th>Entrada</th>
+        <th>Saída</th>
+    </tr>
+    <tr>
+        <td>
+            <pre>2
+abcdefghABCDEFGH
+2
+abc
+abAB
+xyz
+1
+xyz</pre>
+        </td>
+        <td>
+            <pre>y
+n
+y</pre>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script> -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.css">
+    <script src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.js"></script>
+</head>
+
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=2834">UVa 11734</a> - Grande Número de Times Resolverá Isto</h1>
+
+<p>Escrever código em uma competição de programação para um problema fácil não é uma tarefa difícil, mas os competidores inexperientes não sabem que sua saída deve corresponder exatamente à dos juízes. Muitas vezes, eles adicionam espaços extras em sua saída, porque acreditam que isso melhora a apresentação. No entanto, a exigência real é que a saída deve corresponder caractere por caractere à dos juízes. Execuções que apresentam espaços adicionais recebem o veredito ‘Output Format Error’. Se a saída ainda não corresponder após ignorar os espaços, o veredito é ‘Wrong Answer’. Um veredito de ‘Yes’ é dado quando a saída corresponde exatamente. Neste problema, você terá que determinar o veredito para as execuções dadas, considerando a saída do time e a dos juízes.</p>
+
+<h2>Entrada</h2>
+
+<p>A primeira linha da entrada consiste em um número inteiro positivo <code>t &lt; 20</code>, onde <code>t</code> denota o número de casos de teste. Cada caso consiste em duas linhas. A primeira linha é a saída do time e a segunda linha é a saída dos juízes. Cada linha contém pelo menos um e no máximo 20 caracteres. A saída dos times consiste em letras e espaços. A saída dos juízes consiste apenas de letras.</p>
+
+<h2>Saída</h2>
+
+<p>Para cada caso de entrada, haverá uma linha de saída. Ela conterá primeiro o número do caso seguido pelo veredito. Veja a saída de exemplo para o formato exato.</p>
+
+<h2>Exemplo de Entrada/Saída</h2>
+<table border>
+    <thead>
+        <tr>
+            <th>Entrada</th>
+            <th>Saída</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><pre>3
+yes
+yes
+Casematters
+casematters
+no space please
+nospaceplease</pre></td>
+            <td><pre>Case 1: Yes
+Case 2: Wrong Answer
+Case 3: Output Format Error</pre></td>
+        </tr>        
+    </tbody>
+</table>
