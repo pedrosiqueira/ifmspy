@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.css">
+    <script src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.js"></script>
+</head>
+
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=1023">UVa 10082</a> - WERTYU</h1>
+
+<table class="custom">
+    <caption>Layout simplificado de um teclado americano.</caption>
+    <tr>
+        <td>`</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>0</td>
+        <td>-</td>
+        <td>=</td>
+        <td>←</td>
+    </tr>
+    <tr>
+        <td>⇥</td>
+        <td>Q</td>
+        <td>W</td>
+        <td>E</td>
+        <td>R</td>
+        <td>T</td>
+        <td>Y</td>
+        <td>U</td>
+        <td>I</td>
+        <td>O</td>
+        <td>P</td>
+        <td>[</td>
+        <td>]</td>
+        <td>\</td>
+    </tr>
+    <tr>
+        <td>CpLk</td>
+        <td>A</td>
+        <td>S</td>
+        <td>D</td>
+        <td>F</td>
+        <td>G</td>
+        <td>H</td>
+        <td>J</td>
+        <td>K</td>
+        <td>L</td>
+        <td>;</td>
+        <td>&#39;</td>
+        <td colspan="2" style="border-bottom: none;">↵</td>
+    </tr>
+    <tr>
+        <td>⇧</td>
+        <td>Z</td>
+        <td>X</td>
+        <td>C</td>
+        <td>V</td>
+        <td>B</td>
+        <td>N</td>
+        <td>M</td>
+        <td>,</td>
+        <td>.</td>
+        <td>/</td>
+        <td colspan="2">⇧</td>
+        <td style="border-top: none;"></td>
+    </tr>
+    <tr>
+        <td>Ctrl</td>
+        <td>⌘</td>
+        <td>Alt</td>
+        <td colspan="6">Space</td>
+        <td colspan="2">Alt</td>
+        <td>☰</td>
+        <td colspan="2">Ctrl</td>
+    </tr>
+</table>
+
+<p>Um erro comum ao digitar é colocar as mãos no teclado uma coluna à direita da posição correta. Assim, ‘Q’ é digitado como ‘W’ e ‘J’ é digitado como ‘K’ e assim por diante. Sua tarefa é decodificar uma mensagem digitada dessa maneira.</p>
+
+<h3>Entrada</h3>
+<p>A entrada consiste em várias linhas de texto. Cada linha pode conter o caractere de qualquer tecla do teclado QWERT acima, exceto as letras 'Q', 'A', 'Z' e o acento crase '`'. As teclas modificadoras (⇥, CpLk, ⇧, Ctrl, ⌘, Alt, ☰, ←, ↵, etc.) não estão representadas na entrada.</p>
+
+<h3>Saída</h3>
+<p>Você deve substituir cada caractere pelo que está imediatamente à esquerda no teclado QWERTY acima (observe que é o modelo americano). Espaços na entrada devem ser refletidos na saída.</p>
+
+<h3>Exemplo de Entrada/Saída</h3>
+
+<table class="custom">
+    <tr>
+        <th>Entrada</th>
+        <th>Saída</th>
+    </tr>
+    <tr>
+        <td>
+            <pre>O S, GOMR YPFSU/</pre>
+        </td>
+        <td>
+            <pre>I AM FINE TODAY.</pre>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script> -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.css">
+    <script src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.js"></script>
+</head>
+
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=2113">UVa 11172</a> - Operadores relacionais</h1>
+
+<p>Alguns operadores verificam a relação entre dois valores e são chamados de operadores relacionais. Dado dois valores numéricos, sua tarefa é determinar a relação entre eles, que pode ser:</p>
+
+<ul>
+    <li>(i) O primeiro número é maior que o segundo.</li>
+    <li>(ii) O primeiro número é menor que o segundo.</li>
+    <li>(iii) O primeiro número é igual ao segundo.</li>
+</ul>
+
+<h3>Entrada</h3>
+<p>A primeira linha da entrada contém um inteiro <code>t</code> (<code>t &lt; 15</code>), indicando quantos conjuntos de entrada existem. Cada uma das próximas <code>t</code> linhas contém dois inteiros <code>a</code> e <code>b</code> (<code>|a|, |b| &lt; 1.000.000.001</code>).</p>
+
+<h3>Saída</h3>
+<p>Para cada linha de entrada, produza uma linha de saída contendo um dos operadores relacionais:</p>
+<ul>
+    <li><code>'&gt;'</code> se <code>a</code> for maior que <code>b</code>.</li>
+    <li><code>'&lt;'</code> se <code>a</code> for menor que <code>b</code>.</li>
+    <li><code>'='</code> se <code>a</code> for igual a <code>b</code>.</li>
+</ul>
+
+<h3>Exemplo de Entrada/Saída</h3>
+<table class="custom">
+    <tr>
+        <th>Entrada</th>
+        <th>Saída</th>
+    </tr>
+    <tr>
+        <td>
+            <pre>3
+10 20
+20 10
+10 10</pre>
+        </td>
+        <td>
+            <pre>&lt;
+&gt;
+=</pre>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,41 @@
+<head>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.css">
+      <script src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.js"></script>
+</head>
+
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=517">UVa 00576</a> - Revisor de Haiku</h1>
+<p>Haiku é uma forma antiga de poesia japonesa. Um haiku é um poema de três linhas com dezessete sílabas, onde a primeira linha deve conter cinco sílabas, a segunda linha deve conter sete sílabas e a terceira linha deve conter cinco sílabas. As linhas não precisam rimar. Aqui está um exemplo, onde as barras separam as linhas:</p>
+<q>Computer programs/The bugs try to eat my code/I must not let them.</q>
+<p>Você deve escrever um programa que revise um haiku e verifique se cada linha contém o número correto de sílabas.</p>
+<h2>Entrada</h2>
+<p>A entrada contém uma ou mais linhas, cada uma das quais contém um único haiku. Um haiku conterá pelo menos três palavras, e as palavras serão separadas por um espaço simples ou uma barra (‘/’).</p>
+<p>As barras também separam as três linhas de um haiku, então cada haiku conterá exatamente duas barras. (As três linhas do haiku estarão contidas dentro de uma linha física do arquivo.) Um haiku conterá apenas letras minúsculas (‘a’..‘z’), barras (‘/’) e espaços, e terá no máximo 200 caracteres de comprimento (não contando os caracteres de fim de linha).</p>
+<p>O haiku ‘e/o/i’ sinaliza o fim da entrada.</p>
+<p>Cada haiku é garantido que contenha três linhas, e cada linha conterá pelo menos uma palavra. Seu trabalho é determinar se cada linha tem o número correto de sílabas (5/7/5). Para os propósitos deste problema, cada sequência contínua de uma ou mais vogais conta como uma sílaba, onde as vogais são ‘a’, ‘e’, ‘i’, ‘o’, ‘u’ e ‘y’. Cada palavra conterá pelo menos uma sílaba.</p>
+<p>(Note que este método de contagem de sílabas nem sempre concorda com as convenções em inglês. No segundo exemplo abaixo, seu programa deve considerar que a palavra ‘code’ tem duas sílabas porque o ‘o’ e o ‘e’ não são consecutivos. No entanto, em inglês, o ‘e’ é mudo e, portanto, ‘code’ na verdade tem apenas uma sílaba.)</p>
+<h2>Saída</h2>
+<p>Para cada haiku, imprima uma única linha que contenha ‘1’ se a primeira linha tiver o número errado de sílabas, ‘2’ se a segunda linha tiver o número errado de sílabas, ‘3’ se a terceira linha tiver o número errado de sílabas, ou ‘Y’ se todas as três linhas tiverem o número correto de sílabas. Se o haiku não estiver correto, você deve imprimir o número da primeira linha que tem o número errado de sílabas.</p>
+<h2>Exemplo de entrada/saída</h2>
+<table border>
+      <thead>
+            <tr>
+                  <th>Entrada</th>
+                  <th>Saída</th>
+            </tr>
+      </thead>
+      <tbody>
+            <tr>
+                  <td>
+                        <pre>happy purple frog/eating bugs in the marshes/get indigestion
+computer programs/the bugs try to eat my code/i will not let them
+a e i o u/this is seven syllables/a e i o u y
+e/o/i</pre>
+                  </td>
+                  <td>
+                        <pre>Y
+2
+3</pre>
+                  </td>
+            </tr>
+      </tbody>
+</table>

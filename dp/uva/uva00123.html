@@ -1,0 +1,72 @@
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=59">UVa 123</a> Buscando rapidamente</h1>
+
+<p>Buscar e ordenar fazem parte da teoria e prática da ciência da computação. Por exemplo, a busca binária fornece um bom exemplo de um algoritmo fácil de entender com complexidade sublinear. O Quicksort é um algoritmo eficiente de ordenação baseado em comparação com complexidade O(n log n) [no caso médio]. KWIC-indexing é um método de indexação que permite uma "busca humana" eficiente em, por exemplo, uma lista de títulos.</p>
+
+<p>Dada uma lista de títulos e uma lista de “palavras a serem ignoradas”, você deve escrever um programa que gere um índice KWIC (Key Word In Context) dos títulos. Em um índice KWIC, um título é listado uma vez para cada palavra-chave que ocorre no título. O índice KWIC é alfabetizado pela palavra-chave.</p>
+
+<p>Qualquer palavra que não seja uma das “palavras a serem ignoradas” é uma potencial palavra-chave.</p>
+
+<p>Por exemplo, se as palavras a serem ignoradas forem “the, of, and, as, a” e a lista de títulos for:</p>
+<pre>Descent of Man
+The Ascent of Man
+The Old Man and The Sea
+A Portrait of The Artist As a Young Man</pre>
+
+<p>Um índice KWIC desses títulos pode ser dado por:</p>
+<pre>                  a portrait of the ARTIST as a young man
+                                the ASCENT of man
+                                    DESCENT of man
+                         descent of MAN
+                      the ascent of MAN
+                            the old MAN and the sea
+a portrait of the artist as a young MAN
+                                the OLD man and the sea
+                                  a PORTRAIT of the artist as a young man
+                the old man and the SEA
+      a portrait of the artist as a YOUNG man</pre>
+
+<h2>Entrada</h2>
+<p>A entrada é uma sequência de linhas, sendo a string ‘::’ usada para separar a lista de palavras a serem ignoradas da lista de títulos. Cada uma das palavras a serem ignoradas aparece em letras minúsculas em uma linha separada e não possui mais de 10 caracteres de comprimento. Cada título aparece em uma linha separada e pode consistir de letras maiúsculas e minúsculas. As palavras em um título são separadas por espaços em branco. Nenhum título contém mais de 15 palavras.</p>
+
+<p>Haverá no máximo 50 palavras a serem ignoradas, no máximo 200 títulos, e no máximo 10.000 caracteres combinados nos títulos e palavras a serem ignoradas. Nenhum caractere além de ‘a’–‘z’, ‘A’–‘Z’, e espaço em branco aparecerá na entrada.</p>
+
+<h2>Saída</h2>
+<p>A saída deve ser um índice KWIC dos títulos, com cada título aparecendo uma vez para cada palavra-chave no título, e com o índice KWIC alfabetizado pela palavra-chave. Se uma palavra aparecer mais de uma vez em um título, cada instância é uma potencial palavra-chave.</p>
+
+<p>A palavra-chave deve aparecer em letras maiúsculas. Todas as outras palavras em um título devem estar em letras minúsculas. Títulos no índice KWIC com a mesma palavra-chave devem aparecer na mesma ordem em que apareceram no arquivo de entrada. No caso de múltiplas instâncias de uma palavra serem palavras-chave no mesmo título, as palavras-chave devem ser capitalizadas na ordem da esquerda para a direita.</p>
+
+<p>A caixa (maiúscula ou minúscula) é irrelevante ao determinar se uma palavra deve ser ignorada.</p>
+
+<p>Os títulos no índice KWIC NÃO precisam ser justificados ou alinhados pela palavra-chave, todos os títulos podem ser listados alinhados à esquerda.</p>
+
+<h2>Exemplo de Entrada</h2>
+<pre>is
+the
+of
+and
+as
+a
+but
+::
+Descent of Man
+The Ascent of Man
+The Old Man and The Sea
+A Portrait of The Artist As a Young Man
+A Man is a Man but Bubblesort IS A DOG</pre>
+
+<h2>Exemplo de Saída</h2>
+<pre>a portrait of the ARTIST as a young man
+the ASCENT of man
+a man is a man but BUBBLESORT is a dog
+DESCENT of man
+a man is a man but bubblesort is a DOG
+descent of MAN
+the ascent of MAN
+the old MAN and the sea
+a portrait of the artist as a young MAN
+a MAN is a man but bubblesort is a dog
+a man is a MAN but bubblesort is a dog
+the OLD man and the sea
+a PORTRAIT of the artist as a young man
+the old man and the SEA
+a portrait of the artist as a YOUNG man</pre>

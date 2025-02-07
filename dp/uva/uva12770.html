@@ -1,0 +1,38 @@
+<h1>UVa 12770 Palinagrama</h1>
+
+<p>Um palíndromo é uma palavra que é escrita da mesma forma de trás para frente ou de frente para trás. Exemplos são "level" e "madam". Um anagrama é uma palavra formada a partir de outra palavra apenas reorganizando os caracteres, como de "made" para "dame". Para este problema, anagramas e palíndromos podem não ser palavras válidas em inglês. Por exemplo, "daamm" é um anagrama de "madam" e "amdma" também é um palíndromo, embora não seja uma palavra em inglês. "daamm" também é chamado de palinagrama porque é o anagrama de um palíndromo. Qualquer palíndromo também é um palinagrama, mas o inverso nem sempre é verdade. Alguns outros exemplos de palinagramas são "aabbcc", "aaaaa", etc. Dada uma string, você precisará imprimir a string que deve ser anexada a ela para torná-la um palinagrama.</p>
+
+<h2>Entrada</h2>
+
+<p>O arquivo de entrada contém no máximo 6000 casos de teste. A descrição de cada caso de teste é dada abaixo.</p>
+
+<p>Cada caso consiste em uma única string <code>S</code> de comprimento <code>L</code> (<code>1 &le; L &le; 500</code>). Esta string contém apenas letras minúsculas do alfabeto inglês (‘a’ a ‘z’).</p>
+
+<p>A entrada é encerrada por uma linha contendo um único caractere cerquilha ('#'). Esta linha não deve ser processada.</p>
+
+<h2>Saída</h2>
+
+<p>Para cada linha de entrada, produza uma linha de saída. A linha contém a string que precisa ser anexada à string dada para torná-la um palinagrama (pode ser uma string vazia também). Se houver mais de uma solução, imprima a mais curta. Se ainda houver empate, imprima a menor em ordem lexicográfica.</p>
+
+<h2>Exemplo de Entrada/Saída</h2>
+<table border>
+    <thead>
+        <tr>
+            <th>Entrada</th>
+            <th>Saída</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <pre>ddc
+aaab
+#</pre>
+            </td>
+            <td>
+                <pre>
+a</pre>
+            </td>
+        </tr>
+    </tbody>
+</table>

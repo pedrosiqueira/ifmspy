@@ -1,0 +1,41 @@
+<head>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.css">
+      <script src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.js"></script>
+</head>
+
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=4460">UVa 01585</a> Pontuação</h1>
+<p>Há um resultado de uma prova objetiva, como "OOXXOXXOOO". Um ‘O’ significa uma resposta correta de uma questão, e um ‘X’ significa uma resposta errada. A pontuação de cada questão desta prova é calculada com base nela mesma e nos ‘O’s consecutivos imediatamente anteriores, apenas quando a resposta estiver correta. Por exemplo, a pontuação da 10ª questão é 3, que é obtida pela própria questão e pelos dois ‘O’s consecutivos imediatamente anteriores.</p>
+<p>Portanto, a pontuação de "OOXXOXXOOO" é 10, calculada como "1+2+0+0+1+0+0+1+2+3".</p>
+<p>Você deve escrever um programa que calcule as pontuações dos resultados das provas.</p>
+<h2>Entrada</h2>
+<p>Seu programa deve ler a entrada padrão. A entrada consiste em T casos de teste. O número de casos de teste T é dado na primeira linha da entrada. Cada caso de teste começa com uma linha contendo uma string composta por ‘O’ e ‘X’, e o comprimento da string é maior que 0 e menor que 80. Não há espaços entre os ‘O’s e ‘X’s.</p>
+<h2>Saída</h2>
+<p>Seu programa deve escrever na saída padrão. Imprima exatamente uma linha para cada caso de teste. A linha deve conter a pontuação do caso de teste.</p>
+<h2>Exemplo de entrada/saída</h2>
+<table border>
+      <thead>
+            <tr>
+                  <th>Entrada</th>
+                  <th>Saída</th>
+            </tr>
+      </thead>
+      <tbody>
+            <tr>
+                  <td>
+                        <pre>5
+OOXXOXXOOO
+OOXXOOXXOO
+OXOXOXOXOXOXOX
+OOOOOOOOOO
+OOOOXOOOOXOOOOX</pre>
+                  </td>
+                  <td>
+                        <pre>10
+9
+7
+55
+30</pre>
+                  </td>
+            </tr>
+      </tbody>
+</table>

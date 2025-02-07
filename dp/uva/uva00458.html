@@ -1,0 +1,42 @@
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=399">UVa 458</a> - O Desencriptador</h1>
+
+<p>Escreva um programa completo que desencripte corretamente um conjunto de caracteres em uma mensagem válida. Seu programa deve ler um arquivo contendo um conjunto de caracteres encriptados de maneira simples e imprimir a mensagem exata que os caracteres representam. A chave de encriptação para essa mensagem encriptada simples é uma substituição de caracteres baseada em uma única manipulação aritmética da parte imprimível do conjunto de caracteres ASCII.</p>
+
+<h3>Entrada e Saída</h3>
+<p>Por exemplo, dado um arquivo de entrada contendo:</p>
+
+<pre>1JKJ'pz'{ol'{yhklthyr'vm'{ol'Jvu{yvs'Kh{h'Jvywvyh{pvu5
+1PIT'pz'h'{yhklthyr'vm'{ol'Pu{lyuh{pvuhs'I|zpulzz'Thjopul'Jvywvyh{pvu5
+1KLJ'pz'{ol'{yhklthyr'vm'{ol'Kpnp{hs'Lx|pwtlu{'Jvywvyh{pvu5</pre>
+
+<p>Seu programa deve imprimir a mensagem decodificada:</p>
+
+<pre>*CDC is the trademark of the Control Data Corporation.
+*IBM is a trademark of the International Business Machine Corporation.
+*DEC is the trademark of the Digital Equipment Corporation.</pre>
+
+<h3>Exemplo de Entrada/Saída</h3>
+
+<table border>
+      <tr>
+            <th>Entrada</th>
+            <th>Saída</th>
+      </tr>
+      <tr>
+            <td>
+                  <pre>1JKJ'pz'{ol'{yhklthyr'vm'{ol'Jvu{yvs'Kh{h'Jvywvyh{pvu5
+1PIT'pz'h'{yhklthyr'vm'{ol'Pu{lyuh{pvuhs'I|zpulzz'Thjopul'Jvywvyh{pvu5
+1KLJ'pz'{ol'{yhklthyr'vm'{ol'Kpnp{hs'Lx|pwtlu{'Jvywvyh{pvu5</pre>
+            </td>
+            <td>
+                  <pre>*CDC is the trademark of the Control Data Corporation.
+*IBM is a trademark of the International Business Machine Corporation.
+*DEC is the trademark of the Digital Equipment Corporation.</pre>
+            </td>
+      </tr>
+</table>
+
+<h3>Dica</h3>
+<p>Apenas caracteres imprimíveis (visíveis) são encriptados. Whitespaces não são encriptados.</p>
+<p>A chave de encriptação é 7 caracteres antes do caractere encriptado. Por exemplo, o caractere encriptado 'h' é desencriptado voltando 7 caracteres, que dá o caractere descriptado 'a'.</p>
+<p>Para saber o código ASCII de um caractere <code>c</code>, use a função <code>code(c)</code>. Já para saber o caractere de um código ASCII <code>i</code>, use a função <code>chr(i)</code>. <a href="https://pedrosiqueira.github.io/ifmspy/alg/07 Caracteres.html#ord-chr">Mais informações aqui</a>.</p>

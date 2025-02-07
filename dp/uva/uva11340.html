@@ -1,0 +1,45 @@
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.css">
+    <!-- <script src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.js"></script> -->
+</head>
+<h1><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=2315">UVa 11340</a> - Jornal</h1>
+<p>A agência de notícias paga dinheiro pelos artigos de acordo com algumas regras. Cada caractere tem seu próprio preço (alguns caracteres podem ter preço igual a zero). O autor recebe seu pagamento como a soma de todos os preços dos caracteres no artigo. Você precisa determinar o preço total que a agência de notícias deve pagar ao autor.</p>
+
+<h3>Entrada</h3>
+<p>A primeira linha contém o inteiro N (0 &lt; N ≤ 5), que representa o número de testes. Cada teste descreve um inteiro K (0 &lt; K ≤ 100), que é o número de caracteres precificados. Nas próximas K linhas, haverá uma tabela de caracteres precificados e seus preços (os preços dos caracteres são dados em centavos). Se o caractere não for encontrado na tabela, seu preço é zero. Em seguida, há um inteiro M (0 &lt; M ≤ 150000), seguido por M linhas que contêm o próprio artigo. Cada linha pode ter até 10000 caracteres de comprimento. Fique atento ao tamanho grande de entrada, o arquivo de entrada inteiro tem cerca de 7MB.</p>
+
+<h3>Saída</h3>
+<p>Para cada teste, imprima quanto a editora deve pagar pelo artigo no formato "x.yy$", onde x é o número de dólares sem zeros à esquerda, e yy é o número de centavos com um zero à esquerda, se necessário.</p>
+
+<h3>Exemplo de Entrada/Saída</h3>
+
+<table class="custom">
+    <tr>
+        <th>Entrada</th>
+        <th>Saída</th>
+    </tr>
+    <tr>
+        <td>
+            <pre>1
+7
+a 3
+W 10
+A 100
+, 10
+k 7
+. 3
+I 13
+7
+ACM International Collegiate Programming Contest (abbreviated
+as ACM-ICPC or just ICPC) is an annual multi-tiered competition
+among the universities of the world. The ICPC challenges students
+to set ever higher standards of excellence for themselves
+through competition that rewards team work, problem analysis,
+and rapid software development.
+From Wikipedia.</pre>
+        </td>
+        <td>
+            <pre>3.74$</pre>
+        </td>
+    </tr>
+</table>
