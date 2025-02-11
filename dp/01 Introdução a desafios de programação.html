@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 
 <head>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-
-        }, false);
-    </script>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.9.0/highlightjs-line-numbers.min.js"></script>
     <script defer>hljs.configure({ languages: ["python"] }); hljs.highlightAll(); hljs.initLineNumbersOnLoad();</script>
 
     <!-- https://github.com/arronhunt/highlightjs-copy -->
@@ -21,118 +15,19 @@
     <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
     <script defer>hljs.addPlugin(new CopyButtonPlugin());</script>
 
+    <!-- https://github.com/TRSasasusu/highlightjs-highlight-lines.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/TRSasasusu/highlightjs-highlight-lines.js@1.2.0/highlightjs-highlight-lines.min.js"></script>
+    <script defer>hljs.highlightLinesAll([
+        // [{ start: 2, end: 2, color: 'lightgreen' }, { start: 9, end: 9, color: 'lightblue' }, { start: 14, end: 14, color: 'lightblue' }]
+      ]);
+    </script> -->
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body,{delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
 
-    <style>
-        img {
-            max-width: 90vw;
-            max-height: 90vh;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .katex {
-            /* o padrão é 1.21, vc pode remover essa configuração se quiser deixar o padrão */
-            font-size: 1.0em;
-        }
-
-        table.custom,
-        table.custom>thead>tr>th,
-        table.custom>tbody>tr>td,
-        table.custom>tbody>tr>th {
-            /* tabela centralizada e com bordas */
-            border: 1px solid black;
-            border-collapse: collapse;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 5px;
-            padding-right: 5px;
-            text-align: center;
-        }
-
-        table pre {
-            /* tags pre dentro de tabelas são alinhadas à esquerda, sem margem interna */
-            margin: 0;
-            text-align: left !important;
-        }
-
-        td:has(pre) {
-            /* tags pre dentro de tabela são alinhadas no topo */
-            vertical-align: top;
-        }
-
-        code:not(pre code) {
-            /* tags code não filhas de pre */
-            color: darkred;
-            background-color: #f3f3f3;
-        }
-
-        table.align-left th,
-        table.align-left td {
-            /* alinha à esquerda as células da tabela */
-            text-align: left !important;
-        }
-
-        .bordered-line td {
-            /* tags tr com borda em todas as suas células */
-            border: 1px solid black;
-        }
-
-        /* inicia a lista de exercícios */
-        ol.excs {
-            padding-inline-start: 0em;
-            counter-reset: excs;
-            list-style: none;
-        }
-
-        /* põe um numerador num item da lista de exercícios, desde que não seja da classe no-mark */
-        ol.excs>li:not(.no-mark)::before {
-            counter-increment: excs;
-            content: counters(excs, ".") ". ";
-        }
-
-        /* põe uma barra vertical ao lado do item da lista de exercícios */
-        ol.excs>li {
-            /* Change this to adjust the line color and thickness */
-            border-left: 2px solid #000;
-            /* Optional: Add padding to create some space between the bar and content */
-            padding-left: 10px;
-            margin-block-start: 1em;
-            margin-block-end: 1em;
-        }
-
-        ol.section {
-            counter-reset: section;
-            list-style-type: none;
-        }
-
-        ol.section li::before {
-            counter-increment: section;
-            content: counters(section, ".") ". ";
-        }
-
-        td.hljs-ln-numbers {
-            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
-            color: #ccc;
-            border-right: 1px solid #999;
-            padding-right: 5px;
-        }
-
-        td.hljs-ln-code {
-            /* estilizar as linhas de código da extensao highlightjs-line-numbers */
-            padding-left: 10px;
-        }
-
-        .info {
-            /* balão de informação */
-            border-left: 6px solid blue;
-            padding-left: 1%;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.css">
+    <script src="https://cdn.jsdelivr.net/gh/pedrosiqueira/custom-style/custom.js"></script>
 </head>
 
 <h1>Introdução a Desafios de Programação</h1>
@@ -140,7 +35,7 @@
 
 <h2>Competições de programação</h2>
 
-<p>Existem muitas competições de programação, tanto online quanto presenciais. Esses eventos desafiam os participantes a resolverem problemas de lógica, algoritmos e otimização em um tempo limitado, testando não apenas o conhecimento técnico, mas também a capacidade de raciocínio rápido e resolução eficiente de problemas. Dentre as principais competições, podemos citar as Olimpíadas Brasileiras de Informática (OBI), Maratona de Programação, ACM ICPC, Google CodeJam, Facebook Hacker Cup, Topcoder Open, Codeforces contest, Internet Problem Solving Contest (IPSC).</p>
+<p>Existem muitas competições de programação, tanto online quanto presenciais. Esses eventos desafiam os participantes a resolverem problemas de lógica, algoritmos e otimização em um tempo limitado, testando não apenas o conhecimento técnico, mas também a capacidade de raciocínio rápido e resolução eficiente de problemas. Dentre as principais competições, podemos citar as Olimpíadas Brasileiras de Informática (OBI), Maratona de Programação da Sociedade Brasileira de Computação , ACM ICPC, Google CodeJam, Facebook Hacker Cup, Topcoder Open, Codeforces contest, Internet Problem Solving Contest (IPSC).</p>
 
 <p>Essas competições são importantes não apenas para o desenvolvimento da lógica e habilidades em programação, mas também são um diferencial valioso no currículo. Participar de competições exige que os participantes desenvolvam competências essenciais, como a habilidade de decompor problemas complexos em partes menores e utilizar soluções criativas para encontrar respostas otimizadas. Essa prática é um exercício intensivo que aumenta o domínio em algoritmos e estruturas de dados, o que acaba se tornando um diferencial competitivo no mercado de trabalho, uma vez que muitas empresas buscam esses conhecimentos para desenvolvimento de softwares de alta performance. Inclusive muitos dos processos seletivos de multinacionais de tecnologia envolve resolução de problemos no estilo dos dessas competições.</p>
 
@@ -237,16 +132,17 @@
 
 <h3>Analise o algoritmo</h3>
 <!-- 
+1.3.3 Tip 3: Do Algorithm Analysis
 
 Sometimes, there is more than one way to attack a problem. Some approaches may be
 incorrect, others not fast enough, and yet others ‘overkill’. A good strategy is to brainstorm
 for many possible algorithms and then pick the simplest solution that works (i.e., is fast
 enough to pass the time and memory limit and yet still produce the correct answer) 
 
-Computers from 2021 (when this book was published) can process  up to \approximately 100M=10^8 operations in one second. And most competitive problems must run in under 1 second. You can use this information to determine if your
-algorithm will run in time. For example, if the maximum input size n is 100K=10^5  and your current algorithm has a time complexity of O(n2 ), it will need a time in seconds of \approximately (10^5)^2=10^10=10G>100M. You will thus
+Computers from 2021 (when this book was published) can process  up to $\approximately 100M=10^8$ operations in one second. And most competitive problems must run in under $1$ second. You can use this information to determine if your
+algorithm will run in time. For example, if the maximum input size $n$ is $100K=10^5$  and your current algorithm has a time complexity of $O(n^2)$, it will need a time in seconds of $\approximately (10^5)^2=10^10=10G>100M$. You will thus
 need to devise a faster (and also correct) algorithm to solve the problem.  Suppose you then
-find one that runs with a time complexity of O(n log2 n), hence, run in 10^5\log_2 10^5 \approximately 1.7 \times 10^6<10^8. Now this algorithm is able to run in less than 1 second.
+find one that runs with a time complexity of $O(n log_2 n)$, hence, run in $10^5\log_2 10^5 \approximately 1.7 \times 10^6<10^8$. Now this algorithm is able to run in less than $1$ second.
 
 problem authors should have designed the time limits so that a few (more than one) rea-
 sonable implementations of the algorithm with the intended target time complexity will all
@@ -262,23 +158,149 @@ sign” [35], “Algorithms” [6], etc) that will help you to understand the fo
 concepts/techniques in algorithmic analysis:
 
 • Basic time and space complexity analysis for iterative and recursive algorithms:
-– An algorithm with k-nested loops of about n iterations each has O(nk) complexity.
-– If your algorithm is recursive with b recursive calls per level and has L levels, the
-algorithm has roughly O(bL ) complexity, but this is a only a rough upper bound.
+– An algorithm with $k$-nested loops of about $n$ iterations each has $O(nk)$ complexity.
+– If your algorithm is recursive with $b$ recursive calls per level and has $L$ levels, the
+algorithm has roughly $O(b^L)$ complexity, but this is a only a rough upper bound.
 The actual complexity depends on what actions are done per level and whether
 pruning is possible.
 – A Dynamic Programming algorithm or other iterative routine which processes a
-2D n ⇥ n matrix in O(k) per cell runs in O(k ⇥ n2) time. This is explained in
+$2$D $n \times n$ matrix in $O(k)$ per cell runs in $O(kn^2)$ time. This is explained in
 further detail in Section 3.5.
-– Binary searching over a range of [1..n] has O(log n) complexity.
+– Binary searching over a range of $[1..n]$ has $O(log n)$ complexity.
+
+• Familiaritywith these bounds:
+– 210 = 1024 ⇡ 103, 220 = 1 048 576 ⇡ 106.
+– 10! = 3 628 800 ⇡ 3 ⇤ 106 , 11! = 39 916 800 ⇡ 4 ⇤ 107.
+– 32-bit signed integers (int) and 64-bit signed integers (long long) have upper
+limits of 231 1 ⇡ 2 ⇥ 109 (safe for up to ⇡ 9 decimal digits) and 263 1 ⇡ 9 ⇥ 1018
+(safe for up to ⇡ 18 decimal digits), respectively.
+– Unsigned integers can be used if only non-negative numbers are required. 32-bit
+unsigned integers (unsigned int) and 64-bit unsigned integers (unsigned long
+long) have upper limits of 232 1 ⇡ 4 ⇥ 109 and 264 1 ⇡ 1 ⇥ 1019 , respectively.
+– If you need to store integers
+ 264 , use Big Integer21 (see Section 2.2.4).
+– There are n! permutations and 2n subsets (or combinations) of n distinct elements.
+– The best time complexity of a comparison-based sorting algorithm is ⌦(n log 2 n).
+– The largest input size n for typical programming contest problems must be < 1M .
+Beyond that, the Input/Output (I/O) routine will be the bottleneck.
+– Usually, O(n log2 n) algorithms are sufficient to solve most contest problems for a
+simple reason: O(n log2 n) and the theoretically better O(n) algorithms are hard
+to di↵erentiate empirically under programming contest environment with strict
+time limit, n < 1M , and the need to support > 1 programming languages.
+
+
+
+n
+ Worst AC Algorithm
+ Comment
+ [10..11]
+ O(n!), O(n6 )
+ e.g., Enumerating permutations (Section 3.2)
+ [17..19]
+ O(2n ⇥ n2)
+ e.g., DP TSP (Section 3.5.2)
+ [18..22]
+ O(2n ⇥ n)
+ e.g., DP with bitmask technique (Book 2)
+ [24..26]
+ O(2n)
+ e.g., try 2n possibilities with O(1) check each
+ 100
+ O(n4 )
+ e.g., DP with 3 dimensions + O(n) loop, nCk=4
+ 450
+ O(n3 )
+ e.g., Floyd-Warshall (Section 4.5)
+ 1.5K
+ O(n2.5)
+ e.g., Hopcroft-Karp (Book 2)
+ 2.5K
+ O(n2 log n)
+ e.g., 2-nested loops + a tree-related DS (Section 2.3)
+ 10K
+ O(n2 )
+ e.g., Bubble/Selection/Insertion Sort (Section 2.2)
+ 200K
+ O(n1.5)
+ e.g., Square Root Decomposition (Book 2)
+ 4.5M
+ O(n log n)
+ e.g., Merge Sort (Section 2.2)
+ 10M
+ O(n log log n)
+ e.g., Sieve of Eratosthenes (Book 2)
+ 100M
+ O(n), O(log n), O(1)
+ Most contest problem have n  1M (I/O bottleneck)
+Table 1.4: Rule of Thumb for the ‘Worst AC Algorithm’ for various single-test-case input
+sizes n, assuming that a year 2020 CPU can compute 100M operations in 1 second.
+
+
+
+
+1.3.4 Tip 4: Master Programming Languages
+
+There are several programming languages supported in ICPC26 , including C/C++, Java,
+and Python. Which programming languages should one aim to master?
+Our experience gives us this answer: we prefer C++ (std=gnu++17) with its built-in
+Standard Template Library (STL) but we still need to master Java and some knowledge
+of Python. Even though it is slower, Java has powerful built-in libraries and APIs such as
+BigInteger/BigDecimal, GregorianCalendar, Regex, etc. Java programs are easier to debug
+with the virtual machine’s ability to provide a stack trace when it crashes (as opposed to
+core dumps or segmentation faults in C/C++). Similarly, Python code can be surprisingly
+very short for some suitable tasks.
+
+Suppose that a problem requires you to compute 40! (the factorial of 40). The answer is
+very large: 815 915 283 247 897 734 345 611 269 596 115 894 272 000 000 000. This far exceeds
+the largest built-in primitive integer data type (unsigned long long: 264 1). As there is
+no built-in arbitrary-precision arithmetic library in C/C++ as of yet, we would have needed
+to implement one from scratch. The Python code, however, is trivially short:
+
+import math
+print(math.factorial(40))
+# all built-in
+
+The Java code for this task is also simple (more details in Section 2.2.4):
+
+import java.util.Scanner;
+import java.math.BigInteger;
+class Main {
+ // default class name
+public static void main(String[] args) {
+BigInteger fac = BigInteger.ONE;
+for (int i = 2; i <= 40; ++i)
+fac = fac.multiply(BigInteger.valueOf(i)); // it is in the library!
+System.out.println(fac);
+}
+}
+
+1.3.5 Tip 5: Master the Art of Testing Code
+
+
 
 -->
 
 
+<h3>Recursos</h3>
 
-<h3>Online</h3>
+<p>Um juiz automatizado online é uma plataforma que permite a submissão de soluções para problemas de programação. Essas soluções são avaliadas automaticamente com base em critérios como correção, eficiência e tempo de execução. Alguns juízes online são:</p>
+<ul>
+    <li><a href="https://onlinejudge.org/">UVa</a></li>
+    <li><a href="https://www.spoj.com/">SPOJ</a></li>
+    <li><a href="https://judge.beecrowd.com">Beecrowd</a> (outrora URI Online Judge)</li>
+    <li><a href="https://open.kattis.com/">Kattis</a></li>
+</ul>
 
-<p>O <a href="https://onlinejudge.org/">UVa Online Judge</a> é um juiz automatizado online para problemas de programação, mantido pela Universidade de Valladolid (UVa).</p>
+<p>Ainda existem várias plataformas e fóruns que auxiliam na resolução de problemas dos principais juizes online. Algumas delas são:</p>
+<ul>
+    <li><a href="https://uhunt.onlinejudge.org/">uHunt</a>: Ferramenta para o UVa Online Judge que fornece estatísticas detalhadas sobre os problemas e rankings de usuários.</li>
+    <li><a href="https://www.udebug.com/">uDebug</a>: Plataforma de assistência para depuração e teste de soluções. Fornece entrada de exemplo e saída esperada para problemas do UVa e outros juízes online, ajudando os programadores a depurar suas soluções antes de enviá-las.</li>
+    <li><a href="https://cpbook.net/methodstosolve">CP-Algorithms</a>: Coleção de problemas do UVa e Kattis, organizados por categoria e acompanhados de dicas de resolução.</li>
+    <li><a href="http://www.questtosolve.com/#">Quest to Solve</a>: Compilado de dicas para muitos problemas do UVa.</li>
+    <li><a href="https://vjudge.net/">Virtual Judge (VJudge)</a>: Plataforma que permite praticar e competir utilizando problemas de múltiplos juízes online em um só lugar.</li>
+</ul>
+
+<h3>Formato dos problemas</h3>
 
 <p>Cada problema apresenta uma breve contextualização, seguida da descrição da entrada e saída de dados. Em competições de programação modernas, é comum usar um único arquivo com múltiplos casos de teste, ao invés de vários arquivos individuais. Existem três formas principais de estruturar a entrada de dados:</p>
 
